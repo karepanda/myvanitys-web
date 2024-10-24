@@ -1,0 +1,23 @@
+{
+    "request": {
+      "method": "GET",
+      "urlPath": "/oauth2/v3/userinfo"
+    },
+    "response": {
+      "status": 200,
+      "jsonBody": {
+        "sub": "1234567890",
+        "name": "John Doe",
+        "given_name": "John",
+        "family_name": "Doe",
+        "picture": "https://example.com/johndoe.jpg",
+        "email": "johndoe@example.com",
+        "email_verified": true,
+        "locale": "en"
+      },
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    }
+  }
+  

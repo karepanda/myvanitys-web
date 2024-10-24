@@ -1,0 +1,18 @@
+{
+    "request": {
+      "method": "GET",
+      "urlPath": "/userinfo"
+    },
+    "response": {
+      "status": 200,
+      "jsonBody": {
+        "id": "1234567890",
+        "email": "user@example.com",
+        "name": "John Doe"
+      },
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    }
+  }
+  
