@@ -68,3 +68,30 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Setting Up WireMock
+
+To run WireMock for simulating Google OAuth2 API, follow these steps:
+
+1. **Build the Docker Image**  
+   Navigate to the WireMock directory and build the Docker image using the following command:
+   ```bash
+   docker build -t wiremock .
+
+2. **Run the Docker Container**
+Start the WireMock container with the following command:
+
+docker run -d -p 8080:8080 --name my-wiremock wiremock
+
+3. **Verify the Stubs
+You can check if the stubs are correctly loaded by accessing the following endpoint:
+
+curl http://localhost:8080/__admin/mappings
+
+4. **Testing the Stubs**
+To test the token retrieval simulation, use the following command:
+curl -X POST http://localhost:8080/oauth2/v4/token -d "code=AUTHORIZATION_CODE&client_id=YOUR_CLIENT_ID&client_secret=YOUR_CLIENT_SECRET&redirect_uri=YOUR_REDIRECT_URI&grant_type=authorization_code"
+
+5. **Access WireMock Admin Interface**
+You can access the WireMock admin interface at:
+http://localhost:8080/__admin
