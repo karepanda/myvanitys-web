@@ -1,14 +1,17 @@
-function App() {
+import { BrowserRouter } from 'react-router-dom';
+import { AppRoutes } from '../Routes/index';
+import { Navbar } from '../components/Navbar/Navbar';
+import { VanitysProvider } from '../context';
+import { useContext } from 'react';
+
+const App = () => {
 	return (
-		<div>
-			<h1
-				className='text-4xl h-1 m-4 p-4 text-center align-middle
-         '
-			>
-				My Vanitys
-			</h1>
-			<p>This site is under construction. Stay tuned!</p>
-		</div>
+		<VanitysProvider>
+			<BrowserRouter>
+				<Navbar />
+				<AppRoutes />
+			</BrowserRouter>
+		</VanitysProvider>
 	);
-}
+};
 export { App };
