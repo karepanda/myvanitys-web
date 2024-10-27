@@ -1,0 +1,36 @@
+{
+    "request": {
+      "method": "POST",
+      "url": "/auth/google",
+      "headers": {
+        "X-Request-ID": {
+          "matches": "^[a-fA-F0-9-]{36}$"
+        },
+        "X-Flow-ID": {
+          "matches": "^[a-fA-F0-9-]{36}$"
+        },
+        "Accept-Language": {
+          "matches": "(en-US|es-ES)"
+        },
+        "User-Agent": {
+          "matches": ".*"
+        },
+        "Content-Type": {
+          "equalTo": "application/json"
+        }
+      },
+      "bodyPatterns": [
+        {
+          "matchesJsonPath": "$[?(@.token == 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.example.payload.signature')]"
+        }
+      ]
+    },
+    "response": {
+      "status": 200,
+      "headers": {
+        "Content-Type": "application/json"
+      },
+      "bodyFileName": "auth-google-success-response.json"
+    }
+  }
+  

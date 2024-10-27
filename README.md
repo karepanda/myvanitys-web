@@ -95,3 +95,15 @@ curl -X POST http://localhost:8080/oauth2/v4/token -d "code=AUTHORIZATION_CODE&c
 5. **Access WireMock Admin Interface**
 You can access the WireMock admin interface at:
 http://localhost:8080/__admin
+
+6. **Probar el Endpoint /auth/google**
+ To test the token retrieval simulation, use the following command:
+ curl -X POST http://localhost:8080/auth/google \
+-H "Content-Type: application/json" \
+-H "X-Request-ID: d2919d3f-6b2f-49f4-9dd5-efbbc9b1c8f8" \
+-H "X-Flow-ID: 123e4567-e89b-12d3-a456-426614174000" \
+-H "Accept-Language: en-US" \
+-H "User-Agent: MyVanitysApp/1.0" \
+-d '{
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.example.payload.signature"
+    }'
