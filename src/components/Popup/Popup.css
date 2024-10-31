@@ -1,0 +1,80 @@
+.popup {
+	width: 100vw;
+	height: 100vh;
+}
+
+.popup__container {
+	display: grid;
+	justify-content: center;
+	grid-template-columns: repeat(2, 350px);
+	grid-template-rows: 94px min-content;
+	grid-row-gap: 24px;
+	grid-template-areas:
+		'header header'
+		'image description';
+	background-color: var(--bg-color);
+}
+
+.popup__header {
+	grid-area: header;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-end;
+	height: 72px;
+	background-color: var(--text-color);
+	color: var(--white);
+	font-size: 24px;
+	font-weight: 600;
+	border-radius: 15px 15px 0 0;
+	padding: 0 24px;
+}
+
+.popup__header--title {
+	margin: auto;
+}
+.popup__header--icon {
+	justify-self: end;
+	cursor: pointer;
+}
+
+.popup__image {
+	grid-area: image;
+	width: 360px;
+}
+
+.popup__description {
+	grid-area: description;
+	justify-self: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	width: 100%;
+	gap: 12px;
+	padding: 12px;
+}
+
+.popup__description--title {
+	font-size: 24px;
+	font-weight: 600;
+}
+
+.popup__description--text {
+	font-size: 18px;
+	font-weight: lighter;
+	color: var(--text-color);
+}
+
+.popup__description--btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 12px;
+	background-color: var(--orange);
+	color: var(--white);
+	border-radius: 4px;
+	padding: 12px;
+	width: 70%;
+}

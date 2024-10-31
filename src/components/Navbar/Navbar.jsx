@@ -2,14 +2,18 @@ import React, { useState } from 'react';
 import './Navbar.css';
 import { Modal } from '../Modal/Modal';
 import { NavLink } from 'react-router-dom';
-import { ModalRegister } from '../ModalRegister/ModalRegister';
+import { Register } from '../Register/Register';
+import { Login } from '../Login/Login';
 import { useContext } from 'react';
 import { VanitysContext } from '../../context';
 
 const Navbar = () => {
-	const { showModal, setShowModal } = useContext(VanitysContext);
-
-	const toggleModal = () => setShowModal((prev) => !prev);
+	const {
+		showModalRegister,
+		toggleModalRegister,
+		toggleModalLogin,
+		showModalLogin,
+	} = useContext(VanitysContext);
 
 	return (
 		<header className='header'>
@@ -46,16 +50,26 @@ const Navbar = () => {
 				</ul>
 			</div>
 			<div className='header__right'>
-				<button className='header__right--login'>Log in</button>
 				<button
-					onClick={() => toggleModal()}
+					onClick={() => toggleModalLogin()}
+					className='header__right--login'
+				>
+					Log in
+				</button>
+				{showModalLogin && (
+					<Modal>
+						<Login />
+					</Modal>
+				)}
+				<button
+					onClick={() => toggleModalRegister()}
 					className='header__right--register'
 				>
 					Register
 				</button>
-				{showModal && (
+				{showModalRegister && (
 					<Modal>
-						<ModalRegister />
+						<Register />
 					</Modal>
 				)}
 			</div>

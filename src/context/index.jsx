@@ -3,18 +3,19 @@ import { createContext, useState } from 'react';
 const VanitysContext = createContext();
 
 const VanitysProvider = ({ children }) => {
-	const [showModal, setShowModal] = useState(false);
+	const [showModalRegister, setShowModalRegister] = useState(false);
+	const [showModalLogin, setShowModalLogin] = useState(false);
 
-	const handleShowModal = () => {
-		setOpenModal(!openModal);
-	};
+	const toggleModalRegister = () => setShowModalRegister((prev) => !prev);
+	const toggleModalLogin = () => setShowModalLogin((prev) => !prev);
 
 	return (
 		<VanitysContext.Provider
 			value={{
-				showModal,
-				setShowModal,
-				handleShowModal,
+				showModalRegister,
+				showModalLogin,
+				toggleModalRegister,
+				toggleModalLogin,
 			}}
 		>
 			{children}

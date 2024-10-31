@@ -1,21 +1,78 @@
-.main__container {
-	width: 417px;
-	align-self: center;
+.main {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(2, auto);
+	grid-column-gap: 0px;
+	grid-row-gap: 0px;
+	margin: 80px;
 }
 
-.main__title {
+.main__register {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.main__register--text {
+	width: 414px;
+}
+
+.main__register--text-title {
 	font-size: 36px;
 	font-weight: 600;
 }
 
-.main__paraph {
+.main__register--text-paragraph {
 	font-size: 32px;
 	font-weight: lighter;
 }
 
-.main__buttom {
-	width: 225px;
-	height: 62px;
-	font-size: 20px;
+.main__register--text-button {
+	width: 126px;
+	height: 44px;
+	background-color: var(--orange);
+	color: var(--white);
+	font-size: 14px;
 	font-weight: bold;
+	border-radius: 4px;
+}
+
+.main__home-illustration {
+	width: 600px;
+	object-fit: contain;
+}
+
+.main__product-illustration {
+	display: flex;
+	justify-self: end;
+	width: 600px;
+	object-fit: contain;
+}
+
+.main__organize {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.main__organize--text {
+	width: 635px;
+	text-align: end;
+	justify-self: start;
+}
+
+.main__organize--text-title {
+	font-size: 38px;
+	font-weight: bold;
+	color: var(--orange);
+}
+
+.main__organize--text-paragraph {
+	font-size: 30px;
+	font-weight: lighter;
+}
+
+.main__organize--text-paragraph2 {
+	font-size: 34px;
+	font-weight: 500;
 }
