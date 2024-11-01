@@ -19,7 +19,7 @@ const Navbar = () => {
 		<header className='header'>
 			<div className='header__left'>
 				<h1 className='header__left--title'>My Vanity´s</h1>
-				<input className='header__left--input' type='search' />
+				<input className='header__left--input' type='text' />
 			</div>
 			<div className='header__center'>
 				<ul className='header__center--list'>

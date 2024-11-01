@@ -18,18 +18,18 @@ export const Main = () => {
 					</button>
 				</div>
 			</section>
-			<section className='main__home-illustration'>
+			<picture className='main__home-illustration'>
 				<img
 					src='src/assets/home_illustration.png'
 					alt='Vanity´s Home image'
 				/>
-			</section>
-			<section className='main__product-illustration'>
+			</picture>
+			<picture className='main__product-illustration'>
 				<img
 					src='src/assets/CreateProduct.png'
 					alt="Vanity's Create Product"
 				/>
-			</section>
+			</picture>
 			<section className='main__organize'>
 				<div className='main__organize--text'>
 					<p className='main__organize--text-title'>
