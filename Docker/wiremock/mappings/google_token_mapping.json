@@ -1,19 +1,29 @@
 {
-    "request": {
-      "method": "POST",
-      "urlPath": "/oauth2/v4/token"
-    },
-    "response": {
-      "status": 200,
-      "jsonBody": {
-        "access_token": "ya29.a0AfH6SMAW9e6",
-        "expires_in": 3599,
-        "token_type": "Bearer",
-        "scope": "https://www.googleapis.com/auth/userinfo.profile"
+  "request": {
+    "method": "GET",
+    "urlPathPattern": "/o/oauth2/v2/auth",
+    "queryParameters": {
+      "client_id": {
+        "matches": "myvanitys2024"
       },
-      "headers": {
-        "Content-Type": "application/json"
+      "redirect_uri": {
+        "matches": "http://localhost:8080/callback"
+      },
+      "response_type": {
+        "equalTo": "code"
+      },
+      "scope": {
+        "matches": "https://www.googleapis.com/auth/userinfo.profile"
+      },
+      "state": {
+        "matches": ".*"
       }
     }
+  },
+  "response": {
+    "status": 302,
+    "headers": {
+      "Location": "http://localhost:8080/callback#access_token=4/P7q7W91&token_type=Bearer&expires_in=3600&state=your_state_parameter"
+    }
   }
-  
+}

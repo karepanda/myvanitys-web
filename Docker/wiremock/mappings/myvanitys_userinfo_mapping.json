@@ -1,7 +1,7 @@
 {
     "request": {
       "method": "GET",
-      "urlPath": "/userinfo"
+      "urlPath": "/myvanitys/userinfo"
     },
     "response": {
       "status": 200,
