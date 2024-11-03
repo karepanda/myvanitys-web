@@ -1,29 +1,29 @@
 {
-  "request": {
-    "method": "GET",
-    "urlPathPattern": "/o/oauth2/v2/auth",
-    "queryParameters": {
-      "client_id": {
-        "matches": "myvanitys2024"
-      },
-      "redirect_uri": {
-        "matches": "http://localhost:8080/callback"
-      },
-      "response_type": {
-        "equalTo": "code"
-      },
-      "scope": {
-        "matches": "https://www.googleapis.com/auth/userinfo.profile"
-      },
-      "state": {
-        "matches": ".*"
-      }
-    }
-  },
-  "response": {
-    "status": 302,
-    "headers": {
-      "Location": "http://localhost:8080/callback#access_token=4/P7q7W91&token_type=Bearer&expires_in=3600&state=your_state_parameter"
-    }
-  }
+	"request": {
+		"method": "GET",
+		"urlPathPattern": "/o/oauth2/v2/auth",
+		"queryParameters": {
+			"client_id": {
+				"matches": "myvanitys2024"
+			},
+			"redirect_uri": {
+				"matches": "http://localhost:5173/callback"
+			},
+			"response_type": {
+				"equalTo": "code"
+			},
+			"scope": {
+				"matches": "https://www.googleapis.com/auth/userinfo.profile"
+			},
+			"state": {
+				"matches": ".*"
+			}
+		}
+	},
+	"response": {
+		"status": 302,
+		"headers": {
+			"Location": "http://localhost:5173/callback?access_token=4/P7q7W91&token_type=Bearer&expires_in=3600&state=your_state_parameter"
+		}
+	}
 }
