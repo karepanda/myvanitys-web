@@ -4,6 +4,7 @@ import { VanitysContext } from '../../context';
 
 const Register = () => {
 	const { toggleModalRegister } = useContext(VanitysContext);
+
 	return (
 		<Popup
 			title='Register'

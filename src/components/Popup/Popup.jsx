@@ -12,6 +12,11 @@ const Popup = ({
 	imageUrl,
 	closeFunction,
 }) => {
+	const redirectToGoogleOAuth = () => {
+		window.location.href =
+			'http://localhost:8080/o/oauth2/v2/auth?client_id=myvanitys2024&redirect_uri=http://localhost:8080/callback&response_type=code&scope=https://www.googleapis.com/auth/userinfo.profile&state=YOUR_STATE_VALUE';
+	};
+
 	return (
 		<div className='popup fixed h-screen inset-0 bg-background bg-opacity-60 flex items-center flex-col justify-center align-middle backdrop-blur-sm'>
 			<div className='popup__container shadow-lg'>
@@ -27,7 +32,7 @@ const Popup = ({
 				<section className='popup__description'>
 					<h1 className='popup__description--title'>{descriptionTitle}</h1>
 					<p className='popup__description--text'>{description}</p>
-					<button className='popup__description--btn'>
+					<button onClick={() => redirectToGoogleOAuth()}>
 						<IoLogoGoogle />
 						{textButtom}
 					</button>
