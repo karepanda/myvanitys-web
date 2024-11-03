@@ -14,7 +14,7 @@ const Popup = ({
 }) => {
 	const redirectToGoogleOAuth = () => {
 		window.location.href =
-			'http://localhost:8080/o/oauth2/v2/auth?client_id=myvanitys2024&redirect_uri=http://localhost:8080/callback&response_type=code&scope=https://www.googleapis.com/auth/userinfo.profile&state=YOUR_STATE_VALUE';
+			'http://localhost:8080/o/oauth2/v2/auth?client_id=myvanitys2024&redirect_uri=http://localhost:5173/callback&response_type=code&scope=https://www.googleapis.com/auth/userinfo.profile&state=YOUR_STATE_VALUE';
 	};
 
 	return (
