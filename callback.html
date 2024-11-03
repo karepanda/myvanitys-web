@@ -8,9 +8,13 @@
    <script>
       // Función para extraer el access_token de la URL
       function getAccessToken() {
-         const urlParams = new URLSearchParams(window.location.hash); // Usa window.location.hash para obtener parámetros
+         const urlParams = new URLSearchParams(window.location.search); // Usa window.location.hash para obtener parámetros
          const accessToken = urlParams.get('access_token');
          const state = urlParams.get('state'); // Captura el estado, si es necesario
+
+         console.log('Access token', accessToken);
+         console.log('state', state);
+
 
          if (accessToken) {
             // Aquí podrías enviar el access_token a tu API
@@ -18,18 +22,32 @@
                method: 'POST',
                headers: {
                   'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${accessToken}`
+                  'Authorization': `Bearer ${accessToken}`,
+                  'X-Request-ID': 'd2919d3f-6b2f-49f4-9dd5-efbbc9b1c8f8',
+                  'X-Flow-ID': '123e4567-e89b-12d3-a456-426614174000',
+                  'User-Agent': 'MyVanitysApp/1.0',
+                  'Accept-Language': 'en-US'
                },
-               body: JSON.stringify({ token: accessToken })
+               body: JSON.stringify({ token: accessToken }),
+               mode: 'no-cors'
             })
-               .then(response => response.json())
+               .then(response => {
+                  if (!response.ok) {
+                     // Lanza un error si la respuesta no es exitosa
+                     throw new Error(`HTTP error! Status: ${response.status}`);
+                  }
+                  // Verifica si hay contenido antes de analizar como JSON
+                  return response.text().then(text => {
+                     return text ? JSON.parse(text) : {};
+                  });
+               })
                .then(data => {
                   console.log('Response from API:', data);
-                  // Aquí puedes manejar la respuesta, como redirigir al usuario o mostrar información
                })
                .catch(error => {
                   console.error('Error:', error);
                });
+
          } else {
             console.error('No access token found in the URL.');
          }
