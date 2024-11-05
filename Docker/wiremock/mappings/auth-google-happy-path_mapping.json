@@ -3,10 +3,10 @@
 		"method": "POST",
 		"url": "/myvanitys/auth/google",
 		"headers": {
-			"X-Request-ID": {
+			"X-Request-Id": {
 				"matches": "^[a-fA-F0-9-]{36}$"
 			},
-			"X-Flow-ID": {
+			"X-Flow-Id": {
 				"matches": "^[a-fA-F0-9-]{36}$"
 			},
 			"Accept-Language": {
@@ -29,7 +29,7 @@
 			"Content-Type": "application/json",
 			"Access-Control-Allow-Origin": "*",
 			"Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-			"Access-Control-Allow-Headers": "Content-Type, Authorization, X-Request-ID, X-Flow-ID, Accept-Language, User-Agent"
+			"Access-Control-Allow-Headers": "Content-Type, Authorization, X-Request-Id, X-Flow-Id, Accept-Language, User-Agent"
 		},
 		"bodyFileName": "auth-google-success-response.json"
 	}

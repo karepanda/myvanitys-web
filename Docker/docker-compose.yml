@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  nginx:
+    build:
+      context: ./nginx       # Relative path to the nginx folder
+      dockerfile: Dockerfile  # Name of the Dockerfile inside the nginx folder
+    ports:
+      - "80:80"
+    depends_on:
+      - wiremock
+    networks:
+      - my_network
+
+  wiremock:
+    build:
+      context: ./wiremock     # Relative path to the wiremock folder
+      dockerfile: Dockerfile  # Name of the Dockerfile inside the wiremock folder
+    ports:
+      - "8080:8080"
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge
