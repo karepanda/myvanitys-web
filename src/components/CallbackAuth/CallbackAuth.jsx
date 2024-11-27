@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useLocation } from 'react-router';
-import { getAccessToken } from '../../services/getAuthUser';
+import { VanitysContext } from '../../context';
 
 export const CallbackAuth = () => {
+	const {
+		getAccessToken,
+		apiResponse,
+		setApiResponse,
+		accessToken,
+		tokenType,
+		expiresIn,
+		state,
+	} = useContext(VanitysContext);
+
 	const location = useLocation();
-
-	const queryParams = new URLSearchParams(location.search);
-
-	const accessToken = queryParams.get('access_token');
-	const tokenType = queryParams.get('token_type');
-	const expiresIn = queryParams.get('expires_in');
-	const state = queryParams.get('state');
-
-	// Estado para manejar los datos retornados por getAccessToken
-	const [apiResponse, setApiResponse] = useState(null);
 
 	useEffect(() => {
 		const fetchData = async () => {

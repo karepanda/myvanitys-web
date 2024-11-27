@@ -1,6 +1,4 @@
 import React from 'react';
-import { useContext } from 'react';
-import { VanitysContext } from '../../context';
 import { IoLogoGoogle, IoClose } from 'react-icons/io5';
 import './Popup.css';
 
@@ -32,7 +30,10 @@ const Popup = ({
 				<section className='popup__description'>
 					<h1 className='popup__description--title'>{descriptionTitle}</h1>
 					<p className='popup__description--text'>{description}</p>
-					<button onClick={() => redirectToGoogleOAuth()}>
+					<button
+						className='popup__description--btn'
+						onClick={() => redirectToGoogleOAuth()}
+					>
 						<IoLogoGoogle />
 						{textButtom}
 					</button>
