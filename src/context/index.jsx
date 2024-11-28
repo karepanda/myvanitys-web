@@ -56,6 +56,8 @@ const VanitysProvider = ({ children }) => {
 	// Estado para manejar los datos retornados por getAccessToken
 	const [apiResponse, setApiResponse] = useState(null);
 
+	console.log('apiResponse', apiResponse);
+
 	const queryParams = new URLSearchParams(location.search);
 
 	const accessToken = queryParams.get('access_token');

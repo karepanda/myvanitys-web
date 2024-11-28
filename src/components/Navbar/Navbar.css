@@ -80,3 +80,13 @@
 	color: var(--white);
 	border-radius: 4px;
 }
+
+.header__right--create {
+	width: 192px;
+	height: 48px;
+	font-size: 14px;
+	font-weight: bold;
+	background-color: var(--orange);
+	color: var(--white);
+	border-radius: 4px;
+}

@@ -1,0 +1,24 @@
+.categories {
+	margin-top: 84px;
+}
+
+.categories__list {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-weight: 500;
+	gap: 46px;
+}
+
+.categories__list > li:nth-of-type(1) {
+	color: var(--orange);
+}
+
+.categories__list > li:nth-of-type(7) {
+	color: var(--orange);
+}
+
+.categories__list > li:last-of-type {
+	font-weight: lighter;
+	color: var(--text-color);
+}
