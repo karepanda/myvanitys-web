@@ -79,7 +79,6 @@ const Navbar = () => {
 					</div>
 				</div>
 			</header>
-			<main>{apiResponse && <Categories />}</main>
 		</>
 	);
 };

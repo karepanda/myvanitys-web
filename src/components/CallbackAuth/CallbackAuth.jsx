@@ -1,17 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useLocation } from 'react-router';
 import { VanitysContext } from '../../context';
 
 export const CallbackAuth = () => {
-	const {
-		getAccessToken,
-		apiResponse,
-		setApiResponse,
-		accessToken,
-		tokenType,
-		expiresIn,
-		state,
-	} = useContext(VanitysContext);
+	const { getAccessToken, setApiResponse } = useContext(VanitysContext);
 
 	const location = useLocation();
 

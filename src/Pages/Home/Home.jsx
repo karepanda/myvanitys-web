@@ -4,6 +4,7 @@ import { Modal } from '../../components/Modal/Modal';
 import { CookieBanner } from '../../components/CookieBanner/CookieBanner';
 import { useContext } from 'react';
 import { VanitysContext } from '../../context';
+import { ProductCard } from '../../components/ProductCard/ProductCard';
 
 const Home = () => {
 	const { showCookieBanner } = useContext(VanitysContext);
