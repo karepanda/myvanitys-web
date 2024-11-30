@@ -17,20 +17,21 @@ export const Main = () => {
 						Register Now
 					</button>
 				</div>
+				<picture className='main__home-illustration'>
+					<img
+						src='src/assets/home_illustration.png'
+						alt='Vanity´s Home image'
+					/>
+				</picture>
 			</section>
-			<picture className='main__home-illustration'>
-				<img
-					src='src/assets/home_illustration.png'
-					alt='Vanity´s Home image'
-				/>
-			</picture>
-			<picture className='main__product-illustration'>
-				<img
-					src='src/assets/CreateProduct.png'
-					alt="Vanity's Create Product"
-				/>
-			</picture>
+
 			<section className='main__organize'>
+				<picture className='main__product-illustration'>
+					<img
+						src='src/assets/CreateProduct.png'
+						alt="Vanity's Create Product"
+					/>
+				</picture>
 				<div className='main__organize--text'>
 					<p className='main__organize--text-title'>
 						Organize Your <br /> Cosmetic in Seconds

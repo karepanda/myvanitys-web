@@ -5,9 +5,11 @@ const VanitysContext = createContext();
 const VanitysProvider = ({ children }) => {
 	const [showModalRegister, setShowModalRegister] = useState(false);
 	const [showModalLogin, setShowModalLogin] = useState(false);
+	const [showCookieBanner, setShowCookieBanner] = useState(true);
 
 	const toggleModalRegister = () => setShowModalRegister((prev) => !prev);
 	const toggleModalLogin = () => setShowModalLogin((prev) => !prev);
+	const closeCookieBanner = () => setShowCookieBanner((prev) => !prev);
 
 	const getAccessToken = async () => {
 		const urlParams = new URLSearchParams(window.location.search);
@@ -80,6 +82,8 @@ const VanitysProvider = ({ children }) => {
 				tokenType,
 				expiresIn,
 				state,
+				closeCookieBanner,
+				showCookieBanner,
 			}}
 		>
 			{children}
