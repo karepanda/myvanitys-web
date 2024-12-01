@@ -1,20 +1,12 @@
 .header {
 	display: flex;
-	gap: 60px;
+	justify-content: space-between;
 	margin: 0;
 	padding: 0px 96px;
 }
 
-.header__left,
-.header__center,
-.header__right {
-	flex-grow: 1;
-}
-
 .header__left {
-	display: flex;
-	align-items: end;
-	gap: 60px;
+	align-self: flex-start;
 }
 
 .header__left--title {
@@ -22,7 +14,7 @@
 	font-weight: 600;
 }
 
-.header__left--input {
+.header__right--input {
 	align-self: center;
 	margin: 0;
 	width: 273px;
@@ -74,6 +66,16 @@
 .header__right--register {
 	width: 126px;
 	height: 44px;
+	font-size: 14px;
+	font-weight: bold;
+	background-color: var(--orange);
+	color: var(--white);
+	border-radius: 4px;
+}
+
+.header__right--create {
+	width: 192px;
+	height: 48px;
 	font-size: 14px;
 	font-weight: bold;
 	background-color: var(--orange);

@@ -1,0 +1,62 @@
+.productCard {
+	display: flex;
+	width: 368px;
+	height: 188px;
+	border: 1px solid var(--pink);
+	border-radius: 15px;
+	margin-top: 80px;
+	padding: 14px;
+}
+
+.productCard__left {
+	width: 75%;
+}
+
+.productCard__left--name {
+	font-size: 20px;
+	font-weight: bold;
+	color: var(--pink);
+}
+
+.productCard__left--brand {
+	font-size: 20px;
+	font-weight: 400;
+}
+
+.productCard__left--color {
+	font-size: 20px;
+	font-weight: 400;
+}
+
+.productCard__left--star {
+	font-size: 16px;
+	margin-right: 4px;
+	color: #ccc; /* Color para las estrellas vacías */
+}
+
+.productCard__left--star.filled {
+	color: #ffc107; /* Color para las estrellas llenas */
+}
+
+.productCard__left--star.empty {
+	color: #ccc; /* Color para las estrellas vacías */
+}
+
+.productCard__left--rating .productCard__left--star {
+	width: 100px;
+}
+
+.productCard__left--circle {
+	width: 38px;
+	height: 38px;
+	border: 1px solid var(--pink);
+	border-radius: 50%;
+}
+
+.productCard__right {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	width: 25%;
+}
