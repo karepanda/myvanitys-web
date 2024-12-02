@@ -2,5 +2,78 @@
 	"userId": "123e4567-e89b-12d3-a456-426614174000",
 	"email": "johndoe@example.com",
 	"name": "John Doe",
-	"products": []
+	"products": [
+		{
+			"name": "Lipstick",
+			"category": "Cosmetics",
+			"brand": "BrandName",
+			"color": "#FF5733",
+			"finish": "matte",
+			"coverage": "full",
+			"skinType": "normal",
+			"price": 19.99,
+			"createdByUserId": "123e4567-e89b-12d3-a456-426614174000",
+			"reviews": [
+				{
+					"id": "987e1234-e21b-12d3-a456-426614174001",
+					"productId": "321e4567-e89b-12d3-a456-426614174999",
+					"stars": 5,
+					"description": "Amazing product! Long-lasting and vibrant color.",
+					"createdByUserId": "123e4567-e89b-12d3-a456-426614174000"
+				}
+			],
+			"associatedVanity": {
+				"isAssociated": true,
+				"dateAdded": "2024/10/26"
+			}
+		},
+		{
+			"name": "Foundation",
+			"category": "Cosmetics",
+			"brand": "AnotherBrand",
+			"color": "#F5E6E8",
+			"finish": "satin",
+			"coverage": "medium",
+			"skinType": "combination",
+			"price": 29.99,
+			"createdByUserId": "123e4567-e89b-12d3-a456-426614174000",
+			"reviews": [
+				{
+					"id": "654e3214-e21b-12d3-a456-426614174002",
+					"productId": "987e6543-e21b-12d3-a456-426614174111",
+					"stars": 4,
+					"description": "Good coverage, but a bit cakey after hours of wear.",
+					"createdByUserId": "234e5678-e89b-12d3-a456-426614174001"
+				}
+			],
+			"associatedVanity": {
+				"isAssociated": true,
+				"dateAdded": "2024/09/15"
+			}
+		},
+		{
+			"name": "Moisturizer",
+			"category": "Skincare",
+			"brand": "SkinCarePro",
+			"color": "#FFFFFF",
+			"finish": "glossy",
+			"coverage": "light",
+			"skinType": "dry",
+			"price": 24.99,
+			"createdByUserId": "123e4567-e89b-12d3-a456-426614174000",
+			"reviews": [
+				{
+					"id": "111e2222-e21b-12d3-a456-426614174333",
+					"productId": "222e3333-e21b-12d3-a456-426614174444",
+					"stars": 5,
+					"description": "Excellent for dry skin; absorbs quickly without greasy feel.",
+					"createdByUserId": "123e4567-e89b-12d3-a456-426614174000"
+				}
+			],
+			"associatedVanity": {
+				"isAssociated": false,
+				"dateAdded": "2024/10/12"
+			}
+		}
+	]
 }
