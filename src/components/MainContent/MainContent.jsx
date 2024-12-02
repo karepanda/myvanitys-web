@@ -1,11 +1,7 @@
 import React from 'react';
-import './Main.css';
-import { VanitysContext } from '../../context';
-import { useContext } from 'react';
+import './MainContent.css';
 
 export const Main = () => {
-	const { apiResponse } = useContext(VanitysContext);
-
 	return (
 		<div className='main'>
 			<section className='main__register'>

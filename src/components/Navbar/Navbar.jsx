@@ -5,7 +5,6 @@ import { Register } from '../Register/Register';
 import { Login } from '../Login/Login';
 import { useContext } from 'react';
 import { VanitysContext } from '../../context';
-import { Categories } from '../Categories/Categories';
 
 const Navbar = () => {
 	const {

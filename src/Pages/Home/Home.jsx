@@ -1,21 +1,23 @@
 import React from 'react';
-import { Main } from '../../components/Main/Main';
-import { Modal } from '../../components/Modal/Modal';
+import { Main } from '../../components/MainContent/MainContent';
 import { CookieBanner } from '../../components/CookieBanner/CookieBanner';
+import { Modal } from '../../components/Modal/Modal';
 import { useContext } from 'react';
 import { VanitysContext } from '../../context';
-import { ProductCard } from '../../components/ProductCard/ProductCard';
+import './Home.css';
 
 const Home = () => {
 	const { showCookieBanner } = useContext(VanitysContext);
 
 	return (
-		<div className='home flex flex-col justify-center'>
+		<div className='home'>
 			<Main />
 			{showCookieBanner && (
-				<Modal>
-					<CookieBanner />
-				</Modal>
+				<div className='main__organize--cookieBanner'>
+					<Modal>
+						<CookieBanner />
+					</Modal>
+				</div>
 			)}
 		</div>
 	);

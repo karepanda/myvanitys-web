@@ -3,20 +3,25 @@ import { AppRoutes } from '../Routes/index';
 import { Navbar } from '../components/Navbar/Navbar';
 import { VanitysContext, VanitysProvider } from '../context';
 import { Dashboard } from '../components/Dashboard/Dashboard';
+
 import { useContext } from 'react';
+import './App.css';
 
 const AppContent = () => {
 	// Usa el contexto aquí, dentro del árbol de VanitysProvider
-	const { apiResponse } = useContext(VanitysContext);
+	const { apiResponse, showCookieBanner } = useContext(VanitysContext);
 
 	console.log(apiResponse);
 
 	return (
-		<BrowserRouter>
-			<Navbar />
-			{apiResponse && <Dashboard />}
-			<AppRoutes />
-		</BrowserRouter>
+		<div className='app-container'>
+			<BrowserRouter>
+				<Navbar />
+				{apiResponse && <Dashboard />}
+
+				<AppRoutes />
+			</BrowserRouter>
+		</div>
 	);
 };
 
