@@ -23,7 +23,7 @@
 	"response": {
 		"status": 302,
 		"headers": {
-			"Location": "http://localhost:5173/callback?access_token=4/P7q7W91&token_type=Bearer&expires_in=3600&state=your_state_parameter"
+			"Location": "http://localhost:5173/callback?access_token=4/P7q7W24&token_type=Bearer&expires_in=3600&state=your_state_parameter"
 		}
 	}
 }

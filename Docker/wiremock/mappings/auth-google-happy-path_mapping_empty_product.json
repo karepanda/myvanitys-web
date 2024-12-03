@@ -1,0 +1,37 @@
+{
+	"request": {
+	  "method": "POST",
+		"url": "/myvanitys/auth/google",
+	  "headers": {
+			"X-Request-Id": {
+		  "matches": "^[a-fA-F0-9-]{36}$"
+		},
+			"X-Flow-Id": {
+		  "matches": "^[a-fA-F0-9-]{36}$"
+		},
+		"Accept-Language": {
+		  "matches": "(en-US|es-ES)"
+		},
+		"User-Agent": {
+		  "matches": ".*"
+		},
+		"Authorization": {
+				"matches": "^Bearer 4/P7q7W24"
+		},
+		"Content-Type": {
+		  "equalTo": "application/json"
+		}
+		}
+	},
+	"response": {
+		"status": 200,
+	  "headers": {
+		"Content-Type": "application/json",
+		"Access-Control-Allow-Origin": "*",
+		"Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+			"Access-Control-Allow-Headers": "Content-Type, Authorization, X-Request-Id, X-Flow-Id, Accept-Language, User-Agent"
+	  },
+		"bodyFileName": "auth-google-success-response_empty_product.json"
+	}
+  }
+  
