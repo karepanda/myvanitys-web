@@ -1,73 +1,72 @@
 {
 	"request": {
-	  "method": "POST",
-	  "url": "/myvanitys/product",
-	  "headers": {
-		"X-Request-ID": {
-		  "matches": "^[a-fA-F0-9-]{36}$"
+		"method": "POST",
+		"url": "/myvanitys/product",
+		"headers": {
+			"X-Request-ID": {
+				"matches": "^[a-fA-F0-9-]{36}$"
+			},
+			"X-Flow-ID": {
+				"matches": "^[a-fA-F0-9-]{36}$"
+			},
+			"Accept-Language": {
+				"matches": "(en-US|es-ES)"
+			},
+			"User-Agent": {
+				"matches": ".*"
+			},
+			"Authorization": {
+				"matches": "^Bearer [a-zA-Z0-9-._~+/]+=*$"
+			},
+			"Content-Type": {
+				"equalTo": "application/json"
+			}
 		},
-		"X-Flow-ID": {
-		  "matches": "^[a-fA-F0-9-]{36}$"
-		},
-		"Accept-Language": {
-		  "matches": "(en-US|es-ES)"
-		},
-		"User-Agent": {
-		  "matches": ".*"
-		},
-		"Authorization": {
-		  "matches": "^Bearer [a-zA-Z0-9-._~+/]+=*$"
-		},
-		"Content-Type": {
-		  "equalTo": "application/json"
-		}
-	  },
-	  "bodyPatterns": [
-		{
-		  "matchesJsonPath": "$[?(@.name =~ /\\w+/)]"
-		},
-		{
-		  "matchesJsonPath": "$[?(@.category =~ /\\w+/)]"
-		},
-		{
-		  "matchesJsonPath": "$[?(@.brand =~ /\\w+/)]"
-		},
-		{
-		  "matchesJsonPath": "$[?(@.color =~ /^#[0-9A-Fa-f]{6}$/)]"
-		},
-		{
-		  "matchesJsonPath": "$[?(@.finish =~ /\\w+/)]"
-		},
-		{
-		  "matchesJsonPath": "$[?(@.coverage =~ /\\w+/)]"
-		},
-		{
-		  "matchesJsonPath": "$[?(@.skinType =~ /\\w+/)]"
-		},
-		{
-		  "matchesJsonPath": "$[?(@.price =~ /\\d+(\\.\\d{1,2})?/)]"
-		}
-	  ]
+		"bodyPatterns": [
+			{
+				"matchesJsonPath": "$[?(@.name =~ /\\w+/)]"
+			},
+			{
+				"matchesJsonPath": "$[?(@.category =~ /\\w+/)]"
+			},
+			{
+				"matchesJsonPath": "$[?(@.brand =~ /\\w+/)]"
+			},
+			{
+				"matchesJsonPath": "$[?(@.color =~ /^#[0-9A-Fa-f]{6}$/)]"
+			},
+			{
+				"matchesJsonPath": "$[?(@.finish =~ /\\w+/)]"
+			},
+			{
+				"matchesJsonPath": "$[?(@.coverage =~ /\\w+/)]"
+			},
+			{
+				"matchesJsonPath": "$[?(@.skinType =~ /\\w+/)]"
+			},
+			{
+				"matchesJsonPath": "$[?(@.price =~ /\\d+(\\.\\d{1,2})?/)]"
+			}
+		]
 	},
 	"response": {
-	  "status": 201,
-	  "headers": {
-		"Content-Type": "application/json",
-		"Access-Control-Allow-Origin": "*",
-		"Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-		"Access-Control-Allow-Headers": "Content-Type, Authorization, X-Request-ID, X-Flow-ID, Accept-Language, User-Agent"
-	  },
-	  "jsonBody": {
-		"productId": "123e4567-e89b-12d3-a456-426614174000",
-		"name": "Lipstick",
-		"category": "Makeup",
-		"brand": "BrandX",
-		"color": "#FF5733",
-		"finish": "matte",
-		"coverage": "full",
-		"skinType": "normal",
-		"price": 19.99
-	  }
+		"status": 201,
+		"headers": {
+			"Content-Type": "application/json",
+			"Access-Control-Allow-Origin": "*",
+			"Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+			"Access-Control-Allow-Headers": "Content-Type, Authorization, X-Request-ID, X-Flow-ID, Accept-Language, User-Agent"
+		},
+		"jsonBody": {
+			"productId": "123e4567-e89b-12d3-a456-426614174000",
+			"name": "Lipstick",
+			"category": "Makeup",
+			"brand": "BrandX",
+			"color": "#FF5733",
+			"finish": "matte",
+			"coverage": "full",
+			"skinType": "normal",
+			"price": 19.99
+		}
 	}
-  }
-  
+}
