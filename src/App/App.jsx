@@ -17,8 +17,6 @@ const AppContent = () => {
 		<div className='app-container'>
 			<BrowserRouter>
 				<Navbar />
-				{apiResponse && <Dashboard />}
-
 				<AppRoutes />
 			</BrowserRouter>
 		</div>

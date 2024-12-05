@@ -1,11 +1,11 @@
 import { useRoutes } from 'react-router-dom';
 import { Home } from '../Pages/Home/Home';
-import { CallbackAuth } from '../components/CallbackAuth/CallbackAuth';
+import { UserDashboard } from '../Pages/UserDashboard/UserDashboard';
 
 const AppRoutes = () => {
 	const routes = useRoutes([
 		{ path: '/', element: <Home /> },
-		{ path: '/callback', element: <CallbackAuth /> },
+		{ path: '/callback', element: <UserDashboard /> },
 	]);
 
 	return routes;

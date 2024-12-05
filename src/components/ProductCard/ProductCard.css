@@ -4,7 +4,6 @@
 	height: 188px;
 	border: 1px solid var(--pink);
 	border-radius: 15px;
-	margin-top: 80px;
 	padding: 14px;
 	background-color: var(--white);
 }
@@ -32,15 +31,15 @@
 .productCard__left--star {
 	font-size: 16px;
 	margin-right: 4px;
-	color: #ccc; /* Color para las estrellas vacías */
+	color: #ccc;
 }
 
 .productCard__left--star.filled {
-	color: #ffc107; /* Color para las estrellas llenas */
+	color: #ffc107;
 }
 
 .productCard__left--star.empty {
-	color: #ccc; /* Color para las estrellas vacías */
+	color: #ccc;
 }
 
 .productCard__left--rating .productCard__left--star {

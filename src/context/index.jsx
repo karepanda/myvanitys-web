@@ -27,7 +27,7 @@ const VanitysProvider = ({ children }) => {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',
-							Authorization: `Bearer 4/P7q7W24`,
+							Authorization: `Bearer 4/P7q7W91`,
 							'X-Request-Id': 'd2919d3f-6b2f-49f4-9dd5-efbbc9b1c8f8',
 							'X-Flow-Id': '123e4567-e89b-12d3-a456-426614174000',
 							'User-Agent': 'MyVanitysApp/1.0',
@@ -55,10 +55,7 @@ const VanitysProvider = ({ children }) => {
 		}
 	};
 
-	// Estado para manejar los datos retornados por getAccessToken
 	const [apiResponse, setApiResponse] = useState(null);
-
-	console.log('apiResponse', apiResponse);
 
 	const queryParams = new URLSearchParams(location.search);
 
