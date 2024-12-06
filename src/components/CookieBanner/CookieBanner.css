@@ -1,0 +1,30 @@
+.cookieBanner {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	padding: 20px 100px 20px 100px;
+	gap: 40px;
+	background-color: var(--white);
+	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+	position: absolute;
+	bottom: 0;
+}
+.cookieBanner__paragraph {
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 100%;
+}
+
+.cookieBanner__button {
+	width: 124px;
+	height: 40px;
+	color: var(--white);
+	background-color: var(--orange);
+	font-size: 12px;
+	font-weight: bold;
+	border-radius: 4px;
+}
+
+.cookieBanner__highlight {
+	color: var(--pink);
+}

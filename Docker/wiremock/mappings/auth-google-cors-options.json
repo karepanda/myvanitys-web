@@ -1,0 +1,15 @@
+{
+	"request": {
+		"method": "OPTIONS",
+		"url": "/myvanitys/auth/google"
+	},
+	"response": {
+		"status": 200,
+		"headers": {
+			"Access-Control-Allow-Origin": "*",
+			"Access-Control-Allow-Methods": "POST, GET, OPTIONS",
+			"Access-Control-Allow-Headers": "Content-Type, Authorization, X-Request-Id, X-Flow-Id, Accept-Language, User-Agent",
+			"Content-Type": "application/json"
+		}
+	}
+}
