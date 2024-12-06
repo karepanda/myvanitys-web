@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './NoProductCard.css';
+import { VanitysContext } from '../../context/index';
 
 const NoProductCard = () => {
+	const { toggleCreateProductPopup } = useContext(VanitysContext);
+
 	return (
 		<div className='noProductCard'>
 			<img
@@ -17,7 +20,12 @@ const NoProductCard = () => {
 					Be the first to create a product!!
 				</p>
 			</div>
-			<button className='noProductCard__button'>Create Product</button>
+			<button
+				onClick={() => toggleCreateProductPopup()}
+				className='noProductCard__button'
+			>
+				Create Product
+			</button>
 		</div>
 	);
 };
