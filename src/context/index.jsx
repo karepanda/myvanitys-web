@@ -7,20 +7,16 @@ const VanitysProvider = ({ children }) => {
 	const [showModalLogin, setShowModalLogin] = useState(false);
 	const [showCookieBanner, setShowCookieBanner] = useState(true);
 	const [showCreateProductPopup, setShowCreateProductPopup] = useState(false);
+	const [showMissingFieldsPopup, setShowMissingFieldsPopup] = useState(false);
 
 	const toggleModalRegister = () => setShowModalRegister((prev) => !prev);
 	const toggleModalLogin = () => setShowModalLogin((prev) => !prev);
 	const closeCookieBanner = () => setShowCookieBanner((prev) => !prev);
 	const toggleCreateProductPopup = () =>
 		setShowCreateProductPopup((prev) => !prev);
+	const toggleMissingFieldsPopup = () =>
+		setShowMissingFieldsPopup((prev) => !prev);
 
-	const [selectedCategory, setSelectedCategory] = useState('');
-
-	const handleCategoryChange = (event) => {
-		setSelectedCategory(event.target.value);
-	};
-
-	const handleColor = (e) => setColor(e.target.value);
 	const [color, setColor] = useState('#D9D9D9');
 
 	const getAccessToken = async () => {
@@ -97,9 +93,9 @@ const VanitysProvider = ({ children }) => {
 				toggleCreateProductPopup,
 				showCreateProductPopup,
 				color,
-				handleColor,
-				selectedCategory,
-				handleCategoryChange,
+				toggleMissingFieldsPopup,
+				showMissingFieldsPopup,
+				setShowMissingFieldsPopup,
 			}}
 		>
 			{children}

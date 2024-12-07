@@ -1,6 +1,10 @@
 .createProduct {
 	width: 100vw;
 	height: 100vh;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 10;
 }
 
 .createProduct__container {
@@ -13,6 +17,8 @@
 		'header header'
 		'image description';
 	background-color: var(--bg-color);
+	position: relative;
+	z-index: 10;
 }
 
 .createProduct__header {

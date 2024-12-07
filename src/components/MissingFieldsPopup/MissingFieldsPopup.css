@@ -1,0 +1,51 @@
+.missingFieldsPopup {
+	display: flex;
+	flex-direction: column;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 20;
+}
+
+.missingFieldsPopup__header {
+	grid-area: header;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	width: 600px;
+	height: 72px;
+	background-color: var(--text-color);
+	color: var(--white);
+	font-size: 24px;
+	font-weight: 600;
+	border-radius: 15px 15px 0 0;
+	padding: 0 24px;
+}
+
+.missingFieldsPopup__header--title {
+	margin: 0 auto;
+}
+
+.missingFieldsPopup__content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 324px;
+	background-color: var(--bg-color);
+	width: 600px;
+	text-align: center;
+	font-size: 24px;
+	font-weight: 300;
+	border-radius: 0 0 15px 15px;
+}
+
+.missingFieldsPopup__content--text {
+	width: 308px;
+	height: 106px;
+}
