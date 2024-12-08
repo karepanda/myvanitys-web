@@ -1,4 +1,19 @@
 .dashboard {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 60px;
+	grid-template-rows: 40px auto;
+	margin: 40px;
+}
+
+.dashboard__categories {
+	align-self: center;
+}
+
+.dashboard__noProducts {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	margin: 40px;
 }
 
@@ -8,7 +23,7 @@
 	justify-content: center;
 }
 
-.dashboard__productCard {
+.dashboard__products {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
 	justify-items: center;

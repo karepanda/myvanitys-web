@@ -9,31 +9,31 @@ import './Dashboard.css';
 const Dashboard = () => {
 	const { apiResponse } = useContext(VanitysContext);
 
+	console.log(apiResponse);
+
+	const getStyleClass = () => {
+		return apiResponse.products.length === 0
+			? 'dashboard__noProducts'
+			: 'dashboard';
+	};
+
 	return (
-		<>
+		<div className={getStyleClass()}>
 			{apiResponse.products.length === 0 ? (
-				<div className='dashboard__noProducts'>
-					<NoProductCard />
-				</div>
+				<NoProductCard />
 			) : (
-				<div className='dashboard'>
-					<div className='dashboard__productCard'>
-						{apiResponse.products.length === 0 ? (
-							<NoProductCard />
-						) : (
-							<>
-								<div className='dashboard__categories'>
-									<Categories />
-								</div>
-								{apiResponse.products.map((product, index) => (
-									<ProductCard key={index} product={product} />
-								))}
-							</>
-						)}
+				<>
+					<div className='dashboard__categories'>
+						<Categories />
 					</div>
-				</div>
+					<div className='dashboard__products'>
+						{apiResponse.products.map((product, index) => (
+							<ProductCard key={index} product={product} />
+						))}
+					</div>
+				</>
 			)}
-		</>
+		</div>
 	);
 };
 

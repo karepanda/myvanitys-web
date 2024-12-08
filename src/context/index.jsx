@@ -6,10 +6,18 @@ const VanitysProvider = ({ children }) => {
 	const [showModalRegister, setShowModalRegister] = useState(false);
 	const [showModalLogin, setShowModalLogin] = useState(false);
 	const [showCookieBanner, setShowCookieBanner] = useState(true);
+	const [showCreateProductPopup, setShowCreateProductPopup] = useState(false);
+	const [showMissingFieldsPopup, setShowMissingFieldsPopup] = useState(false);
 
 	const toggleModalRegister = () => setShowModalRegister((prev) => !prev);
 	const toggleModalLogin = () => setShowModalLogin((prev) => !prev);
 	const closeCookieBanner = () => setShowCookieBanner((prev) => !prev);
+	const toggleCreateProductPopup = () =>
+		setShowCreateProductPopup((prev) => !prev);
+	const toggleMissingFieldsPopup = () =>
+		setShowMissingFieldsPopup((prev) => !prev);
+
+	const [color, setColor] = useState('#D9D9D9');
 
 	const getAccessToken = async () => {
 		const urlParams = new URLSearchParams(window.location.search);
@@ -55,10 +63,7 @@ const VanitysProvider = ({ children }) => {
 		}
 	};
 
-	// Estado para manejar los datos retornados por getAccessToken
 	const [apiResponse, setApiResponse] = useState(null);
-
-	console.log('apiResponse', apiResponse);
 
 	const queryParams = new URLSearchParams(location.search);
 
@@ -84,6 +89,13 @@ const VanitysProvider = ({ children }) => {
 				state,
 				closeCookieBanner,
 				showCookieBanner,
+				setShowCreateProductPopup,
+				toggleCreateProductPopup,
+				showCreateProductPopup,
+				color,
+				toggleMissingFieldsPopup,
+				showMissingFieldsPopup,
+				setShowMissingFieldsPopup,
 			}}
 		>
 			{children}

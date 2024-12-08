@@ -5,6 +5,7 @@ import { Register } from '../Register/Register';
 import { Login } from '../Login/Login';
 import { useContext } from 'react';
 import { VanitysContext } from '../../context';
+import { CreateProductPopup } from '../CreateProductPopup/CreateProductPopup';
 
 const Navbar = () => {
 	const {
@@ -13,70 +14,75 @@ const Navbar = () => {
 		toggleModalLogin,
 		showModalLogin,
 		apiResponse,
+		showCreateProductPopup,
+		toggleCreateProductPopup,
 	} = useContext(VanitysContext);
+
+	const getStyleClass = () => {
+		return apiResponse ? 'header-dashboard' : 'header';
+	};
 
 	return (
 		<>
-			<header className='header'>
-				<div className='header__left'>
-					<h1 className='header__left--title'>My Vanity´s</h1>
-				</div>
-				<div className='header__right'>
-					<input
-						className='header__right--input'
-						type='text'
-						placeholder={apiResponse && 'Products'}
-					/>
-					<div className='header__right'>
-						{!apiResponse && (
-							<>
-								<button
-									onClick={() => toggleModalLogin()}
-									className='header__right--login'
-								>
-									Log in
-								</button>
+			<header className={getStyleClass()}>
+				<h1 className='header__title'>My Vanity´s</h1>
+				<input
+					className='header__input'
+					type='text'
+					placeholder={apiResponse && 'Products'}
+				/>
 
-								<button
-									className='header__right--register'
-									onClick={() => toggleModalRegister()}
-								>
-									Register
-								</button>
-							</>
-						)}
+				{!apiResponse && (
+					<>
+						<button
+							onClick={() => toggleModalLogin()}
+							className='header__login'
+						>
+							Log in
+						</button>
 
-						{showModalLogin && (
-							<Modal>
-								<Login />
-							</Modal>
-						)}
+						<button
+							className='header__register'
+							onClick={() => toggleModalRegister()}
+						>
+							Register
+						</button>
+					</>
+				)}
 
-						{showModalRegister && (
-							<Modal>
-								<Register />
-							</Modal>
-						)}
+				{showModalLogin && (
+					<Modal>
+						<Login />
+					</Modal>
+				)}
 
-						{apiResponse && (
-							<>
-								<button
-									onClick={() => toggleModalRegister()}
-									className='header__right--create'
-								>
-									Create Product
-								</button>
+				{showModalRegister && (
+					<Modal>
+						<Register />
+					</Modal>
+				)}
 
-								<div>
-									<img
-										src='src/assets/user_photo.png'
-										alt='User Photo'
-									/>
-								</div>
-							</>
-						)}
-					</div>
-				</div>
+				{apiResponse && (
+					<>
+						<p className='header__products'>Products</p>
+						<button
+							onClick={() => toggleCreateProductPopup()}
+							className='header__create'
+						>
+							Create Product
+						</button>
+
+						<div>
+							<img src='src/assets/user_photo.png' alt='User Photo' />
+						</div>
+					</>
+				)}
+
+				{showCreateProductPopup && (
+					<Modal>
+						<CreateProductPopup />
+					</Modal>
+				)}
 			</header>
 		</>
 	);
