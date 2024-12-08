@@ -6,10 +6,18 @@ const VanitysProvider = ({ children }) => {
 	const [showModalRegister, setShowModalRegister] = useState(false);
 	const [showModalLogin, setShowModalLogin] = useState(false);
 	const [showCookieBanner, setShowCookieBanner] = useState(true);
+	const [showCreateProductPopup, setShowCreateProductPopup] = useState(false);
+	const [showMissingFieldsPopup, setShowMissingFieldsPopup] = useState(false);
 
 	const toggleModalRegister = () => setShowModalRegister((prev) => !prev);
 	const toggleModalLogin = () => setShowModalLogin((prev) => !prev);
 	const closeCookieBanner = () => setShowCookieBanner((prev) => !prev);
+	const toggleCreateProductPopup = () =>
+		setShowCreateProductPopup((prev) => !prev);
+	const toggleMissingFieldsPopup = () =>
+		setShowMissingFieldsPopup((prev) => !prev);
+
+	const [color, setColor] = useState('#D9D9D9');
 
 	const getAccessToken = async () => {
 		const urlParams = new URLSearchParams(window.location.search);
@@ -27,7 +35,7 @@ const VanitysProvider = ({ children }) => {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',
-							Authorization: `Bearer 4/P7q7W91`,
+							Authorization: `Bearer 4/P7q7W24`,
 							'X-Request-Id': 'd2919d3f-6b2f-49f4-9dd5-efbbc9b1c8f8',
 							'X-Flow-Id': '123e4567-e89b-12d3-a456-426614174000',
 							'User-Agent': 'MyVanitysApp/1.0',
@@ -81,6 +89,13 @@ const VanitysProvider = ({ children }) => {
 				state,
 				closeCookieBanner,
 				showCookieBanner,
+				setShowCreateProductPopup,
+				toggleCreateProductPopup,
+				showCreateProductPopup,
+				color,
+				toggleMissingFieldsPopup,
+				showMissingFieldsPopup,
+				setShowMissingFieldsPopup,
 			}}
 		>
 			{children}

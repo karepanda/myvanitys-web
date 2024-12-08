@@ -5,6 +5,7 @@ import { Register } from '../Register/Register';
 import { Login } from '../Login/Login';
 import { useContext } from 'react';
 import { VanitysContext } from '../../context';
+import { CreateProductPopup } from '../CreateProductPopup/CreateProductPopup';
 
 const Navbar = () => {
 	const {
@@ -13,6 +14,8 @@ const Navbar = () => {
 		toggleModalLogin,
 		showModalLogin,
 		apiResponse,
+		showCreateProductPopup,
+		toggleCreateProductPopup,
 	} = useContext(VanitysContext);
 
 	const getStyleClass = () => {
@@ -63,7 +66,7 @@ const Navbar = () => {
 					<>
 						<p className='header__products'>Products</p>
 						<button
-							onClick={() => toggleModalRegister()}
+							onClick={() => toggleCreateProductPopup()}
 							className='header__create'
 						>
 							Create Product
@@ -73,6 +76,12 @@ const Navbar = () => {
 							<img src='src/assets/user_photo.png' alt='User Photo' />
 						</div>
 					</>
+				)}
+
+				{showCreateProductPopup && (
+					<Modal>
+						<CreateProductPopup />
+					</Modal>
 				)}
 			</header>
 		</>

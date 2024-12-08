@@ -34,18 +34,6 @@
 			},
 			{
 				"matchesJsonPath": "$[?(@.color =~ /^#[0-9A-Fa-f]{6}$/)]"
-			},
-			{
-				"matchesJsonPath": "$[?(@.finish =~ /\\w+/)]"
-			},
-			{
-				"matchesJsonPath": "$[?(@.coverage =~ /\\w+/)]"
-			},
-			{
-				"matchesJsonPath": "$[?(@.skinType =~ /\\w+/)]"
-			},
-			{
-				"matchesJsonPath": "$[?(@.price =~ /\\d+(\\.\\d{1,2})?/)]"
 			}
 		]
 	},
@@ -58,15 +46,7 @@
 			"Access-Control-Allow-Headers": "Content-Type, Authorization, X-Request-ID, X-Flow-ID, Accept-Language, User-Agent"
 		},
 		"jsonBody": {
-			"productId": "123e4567-e89b-12d3-a456-426614174000",
-			"name": "Lipstick",
-			"category": "Makeup",
-			"brand": "BrandX",
-			"color": "#FF5733",
-			"finish": "matte",
-			"coverage": "full",
-			"skinType": "normal",
-			"price": 19.99
+			"productId": "123e4567-e89b-12d3-a456-426614174000"
 		}
 	}
 }

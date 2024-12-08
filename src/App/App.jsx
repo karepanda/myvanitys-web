@@ -2,7 +2,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { AppRoutes } from '../Routes/index';
 import { Navbar } from '../components/Navbar/Navbar';
 import { VanitysContext, VanitysProvider } from '../context';
-import { Dashboard } from '../components/Dashboard/Dashboard';
 
 import { useContext } from 'react';
 import './App.css';
