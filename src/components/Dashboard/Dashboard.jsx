@@ -9,7 +9,7 @@ import './Dashboard.css';
 const Dashboard = () => {
 	const { apiResponse } = useContext(VanitysContext);
 
-	console.log(apiResponse);
+	const products = apiResponse?.products || [];
 
 	const getStyleClass = () => {
 		return apiResponse.products.length === 0
@@ -27,7 +27,7 @@ const Dashboard = () => {
 						<Categories />
 					</div>
 					<div className='dashboard__products'>
-						{apiResponse.products.map((product, index) => (
+						{products.map((product, index) => (
 							<ProductCard key={index} product={product} />
 						))}
 					</div>

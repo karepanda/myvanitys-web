@@ -10,8 +10,6 @@ const AppContent = () => {
 	// Usa el contexto aquí, dentro del árbol de VanitysProvider
 	const { apiResponse, showCookieBanner } = useContext(VanitysContext);
 
-	console.log(apiResponse);
-
 	return (
 		<div className='app-container'>
 			<BrowserRouter>

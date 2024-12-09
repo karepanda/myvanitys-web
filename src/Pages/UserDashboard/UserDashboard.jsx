@@ -1,5 +1,4 @@
 import React, { useEffect, useContext } from 'react';
-import { Navbar } from '../../components/Navbar/Navbar';
 import { Dashboard } from '../../components/Dashboard/Dashboard';
 import { useLocation } from 'react-router';
 import { VanitysContext } from '../../context';
@@ -17,7 +16,7 @@ const UserDashboard = () => {
 		};
 
 		fetchData();
-	}, []);
+	}, [getAccessToken, setApiResponse]);
 
 	if (apiResponse) {
 		return (
