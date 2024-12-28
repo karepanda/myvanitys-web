@@ -1,5 +1,5 @@
 import { createContext, useState } from 'react';
-import { getAccessToken } from '../services/authServices';
+import { getAccessToken } from '../services/productService';
 
 const VanitysContext = createContext();
 
@@ -9,6 +9,7 @@ const VanitysProvider = ({ children }) => {
 	const [showCookieBanner, setShowCookieBanner] = useState(true);
 	const [showCreateProductPopup, setShowCreateProductPopup] = useState(false);
 	const [showMissingFieldsPopup, setShowMissingFieldsPopup] = useState(false);
+	const [formData, setFormData] = useState(null);
 
 	const toggleModalRegister = () => setShowModalRegister((prev) => !prev);
 	const toggleModalLogin = () => setShowModalLogin((prev) => !prev);
@@ -53,6 +54,8 @@ const VanitysProvider = ({ children }) => {
 				toggleMissingFieldsPopup,
 				showMissingFieldsPopup,
 				setShowMissingFieldsPopup,
+				formData,
+				setFormData,
 			}}
 		>
 			{children}

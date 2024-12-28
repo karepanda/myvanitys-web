@@ -5,6 +5,7 @@ import './CreateProductPopup.css';
 import { useForm } from 'react-hook-form';
 import { Modal } from '../Modal/Modal';
 import { MissingFieldsPopup } from '../MissingFieldsPopup/MissingFieldsPopup';
+import { createProduct } from '../../services/createProductService';
 
 const CreateProductPopup = () => {
 	const {
@@ -13,9 +14,10 @@ const CreateProductPopup = () => {
 		handleCategoryChange,
 		showMissingFieldsPopup,
 		setShowMissingFieldsPopup,
+		setShowCreateProductPopup,
+		setFormData,
+		formData,
 	} = useContext(VanitysContext);
-
-	const [] = useState(false);
 
 	const {
 		register,
@@ -25,14 +27,20 @@ const CreateProductPopup = () => {
 		reset,
 	} = useForm();
 
-	const onSubmitProductCreateForm = (data) => {
-		console.log('Formulario válido:', data);
-		setShowMissingFieldsPopup(false);
-		reset();
+	const onSubmitProductCreateForm = async (data) => {
+		try {
+			const response = await createProduct(data);
+			setFormData(data);
+			setShowMissingFieldsPopup(false);
+			setShowCreateProductPopup(false);
+			reset();
+			console.log('Product created:', response);
+		} catch (error) {
+			console.error('Failed to create product:', error);
+		}
 	};
 
 	const handleFormError = (formErrors) => {
-		console.log('Errores de formulario:', formErrors);
 		setShowMissingFieldsPopup(true);
 	};
 

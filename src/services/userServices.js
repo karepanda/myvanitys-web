@@ -1,33 +1,14 @@
-import { getAccessToken } from './authServices';
+import { useFetch } from '../hooks/useFetch';
 
-const fetchUserData = async () => {
-	try {
-		const accessToken = await getAccessToken();
+const fetchUserData = () => {
+	const { data, error, loading } = useFetch(
+		'http://localhost:8080/myvanitys/dashboard'
+	);
 
-		if (!accessToken) {
-			throw new Error('No access token available');
-		}
+	if (loading) return 'Loading...';
+	if (error) return `Error: ${error.message}`;
 
-		const response = await fetch(
-			'http://localhost:8080/myvanitys/dashboard',
-			{
-				method: 'GET',
-				headers: {
-					Authorization: `Bearer ${accessToken}`,
-					'Content-Type': 'application/json',
-				},
-			}
-		);
-
-		if (!response.ok) {
-			throw new Error(`HTTP error! Status: ${response.status}`);
-		}
-
-		return await response.json();
-	} catch (error) {
-		console.error('Error fetching dashboard data:', error);
-		throw error;
-	}
+	return data;
 };
 
 export { fetchUserData };
