@@ -16,6 +16,8 @@ const Navbar = () => {
 		apiResponse,
 		showCreateProductPopup,
 		toggleCreateProductPopup,
+		searchText,
+		handleSearch,
 	} = useContext(VanitysContext);
 
 	const getStyleClass = () => {
@@ -30,6 +32,8 @@ const Navbar = () => {
 					className='header__input'
 					type='text'
 					placeholder={apiResponse && 'Products'}
+					value={searchText}
+					onChange={handleSearch}
 				/>
 
 				{!apiResponse && (

@@ -10,6 +10,9 @@ const VanitysProvider = ({ children }) => {
 	const [showCreateProductPopup, setShowCreateProductPopup] = useState(false);
 	const [showMissingFieldsPopup, setShowMissingFieldsPopup] = useState(false);
 	const [formData, setFormData] = useState(null);
+	const [color, setColor] = useState('#D9D9D9');
+	const [apiResponse, setApiResponse] = useState(null);
+	const [searchText, setSearchText] = useState('');
 
 	const toggleModalRegister = () => setShowModalRegister((prev) => !prev);
 	const toggleModalLogin = () => setShowModalLogin((prev) => !prev);
@@ -19,9 +22,10 @@ const VanitysProvider = ({ children }) => {
 	const toggleMissingFieldsPopup = () =>
 		setShowMissingFieldsPopup((prev) => !prev);
 
-	const [color, setColor] = useState('#D9D9D9');
-
-	const [apiResponse, setApiResponse] = useState(null);
+	const handleSearch = (e) => {
+		const value = e.target.value;
+		setSearchText(value);
+	};
 
 	const queryParams = new URLSearchParams(location.search);
 
@@ -56,6 +60,9 @@ const VanitysProvider = ({ children }) => {
 				setShowMissingFieldsPopup,
 				formData,
 				setFormData,
+				searchText,
+				setSearchText,
+				handleSearch,
 			}}
 		>
 			{children}

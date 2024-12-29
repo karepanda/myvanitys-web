@@ -1,5 +1,5 @@
 import { Categories } from '../Categories/Categories';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { ProductCard } from '../ProductCard/ProductCard';
 import { NoProductCard } from '../NoProductCard/NoProductCard';
 
