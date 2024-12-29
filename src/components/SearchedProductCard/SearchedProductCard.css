@@ -1,0 +1,59 @@
+.searchedProductCard {
+	display: flex;
+	flex-direction: row;
+	width: 324px;
+	height: 168px;
+	padding: 14px;
+	border-radius: 15px;
+	background-color: var(--white);
+	border: 1px solid #ffb5ae;
+	margin: 8px;
+}
+
+.searchedProductCard__left {
+	width: 90%;
+}
+
+.searchedProductCard__left--name {
+	color: var(--orange);
+	font-weight: 600;
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+
+.searchedProductCard__left--brand {
+	color: var(--text-color);
+	font-weight: 400;
+	font-size: 20px;
+}
+
+.searchedProductCard__left--category {
+	color: var(--text-color);
+	font-weight: 400;
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+
+.searchedProductCard__starts {
+	display: flex;
+	flex-direction: row;
+}
+
+.searchedProductCard__start--icon {
+	object-fit: contain;
+	margin-right: 6px;
+	width: 28px;
+	height: 29px;
+}
+
+.searchedProductCard__start--number {
+	color: var(--orange);
+	font-weight: 400;
+	font-size: 24px;
+}
+
+.searchedProductCard__right {
+	display: flex;
+	align-items: center;
+	width: 10%;
+}

@@ -1,3 +1,9 @@
+.productCard__wrapper {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	justify-items: center;
+}
+
 .productCard {
 	display: flex;
 	width: 368px;
