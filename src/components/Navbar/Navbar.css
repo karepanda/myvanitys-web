@@ -23,6 +23,7 @@
 .header__title {
 	font-size: 40px;
 	font-weight: 600;
+	cursor: pointer;
 }
 
 .header__input {

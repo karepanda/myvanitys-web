@@ -6,6 +6,7 @@ import { Login } from '../Login/Login';
 import { useContext } from 'react';
 import { VanitysContext } from '../../context';
 import { CreateProductPopup } from '../CreateProductPopup/CreateProductPopup';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
 	const {
@@ -18,16 +19,26 @@ const Navbar = () => {
 		toggleCreateProductPopup,
 		searchText,
 		handleSearch,
+		setApiResponse,
 	} = useContext(VanitysContext);
 
 	const getStyleClass = () => {
 		return apiResponse ? 'header-dashboard' : 'header';
 	};
 
+	const navigate = useNavigate();
+
+	const handleHomeClick = () => {
+		setApiResponse(null);
+		navigate('/');
+	};
+
 	return (
 		<>
 			<header className={getStyleClass()}>
-				<h1 className='header__title'>My Vanity´s</h1>
+				<h1 className='header__title' onClick={handleHomeClick}>
+					My Vanity´s
+				</h1>
 				<input
 					className='header__input'
 					type='text'
