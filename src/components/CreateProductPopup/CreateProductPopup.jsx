@@ -111,7 +111,6 @@ const CreateProductPopup = () => {
 								<option value='Toner'>Toner</option>
 							</select>
 						</div>
-						<span id='color_front'></span>
 						<label htmlFor='color'>Choose Color of the product:</label>
 						<div className='createProduct__right--color'>
 							<input

@@ -57,3 +57,7 @@
 	align-items: center;
 	width: 10%;
 }
+
+.searchedProductCard__right--icon {
+	cursor: pointer;
+}

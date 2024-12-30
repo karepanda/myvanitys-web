@@ -13,10 +13,12 @@ const VanitysProvider = ({ children }) => {
 	const [color, setColor] = useState('#D9D9D9');
 	const [apiResponse, setApiResponse] = useState(null);
 	const [searchText, setSearchText] = useState('');
+	const [showProductPopup, setShowProductPopup] = useState(false);
 
 	const toggleModalRegister = () => setShowModalRegister((prev) => !prev);
 	const toggleModalLogin = () => setShowModalLogin((prev) => !prev);
 	const closeCookieBanner = () => setShowCookieBanner((prev) => !prev);
+	const toggleProductPopup = () => setShowProductPopup((prev) => !prev);
 	const toggleCreateProductPopup = () =>
 		setShowCreateProductPopup((prev) => !prev);
 	const toggleMissingFieldsPopup = () =>
@@ -63,6 +65,8 @@ const VanitysProvider = ({ children }) => {
 				searchText,
 				setSearchText,
 				handleSearch,
+				showProductPopup,
+				toggleProductPopup,
 			}}
 		>
 			{children}

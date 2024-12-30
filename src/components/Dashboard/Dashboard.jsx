@@ -5,9 +5,12 @@ import { NoProductCard } from '../NoProductCard/NoProductCard';
 import { SearchedProductCard } from '../SearchedProductCard/SearchedProductCard';
 import { VanitysContext } from '../../context/index';
 import './Dashboard.css';
+import { Modal } from '../Modal/Modal';
+import { ProductPopup } from '../ProductPopup/ProductPopup';
 
 const Dashboard = () => {
-	const { apiResponse, searchText } = useContext(VanitysContext);
+	const { apiResponse, searchText, showProductPopup } =
+		useContext(VanitysContext);
 
 	const products = apiResponse?.products || [];
 
@@ -44,6 +47,12 @@ const Dashboard = () => {
 						</div>
 					)}
 				</>
+			)}
+
+			{showProductPopup && (
+				<Modal>
+					<ProductPopup />
+				</Modal>
 			)}
 		</div>
 	);

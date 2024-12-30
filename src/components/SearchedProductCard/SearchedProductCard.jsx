@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './SearchedProductCard.css';
+import { VanitysContext } from '../../context/index';
 
 const SearchedProductCard = ({ product }) => {
+	const { toggleProductPopup } = useContext(VanitysContext);
 	return (
 		<div className='searchedProductCard'>
 			<div className='searchedProductCard__left'>
@@ -22,7 +24,12 @@ const SearchedProductCard = ({ product }) => {
 				</div>
 			</div>
 			<div className='searchedProductCard__right'>
-				<img src='src/assets/plus_icon.png' alt='Plus icon' />
+				<img
+					className='searchedProductCard__right--icon'
+					src='src/assets/plus_icon.png'
+					alt='Plus icon'
+					onClick={() => toggleProductPopup()}
+				/>
 			</div>
 		</div>
 	);
