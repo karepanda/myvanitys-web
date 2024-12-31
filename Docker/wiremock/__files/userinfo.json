@@ -28,6 +28,30 @@
 			}
 		},
 		{
+			"name": "Lipstick",
+			"category": "Cosmetics",
+			"brand": "BrandName",
+			"color": "#FF5733",
+			"finish": "matte",
+			"coverage": "full",
+			"skinType": "normal",
+			"price": 19.99,
+			"createdByUserId": "123e4567-e89b-12d3-a456-426614174000",
+			"reviews": [
+				{
+					"id": "987e1234-e21b-12d3-a456-426614174001",
+					"productId": "321e4567-e89b-12d3-a456-426614174999",
+					"stars": 5,
+					"description": "Amazing product! Long-lasting and vibrant color.",
+					"createdByUserId": "123e4567-e89b-12d3-a456-426614174000"
+				}
+			],
+			"associatedVanity": {
+				"isAssociated": true,
+				"dateAdded": "2024/10/26"
+			}
+		},
+		{
 			"name": "Foundation",
 			"category": "Cosmetics",
 			"brand": "AnotherBrand",
