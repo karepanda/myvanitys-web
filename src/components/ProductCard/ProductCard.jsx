@@ -1,6 +1,13 @@
 import './ProductCard.css';
+import { VanitysContext } from '../../context/index';
+import { useContext } from 'react';
+import { Modal } from '../Modal/Modal';
+import { CreateReviewPopup } from '../CreateReviewPopup/CreateReviewPopup';
 
 const ProductCard = ({ product }) => {
+	const { showCreateReviewPopup, toggleCreateReviewPopup } =
+		useContext(VanitysContext);
+
 	const stars = product.reviews.length > 0 ? product.reviews[0].stars : 0;
 
 	return (
@@ -53,6 +60,7 @@ const ProductCard = ({ product }) => {
 						width='38'
 						height='38'
 						viewBox='0 0 24 24'
+						onClick={() => toggleCreateReviewPopup()}
 					>
 						<path
 							fill='currentColor'
@@ -75,6 +83,12 @@ const ProductCard = ({ product }) => {
 					</svg>
 				</div>
 			</div>
+
+			{showCreateReviewPopup && (
+				<Modal>
+					<CreateReviewPopup />
+				</Modal>
+			)}
 		</div>
 	);
 };

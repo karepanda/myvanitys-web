@@ -16,7 +16,6 @@ const CreateProductPopup = () => {
 		setShowMissingFieldsPopup,
 		setShowCreateProductPopup,
 		setFormData,
-		formData,
 	} = useContext(VanitysContext);
 
 	const {
