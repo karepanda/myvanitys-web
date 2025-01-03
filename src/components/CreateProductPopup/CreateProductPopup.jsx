@@ -131,6 +131,7 @@ const CreateProductPopup = () => {
 			{showMissingFieldsPopup && (
 				<Modal>
 					<MissingFieldsPopup
+						message='You need to fill in all the fields to create the product.'
 						onClose={() => {
 							setShowMissingFieldsPopup(false);
 							clearErrors();

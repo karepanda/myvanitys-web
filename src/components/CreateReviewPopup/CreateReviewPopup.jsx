@@ -1,6 +1,8 @@
 import { useContext, useState } from 'react';
 import './CreateReviewPopup.css';
 import { VanitysContext } from '../../context/index';
+import { MissingFieldsPopup } from '../MissingFieldsPopup/MissingFieldsPopup';
+import { Modal } from '../Modal/Modal';
 
 const CreateReviewPopup = () => {
 	const {
@@ -14,6 +16,8 @@ const CreateReviewPopup = () => {
 		handleMouseOut,
 		handleClick,
 		handleSubmitCreateReviewProduct,
+		showMissingFieldsPopup,
+		setShowMissingFieldsPopup,
 	} = useContext(VanitysContext);
 
 	return (
@@ -97,6 +101,17 @@ const CreateReviewPopup = () => {
 					</form>
 				</div>
 			</div>
+
+			{showMissingFieldsPopup && (
+				<Modal>
+					<MissingFieldsPopup
+						message='You need to fill in all the fields to create the review.'
+						onClose={() => {
+							setShowMissingFieldsPopup(false);
+						}}
+					/>
+				</Modal>
+			)}
 		</div>
 	);
 };

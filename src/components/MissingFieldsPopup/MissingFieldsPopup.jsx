@@ -3,7 +3,7 @@ import './MissingFieldsPopup.css';
 import { IoClose } from 'react-icons/io5';
 import { VanitysContext } from '../../context/index';
 
-const MissingFieldsPopup = () => {
+const MissingFieldsPopup = ({ message }) => {
 	const { setShowMissingFieldsPopup } = useContext(VanitysContext);
 
 	return (
@@ -19,9 +19,7 @@ const MissingFieldsPopup = () => {
 				/>
 			</section>
 			<section className='missingFieldsPopup__content'>
-				<p className='missingFieldsPopup__content--text'>
-					You need to fill in all the fields to create the product.
-				</p>
+				<p className='missingFieldsPopup__content--text'>{message}</p>
 			</section>
 		</div>
 	);

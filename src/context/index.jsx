@@ -55,7 +55,12 @@ const VanitysProvider = ({ children }) => {
 		e.preventDefault();
 
 		if (selectedRating === 0) {
-			alert('Please select a rating before submitting your review.');
+			setShowMissingFieldsPopup(true);
+			return;
+		}
+
+		if (!reviewText.trim()) {
+			setShowMissingFieldsPopup(true);
 			return;
 		}
 
@@ -69,7 +74,6 @@ const VanitysProvider = ({ children }) => {
 		setSelectedRating(0);
 		setReviewText('');
 		toggleCreateReviewPopup();
-		alert('Your review has been submitted successfully!');
 	};
 
 	const queryParams = new URLSearchParams(location.search);
