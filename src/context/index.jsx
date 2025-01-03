@@ -18,6 +18,7 @@ const VanitysProvider = ({ children }) => {
 	const [hoveredRating, setHoveredRating] = useState(0); // Estrellas al pasar el mouse
 	const [selectedRating, setSelectedRating] = useState(0); // Rating seleccionado
 	const [reviewText, setReviewText] = useState(''); // Texto del review
+	const [showUserProfile, setShowUserProfile] = useState(false);
 
 	const toggleModalRegister = () => setShowModalRegister((prev) => !prev);
 	const toggleModalLogin = () => setShowModalLogin((prev) => !prev);
@@ -29,6 +30,7 @@ const VanitysProvider = ({ children }) => {
 		setShowMissingFieldsPopup((prev) => !prev);
 	const toggleCreateReviewPopup = () =>
 		setShowCreateReviewPopup((prev) => !prev);
+	const toggleUserProfile = () => setShowUserProfile((prev) => !prev);
 
 	// Maneja el hover sobre las estrellas
 	const handleMouseOver = (rating) => {
@@ -126,6 +128,8 @@ const VanitysProvider = ({ children }) => {
 				handleMouseOut,
 				handleClick,
 				handleSubmitCreateReviewProduct,
+				toggleUserProfile,
+				showUserProfile,
 			}}
 		>
 			{children}
