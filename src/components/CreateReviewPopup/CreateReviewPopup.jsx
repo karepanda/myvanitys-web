@@ -13,33 +13,8 @@ const CreateReviewPopup = () => {
 		handleMouseOver,
 		handleMouseOut,
 		handleClick,
+		handleSubmitCreateReviewProduct,
 	} = useContext(VanitysContext);
-
-	// Maneja el envío del formulario
-	const handleSubmit = (e) => {
-		e.preventDefault();
-
-		// Validar que el usuario haya seleccionado un rating
-		if (selectedRating === 0) {
-			alert('Please select a rating before submitting your review.');
-			return;
-		}
-
-		// Capturar datos del formulario
-		const reviewData = {
-			rating: selectedRating,
-			text: reviewText,
-		};
-
-		// Simular envío de datos
-		console.log('Review submitted:', reviewData);
-
-		// Reiniciar formulario
-		setSelectedRating(0);
-		setReviewText('');
-		toggleCreateReviewPopup();
-		alert('Your review has been submitted successfully!');
-	};
 
 	return (
 		<div className='createReviewPopup'>
@@ -78,7 +53,7 @@ const CreateReviewPopup = () => {
 
 					<form
 						className='createReviewPopup__right--form'
-						onSubmit={handleSubmit}
+						onSubmit={handleSubmitCreateReviewProduct}
 					>
 						<div className='createReviewPopup__stars'>
 							{[1, 2, 3, 4, 5].map((star) => (

@@ -50,6 +50,28 @@ const VanitysProvider = ({ children }) => {
 		setSearchText(value);
 	};
 
+	// Maneja el envío del formulario CreateReviewPopup
+	const handleSubmitCreateReviewProduct = (e) => {
+		e.preventDefault();
+
+		if (selectedRating === 0) {
+			alert('Please select a rating before submitting your review.');
+			return;
+		}
+
+		const reviewData = {
+			rating: selectedRating,
+			text: reviewText,
+		};
+
+		console.log('Review submitted:', reviewData);
+
+		setSelectedRating(0);
+		setReviewText('');
+		toggleCreateReviewPopup();
+		alert('Your review has been submitted successfully!');
+	};
+
 	const queryParams = new URLSearchParams(location.search);
 
 	const accessToken = queryParams.get('access_token');
@@ -99,6 +121,7 @@ const VanitysProvider = ({ children }) => {
 				handleMouseOver,
 				handleMouseOut,
 				handleClick,
+				handleSubmitCreateReviewProduct,
 			}}
 		>
 			{children}
