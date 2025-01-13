@@ -15,9 +15,9 @@ const VanitysProvider = ({ children }) => {
 	const [searchText, setSearchText] = useState('');
 	const [showProductPopup, setShowProductPopup] = useState(false);
 	const [showCreateReviewPopup, setShowCreateReviewPopup] = useState(false);
-	const [hoveredRating, setHoveredRating] = useState(0); // Estrellas al pasar el mouse
-	const [selectedRating, setSelectedRating] = useState(0); // Rating seleccionado
-	const [reviewText, setReviewText] = useState(''); // Texto del review
+	const [hoveredRating, setHoveredRating] = useState(0);
+	const [selectedRating, setSelectedRating] = useState(0);
+	const [reviewText, setReviewText] = useState('');
 	const [showUserProfile, setShowUserProfile] = useState(false);
 
 	const toggleModalRegister = () => setShowModalRegister((prev) => !prev);
@@ -32,17 +32,14 @@ const VanitysProvider = ({ children }) => {
 		setShowCreateReviewPopup((prev) => !prev);
 	const toggleUserProfile = () => setShowUserProfile((prev) => !prev);
 
-	// Maneja el hover sobre las estrellas
 	const handleMouseOver = (rating) => {
 		setHoveredRating(rating);
 	};
 
-	// Restaurar las estrellas cuando se quita el mouse
 	const handleMouseOut = () => {
 		setHoveredRating(0);
 	};
 
-	// Fijar el rating cuando el usuario hace clic
 	const handleClick = (rating) => {
 		setSelectedRating(rating);
 	};
@@ -52,7 +49,6 @@ const VanitysProvider = ({ children }) => {
 		setSearchText(value);
 	};
 
-	// Maneja el envío del formulario CreateReviewPopup
 	const handleSubmitCreateReviewProduct = (e) => {
 		e.preventDefault();
 
