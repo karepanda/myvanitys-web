@@ -3,10 +3,14 @@ import './SearchedProductCard.css';
 import { VanitysContext } from '../../context/index';
 
 const SearchedProductCard = ({ product }) => {
-	const { toggleProductPopup } = useContext(VanitysContext);
+	const { toggleProductPopup, toggleNotification } =
+		useContext(VanitysContext);
 	return (
 		<div className='searchedProductCard'>
-			<div className='searchedProductCard__left'>
+			<div
+				className='searchedProductCard__left'
+				onClick={() => toggleProductPopup()}
+			>
 				<p className='searchedProductCard__left--name'>{product.name}</p>
 				<p className='searchedProductCard__left--brand'>{product.brand}</p>
 				<p className='searchedProductCard__left--category'>
@@ -28,7 +32,7 @@ const SearchedProductCard = ({ product }) => {
 					className='searchedProductCard__right--icon'
 					src='src/assets/plus_icon.png'
 					alt='Plus icon'
-					onClick={() => toggleProductPopup()}
+					onClick={() => toggleNotification()}
 				/>
 			</div>
 		</div>

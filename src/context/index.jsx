@@ -19,6 +19,12 @@ const VanitysProvider = ({ children }) => {
 	const [selectedRating, setSelectedRating] = useState(0);
 	const [reviewText, setReviewText] = useState('');
 	const [showUserProfile, setShowUserProfile] = useState(false);
+	const [showNotification, setShowNotification] = useState(false);
+
+	const toggleNotification = () => {
+		setShowNotification(true);
+		setTimeout(() => setShowNotification(false), 3000); // Ocultar después de 3 segundos
+	};
 
 	const toggleModalRegister = () => setShowModalRegister((prev) => !prev);
 	const toggleModalLogin = () => setShowModalLogin((prev) => !prev);
@@ -126,6 +132,9 @@ const VanitysProvider = ({ children }) => {
 				handleSubmitCreateReviewProduct,
 				toggleUserProfile,
 				showUserProfile,
+				showNotification,
+				setShowNotification,
+				toggleNotification,
 			}}
 		>
 			{children}
