@@ -20,6 +20,20 @@
 					"stars": 5,
 					"description": "Amazing product! Long-lasting and vibrant color.",
 					"createdByUserId": "123e4567-e89b-12d3-a456-426614174000"
+				},
+				{
+					"id": "456e8901-e21b-12d3-a456-426614174005",
+					"productId": "321e4567-e89b-12d3-a456-426614174999",
+					"stars": 2,
+					"description": "Disappointed. The color didn’t match the description.",
+					"createdByUserId": "567e8901-e89b-12d3-a456-426614174004"
+				},
+				{
+					"id": "567e9012-e21b-12d3-a456-426614174006",
+					"productId": "321e4567-e89b-12d3-a456-426614174999",
+					"stars": 4,
+					"description": "Good quality for the price, but packaging was damaged.",
+					"createdByUserId": "678e9012-e89b-12d3-a456-426614174005"
 				}
 			],
 			"associatedVanity": {
@@ -44,6 +58,20 @@
 					"stars": 4,
 					"description": "Good coverage, but a bit cakey after hours of wear.",
 					"createdByUserId": "234e5678-e89b-12d3-a456-426614174001"
+				},
+				{
+					"id": "678e0123-e21b-12d3-a456-426614174007",
+					"productId": "321e4567-e89b-12d3-a456-426614174999",
+					"stars": 5,
+					"description": "Best gloss I’ve ever used! Will definitely buy again.",
+					"createdByUserId": "789e0123-e89b-12d3-a456-426614174006"
+				},
+				{
+					"id": "789e1234-e21b-12d3-a456-426614174008",
+					"productId": "321e4567-e89b-12d3-a456-426614174999",
+					"stars": 1,
+					"description": "Not worth the price. It caused irritation on my lips.",
+					"createdByUserId": "890e1234-e89b-12d3-a456-426614174007"
 				}
 			],
 			"associatedVanity": {

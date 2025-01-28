@@ -6,18 +6,12 @@ import { SearchedProductCard } from '../SearchedProductCard/SearchedProductCard'
 import { VanitysContext } from '../../context/index';
 import './Dashboard.css';
 import { Modal } from '../Modal/Modal';
-import { ProductPopup } from '../ProductPopup/ProductPopup';
 import { UserProfile } from '../UserProfile/UserProfile';
 import { Notification } from '../Notification/Notification';
 
 const Dashboard = () => {
-	const {
-		apiResponse,
-		searchText,
-		showProductPopup,
-		showUserProfile,
-		showNotification,
-	} = useContext(VanitysContext);
+	const { apiResponse, searchText, showUserProfile, showNotification } =
+		useContext(VanitysContext);
 
 	// hacer fetch a la api y obtener los productos nuevamente
 
@@ -61,12 +55,6 @@ const Dashboard = () => {
 						</div>
 					)}
 				</>
-			)}
-
-			{showProductPopup && (
-				<Modal>
-					<ProductPopup />
-				</Modal>
 			)}
 
 			{showUserProfile && (

@@ -25,7 +25,7 @@ const VanitysProvider = ({ children }) => {
 
 	const toggleNotification = () => {
 		setShowNotification(true);
-		setTimeout(() => setShowNotification(false), 3000); // Ocultar después de 3 segundos
+		setTimeout(() => setShowNotification(false), 3000);
 	};
 
 	const toggleModalRegister = () => setShowModalRegister((prev) => !prev);

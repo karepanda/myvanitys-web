@@ -16,6 +16,7 @@
 
 .productCard__left {
 	width: 75%;
+	cursor: pointer;
 }
 
 .productCard__left--name {

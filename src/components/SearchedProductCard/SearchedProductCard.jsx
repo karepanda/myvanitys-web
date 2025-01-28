@@ -1,10 +1,13 @@
 import React, { useContext } from 'react';
 import './SearchedProductCard.css';
 import { VanitysContext } from '../../context/index';
+import { ProductPopup } from '../ProductPopup/ProductPopup';
+import { Modal } from '../Modal/Modal';
 
 const SearchedProductCard = ({ product }) => {
-	const { toggleProductPopup, toggleNotification } =
+	const { toggleProductPopup, toggleNotification, showProductPopup } =
 		useContext(VanitysContext);
+
 	return (
 		<div className='searchedProductCard'>
 			<div
@@ -35,6 +38,11 @@ const SearchedProductCard = ({ product }) => {
 					onClick={() => toggleNotification()}
 				/>
 			</div>
+			{showProductPopup && (
+				<Modal>
+					<ProductPopup color={product.color} reviews={product.reviews} />
+				</Modal>
+			)}
 		</div>
 	);
 };
