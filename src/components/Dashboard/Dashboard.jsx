@@ -22,6 +22,7 @@ const Dashboard = () => {
 	// hacer fetch a la api y obtener los productos nuevamente
 
 	const products = apiResponse?.products || [];
+	const productId = products[0]?.reviews?.[0]?.productId || null;
 
 	const filteredProducts = products.filter((product) =>
 		product.name.toLowerCase().includes(searchText.toLowerCase())
@@ -51,7 +52,11 @@ const Dashboard = () => {
 					) : (
 						<div className='productCard__wrapper'>
 							{products.map((product, index) => (
-								<ProductCard key={index} product={product} />
+								<ProductCard
+									key={index}
+									product={product}
+									id={productId}
+								/>
 							))}
 						</div>
 					)}

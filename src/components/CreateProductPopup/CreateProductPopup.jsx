@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { IoClose } from 'react-icons/io5';
 import { VanitysContext } from '../../context/index';
 import './CreateProductPopup.css';
@@ -16,6 +16,8 @@ const CreateProductPopup = () => {
 		setShowMissingFieldsPopup,
 		setShowCreateProductPopup,
 		setFormData,
+		setSelectedCategory,
+		selectedProduct,
 	} = useContext(VanitysContext);
 
 	const {
@@ -26,7 +28,18 @@ const CreateProductPopup = () => {
 		reset,
 	} = useForm();
 
+	useEffect(() => {
+		if (selectedProduct) {
+			reset(selectedProduct);
+			setSelectedCategory(selectedProduct.category || '');
+		} else {
+			reset();
+			setSelectedCategory('');
+		}
+	}, [selectedProduct, reset, setSelectedCategory]);
+
 	const onSubmitProductCreateForm = async (data) => {
+		data.category = selectedCategory;
 		try {
 			const response = await createProduct(data);
 			setFormData(data);

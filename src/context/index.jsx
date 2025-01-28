@@ -20,6 +20,8 @@ const VanitysProvider = ({ children }) => {
 	const [reviewText, setReviewText] = useState('');
 	const [showUserProfile, setShowUserProfile] = useState(false);
 	const [showNotification, setShowNotification] = useState(false);
+	const [selectedProduct, setSelectedProduct] = useState(null);
+	const [selectedCategory, setSelectedCategory] = useState(null);
 
 	const toggleNotification = () => {
 		setShowNotification(true);
@@ -30,8 +32,12 @@ const VanitysProvider = ({ children }) => {
 	const toggleModalLogin = () => setShowModalLogin((prev) => !prev);
 	const closeCookieBanner = () => setShowCookieBanner((prev) => !prev);
 	const toggleProductPopup = () => setShowProductPopup((prev) => !prev);
-	const toggleCreateProductPopup = () =>
+
+	const toggleCreateProductPopup = (product = null) => {
 		setShowCreateProductPopup((prev) => !prev);
+		setSelectedProduct(product);
+	};
+
 	const toggleMissingFieldsPopup = () =>
 		setShowMissingFieldsPopup((prev) => !prev);
 	const toggleCreateReviewPopup = () =>
@@ -135,6 +141,9 @@ const VanitysProvider = ({ children }) => {
 				showNotification,
 				setShowNotification,
 				toggleNotification,
+				selectedProduct,
+				setSelectedProduct,
+				setSelectedCategory,
 			}}
 		>
 			{children}
