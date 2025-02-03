@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import './SearchedProductCard.css';
 import { VanitysContext } from '../../context/index';
-import { ProductPopup } from '../ProductPopup/ProductPopup';
+import { ProductPopup } from '../ProductReviewPopup/ProductReviewPopup';
 import { Modal } from '../Modal/Modal';
 
 const SearchedProductCard = ({ product }) => {

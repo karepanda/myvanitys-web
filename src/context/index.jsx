@@ -22,6 +22,7 @@ const VanitysProvider = ({ children }) => {
 	const [showNotification, setShowNotification] = useState(false);
 	const [selectedProduct, setSelectedProduct] = useState(null);
 	const [selectedCategory, setSelectedCategory] = useState(null);
+	const [showWelcomePopup, setShowWelcomePopup] = useState(false);
 
 	const toggleNotification = () => {
 		setShowNotification(true);
@@ -144,6 +145,8 @@ const VanitysProvider = ({ children }) => {
 				selectedProduct,
 				setSelectedProduct,
 				setSelectedCategory,
+				showWelcomePopup,
+				setShowWelcomePopup,
 			}}
 		>
 			{children}
