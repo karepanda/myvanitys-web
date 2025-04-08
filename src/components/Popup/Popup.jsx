@@ -12,7 +12,12 @@ const Popup = ({
 }) => {
 	const redirectToGoogleOAuth = () => {
 		window.location.href =
-			'http://localhost:8080/o/oauth2/v2/auth?client_id=myvanitys2024&redirect_uri=http://localhost:5173/callback&response_type=code&scope=https://www.googleapis.com/auth/userinfo.profile&state=YOUR_STATE_VALUE';
+			'https://accounts.google.com/o/oauth2/v2/auth' +
+			'?client_id=780556869332-1sf3nmlm6df03r73jnh8a5kll8ev3ifo.apps.googleusercontent.com' +
+			'&redirect_uri=http://localhost:5173/callback' +
+			'&response_type=code' +
+			'&scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email' +
+			'&prompt=select_account';
 	};
 
 	return (
