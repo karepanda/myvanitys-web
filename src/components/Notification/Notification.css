@@ -1,0 +1,60 @@
+.notification {
+	position: fixed;
+	bottom: -100px; /* Oculto inicialmente */
+	left: 50%;
+	height: 30px;
+	transform: translateX(-50%);
+	background-color: var(--white);
+	color: var(--black);
+	border-radius: 15px;
+	border: 1px solid var(--pink);
+	padding: 0 14px;
+	font-size: 18px;
+	opacity: 0;
+	transition: opacity 0.3s ease-in-out;
+}
+
+.highlight {
+	font-weight: bold;
+	color: var(--orange);
+}
+
+.animate-in {
+	animation: slide-in-out 3s ease-in-out forwards;
+	opacity: 1;
+}
+
+.animate-out {
+	animation: slide-out 3s ease-in-out forwards;
+	opacity: 0;
+}
+
+@keyframes slide-in-out {
+	0% {
+		bottom: -100px;
+		opacity: 0;
+	}
+	30% {
+		bottom: 100px;
+		opacity: 1;
+	}
+	70% {
+		bottom: 100px;
+		opacity: 1;
+	}
+	100% {
+		bottom: -100px;
+		opacity: 0;
+	}
+}
+
+@keyframes slide-out {
+	from {
+		bottom: 50%;
+		opacity: 1;
+	}
+	to {
+		bottom: -100px;
+		opacity: 0;
+	}
+}

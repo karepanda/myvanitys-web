@@ -5,6 +5,7 @@
 	top: 0;
 	left: 0;
 	z-index: 10;
+	background-color: rgba(0, 0, 0, 0);
 }
 
 .createProduct__container {
@@ -19,6 +20,7 @@
 	background-color: var(--bg-color);
 	position: relative;
 	z-index: 10;
+	border-radius: 15px;
 }
 
 .createProduct__header {

@@ -6,6 +6,10 @@
 	gap: 46px;
 }
 
+.categories__list > li {
+	cursor: pointer;
+}
+
 .categories__list > li:nth-of-type(1) {
 	color: var(--orange);
 }

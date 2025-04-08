@@ -1,0 +1,78 @@
+.userProfile {
+	display: flex;
+	flex-direction: column;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 300px;
+	height: 100vh;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	z-index: 20;
+	background-color: var(--bg-color);
+	padding: 20px;
+	box-shadow: 1px 0px 7px 0px rgba(0, 0, 0, 0.2);
+}
+
+.userProfile__header {
+	display: flex;
+	justify-content: flex-end;
+	align-items: flex-start;
+	height: 104px;
+	width: 100%;
+}
+
+.userProfile__header--title {
+	font-weight: 600;
+	font-size: 20px;
+}
+
+.userProfile__name {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	height: 104px;
+	margin-bottom: 36px;
+}
+
+.userProfile__buttons {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.userProfile__buttons button {
+	width: 210px;
+	height: 52px;
+	border-radius: 4px;
+	margin-bottom: 44px;
+	font-size: 20px;
+	font-weight: bold;
+}
+.userProfile__buttons--goto {
+	background-color: var(--orange);
+	color: var(--white);
+}
+
+.userProfile__buttons--createProduct {
+	width: 224px !important;
+	color: var(--orange);
+	border: 4px solid var(--orange);
+	border-radius: 4px;
+}
+
+.userProfile__buttons--createReview {
+	background-color: var(--pink);
+	border-radius: 4px;
+}
+
+.userProfile__buttons--logOut {
+	width: 120px !important;
+	height: 46px !important;
+	font-size: 14px !important;
+	border: 4px solid var(--black);
+	border-radius: 4px;
+}

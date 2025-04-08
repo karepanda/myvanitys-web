@@ -1,10 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { IoClose } from 'react-icons/io5';
 import { VanitysContext } from '../../context/index';
 import './CreateProductPopup.css';
 import { useForm } from 'react-hook-form';
 import { Modal } from '../Modal/Modal';
 import { MissingFieldsPopup } from '../MissingFieldsPopup/MissingFieldsPopup';
+import { createProduct } from '../../services/createProductService';
 
 const CreateProductPopup = () => {
 	const {
@@ -13,9 +14,11 @@ const CreateProductPopup = () => {
 		handleCategoryChange,
 		showMissingFieldsPopup,
 		setShowMissingFieldsPopup,
+		setShowCreateProductPopup,
+		setFormData,
+		setSelectedCategory,
+		selectedProduct,
 	} = useContext(VanitysContext);
-
-	const [] = useState(false);
 
 	const {
 		register,
@@ -25,14 +28,31 @@ const CreateProductPopup = () => {
 		reset,
 	} = useForm();
 
-	const onSubmitProductCreateForm = (data) => {
-		console.log('Formulario válido:', data);
-		setShowMissingFieldsPopup(false);
-		reset();
+	useEffect(() => {
+		if (selectedProduct) {
+			reset(selectedProduct);
+			setSelectedCategory(selectedProduct.category || '');
+		} else {
+			reset();
+			setSelectedCategory('');
+		}
+	}, [selectedProduct, reset, setSelectedCategory]);
+
+	const onSubmitProductCreateForm = async (data) => {
+		data.category = selectedCategory;
+		try {
+			const response = await createProduct(data);
+			setFormData(data);
+			setShowMissingFieldsPopup(false);
+			setShowCreateProductPopup(false);
+			reset();
+			console.log('Product created:', response);
+		} catch (error) {
+			console.error('Failed to create product:', error);
+		}
 	};
 
 	const handleFormError = (formErrors) => {
-		console.log('Errores de formulario:', formErrors);
 		setShowMissingFieldsPopup(true);
 	};
 
@@ -80,28 +100,29 @@ const CreateProductPopup = () => {
 							{...register('brand', { required: true, minLength: 2 })}
 						/>
 						<label htmlFor='category'>Choose a Category:</label>
-						<select
-							className='createProduct__right--category'
-							value={selectedCategory}
-							onChange={handleCategoryChange}
-							{...register('category', { required: true })}
-							defaultValue=''
-						>
-							<option value='' disabled>
-								Select a Category:
-							</option>
-							<option value='Makeup'>Makeup</option>
-							<option value='Face'>Face</option>
-							<option value='Eyes'>Eyes</option>
-							<option value='Eyelast'>Eyelast</option>
-							<option value='Brows'>Brows</option>
-							<option value='Lips'>Lips</option>
-							<option value='Skincare'>Skincare</option>
-							<option value='Cream'>Cream</option>
-							<option value='Serum'>Serum</option>
-							<option value='Toner'>Toner</option>
-						</select>
-						<span id='color_front'></span>
+						<div className='createProduct__right--wrapper'>
+							<select
+								className='createProduct__right--category'
+								value={selectedCategory}
+								onChange={handleCategoryChange}
+								{...register('category', { required: true })}
+								defaultValue=''
+							>
+								<option value='' disabled>
+									Select a Category:
+								</option>
+								<option value='Makeup'>Makeup</option>
+								<option value='Face'>Face</option>
+								<option value='Eyes'>Eyes</option>
+								<option value='Eyelast'>Eyelast</option>
+								<option value='Brows'>Brows</option>
+								<option value='Lips'>Lips</option>
+								<option value='Skincare'>Skincare</option>
+								<option value='Cream'>Cream</option>
+								<option value='Serum'>Serum</option>
+								<option value='Toner'>Toner</option>
+							</select>
+						</div>
 						<label htmlFor='color'>Choose Color of the product:</label>
 						<div className='createProduct__right--color'>
 							<input
@@ -120,10 +141,10 @@ const CreateProductPopup = () => {
 				</section>
 			</div>
 
-			{/* Modal para campos faltantes */}
 			{showMissingFieldsPopup && (
 				<Modal>
 					<MissingFieldsPopup
+						message='You need to fill in all the fields to create the product.'
 						onClose={() => {
 							setShowMissingFieldsPopup(false);
 							clearErrors();

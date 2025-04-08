@@ -1,6 +1,18 @@
 import './ProductCard.css';
+import { VanitysContext } from '../../context/index';
+import { useContext } from 'react';
+import { Modal } from '../Modal/Modal';
+import { CreateReviewPopup } from '../CreateReviewPopup/CreateReviewPopup';
+import { CreateProductPopup } from '../CreateProductPopup/CreateProductPopup';
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, id }) => {
+	const {
+		showCreateReviewPopup,
+		toggleCreateReviewPopup,
+		showCreateProductPopup,
+		toggleCreateProductPopup,
+	} = useContext(VanitysContext);
+
 	const stars = product.reviews.length > 0 ? product.reviews[0].stars : 0;
 
 	return (
@@ -33,15 +45,62 @@ const ProductCard = ({ product }) => {
 			</div>
 			<div className='productCard__right'>
 				<div className='productCard__right--edit'>
-					<img src='src/assets/edit-icon.png' alt='Edit' />
+					<svg
+						className='productCard__right--icon'
+						xmlns='http://www.w3.org/2000/svg'
+						width='38'
+						height='38'
+						viewBox='0 0 24 24'
+						onClick={() => toggleCreateProductPopup(product)}
+					>
+						<path
+							fill='currentColor'
+							d='M3 21v-4.25L16.2 3.575q.3-.275.663-.425t.762-.15t.775.15t.65.45L20.425 5q.3.275.438.65T21 6.4q0 .4-.137.763t-.438.662L7.25 21zM17.6 7.8L19 6.4L17.6 5l-1.4 1.4z'
+						/>
+					</svg>
 				</div>
 				<div className='productCard__right--rating'>
-					<img src='src/assets/rating-icon.png' alt='Rating' />
+					<svg
+						className='productCard__right--icon'
+						xmlns='http://www.w3.org/2000/svg'
+						width='38'
+						height='38'
+						viewBox='0 0 24 24'
+						onClick={() => toggleCreateReviewPopup()}
+					>
+						<path
+							fill='currentColor'
+							d='M3 20.077V4.616q0-.691.463-1.153T4.615 3h14.77q.69 0 1.152.463T21 4.616v10.769q0 .69-.463 1.153T19.385 17H6.077zm6.517-6.404L12 12.167l2.483 1.506l-.66-2.825l2.196-1.884l-2.886-.256L12 6.058l-1.133 2.65l-2.886.256l2.196 1.884z'
+						/>
+					</svg>
 				</div>
 				<div className='productCard__right--delete'>
-					<img src='src/assets/delete.icon.png' alt='Delete' />
+					<svg
+						className='productCard__right--icon'
+						xmlns='http://www.w3.org/2000/svg'
+						width='38'
+						height='38'
+						viewBox='0 0 56 56'
+					>
+						<path
+							fill='currentColor'
+							d='M4.106 17.09h47.788c2.649 0 3.985-1.57 3.985-4.195V10.62c0-2.625-1.336-4.195-3.985-4.195H4.106C1.598 6.426.12 7.996.12 10.62v2.274c0 2.625 1.336 4.195 3.985 4.195m11.601 32.484h24.586c4.617 0 6.469-2.437 7.148-6.984l3.352-22.313H5.231L8.558 42.59c.703 4.57 2.53 6.984 7.148 6.984m5.555-7.242c-1.055 0-1.875-.867-1.875-1.898c0-.516.21-.938.562-1.29l5.39-5.437l-5.39-5.46a1.73 1.73 0 0 1-.562-1.29c0-1.008.843-1.828 1.875-1.828c.492 0 .914.21 1.265.539l5.461 5.438l5.485-5.462c.398-.351.797-.562 1.265-.562c1.055 0 1.899.82 1.899 1.875c0 .492-.211.89-.586 1.266l-5.414 5.484l5.39 5.414c.352.375.586.773.586 1.313c0 1.03-.843 1.898-1.875 1.898c-.539 0-.96-.258-1.312-.586l-5.438-5.414l-5.437 5.414c-.328.352-.797.586-1.29.586'
+						/>
+					</svg>
 				</div>
 			</div>
+
+			{showCreateReviewPopup && (
+				<Modal>
+					<CreateReviewPopup />
+				</Modal>
+			)}
+
+			{showCreateProductPopup && (
+				<Modal>
+					<CreateProductPopup id={id} />
+				</Modal>
+			)}
 		</div>
 	);
 };

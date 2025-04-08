@@ -1,37 +1,73 @@
-import { Categories } from '../Categories/Categories';
 import React, { useContext } from 'react';
+import { Categories } from '../Categories/Categories';
 import { ProductCard } from '../ProductCard/ProductCard';
 import { NoProductCard } from '../NoProductCard/NoProductCard';
-
+import { SearchedProductCard } from '../SearchedProductCard/SearchedProductCard';
 import { VanitysContext } from '../../context/index';
 import './Dashboard.css';
+import { Modal } from '../Modal/Modal';
+import { UserProfile } from '../UserProfile/UserProfile';
+import { Notification } from '../Notification/Notification';
 
 const Dashboard = () => {
-	const { apiResponse } = useContext(VanitysContext);
+	const { apiResponse, searchText, showUserProfile, showNotification } =
+		useContext(VanitysContext);
 
-	console.log(apiResponse);
+	// hacer fetch a la api y obtener los productos nuevamente
+
+	const products = apiResponse?.products || [];
+	const productId = products[0]?.reviews?.[0]?.productId || null;
+
+	const filteredProducts = products.filter((product) =>
+		product.name.toLowerCase().includes(searchText.toLowerCase())
+	);
 
 	const getStyleClass = () => {
-		return apiResponse.products.length === 0
-			? 'dashboard__noProducts'
-			: 'dashboard';
+		return products.length === 0 ? 'dashboard__noProducts' : 'dashboard';
 	};
 
 	return (
 		<div className={getStyleClass()}>
-			{apiResponse.products.length === 0 ? (
+			{products.length === 0 ? (
 				<NoProductCard />
+			) : searchText && filteredProducts.length === 0 ? (
+				<p>No products found</p>
 			) : (
 				<>
 					<div className='dashboard__categories'>
 						<Categories />
 					</div>
-					<div className='dashboard__products'>
-						{apiResponse.products.map((product, index) => (
-							<ProductCard key={index} product={product} />
-						))}
-					</div>
+					{searchText ? (
+						<div className='productCard__wrapper'>
+							{filteredProducts.map((product, index) => (
+								<SearchedProductCard key={index} product={product} />
+							))}
+						</div>
+					) : (
+						<div className='productCard__wrapper'>
+							{products.map((product, index) => (
+								<ProductCard
+									key={index}
+									product={product}
+									id={productId}
+								/>
+							))}
+						</div>
+					)}
 				</>
+			)}
+
+			{showUserProfile && (
+				<Modal>
+					<UserProfile />
+				</Modal>
+			)}
+
+			{showNotification && (
+				<Notification
+					description={'Product has been added to your Vanity'}
+					highlight={'Vanity'}
+				/>
 			)}
 		</div>
 	);

@@ -23,8 +23,14 @@
 	justify-content: center;
 }
 
-.dashboard__products {
+.searchedProductCard__wrapper {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	justify-items: center;
+	grid-template-columns: repeat(4, 336px);
+	grid-template-rows: 180px;
+}
+
+.productCard__wrapper {
+	display: grid;
+	grid-template-columns: repeat(4, 380px);
+	grid-template-rows: 180px;
 }

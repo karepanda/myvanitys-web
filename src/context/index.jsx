@@ -1,4 +1,5 @@
 import { createContext, useState } from 'react';
+import { getAccessToken } from '../services/productService';
 
 const VanitysContext = createContext();
 
@@ -8,62 +9,83 @@ const VanitysProvider = ({ children }) => {
 	const [showCookieBanner, setShowCookieBanner] = useState(true);
 	const [showCreateProductPopup, setShowCreateProductPopup] = useState(false);
 	const [showMissingFieldsPopup, setShowMissingFieldsPopup] = useState(false);
+	const [formData, setFormData] = useState(null);
+	const [color, setColor] = useState('#D9D9D9');
+	const [apiResponse, setApiResponse] = useState(null);
+	const [searchText, setSearchText] = useState('');
+	const [showProductPopup, setShowProductPopup] = useState(false);
+	const [showCreateReviewPopup, setShowCreateReviewPopup] = useState(false);
+	const [hoveredRating, setHoveredRating] = useState(0);
+	const [selectedRating, setSelectedRating] = useState(0);
+	const [reviewText, setReviewText] = useState('');
+	const [showUserProfile, setShowUserProfile] = useState(false);
+	const [showNotification, setShowNotification] = useState(false);
+	const [selectedProduct, setSelectedProduct] = useState(null);
+	const [selectedCategory, setSelectedCategory] = useState(null);
+	const [showWelcomePopup, setShowWelcomePopup] = useState(false);
+
+	const toggleNotification = () => {
+		setShowNotification(true);
+		setTimeout(() => setShowNotification(false), 3000);
+	};
 
 	const toggleModalRegister = () => setShowModalRegister((prev) => !prev);
 	const toggleModalLogin = () => setShowModalLogin((prev) => !prev);
 	const closeCookieBanner = () => setShowCookieBanner((prev) => !prev);
-	const toggleCreateProductPopup = () =>
+	const toggleProductPopup = () => setShowProductPopup((prev) => !prev);
+
+	const toggleCreateProductPopup = (product = null) => {
 		setShowCreateProductPopup((prev) => !prev);
-	const toggleMissingFieldsPopup = () =>
-		setShowMissingFieldsPopup((prev) => !prev);
-
-	const [color, setColor] = useState('#D9D9D9');
-
-	const getAccessToken = async () => {
-		const urlParams = new URLSearchParams(window.location.search);
-		const accessToken = urlParams.get('access_token');
-		const state = urlParams.get('state');
-
-		console.log('Access token', accessToken);
-		console.log('state', state);
-
-		if (accessToken) {
-			try {
-				const response = await fetch(
-					'http://localhost:8080/myvanitys/auth/google',
-					{
-						method: 'POST',
-						headers: {
-							'Content-Type': 'application/json',
-							Authorization: `Bearer 4/P7q7W24`,
-							'X-Request-Id': 'd2919d3f-6b2f-49f4-9dd5-efbbc9b1c8f8',
-							'X-Flow-Id': '123e4567-e89b-12d3-a456-426614174000',
-							'User-Agent': 'MyVanitysApp/1.0',
-							'Accept-Language': 'en-US',
-						},
-						body: JSON.stringify({
-							token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.example.payload.signature',
-						}),
-					}
-				);
-
-				if (!response.ok) {
-					throw new Error(`HTTP error! Status: ${response.status}`);
-				}
-
-				const text = await response.text();
-				return text ? JSON.parse(text) : {};
-			} catch (error) {
-				console.error('Error:', error);
-				return null;
-			}
-		} else {
-			console.error('No access token found in the URL.');
-			return null;
-		}
+		setSelectedProduct(product);
 	};
 
-	const [apiResponse, setApiResponse] = useState(null);
+	const toggleMissingFieldsPopup = () =>
+		setShowMissingFieldsPopup((prev) => !prev);
+	const toggleCreateReviewPopup = () =>
+		setShowCreateReviewPopup((prev) => !prev);
+	const toggleUserProfile = () => setShowUserProfile((prev) => !prev);
+
+	const handleMouseOver = (rating) => {
+		setHoveredRating(rating);
+	};
+
+	const handleMouseOut = () => {
+		setHoveredRating(0);
+	};
+
+	const handleClick = (rating) => {
+		setSelectedRating(rating);
+	};
+
+	const handleSearch = (e) => {
+		const value = e.target.value;
+		setSearchText(value);
+	};
+
+	const handleSubmitCreateReviewProduct = (e) => {
+		e.preventDefault();
+
+		if (selectedRating === 0) {
+			setShowMissingFieldsPopup(true);
+			return;
+		}
+
+		if (!reviewText.trim()) {
+			setShowMissingFieldsPopup(true);
+			return;
+		}
+
+		const reviewData = {
+			rating: selectedRating,
+			text: reviewText,
+		};
+
+		console.log('Review submitted:', reviewData);
+
+		setSelectedRating(0);
+		setReviewText('');
+		toggleCreateReviewPopup();
+	};
 
 	const queryParams = new URLSearchParams(location.search);
 
@@ -96,6 +118,35 @@ const VanitysProvider = ({ children }) => {
 				toggleMissingFieldsPopup,
 				showMissingFieldsPopup,
 				setShowMissingFieldsPopup,
+				formData,
+				setFormData,
+				searchText,
+				setSearchText,
+				handleSearch,
+				showProductPopup,
+				toggleProductPopup,
+				showCreateReviewPopup,
+				toggleCreateReviewPopup,
+				hoveredRating,
+				setHoveredRating,
+				selectedRating,
+				setSelectedRating,
+				reviewText,
+				setReviewText,
+				handleMouseOver,
+				handleMouseOut,
+				handleClick,
+				handleSubmitCreateReviewProduct,
+				toggleUserProfile,
+				showUserProfile,
+				showNotification,
+				setShowNotification,
+				toggleNotification,
+				selectedProduct,
+				setSelectedProduct,
+				setSelectedCategory,
+				showWelcomePopup,
+				setShowWelcomePopup,
 			}}
 		>
 			{children}
