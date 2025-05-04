@@ -1,6 +1,4 @@
-import React from 'react';
-import { IoLogoGoogle, IoClose } from 'react-icons/io5';
-import './Popup.css';
+import { IoClose, IoLogoGoogle } from 'react-icons/io5'; 
 
 const Popup = ({
 	title,
@@ -13,8 +11,8 @@ const Popup = ({
 	const redirectToGoogleOAuth = () => {
 		window.location.href =
 			'https://accounts.google.com/o/oauth2/v2/auth' +
-			'?client_id=780556869332-1sf3nmlm6df03r73jnh8a5kll8ev3ifo.apps.googleusercontent.com' +
-			'&redirect_uri=http://localhost:5173/callback' +
+			`?client_id=${import.meta.env.VITE_GOOGLE_CLIENT_ID}` +
+			`&redirect_uri=${import.meta.env.VITE_REDIRECT_URI}` +
 			'&response_type=code' +
 			'&scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email' +
 			'&prompt=select_account';
