@@ -1,5 +1,5 @@
 const createProduct = async (formData) => {
-	const url = 'http://localhost:8080/myvanitys/product';
+	const url = 'https://api.myvanitys.com/myvanitys/product';
 
 	const headers = {
 		'Content-Type': 'application/json',

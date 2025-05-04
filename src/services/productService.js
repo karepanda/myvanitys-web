@@ -8,7 +8,7 @@ const getAccessToken = async () => {
 	if (accessToken) {
 		try {
 			const response = await fetch(
-				'http://localhost:8080/myvanitys/auth/google',
+				'https://api.myvanitys.com/myvanitys/api/v1/auth/google',
 				{
 					method: 'POST',
 					headers: {
