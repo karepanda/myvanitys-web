@@ -1,5 +1,7 @@
 import { code } from 'framer-motion/client';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const getAccessToken = async () => {
 	const urlParams = new URLSearchParams(window.location.search);
 	const accessToken = urlParams.get('code');
@@ -8,7 +10,7 @@ const getAccessToken = async () => {
 	if (accessToken) {
 		try {
 			const response = await fetch(
-				'https://api.myvanitys.com/myvanitys/api/v1/auth/google',
+				`${API_URL}/api/v1/auth/google`,
 				{
 					method: 'POST',
 					headers: {
@@ -37,8 +39,9 @@ const getAccessToken = async () => {
 
 			return userData ? JSON.parse(userData) : {};
 
+			// El siguiente comentario también está actualizado con la variable de entorno
 			// const productUserData = await fetch(
-			// 	'http://localhost:8080/myvanitys/users/{userId}/products', 		{
+			// 	`${API_URL}/users/{userId}/products`, 		{
 			// method: 'GET',
 			// headers: {
 			// 	'Content-Type': 'application/json',

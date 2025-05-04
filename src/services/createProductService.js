@@ -1,5 +1,7 @@
+const API_URL = import.meta.env.VITE_API_URL;
+
 const createProduct = async (formData) => {
-	const url = 'https://api.myvanitys.com/myvanitys/product';
+	const url = `${API_URL}/product`;
 
 	const headers = {
 		'Content-Type': 'application/json',
