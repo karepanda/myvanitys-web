@@ -1,4 +1,4 @@
-import { IoClose, IoLogoGoogle } from 'react-icons/io5'; 
+import { IoClose, IoLogoGoogle } from 'react-icons/io5';
 
 const Popup = ({
 	title,

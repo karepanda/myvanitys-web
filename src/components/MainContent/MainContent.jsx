@@ -1,5 +1,7 @@
 import React from 'react';
 import './MainContent.css';
+import homeIllustration from '../../assets/home_illustration.png';
+import createProduct from '../../assets/CreateProduct.png';
 
 export const Main = () => {
 	return (
@@ -17,19 +19,13 @@ export const Main = () => {
 					</button>
 				</div>
 				<picture className='main__home-illustration'>
-					<img
-						src='src/assets/home_illustration.png'
-						alt='Vanity´s Home image'
-					/>
+					<img src={homeIllustration} alt='Vanity´s Home image' />
 				</picture>
 			</section>
 
 			<section className='main__organize'>
 				<picture className='main__product-illustration'>
-					<img
-						src='src/assets/CreateProduct.png'
-						alt="Vanity's Create Product"
-					/>
+					<img src={createProduct} alt="Vanity's Create Product" />
 				</picture>
 				<div className='main__organize--text'>
 					<p className='main__organize--text-title'>
