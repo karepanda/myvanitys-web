@@ -1,5 +1,5 @@
 import { IoClose, IoLogoGoogle } from 'react-icons/io5';
-
+import './Popup.css';
 const Popup = ({
 	title,
 	descriptionTitle,
