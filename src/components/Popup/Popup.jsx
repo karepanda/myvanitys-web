@@ -10,6 +10,7 @@ const Popup = ({
 }) => {
 	const redirectToGoogleOAuth = () => {
 		// Redirect to Google OAuth
+		console.log("REDIRECT URI:", import.meta.env.VITE_REDIRECT_URI);
 		window.location.href =
 			'https://accounts.google.com/o/oauth2/v2/auth' +
 			`?client_id=${import.meta.env.VITE_GOOGLE_CLIENT_ID}` +
