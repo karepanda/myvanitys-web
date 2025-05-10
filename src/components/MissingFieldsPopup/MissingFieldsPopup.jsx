@@ -3,26 +3,59 @@ import './MissingFieldsPopup.css';
 import { IoClose } from 'react-icons/io5';
 import { VanitysContext } from '../../context/index';
 
-const MissingFieldsPopup = ({ message }) => {
-	const { setShowMissingFieldsPopup } = useContext(VanitysContext);
+const MissingFieldsPopup = ({ 
+  message, 
+  title = 'Missing fields!', 
+  type = 'warning',
+  onClose 
+}) => {
+  const { setShowMissingFieldsPopup } = useContext(VanitysContext);
 
-	return (
-		<div className='missingFieldsPopup'>
-			<section className='missingFieldsPopup__header'>
-				<h1 className='missingFieldsPopup__header--title'>
-					Missing fields!
-				</h1>
-				<IoClose
-					onClick={() => setShowMissingFieldsPopup(false)}
-					size={40}
-					className='missingFieldsPopup__header--icon'
-				/>
-			</section>
-			<section className='missingFieldsPopup__content'>
-				<p className='missingFieldsPopup__content--text'>{message}</p>
-			</section>
-		</div>
-	);
+  // Función para manejar el cierre
+  const handleClose = () => {
+    console.log("Closing popup");
+    
+    if (onClose) {
+      console.log("Using provided onClose function");
+      onClose();
+    } else {
+      console.log("Using context setShowMissingFieldsPopup");
+      setShowMissingFieldsPopup(false);
+    }
+  };
+
+  // Get the appropriate class according to type
+  const getHeaderClass = () => {
+    const baseClass = 'missingFieldsPopup__header';
+    
+    switch (type) {
+      case 'error':
+        return `${baseClass} ${baseClass}--error`;
+      case 'info':
+        return `${baseClass} ${baseClass}--info`;
+      case 'warning':
+      default:
+        return baseClass; // Original style is warning
+    }
+  };
+
+  return (
+    <div className='missingFieldsPopup'>
+      <section className={getHeaderClass()}>
+        <h1 className='missingFieldsPopup__header--title'>
+          {title}
+        </h1>
+        <IoClose
+          onClick={handleClose}
+          size={40}
+          className='missingFieldsPopup__header--icon'
+        />
+      </section>
+      <section className='missingFieldsPopup__content'>
+        <p className='missingFieldsPopup__content--text'>{message}</p>
+      </section>
+    </div>
+  );
 };
 
 export { MissingFieldsPopup };
