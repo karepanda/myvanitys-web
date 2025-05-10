@@ -12,12 +12,14 @@ const UserDashboard = () => {
 		apiResponse,
 		showWelcomePopup,
 		setShowWelcomePopup,
+		errorHandler // Añadir esto
 	} = useContext(VanitysContext);
+	
 	const location = useLocation();
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const data = await getAccessToken();
+			const data = await getAccessToken(errorHandler); 
 			if (data) {
 				setApiResponse(data);
 				if (!sessionStorage.getItem('welcomeShow')) {
@@ -28,10 +30,10 @@ const UserDashboard = () => {
 		};
 
 		fetchData();
-	}, [getAccessToken, setApiResponse]);
+	}, [getAccessToken, setApiResponse, errorHandler]); 
 
 	const closePopup = () => {
-		setShowPopup(false);
+		setShowWelcomePopup(false);
 	};
 
 	return (

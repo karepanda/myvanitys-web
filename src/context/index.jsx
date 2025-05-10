@@ -1,5 +1,7 @@
+// src/context/index.js
 import { createContext, useState } from 'react';
 import { getAccessToken } from '../services/productService';
+import { ErrorHandler } from '../utils/ErrorHandler';
 
 const VanitysContext = createContext();
 
@@ -23,6 +25,19 @@ const VanitysProvider = ({ children }) => {
 	const [selectedProduct, setSelectedProduct] = useState(null);
 	const [selectedCategory, setSelectedCategory] = useState(null);
 	const [showWelcomePopup, setShowWelcomePopup] = useState(false);
+
+	// New states for error handling
+	const [errorMessage, setErrorMessage] = useState('');
+	const [errorTitle, setErrorTitle] = useState('Campos faltantes');
+	const [errorType, setErrorType] = useState('warning');
+	
+	// Create ErrorHandler instance
+	const errorHandler = new ErrorHandler(
+		setShowMissingFieldsPopup,
+		setErrorMessage,
+		setErrorTitle,
+		setErrorType
+	);
 
 	const toggleNotification = () => {
 		setShowNotification(true);
@@ -66,12 +81,14 @@ const VanitysProvider = ({ children }) => {
 		e.preventDefault();
 
 		if (selectedRating === 0) {
-			setShowMissingFieldsPopup(true);
+			// Use errorHandler instead of directly setting showMissingFieldsPopup
+			errorHandler.showValidationError('requiredFields');
 			return;
 		}
 
 		if (!reviewText.trim()) {
-			setShowMissingFieldsPopup(true);
+			// Use errorHandler instead of directly setting showMissingFieldsPopup
+			errorHandler.showValidationError('requiredFields');
 			return;
 		}
 
@@ -94,6 +111,11 @@ const VanitysProvider = ({ children }) => {
 	const expiresIn = queryParams.get('expires_in');
 	const state = queryParams.get('state');
 
+	// Wrapper for getAccessToken to automatically pass the errorHandler
+	const handleGetAccessToken = async () => {
+		return await getAccessToken(errorHandler);
+	};
+
 	return (
 		<VanitysContext.Provider
 			value={{
@@ -101,7 +123,8 @@ const VanitysProvider = ({ children }) => {
 				showModalLogin,
 				toggleModalRegister,
 				toggleModalLogin,
-				getAccessToken,
+				// Use our wrapped version of getAccessToken
+				getAccessToken: handleGetAccessToken,
 				apiResponse,
 				setApiResponse,
 				queryParams,
@@ -147,6 +170,14 @@ const VanitysProvider = ({ children }) => {
 				setSelectedCategory,
 				showWelcomePopup,
 				setShowWelcomePopup,
+				// Add error handling related values to the context
+				errorMessage,
+				setErrorMessage,
+				errorTitle,
+				setErrorTitle,
+				errorType,
+				setErrorType,
+				errorHandler,
 			}}
 		>
 			{children}

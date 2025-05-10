@@ -18,6 +18,12 @@ const CreateProductPopup = () => {
 		setFormData,
 		setSelectedCategory,
 		selectedProduct,
+		// Add these states to be passed as props to MissingFieldsPopup
+		errorMessage,
+		errorTitle,
+		errorType,
+        // Also add errorHandler to use it instead of setShowMissingFieldsPopup directly
+        errorHandler
 	} = useContext(VanitysContext);
 
 	const {
@@ -53,7 +59,8 @@ const CreateProductPopup = () => {
 	};
 
 	const handleFormError = (formErrors) => {
-		setShowMissingFieldsPopup(true);
+		// Using errorHandler instead of setShowMissingFieldsPopup directly
+		errorHandler.showValidationError('requiredFields');
 	};
 
 	return (
@@ -144,7 +151,9 @@ const CreateProductPopup = () => {
 			{showMissingFieldsPopup && (
 				<Modal>
 					<MissingFieldsPopup
-						message='You need to fill in all the fields to create the product.'
+						message={errorMessage || 'You need to fill in all the fields to create the product.'}
+						title={errorTitle}
+						type={errorType}
 						onClose={() => {
 							setShowMissingFieldsPopup(false);
 							clearErrors();
