@@ -1,28 +1,14 @@
 import React, { useContext } from 'react';
-import './MissingFieldsPopup.css';
+import './UserMessage.css';
 import { IoClose } from 'react-icons/io5';
 import { VanitysContext } from '../../context/index';
 
-const MissingFieldsPopup = ({ 
+const UserMessage = ({ 
   message, 
-  title = 'Missing fields!', 
-  type = 'warning',
-  onClose 
+  title = 'Campos faltantes', 
+  type = 'warning'  // 'error', 'warning', 'info'
 }) => {
   const { setShowMissingFieldsPopup } = useContext(VanitysContext);
-
-  // Función para manejar el cierre
-  const handleClose = () => {
-    console.log("Closing popup");
-    
-    if (onClose) {
-      console.log("Using provided onClose function");
-      onClose();
-    } else {
-      console.log("Using context setShowMissingFieldsPopup");
-      setShowMissingFieldsPopup(false);
-    }
-  };
 
   // Get the appropriate class according to type
   const getHeaderClass = () => {
@@ -46,7 +32,7 @@ const MissingFieldsPopup = ({
           {title}
         </h1>
         <IoClose
-          onClick={handleClose}
+          onClick={() => setShowMissingFieldsPopup(false)}
           size={40}
           className='missingFieldsPopup__header--icon'
         />
@@ -58,4 +44,4 @@ const MissingFieldsPopup = ({
   );
 };
 
-export { MissingFieldsPopup };
+export { UserMessage };

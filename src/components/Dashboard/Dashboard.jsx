@@ -31,7 +31,7 @@ const Dashboard = () => {
 			{products.length === 0 ? (
 				<NoProductCard />
 			) : searchText && filteredProducts.length === 0 ? (
-				<p>No products found</p>
+				<p>Products not found</p>
 			) : (
 				<>
 					<div className='dashboard__categories'>

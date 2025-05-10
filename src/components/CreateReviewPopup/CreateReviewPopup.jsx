@@ -15,10 +15,44 @@ const CreateReviewPopup = () => {
 		handleMouseOver,
 		handleMouseOut,
 		handleClick,
-		handleSubmitCreateReviewProduct,
+		// Usar errorHandler en lugar de handleSubmitCreateReviewProduct
+		// handleSubmitCreateReviewProduct,
 		showMissingFieldsPopup,
 		setShowMissingFieldsPopup,
+		// Agregar estos estados para pasarlos como props a MissingFieldsPopup
+		errorMessage,
+		errorTitle,
+		errorType,
+        // También añadir errorHandler
+        errorHandler
 	} = useContext(VanitysContext);
+
+    // Crear un nuevo manejador que use errorHandler
+    const handleSubmitCreateReview = (e) => {
+        e.preventDefault();
+
+        if (selectedRating === 0) {
+            // Usar errorHandler en lugar de setShowMissingFieldsPopup directamente
+            errorHandler.showValidationError('requiredFields');
+            return;
+        }
+
+        if (!reviewText.trim()) {
+            errorHandler.showValidationError('requiredFields');
+            return;
+        }
+
+        const reviewData = {
+            rating: selectedRating,
+            text: reviewText,
+        };
+
+        console.log('Review submitted:', reviewData);
+
+        setSelectedRating(0);
+        setReviewText('');
+        toggleCreateReviewPopup();
+    };
 
 	return (
 		<div className='createReviewPopup'>
@@ -57,8 +91,10 @@ const CreateReviewPopup = () => {
 
 					<form
 						className='createReviewPopup__right--form'
-						onSubmit={handleSubmitCreateReviewProduct}
+                        // Usar nuestro nuevo manejador
+						onSubmit={handleSubmitCreateReview}
 					>
+                        {/* Resto del formulario */}
 						<div className='createReviewPopup__stars'>
 							{[1, 2, 3, 4, 5].map((star) => (
 								<svg
@@ -105,7 +141,9 @@ const CreateReviewPopup = () => {
 			{showMissingFieldsPopup && (
 				<Modal>
 					<MissingFieldsPopup
-						message='You need to fill in all the fields to create the review.'
+						message={errorMessage || 'You need to fill in all the fields to create the review.'}
+						title={errorTitle}
+						type={errorType}
 						onClose={() => {
 							setShowMissingFieldsPopup(false);
 						}}
