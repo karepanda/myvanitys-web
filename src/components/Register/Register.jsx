@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Popup } from '../Popup/Popup';
 import { VanitysContext } from '../../context';
+import registerLogin from '../../assets/register_logIn.png';
 
 const Register = () => {
 	const { toggleModalRegister } = useContext(VanitysContext);
