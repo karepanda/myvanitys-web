@@ -12,6 +12,12 @@ const UserDashboard = () => {
     apiResponse,
     showWelcomePopup,
     setShowWelcomePopup,
+    // Si estas props existen en tu contexto, deberías agregarlas aquí
+    showLoginModal,
+    setShowLoginModal,
+    showRegisterModal,
+    setShowRegisterModal,
+    errorHandler
   } = useContext(VanitysContext);
   
   const location = useLocation();
@@ -29,14 +35,35 @@ const UserDashboard = () => {
     hasAttemptedFetch.current = true;
     console.log("First fetch attempt, setting hasAttemptedFetch to true");
     
+    // Determine the authentication mode
+    const urlParams = new URLSearchParams(window.location.search);
+    const stateParam = urlParams.get('state'); 
+    const routerState = location.state?.authMode;
+    const authMode = stateParam || routerState || 'login';
+    
+    console.log("Determined auth mode:", authMode);
+    
+    // Asegurarse de que no se muestren otros popups cuando llegamos aquí
+    // Esto es importante si los estados de los popups se mantienen en el contexto
+    if (setShowLoginModal) setShowLoginModal(false);
+    if (setShowRegisterModal) setShowRegisterModal(false);
+    
     const fetchData = async () => {
-      console.log("Fetching data...");
+      console.log("Fetching data with authMode:", authMode);
       try {
-        const data = await getAccessToken();
+        const data = await getAccessToken(errorHandler, authMode);
         console.log("Got data:", data);
         if (data) {
           setApiResponse(data);
-          if (!sessionStorage.getItem('welcomeShow')) {
+          
+          // Solo mostrar el popup de bienvenida para nuevos registros
+          // y solo si no se ha mostrado antes
+          if ((authMode === 'register' || data.isNewUser) && !sessionStorage.getItem('welcomeShow')) {
+            // Asegurarse de que otros popups estén cerrados
+            if (setShowLoginModal) setShowLoginModal(false);
+            if (setShowRegisterModal) setShowRegisterModal(false);
+            
+            // Mostrar el popup de bienvenida
             setShowWelcomePopup(true);
             sessionStorage.setItem('welcomeShow', 'true');
           }
@@ -47,11 +74,15 @@ const UserDashboard = () => {
     };
 
     fetchData();
-  // Use the MINIMUM dependencies, and specifically avoid getAccessToken
-  }, []); // Empty dependency array - only run once on mount
+  }, []); 
 
   const closePopup = () => {
+    // Cerrar el popup actual y asegurarse de que no se abra ningún otro
     setShowWelcomePopup(false);
+    
+    // Si estos estados existen en tu contexto, asegúrate de que también estén cerrados
+    if (setShowLoginModal) setShowLoginModal(false);
+    if (setShowRegisterModal) setShowRegisterModal(false);
   };
 
   return (
