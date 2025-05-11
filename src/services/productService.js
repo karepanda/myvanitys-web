@@ -1,15 +1,29 @@
+// services/productService.js
 import { getErrorMessage } from '../utils/errorMessages';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const getAccessToken = async (errorHandler) => {
-	console.log('getAccessToken called with errorHandler:', !!errorHandler);
+/**
+ * Obtiene el token de acceso y autentica al usuario usando el código de autorización de Google
+ * @param {Object} errorHandler - Manipulador de errores para mostrar mensajes
+ * @param {string} authMode - Modo de autenticación ('login' o 'register')
+ * @returns {Object|null} - Datos del usuario o null en caso de error
+ */
+const getAccessToken = async (errorHandler, authMode = 'login') => {
+  console.log('getAccessToken called with authMode:', authMode);
   const urlParams = new URLSearchParams(window.location.search);
-  const accessToken = urlParams.get('code');
+  const authorizationCode = urlParams.get('code');
   const state = urlParams.get('state');
 
-  if (!accessToken) {
-    console.error('No access token found in the URL.');
+  // Verificamos si hay un parámetro de modo en la URL que sobrescriba el parámetro pasado
+  const urlAuthMode = urlParams.get('authMode');
+  if (urlAuthMode && ['login', 'register'].includes(urlAuthMode)) {
+    authMode = urlAuthMode;
+    console.log('Auth mode overridden from URL:', authMode);
+  }
+
+  if (!authorizationCode) {
+    console.error('No authorization code found in the URL.');
     if (errorHandler) {
       const errorInfo = getErrorMessage('auth', 'noToken');
       errorHandler.showErrorMessage(
@@ -22,18 +36,27 @@ const getAccessToken = async (errorHandler) => {
   }
 
   try {
-    const response = await fetch(`${API_URL}/api/v1/auth/google`, {
+    // Determinamos el endpoint basado en el modo de autenticación
+    const endpoint = authMode === 'register' 
+      ? `${API_URL}/api/v1/auth/register/google` 
+      : `${API_URL}/api/v1/auth/google`;
+    
+    console.log(`Using endpoint for ${authMode}:`, endpoint);
+
+    const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${authorizationCode}`,
         'X-Request-Id': 'd2919d3f-6b2f-49f4-9dd5-efbbc9b1c8f8',
         'X-Flow-Id': '123e4567-e89b-12d3-a456-426614174000',
         'User-Agent': 'MyVanitysApp/1.0',
         'Accept-Language': 'en-US',
       },
       body: JSON.stringify({
-        code: accessToken,
+        code: authorizationCode,
+        // Podemos incluir el modo de autenticación en el cuerpo también si es útil
+        authMode: authMode,
       }),
     });
 
@@ -67,7 +90,14 @@ const getAccessToken = async (errorHandler) => {
       return null;
     }
 
-    return userData ? JSON.parse(userData) : {};
+    const parsedUserData = userData ? JSON.parse(userData) : {};
+    
+    // Si es un registro exitoso, podemos agregar un flag para indicarlo
+    if (authMode === 'register') {
+      parsedUserData.isNewUser = true;
+    }
+    
+    return parsedUserData;
   } catch (error) {
     console.error('Authentication error:', error);
     if (errorHandler) {
