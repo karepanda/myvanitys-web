@@ -12,7 +12,7 @@ const Register = () => {
 			descriptionTitle='Organize your beauty collection effortlessly'
 			description='Keep track of your skincare and makeup products with ease – no more wasting time trying to remember what you already have!'
 			textButtom='Sing up with Google'
-			imageUrl='src/assets/register_logIn.png'
+			imageUrl={registerLogin}
 			closeFunction={toggleModalRegister}
 		/>
 	);
