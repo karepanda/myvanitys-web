@@ -4,13 +4,13 @@ import { Popup } from '../Popup/Popup';
 import registerLogin from '../../assets/register_logIn.png';
 
 const Register = () => {
-  // Solo usa toggleModalRegister que sabemos que existe en el contexto
+  // Just use toggleModalRegister which we know exists in context.
   const { toggleModalRegister } = useContext(VanitysContext);
 
   // Función simple que solo cierra este modal
   const handleCloseRegister = () => {
     console.log("Closing register modal");
-    toggleModalRegister(); // Usa la función toggle existente
+    toggleModalRegister(); //  Uses the existing toggle function
   };
 
   return (

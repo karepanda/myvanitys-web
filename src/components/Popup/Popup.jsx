@@ -1,5 +1,6 @@
 import { IoClose, IoLogoGoogle } from 'react-icons/io5';
-import { authService } from '../../services/auth/authService';
+import { useContext } from 'react';
+import { VanitysContext } from '../../context';
 import './Popup.css';
 
 const Popup = ({
@@ -11,9 +12,20 @@ const Popup = ({
   closeFunction,
   authMode,
 }) => {
+  // Using context to obtain authentication functions
+  const { initiateLogin, initiateRegister } = useContext(VanitysContext);
+
   const redirectToGoogleOAuth = () => {
     console.log("Popup Auth mode:", authMode);
-    authService.initiateGoogleAuth(authMode);
+    
+    // Use context-specific functions according to mode
+    if (authMode === 'login') {
+      initiateLogin();
+    } else if (authMode === 'register') {
+      initiateRegister();
+    } else {
+      console.error(`Modo de autenticación desconocido: ${authMode}`);
+    }
   };
 
   const handleClose = (e) => {

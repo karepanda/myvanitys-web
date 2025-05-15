@@ -2,11 +2,9 @@ import React, { useEffect, useContext, useRef } from 'react';
 import { Dashboard } from '../../components/Dashboard/Dashboard';
 import { VanitysContext } from '../../context';
 import { WelcomePopup } from '../../components/WelcomePopup/WelcomePopup';
-import { authService } from '../../services/auth/authService';
 
 const UserDashboard = () => {
   const {
-    setApiResponse,
     apiResponse,
     showWelcomePopup,
     setShowWelcomePopup,
@@ -14,7 +12,7 @@ const UserDashboard = () => {
     setShowLoginModal,
     showRegisterModal,
     setShowRegisterModal,
-    errorHandler
+    handleAuthentication
   } = useContext(VanitysContext);
   
   const hasAttemptedFetch = useRef(false);
@@ -28,32 +26,22 @@ const UserDashboard = () => {
     hasAttemptedFetch.current = true;
     console.log("First fetch attempt, setting hasAttemptedFetch to true");
     
+    // Clean modals if open
     if (setShowLoginModal) setShowLoginModal(false);
     if (setShowRegisterModal) setShowRegisterModal(false);
     
-    const fetchAuthData = async () => {
+    // Execute authentication from the context
+    const fetchData = async () => {
       try {
-        const userData = await authService.handleAuthentication(errorHandler);
-        console.log("Got user data:", userData);
+        // We use context handleAuthentication
+        const userData = await handleAuthentication();
         
-        if (userData) {
-          setApiResponse(userData);
-          
-          // Only show welcome popup for new registrations
-          if (userData.isNewUser && !sessionStorage.getItem('welcomeShow')) {
-            if (setShowLoginModal) setShowLoginModal(false);
-            if (setShowRegisterModal) setShowRegisterModal(false);
-            
-            setShowWelcomePopup(true);
-            sessionStorage.setItem('welcomeShow', 'true');
-          }
-        }
       } catch (error) {
-        console.error("Error in fetchAuthData:", error);
+        console.error("Error en autenticación:", error);
       }
     };
 
-    fetchAuthData();
+    fetchData();
   }, []); 
 
   const closePopup = () => {
