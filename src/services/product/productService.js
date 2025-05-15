@@ -1,13 +1,13 @@
 // services/productService.js
-import { getErrorMessage } from '../utils/errorMessages';
+import { getErrorMessage } from '../../utils/errorMessages';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 /**
- * Obtiene el token de acceso y autentica al usuario usando el código de autorización de Google
- * @param {Object} errorHandler - Manipulador de errores para mostrar mensajes
- * @param {string} authMode - Modo de autenticación ('login' o 'register')
- * @returns {Object|null} - Datos del usuario o null en caso de error
+ * Retrieves the access token and authenticates the user using the Google authorization code
+ * @param {Object} errorHandler - Error handler to display messages
+ * @param {string} authMode - Authentication mode ('login' or 'register')
+ * @returns {Object|null} - User data or null in case of error
  */
 const getAccessToken = async (errorHandler, authMode = 'login') => {
   console.log('getAccessToken called with authMode:', authMode);
@@ -15,7 +15,7 @@ const getAccessToken = async (errorHandler, authMode = 'login') => {
   const authorizationCode = urlParams.get('code');
   const state = urlParams.get('state');
 
-  // Verificamos si hay un parámetro de modo en la URL que sobrescriba el parámetro pasado
+  // Check if there is a mode parameter in the URL that overrides the passed parameter
   const urlAuthMode = urlParams.get('authMode');
   if (urlAuthMode && ['login', 'register'].includes(urlAuthMode)) {
     authMode = urlAuthMode;
@@ -36,7 +36,7 @@ const getAccessToken = async (errorHandler, authMode = 'login') => {
   }
 
   try {
-    // Determinamos el endpoint basado en el modo de autenticación
+    // Determine the endpoint based on the authentication mode
     const endpoint = authMode === 'register' 
       ? `${API_URL}/api/v1/auth/register/google` 
       : `${API_URL}/api/v1/auth/google`;
@@ -55,7 +55,7 @@ const getAccessToken = async (errorHandler, authMode = 'login') => {
       },
       body: JSON.stringify({
         code: authorizationCode,
-        // Podemos incluir el modo de autenticación en el cuerpo también si es útil
+        // We can include the authentication mode in the body as well if useful
         authMode: authMode,
       }),
     });
@@ -92,7 +92,7 @@ const getAccessToken = async (errorHandler, authMode = 'login') => {
 
     const parsedUserData = userData ? JSON.parse(userData) : {};
     
-    // Si es un registro exitoso, podemos agregar un flag para indicarlo
+    // If it is a successful registration, we can add a flag to indicate it
     if (authMode === 'register') {
       parsedUserData.isNewUser = true;
     }

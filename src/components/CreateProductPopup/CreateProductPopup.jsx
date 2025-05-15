@@ -5,7 +5,7 @@ import './CreateProductPopup.css';
 import { useForm } from 'react-hook-form';
 import { Modal } from '../Modal/Modal';
 import { MissingFieldsPopup } from '../MissingFieldsPopup/MissingFieldsPopup';
-import { createProduct } from '../../services/createProductService';
+import { createProduct } from '../../services/product/createProductService';
 
 const CreateProductPopup = () => {
 	const {

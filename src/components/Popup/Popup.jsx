@@ -1,4 +1,5 @@
 import { IoClose, IoLogoGoogle } from 'react-icons/io5';
+import { authService } from '../../services/auth/authService';
 import './Popup.css';
 
 const Popup = ({
@@ -11,30 +12,17 @@ const Popup = ({
   authMode,
 }) => {
   const redirectToGoogleOAuth = () => {
-    // Redirect to Google OAuth
-    console.log("REDIRECT URI:", import.meta.env.VITE_REDIRECT_URI);
-    console.log("Auth mode:", authMode);
-    
-    window.location.href =
-      'https://accounts.google.com/o/oauth2/v2/auth' +
-      `?client_id=${import.meta.env.VITE_GOOGLE_CLIENT_ID}` +
-      `&redirect_uri=${import.meta.env.VITE_REDIRECT_URI}` +
-      '&response_type=code' +
-      '&scope=https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email' +
-      '&prompt=select_account' +
-      `&state=${authMode}`; 
+    console.log("Popup Auth mode:", authMode);
+    authService.initiateGoogleAuth(authMode);
   };
 
-  // Función mejorada para manejar el cierre
   const handleClose = (e) => {
-    // Detener la propagación del evento para evitar comportamientos inesperados
     if (e && e.stopPropagation) {
       e.stopPropagation();
     }
     
     console.log(`Closing ${authMode} popup`);
     
-    // Llamar a la función de cierre
     if (typeof closeFunction === 'function') {
       closeFunction();
     } else {

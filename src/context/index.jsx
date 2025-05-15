@@ -1,6 +1,6 @@
 // src/context/index.js
 import { createContext, useState } from 'react';
-import { getAccessToken } from '../services/productService';
+import { getAccessToken } from '../services/product/productService';
 import { ErrorHandler } from '../utils/errorHandler';
 
 const VanitysContext = createContext();
