@@ -5,25 +5,25 @@ import './CreateProductPopup.css';
 import { useForm } from 'react-hook-form';
 import { Modal } from '../Modal/Modal';
 import { MissingFieldsPopup } from '../MissingFieldsPopup/MissingFieldsPopup';
-import { createProduct } from '../../services/createProductService';
 
 const CreateProductPopup = () => {
 	const {
 		toggleCreateProductPopup,
 		selectedCategory,
-		handleCategoryChange,
 		showMissingFieldsPopup,
 		setShowMissingFieldsPopup,
 		setShowCreateProductPopup,
 		setFormData,
 		setSelectedCategory,
 		selectedProduct,
-		// Add these states to be passed as props to MissingFieldsPopup
 		errorMessage,
 		errorTitle,
 		errorType,
-        // Also add errorHandler to use it instead of setShowMissingFieldsPopup directly
-        errorHandler
+        errorHandler,
+        createProduct,
+        apiResponse,
+        toggleNotification,
+        handleCategoryChange = (e) => setSelectedCategory(e.target.value)
 	} = useContext(VanitysContext);
 
 	const {
@@ -46,20 +46,42 @@ const CreateProductPopup = () => {
 
 	const onSubmitProductCreateForm = async (data) => {
 		data.category = selectedCategory;
+		
+		// Get context token
+		const token = apiResponse?.token;
+		
+		if (!token) {
+			errorHandler.showErrorMessage(
+				'No estás autenticado. Por favor inicia sesión para continuar.',
+				'Error de autenticación',
+				'error'
+			);
+			return;
+		}
+		
 		try {
-			const response = await createProduct(data);
-			setFormData(data);
-			setShowMissingFieldsPopup(false);
-			setShowCreateProductPopup(false);
-			reset();
-			console.log('Product created:', response);
+			// Using the createProduct function of the context
+			const response = await createProduct(token, data);
+			
+			if (response) {
+				setFormData(data);
+				setShowMissingFieldsPopup(false);
+				setShowCreateProductPopup(false);
+				reset();
+				console.log('Product created:', response);
+				// he notification is already handled in the createProduct function of the context
+			} else {
+				// If there is an error, it was already handled by errorHandler inside createProduct
+				console.log('Failed to create product');
+			}
 		} catch (error) {
 			console.error('Failed to create product:', error);
+			errorHandler.showGenericError();
 		}
 	};
 
 	const handleFormError = (formErrors) => {
-		// Using errorHandler instead of setShowMissingFieldsPopup directly
+		// Use errorHandler to display validation errors
 		errorHandler.showValidationError('requiredFields');
 	};
 
