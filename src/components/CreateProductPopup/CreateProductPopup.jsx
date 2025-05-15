@@ -1,29 +1,40 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { IoClose } from 'react-icons/io5';
 import { VanitysContext } from '../../context/index';
 import './CreateProductPopup.css';
 import { useForm } from 'react-hook-form';
 import { Modal } from '../Modal/Modal';
 import { MissingFieldsPopup } from '../MissingFieldsPopup/MissingFieldsPopup';
-import { createProduct } from '../../services/createProductService';
 
 const CreateProductPopup = () => {
+	// Define the array of categories with their ID and name
+	const categories = [
+		{ id: '123e4567-e89b-12d3-a456-426614174000', name: 'Face' },
+		{ id: '550e8400-e29b-41d4-a716-446655440001', name: 'Eyes' },
+		{ id: '660e8400-e29b-41d4-a716-446655440002', name: 'Eyelash' },
+		{ id: '770e8400-e29b-41d4-a716-446655440003', name: 'Brows' },
+		{ id: '01969b31-b294-7939-a8d2-c298e896ec1f', name: 'Lips' },
+		{ id: '01969b32-15c7-7ff7-a712-0b42354f080e', name: 'Cream' },
+		{ id: '01969b32-73b2-7818-b543-f0a35aee0dc4', name: 'Serum' },
+		{ id: '01969b32-e411-7df9-815f-9142e7c4f6e5', name: 'Toner' },
+	];
+
+	// Local state for selected category
+	const [localCategoryId, setLocalCategoryId] = useState('');
+
 	const {
 		toggleCreateProductPopup,
-		selectedCategory,
-		handleCategoryChange,
 		showMissingFieldsPopup,
 		setShowMissingFieldsPopup,
 		setShowCreateProductPopup,
 		setFormData,
-		setSelectedCategory,
 		selectedProduct,
-		// Add these states to be passed as props to MissingFieldsPopup
 		errorMessage,
 		errorTitle,
 		errorType,
-        // Also add errorHandler to use it instead of setShowMissingFieldsPopup directly
-        errorHandler
+		errorHandler,
+		createProduct,
+		apiResponse,
 	} = useContext(VanitysContext);
 
 	const {
@@ -32,35 +43,78 @@ const CreateProductPopup = () => {
 		formState: { errors },
 		clearErrors,
 		reset,
+		setValue,
 	} = useForm();
+
+	// Function to handle category change
+	const handleCategoryChange = (e) => {
+		const newCategoryId = e.target.value;
+		setLocalCategoryId(newCategoryId);
+		setValue('categoryId', newCategoryId, { shouldValidate: true });
+	};
 
 	useEffect(() => {
 		if (selectedProduct) {
-			reset(selectedProduct);
-			setSelectedCategory(selectedProduct.category || '');
+			reset({
+				...selectedProduct,
+				categoryId: selectedProduct.categoryId || ''
+			});
+			setLocalCategoryId(selectedProduct.categoryId || '');
 		} else {
 			reset();
-			setSelectedCategory('');
+			setLocalCategoryId('');
 		}
-	}, [selectedProduct, reset, setSelectedCategory]);
+	}, [selectedProduct, reset]);
 
 	const onSubmitProductCreateForm = async (data) => {
-		data.category = selectedCategory;
 		try {
-			const response = await createProduct(data);
-			setFormData(data);
-			setShowMissingFieldsPopup(false);
-			setShowCreateProductPopup(false);
-			reset();
-			console.log('Product created:', response);
+			// Prepare data for submission - solo incluir los datos necesarios
+			const productData = {
+				...data,
+				categoryId: localCategoryId
+			};
+
+			// Get context token
+			const token = apiResponse?.token;
+
+			if (!token) {
+				errorHandler.showErrorMessage(
+					'You are not authenticated. Please log in to continue.',
+					'Authentication error',
+					'error'
+				);
+				return;
+			}
+
+			// Using the createProduct function of the context
+			const response = await createProduct(token, productData);
+
+			if (response) {
+				console.log('Product created successfully');
+				setFormData(productData);
+				setShowMissingFieldsPopup(false);
+				setShowCreateProductPopup(false);
+				reset();
+				setLocalCategoryId('');
+			}
 		} catch (error) {
 			console.error('Failed to create product:', error);
+			errorHandler.showGenericError();
 		}
 	};
 
 	const handleFormError = (formErrors) => {
-		// Using errorHandler instead of setShowMissingFieldsPopup directly
-		errorHandler.showValidationError('requiredFields');
+		// Display specific error message if category is missing
+		if (formErrors.categoryId) {
+			errorHandler.showErrorMessage(
+				'Please select a category for your product.',
+				'Missing Information',
+				'warning'
+			);
+		} else {
+			// Use errorHandler to display validation errors
+			errorHandler.showValidationError('requiredFields');
+		}
 	};
 
 	return (
@@ -98,46 +152,67 @@ const CreateProductPopup = () => {
 						<input
 							type='text'
 							className='createProduct__right--name'
+							id='name'
 							{...register('name', { required: true, minLength: 2 })}
 						/>
 						<label htmlFor='brand'>Insert Brand name:</label>
 						<input
 							type='text'
 							className='createProduct__right--brand'
+							id='brand'
 							{...register('brand', { required: true, minLength: 2 })}
 						/>
-						<label htmlFor='category'>Choose a Category:</label>
+						<label htmlFor='categorySelect'>Choose a Category:</label>
 						<div className='createProduct__right--wrapper'>
 							<select
+								id='categorySelect'
 								className='createProduct__right--category'
-								value={selectedCategory}
+								value={localCategoryId}
 								onChange={handleCategoryChange}
-								{...register('category', { required: true })}
-								defaultValue=''
 							>
 								<option value='' disabled>
 									Select a Category:
 								</option>
-								<option value='Makeup'>Makeup</option>
-								<option value='Face'>Face</option>
-								<option value='Eyes'>Eyes</option>
-								<option value='Eyelast'>Eyelast</option>
-								<option value='Brows'>Brows</option>
-								<option value='Lips'>Lips</option>
-								<option value='Skincare'>Skincare</option>
-								<option value='Cream'>Cream</option>
-								<option value='Serum'>Serum</option>
-								<option value='Toner'>Toner</option>
+								{categories.map((category) => (
+									<option key={category.id} value={category.id}>
+										{category.name}
+									</option>
+								))}
 							</select>
+
+							{/* Hidden input to register categoryId with react-hook-form */}
+							<input
+								type="hidden"
+								{...register('categoryId', {
+									required: true,
+									validate: value => !!value || 'Category is required'
+								})}
+								value={localCategoryId}
+							/>
 						</div>
+
+						{errors.categoryId && (
+							<span style={{ color: 'red', fontSize: '12px', marginTop: '-15px', display: 'block', marginBottom: '10px' }}>
+								Please select a category
+							</span>
+						)}
+
 						<label htmlFor='color'>Choose Color of the product:</label>
 						<div className='createProduct__right--color'>
 							<input
 								type='color'
+								id='color'
 								{...register('color', { required: true })}
 								defaultValue='#D9D9D9'
 							/>
 						</div>
+
+						{Object.keys(errors).length > 0 && (
+							<div style={{ color: 'red', marginBottom: '10px', fontSize: '12px' }}>
+								Please fill in all required fields.
+							</div>
+						)}
+
 						<button
 							type='submit'
 							className='createProduct__right--button'

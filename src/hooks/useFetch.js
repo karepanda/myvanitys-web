@@ -1,28 +1,36 @@
 // useFetch.js
-import { useState, useEffect } from 'react';
-import { getAccessToken } from '../services/productService';
-import { getErrorMessage } from '../utils/errorMessages';
+import { useState, useEffect, useContext } from 'react';
+import { VanitysContext } from '../context';
+import { apiUtils } from '../utils/apiUtils';
 
 const useFetch = (url, method = 'GET', customHeaders = {}, errorHandler = null) => {
 	const [data, setData] = useState(null);
 	const [error, setError] = useState(null);
 	const [loading, setLoading] = useState(true);
+	const { apiResponse } = useContext(VanitysContext);
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				// Pass errorHandler to getAccessToken
-				const accessToken = await getAccessToken(errorHandler);
+				// Use API response token stored in context
+				const accessToken = apiResponse?.token;
 
 				if (!accessToken) {
-					// We don't throw here since getAccessToken already handled the error
+					// We cannot continue without access token
 					setError(new Error('No access token available'));
+					if (errorHandler) {
+						errorHandler.showErrorMessage(
+							'No hay un token de acceso disponible. Por favor inicia sesión nuevamente.',
+							'Error de autenticación',
+							'error'
+						);
+					}
 					return;
 				}
 
+				// Use apiUtils to get common headers
 				const headers = {
-					Authorization: `Bearer ${accessToken}`,
-					'Content-Type': 'application/json',
+					...apiUtils.getCommonHeaders(accessToken),
 					...customHeaders,
 				};
 
@@ -34,14 +42,14 @@ const useFetch = (url, method = 'GET', customHeaders = {}, errorHandler = null) 
 				if (!response.ok) {
 					const errorText = await response.text().catch(() => '');
 					
-					// Determine error category based on the URL
+					// Determine error category based on URL
 					let category = 'generic';
 					if (url.includes('/auth')) {
 						category = 'auth';
 					} else if (url.includes('/profile')) {
 						category = 'profile';
 					} else if (url.includes('/products')) {
-						category = 'products';
+						category = 'product';
 					}
 					
 					// Handle the error with our error handler if available
@@ -49,23 +57,30 @@ const useFetch = (url, method = 'GET', customHeaders = {}, errorHandler = null) 
 						errorHandler.handleApiError(category, response.status, errorText);
 					}
 					
-					// Still set the error in the state for components that check it
+					// Also set the error in the status for components that check for it.
 					const error = new Error(`HTTP error! Status: ${response.status}`);
 					error.status = response.status;
 					setError(error);
 					return;
 				}
 
+				// For responses without content
+				if (response.status === 204) {
+					setData(true);
+					return;
+				}
+
 				const result = await response.json();
 				setData(result);
 			} catch (error) {
+				console.error('Fetch error:', error);
 				setError(error);
 				
 				// Use errorHandler if available
 				if (errorHandler) {
-					// Check if offline
+					// Check if it is disconnected
 					if (!navigator.onLine) {
-						errorHandler.showNetworkError('offline');
+						errorHandler.showNetworkError();
 					} else {
 						errorHandler.showGenericError();
 					}
@@ -76,7 +91,7 @@ const useFetch = (url, method = 'GET', customHeaders = {}, errorHandler = null) 
 		};
 
 		fetchData();
-	}, [url, method, customHeaders, errorHandler]); // Add errorHandler to dependencies
+	}, [url, method, customHeaders, errorHandler, apiResponse]); // // Add apiResponse to dependencies
 
 	return { data, error, loading };
 };
