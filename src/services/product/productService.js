@@ -15,7 +15,7 @@ const productService = {
    */
   getUserProducts: async (token, errorHandler) => {
     try {
-      const response = await fetch(`${API_URL}/api/v1/products`, {
+      const response = await fetch(`${API_URL}products`, {
         method: 'GET',
         headers: apiUtils.getCommonHeaders(token)
       });
@@ -68,7 +68,7 @@ const productService = {
    */
   createProduct: async (token, productData, errorHandler) => {
     try {
-      const response = await fetch(`${API_URL}/api/v1/products`, {
+      const response = await fetch(`${API_URL}/products`, {
         method: 'POST',
         headers: apiUtils.getCommonHeaders(token),
         body: JSON.stringify(productData),

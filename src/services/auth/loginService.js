@@ -6,7 +6,7 @@ export const loginService = {
     const API_URL = import.meta.env.VITE_API_URL;
     
     try {
-      const response = await fetch(`${API_URL}/api/v1/auth/google`, {
+      const response = await fetch(`${API_URL}/auth/google`, {
         method: 'POST',
         headers: {
           ...apiUtils.getCommonHeaders(),

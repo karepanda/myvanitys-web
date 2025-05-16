@@ -24,8 +24,8 @@ const ProductCard = ({ product, id }) => {
 
 	// Handle the delete  of a product
 	const handleDeleteProduct = async () => {
-		// Confirmar con el usuario antes de eliminar
-		if (!window.confirm(`¿Estás seguro de que deseas eliminar "${product.name}"?`)) {
+		// CConfirm with user before deleting
+		if (!window.confirm(`Are you sure you want to remove "${product.name}"?`)) {
 			return;
 		}
 
@@ -34,8 +34,8 @@ const ProductCard = ({ product, id }) => {
 		
 		if (!token) {
 			errorHandler.showErrorMessage(
-				'No estás autenticado. Por favor inicia sesión para continuar.',
-				'Error de autenticación',
+				'You are not authenticated. Please log in to continue.',
+				'Authentication error',
 				'error'
 			);
 			return;

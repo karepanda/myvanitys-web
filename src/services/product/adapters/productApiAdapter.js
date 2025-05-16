@@ -29,6 +29,13 @@ export const productApiAdapter = {
    */
   post: async (endpoint, data, token, errorHandler) => {
     try {
+      console.log('API Request:', {
+      url: `${API_URL}${endpoint}`,
+      method: 'POST',
+      hasToken: !!token,
+      data: JSON.stringify(data)
+    });
+    
       const response = await fetch(`${API_URL}${endpoint}`, {
         method: 'POST',
         headers: apiUtils.getCommonHeaders(token),

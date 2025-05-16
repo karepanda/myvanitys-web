@@ -7,7 +7,6 @@ export const registerService = {
     const API_URL = import.meta.env.VITE_API_URL;
     
     try {
-      // Obtener la fecha en formato ISO para el registro
       const isoDate = dateUtils.getCurrentUTCISODate();
       console.log("Registration date (UTC ISO before sending):", isoDate);
       
@@ -19,7 +18,7 @@ export const registerService = {
       
       console.log("Payload being sent:", JSON.stringify(payload));
       
-      const response = await fetch(`${API_URL}/api/v1/auth/register`, {
+      const response = await fetch(`${API_URL}/auth/register`, {
         method: 'POST',
         headers: {
           ...apiUtils.getCommonHeaders(),

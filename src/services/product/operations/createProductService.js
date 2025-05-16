@@ -2,31 +2,34 @@
 import { productApiAdapter } from '../adapters/productApiAdapter';
 
 export const createProductService = {
-  /**
-   * Creates a new product
-   * @param {string} token - Authorization token
-   * @param {Object} productData - Product data to be created
-   * @param {Object} errorHandler - Error handler instance
-   * @returns {Promise<Object|null>} - Created product or null in case of error
-   */
   createProduct: async (token, productData, errorHandler) => {
-    return await productApiAdapter.post('/product', productData, token, errorHandler);
+    
+    try {
+
+    console.log('Token used for authentication:', token ? 'Token present, first characters: ' + token.substring(0, 10) + '...' : 'Empty or null token');
+    
+    //Verify token format
+    if (token && !token.startsWith('Bearer ')) {
+      console.warn('The token does not have the prefix “Bearer ”. Adding the prefix...');
+      token = `Bearer ${token}`;
+    }
+      const apiData = {
+        name: productData.name,
+        brand: productData.brand,
+        categoryId: productData.categoryId,
+        colorHex: productData.color || productData.colorHex
+      };
+      
+      console.log('Sending product data to API:', apiData);
+      
+      const endpoint = '/products';
+      return await productApiAdapter.post(endpoint, apiData, token, errorHandler);
+    } catch (error) {
+      console.error('Error in createProductService:', error);
+      if (errorHandler) {
+        errorHandler.showGenericError();
+      }
+      return null;
+    }
   },
-  
-  /**
-   * Creates a product variation
-   * @param {string} token - Authorization token
-   * @param {string} productId - Parent product ID
-   * @param {Object} variationData - Variation data
-   * @param {Object} errorHandler - Error handler instance
-   * @returns {Promise<Object|null>} - Created variation or null in case of error
-   */
-  createProductVariation: async (token, productId, variationData, errorHandler) => {
-    return await productApiAdapter.post(
-      `/products/${productId}/variations`, 
-      variationData, 
-      token, 
-      errorHandler
-    );
-  }
 };
