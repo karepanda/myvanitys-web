@@ -1,5 +1,5 @@
-// src/Pages/UserDashboard/UserDashboard.jsx
-import React, { useContext, useEffect } from 'react';
+// src/Pages/UserDashboard/UserDashboard.jsx (Con mejor manejo de carga)
+import React, { useContext, useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { Dashboard } from '../../components/Dashboard/Dashboard';
 import { VanitysContext } from '../../context';
@@ -7,34 +7,42 @@ import './UserDashboard.css';
 
 /**
  * Página que muestra el dashboard del usuario
- * Su única responsabilidad es verificar la autenticación y mostrar el dashboard
+ * Con mejor manejo de la carga inicial y estados transitorios
  */
 const UserDashboard = () => {
-  const { apiResponse } = useContext(VanitysContext);
+  const { apiResponse, errorHandler } = useContext(VanitysContext);
+  const [isLoading, setIsLoading] = useState(true);
   
-  // Cargar datos de autenticación desde localStorage si no están en el contexto
+  // Efecto para controlar el estado de carga
   useEffect(() => {
-    if (!apiResponse) {
-      try {
-        const storedAuth = localStorage.getItem('vanitys_auth');
-        if (storedAuth) {
-          console.log('Found stored authentication data');
-          // No hacemos nada aquí, ya que el provider del contexto
-          // debería manejar la carga inicial desde localStorage
-        }
-      } catch (error) {
-        console.error('Error checking stored auth data:', error);
-      }
-    }
+    // Dar un pequeño tiempo para que los datos se estabilicen
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 300);
+    
+    // Log para depuración
+    console.log('UserDashboard mounted, apiResponse:', apiResponse ? 'present' : 'not present');
+    
+    return () => clearTimeout(timer);
   }, [apiResponse]);
   
-  // Verificar autenticación
+  // Si estamos en estado de carga, mostrar un indicador
+  if (isLoading) {
+    return (
+      <div className="user-dashboard__loading">
+        <div className="user-dashboard__spinner"></div>
+        <p>Cargando dashboard...</p>
+      </div>
+    );
+  }
+  
+  // Verificar autenticación después de la carga inicial
   if (!apiResponse?.token || !apiResponse?.user?.id) {
-    console.log('No authentication data found, redirecting to home');
+    console.log('No authentication data found in UserDashboard, redirecting to home');
     return <Navigate to="/" />;
   }
   
-  // Si estamos autenticados, mostrar el dashboard
+  // Si estamos autenticados y la carga inicial ha terminado, mostrar el dashboard
   return (
     <div className="user-dashboard">
       <Dashboard />

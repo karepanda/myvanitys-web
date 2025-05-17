@@ -6,65 +6,65 @@ import { loginService } from '../../services/auth/loginService';
 import './Auth.css';
 
 /**
- * Componente encargado exclusivamente de procesar el callback de autenticación
- * Su única responsabilidad es procesar el código de autorización y redirigir
- * 
- * @param {Object} props - Propiedades del componente
- * @param {string} props.redirectTo - Ruta a la que redirigir después de autenticación exitosa
+ * Component exclusively responsible for processing the authentication callback
+ * Its sole responsibility is to process the authorization code and redirect
+ *
+ * @param {Object} props - Component properties
+ * @param {string} props.redirectTo - Path to redirect to after successful authentication
  */
 const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
   const { setApiResponse, errorHandler } = useContext(VanitysContext);
   const [processingAuth, setProcessingAuth] = useState(true);
-  
+
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
     const processAuthCode = async () => {
       try {
-        // Obtener código de autorización de la URL
+        // Get authorization code from the URL
         const urlParams = new URLSearchParams(location.search);
         const authCode = urlParams.get('code');
-        const state = urlParams.get('state'); // 'login' o 'register'
-        
+        const state = urlParams.get('state'); // 'login' or 'register'
+
         console.log('Processing auth callback...');
         console.log('State:', state);
         console.log('Auth code present:', !!authCode);
-        
-        // Limpiar la URL para evitar procesamientos repetidos
+
+        // Clean the URL to avoid repeated processing
         if (window.history && window.history.replaceState) {
           window.history.replaceState({}, document.title, window.location.pathname);
         }
-        
+
         if (!authCode) {
           console.error('No authentication code found in URL');
           errorHandler.handleApiError('auth', 'default', 'No authentication code found');
           setProcessingAuth(false);
           return;
         }
-        
-        // Autenticar usando el servicio de login
+
+        // Authenticate using the login service
         const userData = await loginService.authenticate(authCode, errorHandler);
-        
+
         if (!userData) {
           console.error('Authentication failed - no user data returned');
           errorHandler.handleApiError('auth', 'withoutUserData');
           setProcessingAuth(false);
           return;
         }
-        
-        // Verificar que el token esté presente
+
+        // Verify that the token is present
         if (!userData.token) {
           console.error('No token returned from authentication service');
           errorHandler.handleApiError('auth', 'withoutToken');
           setProcessingAuth(false);
           return;
         }
-        
+
         console.log('Authentication successful!');
         console.log('Token received:', userData.token.substring(0, 10) + '...');
-        
-        // Crear objeto con la estructura esperada por el contexto
+
+        // Create object with the structure expected by the context
         const authData = {
           token: userData.token,
           user: {
@@ -75,53 +75,53 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
           },
           isNewUser: userData.isNewUser || false
         };
-        
-        // Guardar en localStorage para persistencia
+
+        // Save to localStorage for persistence
         localStorage.setItem('vanitys_auth', JSON.stringify(authData));
-        
-        // Actualizar contexto
+
+        // Update context
         setApiResponse(authData);
-        
-        // Redirigir al dashboard después de una breve pausa
+
+        // Redirect to the dashboard after a short pause
         setTimeout(() => {
           navigate(redirectTo);
         }, 500);
-        
+
       } catch (error) {
         console.error('Error processing authentication:', error);
         errorHandler.showGenericError();
         setProcessingAuth(false);
       }
     };
-    
+
     processAuthCode();
   }, [location, navigate, redirectTo, setApiResponse, errorHandler]);
-  
-  // Si estamos procesando la autenticación, mostrar spinner
+
+  // If we are processing authentication, show spinner
   if (processingAuth) {
     return (
       <div className="auth-callback">
         <div className="auth-callback__processing">
-          <h2>Procesando autenticación</h2>
+          <h2>Processing authentication</h2>
           <div className="auth-callback__spinner"></div>
-          <p>Por favor espera mientras completamos el inicio de sesión...</p>
+          <p>Please wait while we complete the login...</p>
         </div>
       </div>
     );
   }
-  
-  // Si llegamos aquí, hubo un error pero ya fue manejado por errorHandler
-  // Mostramos un botón para volver al inicio
+
+  // If we reach here, there was an error but it was already handled by errorHandler
+  // Show a button to return to the home page
   return (
     <div className="auth-callback">
       <div className="auth-callback__error">
-        <h2>Error de autenticación</h2>
-        <p>Ocurrió un error durante el proceso de autenticación.</p>
-        <button 
+        <h2>Authentication error</h2>
+        <p>An error occurred during the authentication process.</p>
+        <button
           className="auth-callback__button"
           onClick={() => navigate('/')}
         >
-          Volver al inicio
+          Back to home
         </button>
       </div>
     </div>

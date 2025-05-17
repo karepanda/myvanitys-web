@@ -1,4 +1,4 @@
-// App.jsx
+// src/components/App/App.jsx (Versión sin redirección automática)
 import { BrowserRouter } from 'react-router-dom';
 import { AppRoutes } from '../Routes/index';
 import { Navbar } from '../components/Navbar/Navbar';
@@ -6,15 +6,12 @@ import { VanitysContext, VanitysProvider } from '../context';
 import { MissingFieldsPopup } from '../components/MissingFieldsPopup/MissingFieldsPopup';
 import { Modal } from '../components/Modal/Modal';
 
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import './App.css';
 
 const AppContent = () => {
-  // Obtener estados y funciones necesarias del contexto
+  // Obtener lo necesario del contexto
   const { 
-    apiResponse,
-    setApiResponse, 
-    showCookieBanner,
     showMissingFieldsPopup,
     setShowMissingFieldsPopup,
     errorMessage,
@@ -22,38 +19,8 @@ const AppContent = () => {
     errorType
   } = useContext(VanitysContext);
 
-  // Efecto para cargar datos de autenticación desde localStorage al iniciar
-  useEffect(() => {
-    const loadSavedAuth = () => {
-      try {
-        // Solo intentar cargar si no hay datos ya en el contexto
-        if (!apiResponse) {
-          const savedAuth = localStorage.getItem('vanitys_auth');
-          
-          if (savedAuth) {
-            const authData = JSON.parse(savedAuth);
-            
-            // Verificar que los datos sean válidos
-            if (authData && authData.token && authData.user && authData.user.id) {
-              console.log('Loading saved authentication data for user:', authData.user.id);
-              setApiResponse(authData);
-            } else {
-              console.warn('Invalid saved authentication data, removing');
-              localStorage.removeItem('vanitys_auth');
-            }
-          } else {
-            console.log('No saved authentication data found');
-          }
-        }
-      } catch (error) {
-        console.error('Error loading saved authentication:', error);
-        localStorage.removeItem('vanitys_auth');
-      }
-    };
-    
-    loadSavedAuth();
-  }, [apiResponse, setApiResponse]);
-
+  // NO hacer redirección automática aquí, dejar que el router se encargue
+  
   return (
     <div className='app-container'>
       <BrowserRouter>
@@ -61,7 +28,7 @@ const AppContent = () => {
         <AppRoutes />
       </BrowserRouter>
       
-      {/* Error popup global */}
+      {/* Popup global de errores */}
       {showMissingFieldsPopup && (
         <Modal>
           <MissingFieldsPopup

@@ -21,7 +21,7 @@ export const loginService = {
         return null;
       }
       
-      // Hacer la petición de autenticación
+      // Request authentication
       const response = await fetch(authUrl, {
         method: 'POST',
         headers: {
@@ -41,7 +41,7 @@ export const loginService = {
         return null;
       }
 
-      // Obtener datos de respuesta
+      // Get response data
       let userData = null;
       try {
         const responseText = await response.text();
