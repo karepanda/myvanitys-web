@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './MainContent.css';
 import homeIllustration from '../../assets/home_illustration.png';
 import createProduct from '../../assets/CreateProduct.png';

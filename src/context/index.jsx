@@ -18,7 +18,7 @@ const VanitysProvider = ({ children }) => {
 	const [showUserProfile, setShowUserProfile] = useState(false);
 	const [showNotification, setShowNotification] = useState(false);
 	const [showWelcomePopup, setShowWelcomePopup] = useState(false);
-	
+
 	// Data states
 	const [apiResponse, setApiResponse] = useState(null);
 	const [formData, setFormData] = useState(null);
@@ -26,12 +26,12 @@ const VanitysProvider = ({ children }) => {
 	const [selectedProduct, setSelectedProduct] = useState(null);
 	const [selectedCategory, setSelectedCategory] = useState(null);
 	const [color, setColor] = useState('#D9D9D9');
-	
+
 	// Review states
 	const [hoveredRating, setHoveredRating] = useState(0);
 	const [selectedRating, setSelectedRating] = useState(0);
 	const [reviewText, setReviewText] = useState('');
-	
+
 	// Loading state
 	const [loading, setLoading] = useState(false);
 
@@ -39,7 +39,7 @@ const VanitysProvider = ({ children }) => {
 	const [errorMessage, setErrorMessage] = useState('');
 	const [errorTitle, setErrorTitle] = useState('Missing fields');
 	const [errorType, setErrorType] = useState('warning');
-	
+
 	// Create ErrorHandler instance
 	const errorHandler = new ErrorHandler(
 		setShowMissingFieldsPopup,
@@ -64,8 +64,10 @@ const VanitysProvider = ({ children }) => {
 		setSelectedProduct(product);
 	};
 
-	const toggleMissingFieldsPopup = () => setShowMissingFieldsPopup((prev) => !prev);
-	const toggleCreateReviewPopup = () => setShowCreateReviewPopup((prev) => !prev);
+	const toggleMissingFieldsPopup = () =>
+		setShowMissingFieldsPopup((prev) => !prev);
+	const toggleCreateReviewPopup = () =>
+		setShowCreateReviewPopup((prev) => !prev);
 	const toggleUserProfile = () => setShowUserProfile((prev) => !prev);
 
 	// Rating handlers
@@ -119,29 +121,29 @@ const VanitysProvider = ({ children }) => {
 		try {
 			const userData = await authService.handleAuthentication(errorHandler);
 			setLoading(false);
-			
+
 			if (userData) {
 				setApiResponse(userData);
-				
+
 				// Show welcome popup for new users
 				if (userData.isNewUser && !sessionStorage.getItem('welcomeShow')) {
 					setShowWelcomePopup(true);
 					sessionStorage.setItem('welcomeShow', 'true');
 				}
 			}
-			
+
 			return userData;
 		} catch (error) {
-			console.error("Authentication error:", error);
+			console.error('Authentication error:', error);
 			setLoading(false);
 			return null;
 		}
 	};
-	
+
 	const initiateLogin = () => {
 		authService.initiateGoogleAuth('login');
 	};
-	
+
 	const initiateRegister = () => {
 		authService.initiateGoogleAuth('register');
 	};
@@ -150,7 +152,11 @@ const VanitysProvider = ({ children }) => {
 	const createProduct = async (token, productData) => {
 		setLoading(true);
 		try {
-			const newProduct = await productFacade.createProduct(token, productData, errorHandler);
+			const newProduct = await productFacade.createProduct(
+				token,
+				productData,
+				errorHandler
+			);
 			setLoading(false);
 			if (newProduct) {
 				toggleNotification();
@@ -158,11 +164,11 @@ const VanitysProvider = ({ children }) => {
 			return newProduct;
 		} catch (error) {
 			setLoading(false);
-			console.error("Error creating product:", error);
+			console.error('Error creating product:', error);
 			return null;
 		}
 	};
-	
+
 	const getProducts = async (token) => {
 		setLoading(true);
 		try {
@@ -171,41 +177,54 @@ const VanitysProvider = ({ children }) => {
 			return products;
 		} catch (error) {
 			setLoading(false);
-			console.error("Error fetching products:", error);
+			console.error('Error fetching products:', error);
 			return null;
 		}
 	};
-	
+
 	const findProductsByUserId = async (token, userId) => {
 		setLoading(true);
 		try {
-			const products = await productFacade.findProductsByUserId(token, userId, errorHandler);
+			const products = await productFacade.findProductsByUserId(
+				token,
+				userId,
+				errorHandler
+			);
 			setLoading(false);
 			return products;
 		} catch (error) {
 			setLoading(false);
-			console.error("Error finding products by user:", error);
+			console.error('Error finding products by user:', error);
 			return null;
 		}
 	};
-	
+
 	const getProductById = async (token, productId) => {
 		setLoading(true);
 		try {
-			const product = await productFacade.getProductById(token, productId, errorHandler);
+			const product = await productFacade.getProductById(
+				token,
+				productId,
+				errorHandler
+			);
 			setLoading(false);
 			return product;
 		} catch (error) {
 			setLoading(false);
-			console.error("Error fetching product by ID:", error);
+			console.error('Error fetching product by ID:', error);
 			return null;
 		}
 	};
-	
+
 	const updateProduct = async (token, productId, productData) => {
 		setLoading(true);
 		try {
-			const updatedProduct = await productFacade.updateProduct(token, productId, productData, errorHandler);
+			const updatedProduct = await productFacade.updateProduct(
+				token,
+				productId,
+				productData,
+				errorHandler
+			);
 			setLoading(false);
 			if (updatedProduct) {
 				toggleNotification();
@@ -213,15 +232,19 @@ const VanitysProvider = ({ children }) => {
 			return updatedProduct;
 		} catch (error) {
 			setLoading(false);
-			console.error("Error updating product:", error);
+			console.error('Error updating product:', error);
 			return null;
 		}
 	};
-	
+
 	const deleteProduct = async (token, productId) => {
 		setLoading(true);
 		try {
-			const success = await productFacade.deleteProduct(token, productId, errorHandler);
+			const success = await productFacade.deleteProduct(
+				token,
+				productId,
+				errorHandler
+			);
 			setLoading(false);
 			if (success) {
 				toggleNotification();
@@ -229,20 +252,25 @@ const VanitysProvider = ({ children }) => {
 			return success;
 		} catch (error) {
 			setLoading(false);
-			console.error("Error deleting product:", error);
+			console.error('Error deleting product:', error);
 			return false;
 		}
 	};
-	
+
 	const searchProducts = async (token, query, options = {}) => {
 		setLoading(true);
 		try {
-			const products = await productFacade.searchProducts(token, query, options, errorHandler);
+			const products = await productFacade.searchProducts(
+				token,
+				query,
+				options,
+				errorHandler
+			);
 			setLoading(false);
 			return products;
 		} catch (error) {
 			setLoading(false);
-			console.error("Error searching products:", error);
+			console.error('Error searching products:', error);
 			return null;
 		}
 	};
@@ -261,7 +289,7 @@ const VanitysProvider = ({ children }) => {
 				showUserProfile,
 				showNotification,
 				showWelcomePopup,
-				
+
 				// UI setters
 				setShowModalRegister,
 				setShowModalLogin,
@@ -273,7 +301,7 @@ const VanitysProvider = ({ children }) => {
 				setShowUserProfile,
 				setShowNotification,
 				setShowWelcomePopup,
-				
+
 				// UI toggles
 				toggleModalRegister,
 				toggleModalLogin,
@@ -284,7 +312,7 @@ const VanitysProvider = ({ children }) => {
 				toggleCreateReviewPopup,
 				toggleUserProfile,
 				toggleNotification,
-				
+
 				// Data states
 				apiResponse,
 				formData,
@@ -292,14 +320,14 @@ const VanitysProvider = ({ children }) => {
 				selectedProduct,
 				selectedCategory,
 				color,
-				
+
 				// Data setters
 				setApiResponse,
 				setFormData,
 				setSearchText,
 				setSelectedProduct,
 				setSelectedCategory,
-				
+
 				// Reviews
 				hoveredRating,
 				selectedRating,
@@ -311,25 +339,25 @@ const VanitysProvider = ({ children }) => {
 				handleMouseOut,
 				handleClick,
 				handleSubmitCreateReviewProduct,
-				
+
 				// Search
 				handleSearch,
-				
+
 				// Loading state
 				loading,
 				setLoading,
-				
+
 				// Error handling
 				errorMessage,
 				errorTitle,
 				errorType,
 				errorHandler,
-				
+
 				// Authentication
 				handleAuthentication,
 				initiateLogin,
 				initiateRegister,
-				
+
 				// Products
 				createProduct,
 				getProducts,
