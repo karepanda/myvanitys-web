@@ -31,7 +31,9 @@ export const readProductService = {
    * @returns {Promise<Array|null>} - Array of user's products or null in case of error
    */
   findProductsByUserId: async (token, userId, errorHandler) => {
-    return await productApiAdapter.get(`/products/user/${userId}`, token, errorHandler);
+    // Actualizando la ruta según el ejemplo de curl proporcionado
+    // El curl muestra: http://localhost:8080/myvanitys/api/v1/users/{userId}/products
+    return await productApiAdapter.get(`/users/${userId}/products`, token, errorHandler);
   },
   
   /**
@@ -83,3 +85,5 @@ export const readProductService = {
     );
   }
 };
+
+export default readProductService;
