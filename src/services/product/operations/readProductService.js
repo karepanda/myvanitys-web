@@ -2,88 +2,62 @@
 import { productApiAdapter } from '../adapters/productApiAdapter';
 
 export const readProductService = {
+  // [...otros métodos del servicio...]
+  
   /**
-   * Gets all products
-   * @param {string} token - Authorization token
-   * @param {Object} errorHandler - Error handler instance
-   * @returns {Promise<Array|null>} - Array of products or null in case of error
-   */
-  getProducts: async (token, errorHandler) => {
-    return await productApiAdapter.get('/products', token, errorHandler);
-  },
-
-  /**
-   * Gets a product by id
-   * @param {string} token - Authorization token
-   * @param {string} productId - Product identifier
-   * @param {Object} errorHandler - Error handler instance
-   * @returns {Promise<Object|null>} - Product object or null in case of error
-   */
-  getProductById: async (token, productId, errorHandler) => {
-    return await productApiAdapter.get(`/products/${productId}`, token, errorHandler);
-  },
-
-  /**
-   * Finds products by user ID
-   * @param {string} token - Authorization token
-   * @param {string} userId - User identifier to filter products
-   * @param {Object} errorHandler - Error handler instance
-   * @returns {Promise<Array|null>} - Array of user's products or null in case of error
+   * Encuentra productos asociados a un usuario específico
+   * @param {string} token - Token de autenticación
+   * @param {string} userId - ID del usuario
+   * @param {Object} errorHandler - Instancia del manejador de errores
+   * @returns {Promise<Array|null>} - Lista de productos o null si hay error
    */
   findProductsByUserId: async (token, userId, errorHandler) => {
-    // Actualizando la ruta según el ejemplo de curl proporcionado
-    // El curl muestra: http://localhost:8080/myvanitys/api/v1/users/{userId}/products
-    return await productApiAdapter.get(`/users/${userId}/products`, token, errorHandler);
-  },
-  
-  /**
-   * Gets product categories
-   * @param {string} token - Authorization token
-   * @param {Object} errorHandler - Error handler instance
-   * @returns {Promise<Array|null>} - Array of categories or null in case of error
-   */
-  getProductCategories: async (token, errorHandler) => {
-    return await productApiAdapter.get('/product-categories', token, errorHandler);
-  },
-  
-  /**
-   * Gets featured products
-   * @param {string} token - Authorization token
-   * @param {number} limit - Maximum number of products to return
-   * @param {Object} errorHandler - Error handler instance
-   * @returns {Promise<Array|null>} - Array of featured products or null in case of error
-   */
-  getFeaturedProducts: async (token, limit = 5, errorHandler) => {
-    return await productApiAdapter.get(`/products/featured?limit=${limit}`, token, errorHandler);
-  },
-  
-  /**
-   * Gets products with pagination
-   * @param {string} token - Authorization token
-   * @param {number} page - Page number (starting from 1)
-   * @param {number} pageSize - Number of items per page
-   * @param {Object} filters - Optional filters to apply
-   * @param {Object} errorHandler - Error handler instance
-   * @returns {Promise<Object|null>} - Paginated products data or null in case of error
-   */
-  getProductsPaginated: async (token, page = 1, pageSize = 10, filters = {}, errorHandler) => {
-    const searchParams = new URLSearchParams();
-    searchParams.append('page', page);
-    searchParams.append('pageSize', pageSize);
-    
-    // Añadir filtros adicionales a los parámetros
-    Object.entries(filters).forEach(([key, value]) => {
-      if (value !== undefined && value !== null) {
-        searchParams.append(key, value);
+    try {
+      // Validaciones más estrictas del token
+      if (!token) {
+        console.error('findProductsByUserId: No authentication token provided');
+        if (errorHandler) {
+          errorHandler.handleApiError('auth', 'withoutToken');
+        }
+        return null;
       }
-    });
-    
-    return await productApiAdapter.get(
-      `/products/paginated?${searchParams.toString()}`, 
-      token, 
-      errorHandler
-    );
-  }
+      
+      if (typeof token !== 'string' || token.trim() === '') {
+        console.error('findProductsByUserId: Invalid token format');
+        if (errorHandler) {
+          errorHandler.handleApiError('auth', 'withoutToken');
+        }
+        return null;
+      }
+      
+      if (!userId) {
+        console.error('findProductsByUserId: No user ID provided');
+        return null;
+      }
+      
+      console.log(`Fetching products for user: ${userId}`);
+      console.log(`Using authentication token: ${token.substring(0, 10)}...`);
+      
+      // Realizar petición a la API usando el adaptador
+      // Ruta basada en el curl proporcionado: /users/{userId}/products
+      const products = await productApiAdapter.get(`/users/${userId}/products`, token, errorHandler);
+      
+      // Log del resultado
+      if (products) {
+        console.log(`Retrieved ${products.length} products for user ${userId}`);
+      } else {
+        console.log(`No products found for user ${userId}`);
+      }
+      
+      return products || [];
+    } catch (error) {
+      console.error(`Error in findProductsByUserId for user ${userId}:`, error);
+      if (errorHandler) {
+        errorHandler.showGenericError();
+      }
+      return null;
+    }
+  },
+  
+  // [...otros métodos del servicio...]
 };
-
-export default readProductService;

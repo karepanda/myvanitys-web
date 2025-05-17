@@ -1,89 +1,84 @@
-import React, { useContext, useEffect, useState } from 'react';
+// src/components/Dashboard/Dashboard.jsx
+import React, { useContext } from 'react';
 import { Categories } from '../Categories/Categories';
 import { ProductCard } from '../ProductCard/ProductCard';
 import { NoProductCard } from '../NoProductCard/NoProductCard';
 import { SearchedProductCard } from '../SearchedProductCard/SearchedProductCard';
 import { VanitysContext } from '../../context/index';
+import { useFetchUserProducts } from '../../hooks/useFetchUserProducts';
 import './Dashboard.css';
 import { Modal } from '../Modal/Modal';
 import { UserProfile } from '../UserProfile/UserProfile';
 import { Notification } from '../Notification/Notification';
 
+/**
+ * Componente que muestra los productos y categorías
+ * Su única responsabilidad es la UI del dashboard
+ */
 const Dashboard = () => {
 	const { 
-		apiResponse, 
 		searchText, 
 		showUserProfile, 
 		showNotification,
-		findProductsByUserId,
-		loading,
-		errorHandler
+		loading: contextLoading,
+		setLoading
 	} = useContext(VanitysContext);
 
-	// Local status for products
-	const [products, setProducts] = useState([]);
-	// Status to control the initial load
-	const [initialLoading, setInitialLoading] = useState(true);
+	// Usar el hook para obtener productos
+	const { products, error, loading: productsLoading } = useFetchUserProducts();
 
-	// Obtain the products when the component is assembled
-	useEffect(() => {
-		const fetchProducts = async () => {
-			try {
-				// Check if we have a token and a user ID
-				if (apiResponse?.token && apiResponse?.user?.id) {
-					// Use the context function to get the user's products
-					const userProducts = await findProductsByUserId(
-						apiResponse.token,
-						apiResponse.user.id
-					);
-
-					if (userProducts) {
-						setProducts(userProducts);
-					} else {
-						// If there are no products, set an empty array
-						setProducts([]);
-					}
-				} else {
-					// If there is no token or user ID, we cannot obtain products.
-					console.warn('No token or user ID available to fetch products');
-					setProducts([]);
-				}
-			} catch (error) {
-				console.error('Error fetching user products:', error);
-				errorHandler.showGenericError();
-				setProducts([]);
-			} finally {
-				setInitialLoading(false);
-			}
-		};
-
-		fetchProducts();
-	}, [apiResponse, findProductsByUserId, errorHandler]);
-
-	// Use local state products instead of apiResponse.products
+	// Sincronizar estado de carga con el contexto
+	React.useEffect(() => {
+		if (contextLoading !== productsLoading) {
+			setLoading(productsLoading);
+		}
+	}, [productsLoading, contextLoading, setLoading]);
+	
+	// Obtener productId para reviews si existe
 	const productId = products[0]?.reviews?.[0]?.productId || null;
 
-	// Filter products based on search text
-	const filteredProducts = products.filter((product) =>
-		product.name.toLowerCase().includes(searchText.toLowerCase())
-	);
+	// Filtrar productos basados en texto de búsqueda
+	const filteredProducts = searchText
+		? products.filter((product) =>
+				product.name.toLowerCase().includes(searchText.toLowerCase())
+			)
+		: products;
 
-	// Determine the style class based on the number of products
+	// Determinar la clase de estilo según el número de productos
 	const getStyleClass = () => {
 		return products.length === 0 ? 'dashboard__noProducts' : 'dashboard';
 	};
 
-	// Show a loading status if we are obtaining products
-	if (initialLoading || loading) {
-		return <div className="dashboard__loading">Loading your products...</div>;
+	// Mostrar loader mientras cargan los productos
+	if (productsLoading) {
+		return (
+			<div className="dashboard__loading">
+				<div className="dashboard__spinner"></div>
+				<p>Cargando tus productos...</p>
+			</div>
+		);
 	}
 
+	// Si hay un error, mostrar mensaje
+	if (error) {
+		console.error('Error loading products:', error);
+		return (
+			<div className="dashboard__error">
+				<p>Ocurrió un error al cargar tus productos.</p>
+				<button onClick={() => window.location.reload()}>
+					Intentar nuevamente
+				</button>
+			</div>
+		);
+	}
+
+	// Renderizar el dashboard
 	return (
 		<div className={getStyleClass()}>
 			{products.length === 0 ? (
 				<NoProductCard />
 			) : searchText && filteredProducts.length === 0 ? (
-				<p>Products not found</p>
+				<p>No se encontraron productos</p>
 			) : (
 				<>
 					<div className='dashboard__categories'>
@@ -120,7 +115,7 @@ const Dashboard = () => {
 
 			{showNotification && (
 				<Notification
-					description={'Product has been added to your Vanity'}
+					description={'El producto ha sido añadido a tu Vanity'}
 					highlight={'Vanity'}
 				/>
 			)}

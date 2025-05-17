@@ -6,30 +6,31 @@ import { VanitysContext } from '../context';
 const API_URL = import.meta.env.VITE_API_URL;
 
 /**
- * Custom hook to fetch user data for the dashboard
- * @returns {Object} Object with data, error, and loading states
+ * Hook to fetch user profile and preferences data
+ * NOTE: This hook does NOT fetch the user's products (for that, use useFetchUserProducts)
+ *
+ * @returns {Object} User data, error state, and loading state
  */
 const useFetchUserData = () => {
-  // Get errorHandler and loading from context
+  // Get error handler and loading state from the context
   const { errorHandler, loading: contextLoading, setLoading } = useContext(VanitysContext);
 
-  // Using useFetch with errorHandler
+  // Use useFetch to get user profile data
   const { data, error, loading: fetchLoading } = useFetch(
-    `${API_URL}/dashboard`,
+    `${API_URL}/users/profile`,  // Changed from /dashboard to /users/profile for clarity
     'GET',
     {},
     errorHandler
   );
 
-  // Synchronize load status with context if necessary
+  // Synchronize loading state with the context if necessary
   if (fetchLoading !== contextLoading) {
     setLoading(fetchLoading);
   }
 
-  return { 
-    data, 
-    error, 
-    // We use local loading state for faster responses in the UI
+  return {
+    userData: data,
+    error,
     loading: fetchLoading
   };
 };

@@ -1,0 +1,55 @@
+/* src/Pages/UserDashboard/UserDashboard.css */
+
+.user-dashboard {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+}
+
+.user-dashboard__loading,
+.user-dashboard__error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  width: 100%;
+  padding: 2rem;
+}
+
+.user-dashboard__spinner {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: #333;
+  animation: spin 1s ease-in-out infinite;
+  margin: 20px auto;
+}
+
+.user-dashboard__error {
+  text-align: center;
+  color: #f44336;
+}
+
+.user-dashboard__button {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.user-dashboard__button:hover {
+  background-color: #555;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
