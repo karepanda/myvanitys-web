@@ -5,6 +5,13 @@ import { dateUtils } from '../../utils/dateUtils';
 export const registerService = {
   register: async (authCode, errorHandler) => {
     const API_URL = import.meta.env.VITE_API_URL;
+
+      console.log('Variables Environment:', {
+      VITE_API_URL: import.meta.env.VITE_API_URL,
+      VITE_REDIRECT_URI: import.meta.env.VITE_REDIRECT_URI,
+      NODE_ENV: import.meta.env.MODE || import.meta.env.NODE_ENV,
+      hostname: window.location.hostname
+    });
     
     try {
       const isoDate = dateUtils.getCurrentUTCISODate();
@@ -17,6 +24,8 @@ export const registerService = {
       };
       
       console.log("Payload being sent:", JSON.stringify(payload));
+      const authUrl = `${API_URL}/auth/register`;
+       console.log('Auth URL being used:', authUrl);
       
       const response = await fetch(`${API_URL}/auth/register`, {
         method: 'POST',
