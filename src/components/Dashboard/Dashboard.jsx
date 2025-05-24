@@ -1,131 +1,138 @@
-import React, { useContext, useEffect, useState } from 'react';
+// src/components/Dashboard/Dashboard.jsx
+import React, { useContext } from 'react';
 import { Categories } from '../Categories/Categories';
 import { ProductCard } from '../ProductCard/ProductCard';
 import { NoProductCard } from '../NoProductCard/NoProductCard';
 import { SearchedProductCard } from '../SearchedProductCard/SearchedProductCard';
 import { VanitysContext } from '../../context/index';
-import './Dashboard.css';
+import { useFetchUserProducts } from '../../hooks/useFetchUserProducts';
 import { Modal } from '../Modal/Modal';
 import { UserProfile } from '../UserProfile/UserProfile';
 import { Notification } from '../Notification/Notification';
 
+import './Dashboard.css';
+
 const Dashboard = () => {
-	const { 
-		apiResponse, 
-		searchText, 
-		showUserProfile, 
-		showNotification,
-		findProductsByUserId,
-		loading,
-		errorHandler
-	} = useContext(VanitysContext);
+  const {
+    searchText,
+    showUserProfile,
+    showNotification,
+  } = useContext(VanitysContext);
 
-	// Local status for products
-	const [products, setProducts] = useState([]);
-	// Status to control the initial load
-	const [initialLoading, setInitialLoading] = useState(true);
+  const { products, error, loading } = useFetchUserProducts();
 
-	// Obtain the products when the component is assembled
-	useEffect(() => {
-		const fetchProducts = async () => {
-			try {
-				// Check if we have a token and a user ID
-				if (apiResponse?.token && apiResponse?.user?.id) {
-					// Use the context function to get the user's products
-					const userProducts = await findProductsByUserId(
-						apiResponse.token,
-						apiResponse.user.id
-					);
+  console.log('🎯 Dashboard render:', {
+    productsCount: products?.length || 0,
+    loading,
+    hasError: !!error,
+    searchText,
+  });
 
-					if (userProducts) {
-						setProducts(userProducts);
-					} else {
-						// If there are no products, set an empty array
-						setProducts([]);
-					}
-				} else {
-					// If there is no token or user ID, we cannot obtain products.
-					console.warn('No token or user ID available to fetch products');
-					setProducts([]);
-				}
-			} catch (error) {
-				console.error('Error fetching user products:', error);
-				errorHandler.showGenericError();
-				setProducts([]);
-			} finally {
-				setInitialLoading(false);
-			}
-		};
+  const productId = products[0]?.reviews?.[0]?.productId || null;
 
-		fetchProducts();
-	}, [apiResponse, findProductsByUserId, errorHandler]);
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchText.toLowerCase())
+  );
 
-	// Use local state products instead of apiResponse.products
-	const productId = products[0]?.reviews?.[0]?.productId || null;
+  const getStyleClass = () => {
+    return products.length === 0 ? 'dashboard__noProducts' : 'dashboard';
+  };
 
-	// Filter products based on search text
-	const filteredProducts = products.filter((product) =>
-		product.name.toLowerCase().includes(searchText.toLowerCase())
-	);
+  if (loading) {
+    return (
+      <div className="dashboard__loading">
+        <div className="loading-spinner"></div>
+        <p>Loading your products...</p>
+      </div>
+    );
+  }
 
-	// Determine the style class based on the number of products
-	const getStyleClass = () => {
-		return products.length === 0 ? 'dashboard__noProducts' : 'dashboard';
-	};
+  if (error) {
+    return (
+      <div className="dashboard__error">
+        <div className="error-icon">⚠️</div>
+        <h3>Error loading products</h3>
+        <p>{error.message || 'Could not load your products. Please try again.'}</p>
+        <button className="retry-button" onClick={() => window.location.reload()}>
+          Try again
+        </button>
+      </div>
+    );
+  }
 
-	// Show a loading status if we are obtaining products
-	if (initialLoading || loading) {
-		return <div className="dashboard__loading">Loading your products...</div>;
-	}
+  return (
+    <div className={getStyleClass()}>
+      {products.length === 0 ? (
+        <NoProductCard />
+      ) : searchText && filteredProducts.length === 0 ? (
+        <div className="no-search-results">
+          <p>No products found for "{searchText}"</p>
+          <p>Try a different search term</p>
+        </div>
+      ) : (
+        <>
+          <div className="dashboard__categories">
+            <Categories />
+          </div>
+          <div className="productCard__wrapper">
+            {(searchText ? filteredProducts : products).map((product) =>
+              searchText ? (
+                <SearchedProductCard
+                  key={product.id || `product-${Math.random()}`}
+                  product={product}
+                />
+              ) : (
+                <ProductCard
+                  key={product.id || `product-${Math.random()}`}
+                  product={product}
+                  id={productId}
+                />
+              )
+            )}
+          </div>
+        </>
+      )}
 
-	return (
-		<div className={getStyleClass()}>
-			{products.length === 0 ? (
-				<NoProductCard />
-			) : searchText && filteredProducts.length === 0 ? (
-				<p>Products not found</p>
-			) : (
-				<>
-					<div className='dashboard__categories'>
-						<Categories />
-					</div>
-					{searchText ? (
-						<div className='productCard__wrapper'>
-							{filteredProducts.map((product) => (
-								<SearchedProductCard 
-									key={product.id || `product-${Math.random()}`} 
-									product={product} 
-								/>
-							))}
-						</div>
-					) : (
-						<div className='productCard__wrapper'>
-							{products.map((product) => (
-								<ProductCard
-									key={product.id || `product-${Math.random()}`}
-									product={product}
-									id={productId}
-								/>
-							))}
-						</div>
-					)}
-				</>
-			)}
+      {showUserProfile && (
+        <Modal>
+          <UserProfile />
+        </Modal>
+      )}
 
-			{showUserProfile && (
-				<Modal>
-					<UserProfile />
-				</Modal>
-			)}
+      {showNotification && (
+        <Notification
+          description="Product has been added to your Vanity"
+          highlight="Vanity"
+        />
+      )}
 
-			{showNotification && (
-				<Notification
-					description={'Product has been added to your Vanity'}
-					highlight={'Vanity'}
-				/>
-			)}
-		</div>
-	);
+      {/* 🔥 DEBUG INFO para desarrollo */}
+      {/* 
+      {process.env.NODE_ENV === 'development' && (
+        <div className="dashboard__debug">
+          <details>
+            <summary>🐛 Debug Info</summary>
+            <pre>
+              {JSON.stringify(
+                {
+                  productsState: {
+                    count: products?.length || 0,
+                    loading,
+                    error: error?.message || null,
+                    searchText,
+                    filteredCount: filteredProducts?.length || 0,
+                  },
+                },
+                null,
+                2
+              )}
+            </pre>
+          </details>
+        </div>
+      )} 
+      */}
+    </div>
+  );
 };
 
 export { Dashboard };

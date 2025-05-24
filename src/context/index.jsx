@@ -1,5 +1,6 @@
 // src/context/index.js
-import { createContext, useState } from 'react';
+import React from 'react'; 
+import { createContext, useState, useEffect } from 'react';
 import { ErrorHandler } from '../utils/errorHandler';
 import { authService } from '../services/auth/authService';
 import { productFacade } from '../services/product/productFacade';
@@ -34,6 +35,7 @@ const VanitysProvider = ({ children }) => {
 
 	// Loading state
 	const [loading, setLoading] = useState(false);
+	const [authInitialized, setAuthInitialized] = useState(false);
 
 	// Error handling states
 	const [errorMessage, setErrorMessage] = useState('');
@@ -47,6 +49,91 @@ const VanitysProvider = ({ children }) => {
 		setErrorTitle,
 		setErrorType
 	);
+
+	// 🔥 NUEVA FUNCIONALIDAD: Carga automática desde localStorage
+	useEffect(() => {
+		const loadSavedAuth = () => {
+			try {
+				console.log('🔍 Checking for saved authentication...');
+				const savedAuth = localStorage.getItem('vanitys_auth');
+				
+				if (savedAuth) {
+					const authData = JSON.parse(savedAuth);
+					console.log('📦 Found saved auth data:', {
+						hasToken: !!authData?.token,
+						hasUser: !!authData?.user?.id,
+						userName: authData?.user?.name,
+						expiresAt: authData?.expiresAt
+					});
+
+					// Validar estructura y expiración
+					if (authData?.token && authData?.user?.id) {
+						// Verificar si no ha expirado (si tiene expiresAt)
+						if (authData.expiresAt && Date.now() > authData.expiresAt) {
+							console.log('⏰ Auth data expired, removing...');
+							localStorage.removeItem('vanitys_auth');
+						} else {
+							console.log('✅ Loading saved authentication');
+							setApiResponse(authData);
+						}
+					} else {
+						console.log('❌ Invalid auth data structure, removing...');
+						localStorage.removeItem('vanitys_auth');
+					}
+				} else {
+					console.log('🔍 No saved authentication found');
+				}
+			} catch (error) {
+				console.error('❌ Error loading saved auth:', error);
+				localStorage.removeItem('vanitys_auth');
+			} finally {
+				setAuthInitialized(true);
+			}
+		};
+
+		loadSavedAuth();
+	}, []);
+
+
+	const logout = () => {
+		console.log('🚪 Logging out user...');
+		setApiResponse(null);
+		localStorage.removeItem('vanitys_auth');
+		sessionStorage.removeItem('welcomeShow');
+		
+		// Limpiar estados relacionados al usuario
+		setSelectedProduct(null);
+		setFormData(null);
+		setSearchText('');
+		
+		// Cerrar modales
+		setShowUserProfile(false);
+		setShowWelcomePopup(false);
+		
+		// Redirect to home
+		window.location.href = '/';
+	};
+
+	
+
+const updateAuthData = (authData) => {
+    console.log('💾 Saving auth data to localStorage...');
+    
+    if (!authData.expiresAt) {
+        authData.expiresAt = Date.now() + (30 * 24 * 60 * 60 * 1000);
+    }
+    
+    console.log('🔥 Context updating with auth data:', {
+        hasToken: !!authData.token,
+        userId: authData.user?.id,
+        userName: authData.user?.name
+    });
+
+    setApiResponse(authData);
+    localStorage.setItem('vanitys_auth', JSON.stringify(authData));
+    
+    console.log('✅ Auth data saved to context and localStorage');
+};
 
 	// UI Functions
 	const toggleNotification = () => {
@@ -115,15 +202,22 @@ const VanitysProvider = ({ children }) => {
 		toggleCreateReviewPopup();
 	};
 
-	// Authentication
+	// 🔥 FUNCIONALIDAD MEJORADA: Authentication con verificación de sesión existente
 	const handleAuthentication = async () => {
+		// Si ya hay una sesión activa, no hacer nueva autenticación
+		if (apiResponse?.token) {
+			console.log('🔒 Session already active, skipping authentication');
+			return apiResponse;
+		}
+
 		setLoading(true);
 		try {
 			const userData = await authService.handleAuthentication(errorHandler);
 			setLoading(false);
 
 			if (userData) {
-				setApiResponse(userData);
+				// Usar la nueva función para guardar
+				updateAuthData(userData);
 
 				// Show welcome popup for new users
 				if (userData.isNewUser && !sessionStorage.getItem('welcomeShow')) {
@@ -148,7 +242,7 @@ const VanitysProvider = ({ children }) => {
 		authService.initiateGoogleAuth('register');
 	};
 
-	// Product functions via facade
+	// Product functions via facade (sin cambios)
 	const createProduct = async (token, productData) => {
 		setLoading(true);
 		try {
@@ -346,6 +440,7 @@ const VanitysProvider = ({ children }) => {
 				// Loading state
 				loading,
 				setLoading,
+				authInitialized, // 🔥 NUEVO: Para saber cuándo terminó de cargar
 
 				// Error handling
 				errorMessage,
@@ -353,10 +448,12 @@ const VanitysProvider = ({ children }) => {
 				errorType,
 				errorHandler,
 
-				// Authentication
+				// Authentication - 🔥 MEJORADO
 				handleAuthentication,
 				initiateLogin,
 				initiateRegister,
+				logout, // 🔥 NUEVO
+				updateAuthData, // 🔥 NUEVO
 
 				// Products
 				createProduct,

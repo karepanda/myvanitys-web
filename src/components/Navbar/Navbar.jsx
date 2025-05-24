@@ -1,3 +1,4 @@
+// src/components/Navbar/Navbar.jsx
 import React, { useContext } from 'react';
 import './Navbar.css';
 import { Modal } from '../Modal/Modal';
@@ -14,13 +15,15 @@ const Navbar = () => {
 		toggleModalLogin,
 		showModalLogin,
 		apiResponse,
+		authInitialized, // 🔥 To control rendering
 		showCreateProductPopup,
 		toggleCreateProductPopup,
 		searchText,
 		handleSearch,
 		setApiResponse,
 		toggleUserProfile,
-		showCookieBanner, // 👈 usamos esto
+		showCookieBanner,
+		logout,
 	} = useContext(VanitysContext);
 
 	const navigate = useNavigate();
@@ -28,6 +31,10 @@ const Navbar = () => {
 	const handleHomeClick = () => {
 		setApiResponse(null);
 		navigate('/');
+	};
+
+	const handleLogout = () => {
+		logout(); 
 	};
 
 	const renderButtonWithTooltip = (label, onClick, className) => (
@@ -45,9 +52,13 @@ const Navbar = () => {
 		</div>
 	);
 
+	// 🔥 Determine what to display based on authInitialized
+	const isAuthenticated = authInitialized && apiResponse?.token;
+	const showLoginButtons = authInitialized && !apiResponse?.token;
+
 	return (
 		<>
-			<header className={apiResponse ? 'header-dashboard' : 'header'}>
+			<header className={isAuthenticated ? 'header-dashboard' : 'header'}>
 				<h1 className='header__title' onClick={handleHomeClick}>
 					My Vanity´s
 				</h1>
@@ -58,7 +69,7 @@ const Navbar = () => {
 							showCookieBanner ? 'disabled' : ''
 						}`}
 						type='text'
-						placeholder={apiResponse && 'Products'}
+						placeholder={isAuthenticated ? 'Products' : 'Search...'}
 						value={searchText}
 						onChange={handleSearch}
 						disabled={showCookieBanner}
@@ -68,7 +79,7 @@ const Navbar = () => {
 					)}
 				</div>
 
-				{!apiResponse && (
+				{showLoginButtons && (
 					<>
 						{renderButtonWithTooltip(
 							'Log in',
@@ -83,6 +94,12 @@ const Navbar = () => {
 					</>
 				)}
 
+				{!authInitialized && (
+					<div className="auth-loading">
+						<span className="loading-text">Loading...</span>
+					</div>
+				)}
+
 				{showModalLogin && (
 					<Modal>
 						<Login />
@@ -94,8 +111,7 @@ const Navbar = () => {
 						<Register />
 					</Modal>
 				)}
-
-				{apiResponse && (
+				{isAuthenticated && (
 					<>
 						<p className='header__products'>Products</p>
 						{renderButtonWithTooltip(
@@ -118,7 +134,7 @@ const Navbar = () => {
 									cursor: showCookieBanner ? 'not-allowed' : 'pointer',
 								}}
 							>
-								{/* SVG paths */}
+								<path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
 							</svg>
 							{showCookieBanner && (
 								<span className='tooltip'>
@@ -126,6 +142,11 @@ const Navbar = () => {
 								</span>
 							)}
 						</div>
+						{renderButtonWithTooltip(
+							'Logout',
+							handleLogout,
+							'header__logout'
+						)}
 					</>
 				)}
 
