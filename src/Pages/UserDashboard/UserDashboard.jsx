@@ -1,4 +1,5 @@
-import React, { useEffect, useContext, useRef } from 'react';
+// src/pages/UserDashboard/UserDashboard.jsx
+import React, { useEffect, useContext } from 'react';
 import { Dashboard } from '../../components/Dashboard/Dashboard';
 import { VanitysContext } from '../../context';
 import { WelcomePopup } from '../../components/WelcomePopup/WelcomePopup';
@@ -6,43 +7,54 @@ import { WelcomePopup } from '../../components/WelcomePopup/WelcomePopup';
 const UserDashboard = () => {
   const {
     apiResponse,
+    authInitialized, 
     showWelcomePopup,
     setShowWelcomePopup,
-    showLoginModal,
-    setShowLoginModal,
-    showRegisterModal,
-    setShowRegisterModal,
+    showModalLogin,
+    setShowModalLogin,
+    showModalRegister,
+    setShowModalRegister,
     handleAuthentication
   } = useContext(VanitysContext);
-  
-  const hasAttemptedFetch = useRef(false);
 
   useEffect(() => {
-    if (hasAttemptedFetch.current) {
-      console.log("Already attempted to fetch data, skipping");
+    if (!authInitialized) {
+      console.log("⏳ Waiting for auth initialization...");
       return;
     }
-    
-    hasAttemptedFetch.current = true;
-    console.log("First fetch attempt, setting hasAttemptedFetch to true");
-    
+
+    console.log("🔍 Auth initialized, checking session...");
+
     // Clean modals if open
     if (setShowLoginModal) setShowLoginModal(false);
     if (setShowRegisterModal) setShowRegisterModal(false);
     
-    // Execute authentication from the context
-    const fetchData = async () => {
-      try {
-        // We use context handleAuthentication
-        const userData = await handleAuthentication();
-        
-      } catch (error) {
-        console.error("Error en autenticación:", error);
-      }
-    };
+  
+    if (!apiResponse?.token) {
+      console.log("🔐 No active session found, attempting authentication...");
+      
+      const fetchData = async () => {
+        try {
+          await handleAuthentication();
+        } catch (error) {
+          console.error("❌ Error in authentication:", error);
+        }
+      };
 
-    fetchData();
-  }, []); 
+      fetchData();
+    } else {
+      console.log("✅ Active session found:", {
+        userId: apiResponse.user?.id,
+        userName: apiResponse.user?.name,
+        hasToken: !!apiResponse.token
+      });
+
+      if (apiResponse.isNewUser && !sessionStorage.getItem('welcomeShow')) {
+        setShowWelcomePopup(true);
+        sessionStorage.setItem('welcomeShow', 'true');
+      }
+    }
+  }, [authInitialized, apiResponse]);
 
   const closePopup = () => {
     setShowWelcomePopup(false);
@@ -50,6 +62,16 @@ const UserDashboard = () => {
     if (setShowLoginModal) setShowLoginModal(false);
     if (setShowRegisterModal) setShowRegisterModal(false);
   };
+
+
+  if (!authInitialized) {
+    return (
+      <div className="dashboard-loading">
+        <div className="loading-spinner"></div>
+        <p>Initializing application...</p>
+      </div>
+    );
+  }
 
   return (
     <>

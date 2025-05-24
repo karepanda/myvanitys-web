@@ -1,4 +1,4 @@
-// useFetch.js
+/ useFetch.js
 import { useState, useEffect, useContext } from 'react';
 import { VanitysContext } from '../context';
 import { apiUtils } from '../utils/apiUtils';
@@ -20,8 +20,8 @@ const useFetch = (url, method = 'GET', customHeaders = {}, errorHandler = null) 
 					setError(new Error('No access token available'));
 					if (errorHandler) {
 						errorHandler.showErrorMessage(
-							'No hay un token de acceso disponible. Por favor inicia sesión nuevamente.',
-							'Error de autenticación',
+							'There is no access token available. Please log in again.',
+							'Authentication error',
 							'error'
 						);
 					}

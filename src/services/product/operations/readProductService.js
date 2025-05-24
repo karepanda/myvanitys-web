@@ -27,23 +27,32 @@ export const readProductService = {
    * Finds products by user ID
    * @param {string} token - Authorization token
    * @param {string} userId - User identifier to filter products
-   * @param {Object} errorHandler - Error handler instance
+   * @param {Object} errorHandler - Error handler instance (optional)
    * @returns {Promise<Array|null>} - Array of user's products or null in case of error
    */
   findProductsByUserId: async (token, userId, errorHandler) => {
-    return await productApiAdapter.get(`/products/user/${userId}`, token, errorHandler);
+    try {
+      // Validar parámetros básicos
+      if (!token || !userId) {
+        console.warn('Missing token or userId for findProductsByUserId');
+        return [];
+      }
+      
+      console.log(`Calling API to fetch products for user: ${userId}`);
+      
+      // Llamar a la API usando el adaptador
+      // Utilizando la ruta correcta: /users/{userId}/products
+      const products = await productApiAdapter.get(`/users/${userId}/products`, token, errorHandler);
+      
+      // Devolver productos o array vacío si no hay productos
+      return products || [];
+    } catch (error) {
+      // Solo loguear el error, no usar errorHandler para evitar ciclos
+      console.error(`Error in findProductsByUserId for user ${userId}:`, error);
+      return [];
+    }
   },
-  
-  /**
-   * Gets product categories
-   * @param {string} token - Authorization token
-   * @param {Object} errorHandler - Error handler instance
-   * @returns {Promise<Array|null>} - Array of categories or null in case of error
-   */
-  getProductCategories: async (token, errorHandler) => {
-    return await productApiAdapter.get('/product-categories', token, errorHandler);
-  },
-  
+
   /**
    * Gets featured products
    * @param {string} token - Authorization token
@@ -53,33 +62,7 @@ export const readProductService = {
    */
   getFeaturedProducts: async (token, limit = 5, errorHandler) => {
     return await productApiAdapter.get(`/products/featured?limit=${limit}`, token, errorHandler);
-  },
-  
-  /**
-   * Gets products with pagination
-   * @param {string} token - Authorization token
-   * @param {number} page - Page number (starting from 1)
-   * @param {number} pageSize - Number of items per page
-   * @param {Object} filters - Optional filters to apply
-   * @param {Object} errorHandler - Error handler instance
-   * @returns {Promise<Object|null>} - Paginated products data or null in case of error
-   */
-  getProductsPaginated: async (token, page = 1, pageSize = 10, filters = {}, errorHandler) => {
-    const searchParams = new URLSearchParams();
-    searchParams.append('page', page);
-    searchParams.append('pageSize', pageSize);
-    
-    // Añadir filtros adicionales a los parámetros
-    Object.entries(filters).forEach(([key, value]) => {
-      if (value !== undefined && value !== null) {
-        searchParams.append(key, value);
-      }
-    });
-    
-    return await productApiAdapter.get(
-      `/products/paginated?${searchParams.toString()}`, 
-      token, 
-      errorHandler
-    );
   }
 };
+
+export default readProductService;
