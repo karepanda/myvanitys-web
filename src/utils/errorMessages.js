@@ -1,5 +1,3 @@
-// src/utils/errorMessages.js
-
 export const errorMessages = {
   // Authentication errors
   auth: {
@@ -57,6 +55,21 @@ export const errorMessages = {
       message: 'No user data received from the authentication service.',
       title: 'Authentication Error',
       type: 'error'
+    },
+    registrationFailed: {
+      message: 'Account creation failed. Please try registering again.',
+      title: 'Registration Error',
+      type: 'error'
+    },
+    noUserId: {
+      message: 'Account was not created successfully. Please try again.',
+      title: 'Registration Error',
+      type: 'error'
+    },
+    noToken: {
+      message: 'An unexpected error occurred during authentication. Please try again.',
+      title: 'Authentication Error',
+      type: 'error'
     }
   },
 
@@ -94,7 +107,7 @@ export const errorMessages = {
     }
   },
 
- // Category for product-related errors
+  // Category for product-related errors
   product: {
     400: {
       message: 'Invalid request. Please verify the information and try again.',
@@ -176,7 +189,7 @@ export const errorMessages = {
     }
   },
 
-// Type for informational messages
+  // Type for informational messages
   info: {
     default: {
       message: 'Important information.',
@@ -186,7 +199,7 @@ export const errorMessages = {
     sessionActive: {
       message: 'You are logged in.',
       title: 'Active Session',
-      type: 'info' // Changed from 'Active session' to 'info' for consistency
+      type: 'info'
     }
   },
 
