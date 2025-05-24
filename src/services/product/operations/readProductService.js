@@ -13,7 +13,7 @@ export const readProductService = {
   },
 
   /**
-   * Gets a product by id
+   * Gets a product by ID
    * @param {string} token - Authorization token
    * @param {string} productId - Product identifier
    * @param {Object} errorHandler - Error handler instance
@@ -28,11 +28,11 @@ export const readProductService = {
    * @param {string} token - Authorization token
    * @param {string} userId - User identifier to filter products
    * @param {Object} errorHandler - Error handler instance (optional)
-   * @returns {Promise<Array|null>} - Array of user's products or null in case of error
+   * @returns {Promise<Array|null>} - Array of user's products or empty array in case of error
    */
   findProductsByUserId: async (token, userId, errorHandler) => {
     try {
-      // Validar parámetros básicos
+      // Validate required parameters
       if (!token || !userId) {
         console.warn('Missing token or userId for findProductsByUserId');
         return [];
@@ -40,14 +40,14 @@ export const readProductService = {
       
       console.log(`Calling API to fetch products for user: ${userId}`);
       
-      // Llamar a la API usando el adaptador
-      // Utilizando la ruta correcta: /users/{userId}/products
+      // Call the API using the adapter
+      // Using the correct route: /users/{userId}/products
       const products = await productApiAdapter.get(`/users/${userId}/products`, token, errorHandler);
       
-      // Devolver productos o array vacío si no hay productos
+      // Return products or empty array if none
       return products || [];
     } catch (error) {
-      // Solo loguear el error, no usar errorHandler para evitar ciclos
+      // Log the error only, avoid using errorHandler to prevent loops
       console.error(`Error in findProductsByUserId for user ${userId}:`, error);
       return [];
     }

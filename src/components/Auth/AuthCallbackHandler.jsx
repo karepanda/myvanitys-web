@@ -1,5 +1,5 @@
 // src/components/Auth/AuthCallbackHandler.jsx
-import React, { useContext, useEffect, useState, useRef } from 'react'; // 🔥 useRef agregado
+import React, { useContext, useEffect, useState, useRef } from 'react'; 
 import { useNavigate, useLocation } from 'react-router-dom';
 import { VanitysContext } from '../../context';
 import { loginService } from '../../services/auth/loginService';
@@ -15,20 +15,20 @@ import './Auth.css';
 const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
   const { updateAuthData, errorHandler } = useContext(VanitysContext);
   const [processingAuth, setProcessingAuth] = useState(true);
-  const hasProcessed = useRef(false); // 🔥 Flag para evitar múltiples ejecuciones
+  const hasProcessed = useRef(false); // 🔥 Flag to avoid multiple executions
 
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
     const processAuthCode = async () => {
-      // 🔥 PREVENIR múltiples ejecuciones
+      // 🔥 PREVENT multiple executions
       if (hasProcessed.current) {
         console.log('🔄 Auth already processed, skipping...');
         return;
       }
 
-      hasProcessed.current = true; // 🔥 Marcar como procesado inmediatamente
+      hasProcessed.current = true; 
       
       try {
         // Get authorization code from the URL
@@ -88,7 +88,6 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
 
         console.log('🔥 About to save auth data:', authData);
         
-        // 🔥 Usar updateAuthData del context
         updateAuthData(authData);
 
         // Show welcome popup for new users
@@ -98,10 +97,10 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
 
         console.log('🔥 Auth data saved, navigating to dashboard...');
 
-        // 🔥 Navegar después de un delay para asegurar que el Context se actualice
+        // 🔥 Navigate after a delay to ensure that the Context is refreshed
         setTimeout(() => {
           console.log('🔥 Executing navigation to:', redirectTo);
-          setProcessingAuth(false); // 🔥 Marcar como completado antes de navegar
+          setProcessingAuth(false); // 🔥 Mark as completed before navigating
           navigate(redirectTo);
         }, 1000);
 
@@ -113,7 +112,7 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
     };
 
     processAuthCode();
-  }, []); // 🔥 Sin dependencias para que solo se ejecute una vez
+  }, []); 
 
   // If we are processing authentication, show spinner
   if (processingAuth) {

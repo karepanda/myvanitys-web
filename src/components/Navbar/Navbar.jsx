@@ -15,7 +15,7 @@ const Navbar = () => {
 		toggleModalLogin,
 		showModalLogin,
 		apiResponse,
-		authInitialized, // 🔥 NUEVO: Para controlar el renderizado
+		authInitialized, // 🔥 To control rendering
 		showCreateProductPopup,
 		toggleCreateProductPopup,
 		searchText,
@@ -23,7 +23,7 @@ const Navbar = () => {
 		setApiResponse,
 		toggleUserProfile,
 		showCookieBanner,
-		logout, // 🔥 NUEVO: Función logout del context
+		logout,
 	} = useContext(VanitysContext);
 
 	const navigate = useNavigate();
@@ -33,10 +33,8 @@ const Navbar = () => {
 		navigate('/');
 	};
 
-	// 🔥 NUEVA FUNCIÓN: Logout mejorado
 	const handleLogout = () => {
-		logout(); // Usa la función del context que limpia todo
-		// No necesitamos navigate('/') porque logout ya redirige
+		logout(); 
 	};
 
 	const renderButtonWithTooltip = (label, onClick, className) => (
@@ -54,7 +52,7 @@ const Navbar = () => {
 		</div>
 	);
 
-	// 🔥 LÓGICA MEJORADA: Determinar qué mostrar basado en authInitialized
+	// 🔥 Determine what to display based on authInitialized
 	const isAuthenticated = authInitialized && apiResponse?.token;
 	const showLoginButtons = authInitialized && !apiResponse?.token;
 
@@ -71,7 +69,7 @@ const Navbar = () => {
 							showCookieBanner ? 'disabled' : ''
 						}`}
 						type='text'
-						placeholder={isAuthenticated ? 'Products' : 'Search...'} // 🔥 MEJORADO
+						placeholder={isAuthenticated ? 'Products' : 'Search...'}
 						value={searchText}
 						onChange={handleSearch}
 						disabled={showCookieBanner}
@@ -81,7 +79,6 @@ const Navbar = () => {
 					)}
 				</div>
 
-				{/* 🔥 CAMBIO PRINCIPAL: Usar showLoginButtons en lugar de !apiResponse */}
 				{showLoginButtons && (
 					<>
 						{renderButtonWithTooltip(
@@ -97,7 +94,6 @@ const Navbar = () => {
 					</>
 				)}
 
-				{/* 🔥 NUEVO: Mostrar loading mientras se inicializa */}
 				{!authInitialized && (
 					<div className="auth-loading">
 						<span className="loading-text">Loading...</span>
@@ -115,8 +111,6 @@ const Navbar = () => {
 						<Register />
 					</Modal>
 				)}
-
-				{/* 🔥 CAMBIO: Usar isAuthenticated en lugar de apiResponse */}
 				{isAuthenticated && (
 					<>
 						<p className='header__products'>Products</p>
@@ -140,7 +134,6 @@ const Navbar = () => {
 									cursor: showCookieBanner ? 'not-allowed' : 'pointer',
 								}}
 							>
-								{/* 🔥 COMPLETAR: Agregar los paths del SVG */}
 								<path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
 							</svg>
 							{showCookieBanner && (
@@ -149,8 +142,6 @@ const Navbar = () => {
 								</span>
 							)}
 						</div>
-
-						{/* 🔥 NUEVO: Botón de logout */}
 						{renderButtonWithTooltip(
 							'Logout',
 							handleLogout,
