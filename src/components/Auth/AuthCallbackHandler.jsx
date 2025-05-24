@@ -1,24 +1,29 @@
-// src/components/Auth/AuthCallbackHandler.jsx
 import React, { useContext, useEffect, useState, useRef } from 'react'; 
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { VanitysContext } from '../../context';
-import { loginService } from '../../services/auth/loginService';
+import { authService } from '../../services/auth/authService';
 import './Auth.css';
 
 /**
  * Component exclusively responsible for processing the authentication callback
- * Its sole responsibility is to process the authorization code and redirect
- *
- * @param {Object} props - Component properties
- * @param {string} props.redirectTo - Path to redirect to after successful authentication
+ * Handles both LOGIN (with auth) and REGISTER (user creation only) flows
+ * @param {Object} props - Component props
+ * @param {string} [props.redirectTo='/dashboard'] - Path to redirect after successful auth
  */
 const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
-  const { updateAuthData, errorHandler } = useContext(VanitysContext);
+  const { 
+    updateAuthData, 
+    errorHandler, 
+    toggleNotification,
+    setShowWelcomePopup,
+    setShowModalLogin 
+  } = useContext(VanitysContext);
+  
   const [processingAuth, setProcessingAuth] = useState(true);
-  const hasProcessed = useRef(false); // 🔥 Flag to avoid multiple executions
+  const [processingMessage, setProcessingMessage] = useState('Processing authentication...');
+  const hasProcessed = useRef(false);
 
   const navigate = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
     const processAuthCode = async () => {
@@ -31,81 +36,129 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
       hasProcessed.current = true; 
       
       try {
-        // Get authorization code from the URL
-        const urlParams = new URLSearchParams(location.search);
-        const authCode = urlParams.get('code');
-        const state = urlParams.get('state'); // 'login' or 'register'
+        // 🔍 URL DEBUG
+        console.log('🔍 === AUTH CALLBACK DEBUG ===');
+        console.log('Current URL:', window.location.href);
+        console.log('URL search params:', window.location.search);
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        console.log('URL params:');
+        for (const [key, value] of urlParams.entries()) {
+          console.log(`  ${key}: ${value}`);
+        }
+        
+        const state = urlParams.get('state');
+        const isRegistration = state === 'register';
+        
+        console.log('🔍 Is Registration Flow?:', isRegistration);
+        console.log('🔍 === END DEBUG ===');
 
-        console.log('🔄 Processing auth callback (ONCE)...');
-        console.log('State:', state);
-        console.log('Auth code present:', !!authCode);
+        // Update processing message based on flow
+        setProcessingMessage(isRegistration ? 'Creating your account...' : 'Logging you in...');
 
-        // 🔥 Limpiar URL inmediatamente
+        console.log('🔄 Processing auth callback using authService...');
+
+        // 🎯 USE EXISTING authService.handleAuthentication
+        const result = await authService.handleAuthentication(errorHandler);
+
+        // 🔥 Clean URL AFTER processing
         if (window.history && window.history.replaceState) {
           window.history.replaceState({}, document.title, window.location.pathname);
         }
 
-        if (!authCode) {
-          console.error('No authentication code found in URL');
-          errorHandler.handleApiError('auth', 'default', 'No authentication code found');
+        if (!result) {
+          console.error('Authentication/Registration failed - no data returned');
+          
+          // Use ErrorHandler for proper error display
+          if (isRegistration) {
+            errorHandler.handleApiError('auth', 'registrationFailed', 'User registration failed');
+          } else {
+            errorHandler.handleApiError('auth', 'withoutUserData', 'Login failed');
+          }
+          
           setProcessingAuth(false);
           return;
         }
 
-        // Authenticate using the login service
-        const userData = await loginService.authenticate(authCode, errorHandler);
-
-        if (!userData) {
-          console.error('Authentication failed - no user data returned');
-          errorHandler.handleApiError('auth', 'withoutUserData');
-          setProcessingAuth(false);
+        // 🎯 HANDLE REGISTRATION FLOW (User creation without login)
+        if (isRegistration && result.requiresLogin) {
+          console.log('✅ REGISTRATION SUCCESSFUL - User created!');
+          console.log('👤 New user ID:', result.userId);
+          
+          // 🎉 Show WelcomePopup for successful registration
+          console.log('🎉 Showing welcome popup for new user...');
+          setShowWelcomePopup(true);
+          
+          // 🎉 Show success notification
+          toggleNotification();
+          
+          console.log('🏠 Redirecting to home for login...');
+          
+          // Navigate to home after showing welcome popup
+          setTimeout(() => {
+            setProcessingAuth(false);
+            navigate('/');
+            
+            // Show login modal after arriving at home
+            setTimeout(() => {
+              if (setShowModalLogin) {
+                console.log('🔑 Opening login modal for new user...');
+                setShowModalLogin(true);
+              }
+            }, 1500);
+          }, 2000);
+          
           return;
         }
-
-        // Verify that the token is present
-        if (!userData.token) {
+        
+        // 🎯 HANDLE LOGIN FLOW (Normal authentication with token)
+        if (!result.token) {
           console.error('No token returned from authentication service');
-          errorHandler.handleApiError('auth', 'withoutToken');
+          errorHandler.handleApiError('auth', 'withoutToken', 'Authentication token missing');
           setProcessingAuth(false);
           return;
         }
 
-        console.log('Authentication successful!');
-        console.log('Token received:', userData.token.substring(0, 10) + '...');
+        console.log('✅ LOGIN SUCCESSFUL!');
+        console.log('Token received:', result.token.substring(0, 10) + '...');
 
-        // Create object with the structure expected by the context
+        // Create auth data for context
         const authData = {
-          token: userData.token,
+          token: result.token,
           user: {
-            id: userData.userId || userData.id,
-            name: userData.name || userData.displayName,
-            email: userData.email,
-            profilePicture: userData.profilePicture || userData.picture
+            id: result.userId || result.id,
+            name: result.name || result.displayName,
+            email: result.email,
+            profilePicture: result.profilePicture || result.picture
           },
-          isNewUser: userData.isNewUser || false,
+          isNewUser: result.isNewUser || false,
           expiresAt: Date.now() + (30 * 24 * 60 * 60 * 1000) 
         };
 
-        console.log('🔥 About to save auth data:', authData);
+        console.log('🔥 Saving auth data and navigating to dashboard...');
         
         updateAuthData(authData);
 
-        // Show welcome popup for new users
+        // Show welcome popup for new users (login flow)
         if (authData.isNewUser && !sessionStorage.getItem('welcomeShow')) {
+          setShowWelcomePopup(true);
           sessionStorage.setItem('welcomeShow', 'true');
         }
 
-        console.log('🔥 Auth data saved, navigating to dashboard...');
+        // 🎉 Show success notification
+        toggleNotification();
 
-        // 🔥 Navigate after a delay to ensure that the Context is refreshed
+        // Navigate to dashboard
         setTimeout(() => {
           console.log('🔥 Executing navigation to:', redirectTo);
-          setProcessingAuth(false); // 🔥 Mark as completed before navigating
+          setProcessingAuth(false);
           navigate(redirectTo);
         }, 1000);
 
       } catch (error) {
         console.error('Error processing authentication:', error);
+        
+        // Use ErrorHandler for proper error display
         errorHandler.showGenericError();
         setProcessingAuth(false);
       }
@@ -119,16 +172,15 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
     return (
       <div className="auth-callback">
         <div className="auth-callback__processing">
-          <h2>Processing authentication</h2>
+          <h2>Almost there!</h2>
           <div className="auth-callback__spinner"></div>
-          <p>Please wait while we complete the login...</p>
+          <p>{processingMessage}</p>
         </div>
       </div>
     );
   }
 
   // If we reach here, there was an error but it was already handled by errorHandler
-  // Show a button to return to the home page
   return (
     <div className="auth-callback">
       <div className="auth-callback__error">
