@@ -1,9 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+// src/components/Dashboard/Dashboard.jsx
+import React, { useContext } from 'react';
 import { Categories } from '../Categories/Categories';
 import { ProductCard } from '../ProductCard/ProductCard';
 import { NoProductCard } from '../NoProductCard/NoProductCard';
 import { SearchedProductCard } from '../SearchedProductCard/SearchedProductCard';
 import { VanitysContext } from '../../context/index';
+import { useFetchUserProducts } from '../../hooks/useFetchUserProducts'; // 🔥 USAR EL HOOK
 import './Dashboard.css';
 import { Modal } from '../Modal/Modal';
 import { UserProfile } from '../UserProfile/UserProfile';
@@ -11,56 +13,27 @@ import { Notification } from '../Notification/Notification';
 
 const Dashboard = () => {
 	const { 
-		apiResponse, 
 		searchText, 
 		showUserProfile, 
-		showNotification,
-		findProductsByUserId,
-		loading,
-		errorHandler
+		showNotification
 	} = useContext(VanitysContext);
 
-	// Local status for products
-	const [products, setProducts] = useState([]);
-	// Status to control the initial load
-	const [initialLoading, setInitialLoading] = useState(true);
+	
+	//const { products, error, loading } = useFetchUserProducts();
+	
+	// 🔥 TEMPORAL: Usar datos mock para probar
+	 const products = [];
+	 const error = null;
+	 const loading = false;
 
-	// Obtain the products when the component is assembled
-	useEffect(() => {
-		const fetchProducts = async () => {
-			try {
-				// Check if we have a token and a user ID
-				if (apiResponse?.token && apiResponse?.user?.id) {
-					// Use the context function to get the user's products
-					const userProducts = await findProductsByUserId(
-						apiResponse.token,
-						apiResponse.user.id
-					);
+	console.log('🎯 Dashboard render:', {
+		productsCount: products?.length || 0,
+		loading,
+		hasError: !!error,
+		searchText
+	});
 
-					if (userProducts) {
-						setProducts(userProducts);
-					} else {
-						// If there are no products, set an empty array
-						setProducts([]);
-					}
-				} else {
-					// If there is no token or user ID, we cannot obtain products.
-					console.warn('No token or user ID available to fetch products');
-					setProducts([]);
-				}
-			} catch (error) {
-				console.error('Error fetching user products:', error);
-				errorHandler.showGenericError();
-				setProducts([]);
-			} finally {
-				setInitialLoading(false);
-			}
-		};
-
-		fetchProducts();
-	}, [apiResponse, findProductsByUserId, errorHandler]);
-
-	// Use local state products instead of apiResponse.products
+	// Use products from hook instead of local state
 	const productId = products[0]?.reviews?.[0]?.productId || null;
 
 	// Filter products based on search text
@@ -73,9 +46,31 @@ const Dashboard = () => {
 		return products.length === 0 ? 'dashboard__noProducts' : 'dashboard';
 	};
 
-	// Show a loading status if we are obtaining products
-	if (initialLoading || loading) {
-		return <div className="dashboard__loading">Loading your products...</div>;
+	// 🔥 LOADING STATE mejorado
+	if (loading) {
+		return (
+			<div className="dashboard__loading">
+				<div className="loading-spinner"></div>
+				<p>Loading your products...</p>
+			</div>
+		);
+	}
+
+	// 🔥 ERROR STATE mejorado
+	if (error) {
+		return (
+			<div className="dashboard__error">
+				<div className="error-icon">⚠️</div>
+				<h3>Error loading products</h3>
+				<p>{error.message || 'Could not load your products. Please try again.'}</p>
+				<button 
+					className="retry-button"
+					onClick={() => window.location.reload()}
+				>
+					Try again
+				</button>
+			</div>
+		);
 	}
 
 	return (
@@ -83,7 +78,10 @@ const Dashboard = () => {
 			{products.length === 0 ? (
 				<NoProductCard />
 			) : searchText && filteredProducts.length === 0 ? (
-				<p>Products not found</p>
+				<div className="no-search-results">
+					<p>No products found for "{searchText}"</p>
+					<p>Try a different search term</p>
+				</div>
 			) : (
 				<>
 					<div className='dashboard__categories'>
@@ -123,6 +121,26 @@ const Dashboard = () => {
 					description={'Product has been added to your Vanity'}
 					highlight={'Vanity'}
 				/>
+			)}
+
+			{/* 🔥 DEBUG INFO para desarrollo */}
+			{process.env.NODE_ENV === 'development' && (
+				<div className="dashboard__debug">
+					<details>
+						<summary>🐛 Debug Info</summary>
+						<pre>
+{JSON.stringify({
+	productsState: {
+		count: products?.length || 0,
+		loading,
+		error: error?.message || null,
+		searchText,
+		filteredCount: filteredProducts?.length || 0
+	}
+}, null, 2)}
+						</pre>
+					</details>
+				</div>
 			)}
 		</div>
 	);

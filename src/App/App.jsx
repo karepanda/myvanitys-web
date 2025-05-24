@@ -1,4 +1,4 @@
-// App.jsx
+// src/App/App.jsx
 import { BrowserRouter } from 'react-router-dom';
 import { AppRoutes } from '../Routes/index';
 import { Navbar } from '../components/Navbar/Navbar';
@@ -18,15 +18,10 @@ const AppContent = () => {
     errorType
   } = useContext(VanitysContext);
 
-  
   return (
     <div className='app-container'>
-      <BrowserRouter>
-        <Navbar />
-        <AppRoutes />
-      </BrowserRouter>
-      
-      {/* Global error popup */}
+      <Navbar />
+      <AppRoutes />
       {showMissingFieldsPopup && (
         <Modal>
           <MissingFieldsPopup
@@ -44,7 +39,9 @@ const AppContent = () => {
 const App = () => {
   return (
     <VanitysProvider>
-      <AppContent />
+      <BrowserRouter>
+        <AppContent />
+      </BrowserRouter>
     </VanitysProvider>
   );
 };

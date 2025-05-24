@@ -1,5 +1,5 @@
 // src/components/Auth/AuthCallbackHandler.jsx
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react'; // 🔥 useRef agregado
 import { useNavigate, useLocation } from 'react-router-dom';
 import { VanitysContext } from '../../context';
 import { loginService } from '../../services/auth/loginService';
@@ -13,25 +13,34 @@ import './Auth.css';
  * @param {string} props.redirectTo - Path to redirect to after successful authentication
  */
 const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
-  const { updateAuthData, errorHandler } = useContext(VanitysContext); // 🔥 Usar updateAuthData
+  const { updateAuthData, errorHandler } = useContext(VanitysContext);
   const [processingAuth, setProcessingAuth] = useState(true);
+  const hasProcessed = useRef(false); // 🔥 Flag para evitar múltiples ejecuciones
 
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
     const processAuthCode = async () => {
+      // 🔥 PREVENIR múltiples ejecuciones
+      if (hasProcessed.current) {
+        console.log('🔄 Auth already processed, skipping...');
+        return;
+      }
+
+      hasProcessed.current = true; // 🔥 Marcar como procesado inmediatamente
+      
       try {
         // Get authorization code from the URL
         const urlParams = new URLSearchParams(location.search);
         const authCode = urlParams.get('code');
         const state = urlParams.get('state'); // 'login' or 'register'
 
-        console.log('Processing auth callback...');
+        console.log('🔄 Processing auth callback (ONCE)...');
         console.log('State:', state);
         console.log('Auth code present:', !!authCode);
 
-        // Clean the URL to avoid repeated processing
+        // 🔥 Limpiar URL inmediatamente
         if (window.history && window.history.replaceState) {
           window.history.replaceState({}, document.title, window.location.pathname);
         }
@@ -77,18 +86,24 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
           expiresAt: Date.now() + (30 * 24 * 60 * 60 * 1000) 
         };
 
+        console.log('🔥 About to save auth data:', authData);
+        
+        // 🔥 Usar updateAuthData del context
         updateAuthData(authData);
 
         // Show welcome popup for new users
         if (authData.isNewUser && !sessionStorage.getItem('welcomeShow')) {
-          // La lógica del welcome popup se maneja en el context
           sessionStorage.setItem('welcomeShow', 'true');
         }
 
-        // Redirect to the dashboard after a short pause
+        console.log('🔥 Auth data saved, navigating to dashboard...');
+
+        // 🔥 Navegar después de un delay para asegurar que el Context se actualice
         setTimeout(() => {
+          console.log('🔥 Executing navigation to:', redirectTo);
+          setProcessingAuth(false); // 🔥 Marcar como completado antes de navegar
           navigate(redirectTo);
-        }, 500);
+        }, 1000);
 
       } catch (error) {
         console.error('Error processing authentication:', error);
@@ -98,7 +113,7 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
     };
 
     processAuthCode();
-  }, [location, navigate, redirectTo, updateAuthData, errorHandler]);
+  }, []); // 🔥 Sin dependencias para que solo se ejecute una vez
 
   // If we are processing authentication, show spinner
   if (processingAuth) {

@@ -1,4 +1,5 @@
 // src/context/index.js
+import React from 'react'; 
 import { createContext, useState, useEffect } from 'react';
 import { ErrorHandler } from '../utils/errorHandler';
 import { authService } from '../services/auth/authService';
@@ -93,7 +94,7 @@ const VanitysProvider = ({ children }) => {
 		loadSavedAuth();
 	}, []);
 
-	// 🔥 NUEVA FUNCIONALIDAD: Función logout mejorada
+
 	const logout = () => {
 		console.log('🚪 Logging out user...');
 		setApiResponse(null);
@@ -113,18 +114,26 @@ const VanitysProvider = ({ children }) => {
 		window.location.href = '/';
 	};
 
-	// 🔥 FUNCIONALIDAD MEJORADA: Guardar automáticamente después de login
-	const updateAuthData = (authData) => {
-		console.log('💾 Saving auth data to localStorage...');
-		
-		// Añadir expiración si no existe
-		if (!authData.expiresAt) {
-			authData.expiresAt = Date.now() + (30 * 24 * 60 * 60 * 1000); // 30 días
-		}
-		
-		setApiResponse(authData);
-		localStorage.setItem('vanitys_auth', JSON.stringify(authData));
-	};
+	
+
+const updateAuthData = (authData) => {
+    console.log('💾 Saving auth data to localStorage...');
+    
+    if (!authData.expiresAt) {
+        authData.expiresAt = Date.now() + (30 * 24 * 60 * 60 * 1000);
+    }
+    
+    console.log('🔥 Context updating with auth data:', {
+        hasToken: !!authData.token,
+        userId: authData.user?.id,
+        userName: authData.user?.name
+    });
+
+    setApiResponse(authData);
+    localStorage.setItem('vanitys_auth', JSON.stringify(authData));
+    
+    console.log('✅ Auth data saved to context and localStorage');
+};
 
 	// UI Functions
 	const toggleNotification = () => {

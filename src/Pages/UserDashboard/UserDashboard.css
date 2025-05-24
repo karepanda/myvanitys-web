@@ -1,0 +1,92 @@
+/* src/pages/UserDashboard/UserDashboard.css */
+
+.dashboard-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.dashboard-loading .loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f0f0f0;
+  border-left: 4px solid #667eea;
+  border-radius: 50%;
+  animation: dashboardSpin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes dashboardSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.dashboard-loading p {
+  color: #666;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* 🔥 NUEVO: Mensaje cuando no hay sesión */
+.no-session-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 40px 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 12px;
+  margin: 40px;
+}
+
+.no-session-message h2 {
+  color: #333;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.no-session-message p {
+  color: #666;
+  font-size: 1.2rem;
+  margin: 8px 0;
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+.no-session-message p:last-child {
+  font-weight: 500;
+  color: #495057;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .dashboard-loading,
+  .no-session-message {
+    min-height: 50vh;
+    padding: 20px;
+    margin: 20px;
+  }
+  
+  .dashboard-loading .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border-width: 3px;
+  }
+  
+  .dashboard-loading p,
+  .no-session-message p {
+    font-size: 1rem;
+  }
+  
+  .no-session-message h2 {
+    font-size: 2rem;
+  }
+}
