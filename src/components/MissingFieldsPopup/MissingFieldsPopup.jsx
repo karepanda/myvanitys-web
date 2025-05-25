@@ -2,17 +2,15 @@ import React, { useContext } from 'react';
 import './MissingFieldsPopup.css';
 import { IoClose } from 'react-icons/io5';
 import { VanitysContext } from '../../context/index';
-import { useNavigate } from 'react-router-dom';
 
 const MissingFieldsPopup = ({
 	message,
 	title = 'Missing fields!',
 	type = 'warning',
 	onClose,
+	redirectToHome = false, 
 }) => {
 	const { setShowMissingFieldsPopup } = useContext(VanitysContext);
-
-	const redirectToHome = useNavigate();
 
 	// Función para manejar el cierre
 	const handleClose = () => {
@@ -26,7 +24,11 @@ const MissingFieldsPopup = ({
 			setShowMissingFieldsPopup(false);
 		}
 
-		redirectToHome('/');
+		// 🔥 SOLO redirigir si explícitamente se solicita
+		if (redirectToHome) {
+			console.log('Redirecting to home as requested');
+			window.location.href = '/';
+		}
 	};
 
 	// Get the appropriate class according to type
