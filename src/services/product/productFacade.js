@@ -6,15 +6,15 @@ import { deleteProductService } from './operations/deleteProductService';
 import { searchProductService } from './operations/searchProductService';
 
 /**
- * Fachada para el servicio de productos
- * Proporciona una interfaz unificada para todas las operaciones relacionadas con productos
+ * Product service facade
+ * Provides a unified interface for all product related operations
  */
 export const productFacade = {
-	// Métodos de creación
+	// Create
 	createProduct: createProductService.createProduct,
 	createProductVariation: createProductService.createProductVariation,
 
-	// Métodos de lectura
+	// Read
 	getProducts: readProductService.getProducts,
 	getProductById: readProductService.getProductById,
 	findProductsByUserId: readProductService.findProductsByUserId,
@@ -22,16 +22,16 @@ export const productFacade = {
 	getFeaturedProducts: readProductService.getFeaturedProducts,
 	getProductsPaginated: readProductService.getProductsPaginated,
 
-	// Métodos de actualización
+	// Update
 	updateProduct: updateProductService.updateProduct,
 	updateProductStatus: updateProductService.updateProductStatus,
 	updateProductPrice: updateProductService.updateProductPrice,
 
-	// Métodos de eliminación
+	// Delete
 	deleteProduct: deleteProductService.deleteProduct,
 	deleteProductVariation: deleteProductService.deleteProductVariation,
 
-	// Métodos de búsqueda
+	// Search
 	searchProducts: searchProductService.searchProducts,
 	searchProductsByCategory: searchProductService.searchProductsByCategory,
 	searchProductsByPriceRange: searchProductService.searchProductsByPriceRange,

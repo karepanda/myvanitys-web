@@ -10,6 +10,8 @@ export class ErrorHandler {
 
 	// Main method to display error messages
 	showErrorMessage(message, title, type) {
+		console.error('🚨 ERROR HANDLER CALLED:', { message, title, type });
+		console.error('🚨 STACK TRACE:', new Error().stack);
 		if (this.setMessage) this.setMessage(message);
 		if (this.setTitle) this.setTitle(title);
 		if (this.setType) this.setType(type);
