@@ -1,5 +1,5 @@
 // src/context/index.js
-import React from 'react'; 
+import React from 'react';
 import { createContext, useState, useEffect } from 'react';
 import { ErrorHandler } from '../utils/errorHandler';
 import { authService } from '../services/auth/authService';
@@ -19,6 +19,9 @@ const VanitysProvider = ({ children }) => {
 	const [showUserProfile, setShowUserProfile] = useState(false);
 	const [showNotification, setShowNotification] = useState(false);
 	const [showWelcomePopup, setShowWelcomePopup] = useState(false);
+
+	// Product Upgrade Trigger
+	const [productsRefreshTrigger, setProductsRefreshTrigger] = useState(0);
 
 	// Data states
 	const [apiResponse, setApiResponse] = useState(null);
@@ -50,13 +53,13 @@ const VanitysProvider = ({ children }) => {
 		setErrorType
 	);
 
-	// 🔥 NUEVA FUNCIONALIDAD: Carga automática desde localStorage
+	// 🔥 Automatic upload from localStorage
 	useEffect(() => {
 		const loadSavedAuth = () => {
 			try {
 				console.log('🔍 Checking for saved authentication...');
 				const savedAuth = localStorage.getItem('vanitys_auth');
-				
+
 				if (savedAuth) {
 					const authData = JSON.parse(savedAuth);
 					console.log('📦 Found saved auth data:', {
@@ -66,9 +69,9 @@ const VanitysProvider = ({ children }) => {
 						expiresAt: authData?.expiresAt
 					});
 
-					// Validar estructura y expiración
+					// // Validate structure and expiry
 					if (authData?.token && authData?.user?.id) {
-						// Verificar si no ha expirado (si tiene expiresAt)
+						// Check for expiration (if expiresAt)
 						if (authData.expiresAt && Date.now() > authData.expiresAt) {
 							console.log('⏰ Auth data expired, removing...');
 							localStorage.removeItem('vanitys_auth');
@@ -100,40 +103,40 @@ const VanitysProvider = ({ children }) => {
 		setApiResponse(null);
 		localStorage.removeItem('vanitys_auth');
 		sessionStorage.removeItem('welcomeShow');
-		
-		// Limpiar estados relacionados al usuario
+
+		// Clear user-related statuses
 		setSelectedProduct(null);
 		setFormData(null);
 		setSearchText('');
-		
-		// Cerrar modales
+
+		// Close modals
 		setShowUserProfile(false);
 		setShowWelcomePopup(false);
-		
+
 		// Redirect to home
 		window.location.href = '/';
 	};
 
-	
 
-const updateAuthData = (authData) => {
-    console.log('💾 Saving auth data to localStorage...');
-    
-    if (!authData.expiresAt) {
-        authData.expiresAt = Date.now() + (30 * 24 * 60 * 60 * 1000);
-    }
-    
-    console.log('🔥 Context updating with auth data:', {
-        hasToken: !!authData.token,
-        userId: authData.user?.id,
-        userName: authData.user?.name
-    });
 
-    setApiResponse(authData);
-    localStorage.setItem('vanitys_auth', JSON.stringify(authData));
-    
-    console.log('✅ Auth data saved to context and localStorage');
-};
+	const updateAuthData = (authData) => {
+		console.log('💾 Saving auth data to localStorage...');
+
+		if (!authData.expiresAt) {
+			authData.expiresAt = Date.now() + (30 * 24 * 60 * 60 * 1000);
+		}
+
+		console.log('🔥 Context updating with auth data:', {
+			hasToken: !!authData.token,
+			userId: authData.user?.id,
+			userName: authData.user?.name
+		});
+
+		setApiResponse(authData);
+		localStorage.setItem('vanitys_auth', JSON.stringify(authData));
+
+		console.log('✅ Auth data saved to context and localStorage');
+	};
 
 	// UI Functions
 	const toggleNotification = () => {
@@ -202,9 +205,9 @@ const updateAuthData = (authData) => {
 		toggleCreateReviewPopup();
 	};
 
-	// 🔥 FUNCIONALIDAD MEJORADA: Authentication con verificación de sesión existente
+	// 🔥 Authentication with existing session verification
 	const handleAuthentication = async () => {
-		// Si ya hay una sesión activa, no hacer nueva autenticación
+		// If there is already an active session, do not re-authenticate.
 		if (apiResponse?.token) {
 			console.log('🔒 Session already active, skipping authentication');
 			return apiResponse;
@@ -216,7 +219,6 @@ const updateAuthData = (authData) => {
 			setLoading(false);
 
 			if (userData) {
-				// Usar la nueva función para guardar
 				updateAuthData(userData);
 
 				// Show welcome popup for new users
@@ -242,18 +244,22 @@ const updateAuthData = (authData) => {
 		authService.initiateGoogleAuth('register');
 	};
 
-	// Product functions via facade (sin cambios)
+	// Product functions using facade 
 	const createProduct = async (token, productData) => {
 		setLoading(true);
 		try {
+			// This calls your createProductService (not modified)
 			const newProduct = await productFacade.createProduct(
 				token,
 				productData,
 				errorHandler
 			);
 			setLoading(false);
+
 			if (newProduct) {
+				console.log('✅ Product created successfully, triggering refresh...');
 				toggleNotification();
+				setProductsRefreshTrigger(prev => prev + 1);
 			}
 			return newProduct;
 		} catch (error) {
@@ -320,8 +326,15 @@ const updateAuthData = (authData) => {
 				errorHandler
 			);
 			setLoading(false);
+
 			if (updatedProduct) {
+				console.log('✅ Product updated successfully, triggering refresh...');
+
+				// 🎉 Show success notification
 				toggleNotification();
+
+				// 🔥 TRIGGER PRODUCTS REFRESH
+				setProductsRefreshTrigger(prev => prev + 1);
 			}
 			return updatedProduct;
 		} catch (error) {
@@ -340,8 +353,15 @@ const updateAuthData = (authData) => {
 				errorHandler
 			);
 			setLoading(false);
+
 			if (success) {
+				console.log('✅ Product deleted successfully, triggering refresh...');
+
+				// 🎉 Show success notification
 				toggleNotification();
+
+				// 🔥 TRIGGER PRODUCTS REFRESH
+				setProductsRefreshTrigger(prev => prev + 1);
 			}
 			return success;
 		} catch (error) {
@@ -368,6 +388,9 @@ const updateAuthData = (authData) => {
 			return null;
 		}
 	};
+
+
+
 
 	return (
 		<VanitysContext.Provider
@@ -463,6 +486,7 @@ const updateAuthData = (authData) => {
 				updateProduct,
 				deleteProduct,
 				searchProducts,
+				productsRefreshTrigger,
 			}}
 		>
 			{children}

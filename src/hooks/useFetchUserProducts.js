@@ -2,7 +2,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { VanitysContext } from '../context';
 
-
 export const useFetchUserProducts = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
@@ -12,7 +11,8 @@ export const useFetchUserProducts = () => {
     apiResponse, 
     authInitialized,
     findProductsByUserId, 
-    errorHandler 
+    errorHandler,
+    productsRefreshTrigger // 🔥 Trigger for refresh
   } = useContext(VanitysContext);
 
   useEffect(() => {
@@ -21,6 +21,7 @@ export const useFetchUserProducts = () => {
       console.log('🔄 Auth initialized:', authInitialized);
       console.log('🔄 Has token:', !!apiResponse?.token);
       console.log('🔄 Has user ID:', !!apiResponse?.user?.id);
+      console.log('🔄 Refresh trigger:', productsRefreshTrigger);
 
       if (!authInitialized || !apiResponse?.token || !apiResponse?.user?.id) {
         console.log('⏳ SIMPLE: Not ready yet, skipping...');
@@ -66,12 +67,18 @@ export const useFetchUserProducts = () => {
     };
 
     fetchProducts();
-  }, [authInitialized, apiResponse?.token, apiResponse?.user?.id]); 
+  }, [
+    authInitialized, 
+    apiResponse?.token, 
+    apiResponse?.user?.id,
+    productsRefreshTrigger // 🔥 Dependency triggering re-fetch
+  ]); 
 
   console.log('🔍 SIMPLE Hook state:', { 
     productsCount: products.length, 
     loading, 
-    hasError: !!error 
+    hasError: !!error,
+    refreshTrigger: productsRefreshTrigger
   });
 
   return { products, error, loading };
