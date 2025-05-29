@@ -10,40 +10,40 @@ import { useContext } from 'react';
 import './App.css';
 
 const AppContent = () => {
-  const { 
-    showMissingFieldsPopup,
-    setShowMissingFieldsPopup,
-    errorMessage,
-    errorTitle,
-    errorType
-  } = useContext(VanitysContext);
+	const {
+		showMissingFieldsPopup,
+		setShowMissingFieldsPopup,
+		errorMessage,
+		errorTitle,
+		errorType,
+	} = useContext(VanitysContext);
 
-  return (
-    <div className='app-container'>
-      <Navbar />
-      <AppRoutes />
-      {showMissingFieldsPopup && (
-        <Modal>
-          <MissingFieldsPopup
-            message={errorMessage || 'An error occurred'}
-            title={errorTitle}
-            type={errorType}
-            onClose={() => setShowMissingFieldsPopup(false)}
-          />
-        </Modal>
-      )}
-    </div>
-  );
+	return (
+		<div className='app-container'>
+			<Navbar />
+			<AppRoutes />
+			{showMissingFieldsPopup && (
+				<Modal>
+					<MissingFieldsPopup
+						message={errorMessage || 'An error occurred'}
+						title={errorTitle}
+						type={errorType}
+						onClose={() => setShowMissingFieldsPopup(false)}
+					/>
+				</Modal>
+			)}
+		</div>
+	);
 };
 
 const App = () => {
-  return (
-    <VanitysProvider>
-      <BrowserRouter>
-        <AppContent />
-      </BrowserRouter>
-    </VanitysProvider>
-  );
+	return (
+		<VanitysProvider>
+			<BrowserRouter>
+				<AppContent />
+			</BrowserRouter>
+		</VanitysProvider>
+	);
 };
 
 export { App };

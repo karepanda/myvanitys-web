@@ -11,7 +11,9 @@ const VanitysProvider = ({ children }) => {
 	// UI States
 	const [showModalRegister, setShowModalRegister] = useState(false);
 	const [showModalLogin, setShowModalLogin] = useState(false);
-	const [showCookieBanner, setShowCookieBanner] = useState(true);
+	const [showCookieBanner, setShowCookieBanner] = useState(() => {
+		return sessionStorage.getItem('cookieBannerClosed') !== 'true';
+	});
 	const [showCreateProductPopup, setShowCreateProductPopup] = useState(false);
 	const [showMissingFieldsPopup, setShowMissingFieldsPopup] = useState(false);
 	const [showProductPopup, setShowProductPopup] = useState(false);
@@ -66,7 +68,7 @@ const VanitysProvider = ({ children }) => {
 						hasToken: !!authData?.token,
 						hasUser: !!authData?.user?.id,
 						userName: authData?.user?.name,
-						expiresAt: authData?.expiresAt
+						expiresAt: authData?.expiresAt,
 					});
 
 					// // Validate structure and expiry
@@ -97,7 +99,6 @@ const VanitysProvider = ({ children }) => {
 		loadSavedAuth();
 	}, []);
 
-
 	const logout = () => {
 		console.log('🚪 Logging out user...');
 		setApiResponse(null);
@@ -117,19 +118,17 @@ const VanitysProvider = ({ children }) => {
 		window.location.href = '/';
 	};
 
-
-
 	const updateAuthData = (authData) => {
 		console.log('💾 Saving auth data to localStorage...');
 
 		if (!authData.expiresAt) {
-			authData.expiresAt = Date.now() + (30 * 24 * 60 * 60 * 1000);
+			authData.expiresAt = Date.now() + 30 * 24 * 60 * 60 * 1000;
 		}
 
 		console.log('🔥 Context updating with auth data:', {
 			hasToken: !!authData.token,
 			userId: authData.user?.id,
-			userName: authData.user?.name
+			userName: authData.user?.name,
 		});
 
 		setApiResponse(authData);
@@ -146,7 +145,10 @@ const VanitysProvider = ({ children }) => {
 
 	const toggleModalRegister = () => setShowModalRegister((prev) => !prev);
 	const toggleModalLogin = () => setShowModalLogin((prev) => !prev);
-	const closeCookieBanner = () => setShowCookieBanner((prev) => !prev);
+	const closeCookieBanner = () => {
+		sessionStorage.setItem('cookieBannerClosed', 'true');
+		setShowCookieBanner(false);
+	};
 	const toggleProductPopup = () => setShowProductPopup((prev) => !prev);
 
 	const toggleCreateProductPopup = (product = null) => {
@@ -244,7 +246,7 @@ const VanitysProvider = ({ children }) => {
 		authService.initiateGoogleAuth('register');
 	};
 
-	// Product functions using facade 
+	// Product functions using facade
 	const createProduct = async (token, productData) => {
 		setLoading(true);
 		try {
@@ -257,9 +259,11 @@ const VanitysProvider = ({ children }) => {
 			setLoading(false);
 
 			if (newProduct) {
-				console.log('✅ Product created successfully, triggering refresh...');
+				console.log(
+					'✅ Product created successfully, triggering refresh...'
+				);
 				toggleNotification();
-				setProductsRefreshTrigger(prev => prev + 1);
+				setProductsRefreshTrigger((prev) => prev + 1);
 			}
 			return newProduct;
 		} catch (error) {
@@ -328,13 +332,15 @@ const VanitysProvider = ({ children }) => {
 			setLoading(false);
 
 			if (updatedProduct) {
-				console.log('✅ Product updated successfully, triggering refresh...');
+				console.log(
+					'✅ Product updated successfully, triggering refresh...'
+				);
 
 				// 🎉 Show success notification
 				toggleNotification();
 
 				// 🔥 TRIGGER PRODUCTS REFRESH
-				setProductsRefreshTrigger(prev => prev + 1);
+				setProductsRefreshTrigger((prev) => prev + 1);
 			}
 			return updatedProduct;
 		} catch (error) {
@@ -355,13 +361,15 @@ const VanitysProvider = ({ children }) => {
 			setLoading(false);
 
 			if (success) {
-				console.log('✅ Product deleted successfully, triggering refresh...');
+				console.log(
+					'✅ Product deleted successfully, triggering refresh...'
+				);
 
 				// 🎉 Show success notification
 				toggleNotification();
 
 				// 🔥 TRIGGER PRODUCTS REFRESH
-				setProductsRefreshTrigger(prev => prev + 1);
+				setProductsRefreshTrigger((prev) => prev + 1);
 			}
 			return success;
 		} catch (error) {
@@ -388,9 +396,6 @@ const VanitysProvider = ({ children }) => {
 			return null;
 		}
 	};
-
-
-
 
 	return (
 		<VanitysContext.Provider
