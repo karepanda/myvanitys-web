@@ -14,24 +14,28 @@ const ProductCard = ({ product, id }) => {
 		deleteProduct,
 		apiResponse,
 		errorHandler,
-		setSelectedProduct
+		setSelectedProduct,
 	} = useContext(VanitysContext);
 
 	// Calculate the average rating (if any reviews)
-	const stars = product.reviews && product.reviews.length > 0 
-		? product.reviews[0].stars 
-		: 0;
+
+	const stars =
+		product.reviews && product.reviews.length > 0
+			? product.reviews[0].stars
+			: 0;
 
 	// Handle the delete  of a product
 	const handleDeleteProduct = async () => {
 		// CConfirm with user before deleting
-		if (!window.confirm(`Are you sure you want to remove "${product.name}"?`)) {
+		if (
+			!window.confirm(`Are you sure you want to remove "${product.name}"?`)
+		) {
 			return;
 		}
 
 		// Verify if exist a token
 		const token = apiResponse?.token;
-		
+
 		if (!token) {
 			errorHandler.showErrorMessage(
 				'You are not authenticated. Please log in to continue.',
@@ -44,7 +48,7 @@ const ProductCard = ({ product, id }) => {
 		try {
 			// Calling the function to remove product from context
 			const success = await deleteProduct(token, product.id);
-			
+
 			if (success) {
 				console.log(`Product ${product.name} deleted successfully`);
 				// Notification is already handled in deleteProduct
@@ -71,7 +75,7 @@ const ProductCard = ({ product, id }) => {
 				<p className='productCard__left--color'>Color</p>
 				<div
 					className='productCard__left--circle'
-					style={{ backgroundColor: product.color }}
+					style={{ backgroundColor: product.colorHex }}
 				></div>
 				<div className='productCard__left--rating'>
 					{Array(5)
@@ -99,7 +103,7 @@ const ProductCard = ({ product, id }) => {
 						height='38'
 						viewBox='0 0 24 24'
 						onClick={handleEditProduct}
-						title="Edit product"
+						title='Edit product'
 					>
 						<path
 							fill='currentColor'
@@ -115,7 +119,7 @@ const ProductCard = ({ product, id }) => {
 						height='38'
 						viewBox='0 0 24 24'
 						onClick={() => toggleCreateReviewPopup()}
-						title="Add review"
+						title='Add review'
 					>
 						<path
 							fill='currentColor'
@@ -131,7 +135,7 @@ const ProductCard = ({ product, id }) => {
 						height='38'
 						viewBox='0 0 56 56'
 						onClick={handleDeleteProduct}
-						title="Delete product"
+						title='Delete product'
 					>
 						<path
 							fill='currentColor'
