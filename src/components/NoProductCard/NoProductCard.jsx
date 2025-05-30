@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import './NoProductCard.css';
 import { VanitysContext } from '../../context/index';
+import createProduct from '../../assets/CreateProduct.png';
 
 const NoProductCard = () => {
 	const { toggleCreateProductPopup } = useContext(VanitysContext);
@@ -9,7 +10,7 @@ const NoProductCard = () => {
 		<div className='noProductCard'>
 			<img
 				className='noProductCard__image'
-				src='src/assets/CreateProduct.png'
+				src={createProduct}
 				alt='No product image'
 			/>
 			<div className='noProductCard__text'>
