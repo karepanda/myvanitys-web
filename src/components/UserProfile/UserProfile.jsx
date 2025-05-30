@@ -4,7 +4,7 @@ import './UserProfile.css';
 import { VanitysContext } from '../../context/index';
 
 const UserProfile = () => {
-	const { apiResponse, toggleUserProfile, showUserProfile } =
+	const { apiResponse, toggleUserProfile, showUserProfile, logout } =
 		useContext(VanitysContext);
 
 	return (
@@ -65,7 +65,12 @@ const UserProfile = () => {
 						<button className='userProfile__buttons--createReview'>
 							Create Review
 						</button>
-						<button className='userProfile__buttons--logOut'>
+						<button
+							className='userProfile__buttons--logOut'
+							onClick={() => {
+								logout();
+							}}
+						>
 							Log out
 						</button>
 					</div>
