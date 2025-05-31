@@ -15,7 +15,7 @@ const Navbar = () => {
 		toggleModalLogin,
 		showModalLogin,
 		apiResponse,
-		authInitialized, // 🔥 To control rendering
+		authInitialized,
 		showCreateProductPopup,
 		toggleCreateProductPopup,
 		searchText,
@@ -47,7 +47,6 @@ const Navbar = () => {
 		</div>
 	);
 
-	// 🔥 Determine what to display based on authInitialized
 	const isAuthenticated = authInitialized && apiResponse?.token;
 	const showLoginButtons = authInitialized && !apiResponse?.token;
 

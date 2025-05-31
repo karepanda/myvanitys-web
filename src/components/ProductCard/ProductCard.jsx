@@ -17,23 +17,18 @@ const ProductCard = ({ product, id }) => {
 		setSelectedProduct,
 	} = useContext(VanitysContext);
 
-	// Calculate the average rating (if any reviews)
-
 	const stars =
 		product.reviews && product.reviews.length > 0
 			? product.reviews[0].stars
 			: 0;
 
-	// Handle the delete  of a product
 	const handleDeleteProduct = async () => {
-		// CConfirm with user before deleting
 		if (
 			!window.confirm(`Are you sure you want to remove "${product.name}"?`)
 		) {
 			return;
 		}
 
-		// Verify if exist a token
 		const token = apiResponse?.token;
 
 		if (!token) {
@@ -46,12 +41,10 @@ const ProductCard = ({ product, id }) => {
 		}
 
 		try {
-			// Calling the function to remove product from context
 			const success = await deleteProduct(token, product.id);
 
 			if (success) {
 				console.log(`Product ${product.name} deleted successfully`);
-				// Notification is already handled in deleteProduct
 			}
 		} catch (error) {
 			console.error('Error deleting product:', error);
@@ -59,9 +52,7 @@ const ProductCard = ({ product, id }) => {
 		}
 	};
 
-	// Handle product editing
 	const handleEditProduct = () => {
-		// Set the selected product and open the edit popup.
 		setSelectedProduct(product);
 		toggleCreateProductPopup(product);
 	};
@@ -95,7 +86,7 @@ const ProductCard = ({ product, id }) => {
 				</div>
 			</div>
 			<div className='productCard__right'>
-				<div className='productCard__right--edit'>
+				{/* <div className='productCard__right--edit'>
 					<svg
 						className='productCard__right--icon'
 						xmlns='http://www.w3.org/2000/svg'
@@ -110,7 +101,7 @@ const ProductCard = ({ product, id }) => {
 							d='M3 21v-4.25L16.2 3.575q.3-.275.663-.425t.762-.15t.775.15t.65.45L20.425 5q.3.275.438.65T21 6.4q0 .4-.137.763t-.438.662L7.25 21zM17.6 7.8L19 6.4L17.6 5l-1.4 1.4z'
 						/>
 					</svg>
-				</div>
+				</div> */}
 				<div className='productCard__right--rating'>
 					<svg
 						className='productCard__right--icon'
