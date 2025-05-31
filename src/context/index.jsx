@@ -59,37 +59,25 @@ const VanitysProvider = ({ children }) => {
 	useEffect(() => {
 		const loadSavedAuth = () => {
 			try {
-				console.log('🔍 Checking for saved authentication...');
 				const savedAuth = localStorage.getItem('vanitys_auth');
 
 				if (savedAuth) {
 					const authData = JSON.parse(savedAuth);
-					console.log('📦 Found saved auth data:', {
-						hasToken: !!authData?.token,
-						hasUser: !!authData?.user?.id,
-						userName: authData?.user?.name,
-						expiresAt: authData?.expiresAt,
-					});
 
 					// // Validate structure and expiry
 					if (authData?.token && authData?.user?.id) {
 						// Check for expiration (if expiresAt)
 						if (authData.expiresAt && Date.now() > authData.expiresAt) {
-							console.log('⏰ Auth data expired, removing...');
 							localStorage.removeItem('vanitys_auth');
 						} else {
-							console.log('✅ Loading saved authentication');
 							setApiResponse(authData);
 						}
 					} else {
-						console.log('❌ Invalid auth data structure, removing...');
 						localStorage.removeItem('vanitys_auth');
 					}
 				} else {
-					console.log('🔍 No saved authentication found');
 				}
 			} catch (error) {
-				console.error('❌ Error loading saved auth:', error);
 				localStorage.removeItem('vanitys_auth');
 			} finally {
 				setAuthInitialized(true);
@@ -100,7 +88,6 @@ const VanitysProvider = ({ children }) => {
 	}, []);
 
 	const logout = () => {
-		console.log('🚪 Logging out user...');
 		setApiResponse(null);
 		localStorage.removeItem('vanitys_auth');
 		sessionStorage.removeItem('welcomeShow');
@@ -119,26 +106,17 @@ const VanitysProvider = ({ children }) => {
 	};
 
 	const updateAuthData = (authData) => {
-		console.log('💾 Saving auth data to localStorage...');
-
 		if (!authData.expiresAt) {
 			authData.expiresAt = Date.now() + 30 * 24 * 60 * 60 * 1000;
 		}
 
-		console.log('🔥 Context updating with auth data:', {
-			hasToken: !!authData.token,
-			userId: authData.user?.id,
-			userName: authData.user?.name,
-		});
-
 		setApiResponse(authData);
 		localStorage.setItem('vanitys_auth', JSON.stringify(authData));
-
-		console.log('✅ Auth data saved to context and localStorage');
 	};
 
 	// UI Functions
-	const toggleNotification = () => {
+
+	const showNotificationTemporarily = () => {
 		setShowNotification(true);
 		setTimeout(() => setShowNotification(false), 3000);
 	};
@@ -200,8 +178,6 @@ const VanitysProvider = ({ children }) => {
 			text: reviewText,
 		};
 
-		console.log('Review submitted:', reviewData);
-
 		setSelectedRating(0);
 		setReviewText('');
 		toggleCreateReviewPopup();
@@ -211,7 +187,6 @@ const VanitysProvider = ({ children }) => {
 	const handleAuthentication = async () => {
 		// If there is already an active session, do not re-authenticate.
 		if (apiResponse?.token) {
-			console.log('🔒 Session already active, skipping authentication');
 			return apiResponse;
 		}
 
@@ -232,7 +207,6 @@ const VanitysProvider = ({ children }) => {
 
 			return userData;
 		} catch (error) {
-			console.error('Authentication error:', error);
 			setLoading(false);
 			return null;
 		}
@@ -259,16 +233,12 @@ const VanitysProvider = ({ children }) => {
 			setLoading(false);
 
 			if (newProduct) {
-				console.log(
-					'✅ Product created successfully, triggering refresh...'
-				);
-				toggleNotification();
+				showNotificationTemporarily();
 				setProductsRefreshTrigger((prev) => prev + 1);
 			}
 			return newProduct;
 		} catch (error) {
 			setLoading(false);
-			console.error('Error creating product:', error);
 			return null;
 		}
 	};
@@ -281,7 +251,6 @@ const VanitysProvider = ({ children }) => {
 			return products;
 		} catch (error) {
 			setLoading(false);
-			console.error('Error fetching products:', error);
 			return null;
 		}
 	};
@@ -298,7 +267,6 @@ const VanitysProvider = ({ children }) => {
 			return products;
 		} catch (error) {
 			setLoading(false);
-			console.error('Error finding products by user:', error);
 			return null;
 		}
 	};
@@ -315,7 +283,6 @@ const VanitysProvider = ({ children }) => {
 			return product;
 		} catch (error) {
 			setLoading(false);
-			console.error('Error fetching product by ID:', error);
 			return null;
 		}
 	};
@@ -332,20 +299,13 @@ const VanitysProvider = ({ children }) => {
 			setLoading(false);
 
 			if (updatedProduct) {
-				console.log(
-					'✅ Product updated successfully, triggering refresh...'
-				);
+				showNotificationTemporarily();
 
-				// 🎉 Show success notification
-				toggleNotification();
-
-				// 🔥 TRIGGER PRODUCTS REFRESH
 				setProductsRefreshTrigger((prev) => prev + 1);
 			}
 			return updatedProduct;
 		} catch (error) {
 			setLoading(false);
-			console.error('Error updating product:', error);
 			return null;
 		}
 	};
@@ -361,20 +321,12 @@ const VanitysProvider = ({ children }) => {
 			setLoading(false);
 
 			if (success) {
-				console.log(
-					'✅ Product deleted successfully, triggering refresh...'
-				);
-
-				// 🎉 Show success notification
-				toggleNotification();
-
-				// 🔥 TRIGGER PRODUCTS REFRESH
+				showNotificationTemporarily();
 				setProductsRefreshTrigger((prev) => prev + 1);
 			}
 			return success;
 		} catch (error) {
 			setLoading(false);
-			console.error('Error deleting product:', error);
 			return false;
 		}
 	};
@@ -392,7 +344,6 @@ const VanitysProvider = ({ children }) => {
 			return products;
 		} catch (error) {
 			setLoading(false);
-			console.error('Error searching products:', error);
 			return null;
 		}
 	};
@@ -433,7 +384,7 @@ const VanitysProvider = ({ children }) => {
 				toggleProductPopup,
 				toggleCreateReviewPopup,
 				toggleUserProfile,
-				toggleNotification,
+				showNotificationTemporarily,
 
 				// Data states
 				apiResponse,
@@ -468,7 +419,7 @@ const VanitysProvider = ({ children }) => {
 				// Loading state
 				loading,
 				setLoading,
-				authInitialized, // 🔥 NUEVO: Para saber cuándo terminó de cargar
+				authInitialized,
 
 				// Error handling
 				errorMessage,
@@ -476,12 +427,12 @@ const VanitysProvider = ({ children }) => {
 				errorType,
 				errorHandler,
 
-				// Authentication - 🔥 MEJORADO
+				// Authentication
 				handleAuthentication,
 				initiateLogin,
 				initiateRegister,
-				logout, // 🔥 NUEVO
-				updateAuthData, // 🔥 NUEVO
+				logout,
+				updateAuthData,
 
 				// Products
 				createProduct,
