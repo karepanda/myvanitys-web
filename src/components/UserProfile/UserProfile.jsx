@@ -62,9 +62,6 @@ const UserProfile = () => {
 						<button className='userProfile__buttons--createProduct'>
 							Create Product
 						</button>
-						<button className='userProfile__buttons--createReview'>
-							Create Review
-						</button>
 						<button
 							className='userProfile__buttons--logOut'
 							onClick={() => {

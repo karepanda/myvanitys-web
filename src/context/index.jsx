@@ -90,7 +90,7 @@ const VanitysProvider = ({ children }) => {
 	const logout = () => {
 		setApiResponse(null);
 		localStorage.removeItem('vanitys_auth');
-		sessionStorage.removeItem('welcomeShow');
+		// sessionStorage.removeItem('welcomeShow');
 
 		// Clear user-related statuses
 		setSelectedProduct(null);
@@ -99,7 +99,7 @@ const VanitysProvider = ({ children }) => {
 
 		// Close modals
 		setShowUserProfile(false);
-		setShowWelcomePopup(false);
+		// setShowWelcomePopup(false);
 
 		// Redirect to home
 		window.location.href = '/';

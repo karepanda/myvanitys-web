@@ -13,7 +13,7 @@ import { Notification } from '../Notification/Notification';
 import './Dashboard.css';
 
 const Dashboard = () => {
-	const { searchText, showUserProfile, showNotification } =
+	const { searchText, showUserProfile, showNotification, showWelcomePopup } =
 		useContext(VanitysContext);
 
 	const { products, error, loading } = useFetchUserProducts();
@@ -92,6 +92,12 @@ const Dashboard = () => {
 			{showUserProfile && (
 				<Modal>
 					<UserProfile />
+				</Modal>
+			)}
+
+			{showWelcomePopup && (
+				<Modal>
+					<WelcomePopup />
 				</Modal>
 			)}
 
