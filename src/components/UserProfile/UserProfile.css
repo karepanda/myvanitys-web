@@ -64,11 +64,6 @@
 	border-radius: 4px;
 }
 
-.userProfile__buttons--createReview {
-	background-color: var(--pink);
-	border-radius: 4px;
-}
-
 .userProfile__buttons--logOut {
 	width: 120px !important;
 	height: 46px !important;

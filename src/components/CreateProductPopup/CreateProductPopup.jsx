@@ -5,6 +5,8 @@ import './CreateProductPopup.css';
 import { useForm } from 'react-hook-form';
 import { Modal } from '../Modal/Modal';
 import { MissingFieldsPopup } from '../MissingFieldsPopup/MissingFieldsPopup';
+import imageForm from '../../assets/image-form.png';
+import { image } from 'framer-motion/client';
 
 const CreateProductPopup = () => {
 	// Define the array of categories with their ID and name
@@ -57,7 +59,7 @@ const CreateProductPopup = () => {
 		if (selectedProduct) {
 			reset({
 				...selectedProduct,
-				categoryId: selectedProduct.categoryId || ''
+				categoryId: selectedProduct.categoryId || '',
 			});
 			setLocalCategoryId(selectedProduct.categoryId || '');
 		} else {
@@ -71,7 +73,7 @@ const CreateProductPopup = () => {
 			// Prepare data for submission - solo incluir los datos necesarios
 			const productData = {
 				...data,
-				categoryId: localCategoryId
+				categoryId: localCategoryId,
 			};
 
 			// Get context token
@@ -133,7 +135,7 @@ const CreateProductPopup = () => {
 
 				<img
 					className='createProduct__left--image'
-					src='../src/assets/image-form.png'
+					src={imageForm}
 					alt='Register image'
 				/>
 
@@ -180,19 +182,27 @@ const CreateProductPopup = () => {
 								))}
 							</select>
 
-							{/* Hidden input to register categoryId with react-hook-form */}
 							<input
-								type="hidden"
+								type='hidden'
 								{...register('categoryId', {
 									required: true,
-									validate: value => !!value || 'Category is required'
+									validate: (value) =>
+										!!value || 'Category is required',
 								})}
 								value={localCategoryId}
 							/>
 						</div>
 
 						{errors.categoryId && (
-							<span style={{ color: 'red', fontSize: '12px', marginTop: '-15px', display: 'block', marginBottom: '10px' }}>
+							<span
+								style={{
+									color: 'red',
+									fontSize: '12px',
+									marginTop: '-15px',
+									display: 'block',
+									marginBottom: '10px',
+								}}
+							>
 								Please select a category
 							</span>
 						)}
@@ -208,7 +218,13 @@ const CreateProductPopup = () => {
 						</div>
 
 						{Object.keys(errors).length > 0 && (
-							<div style={{ color: 'red', marginBottom: '10px', fontSize: '12px' }}>
+							<div
+								style={{
+									color: 'red',
+									marginBottom: '10px',
+									fontSize: '12px',
+								}}
+							>
 								Please fill in all required fields.
 							</div>
 						)}
@@ -226,7 +242,10 @@ const CreateProductPopup = () => {
 			{showMissingFieldsPopup && (
 				<Modal>
 					<MissingFieldsPopup
-						message={errorMessage || 'You need to fill in all the fields to create the product.'}
+						message={
+							errorMessage ||
+							'You need to fill in all the fields to create the product.'
+						}
 						title={errorTitle}
 						type={errorType}
 						onClose={() => {
