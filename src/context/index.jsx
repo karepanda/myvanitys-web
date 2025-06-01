@@ -358,10 +358,11 @@ const VanitysProvider = ({ children }) => {
 	const getAllProductsWithCollectionStatus = async (token) => {
 		setLoading(true);
 		try {
-			const products = await productFacade.getAllProductsWithCollectionStatus(
-				token, 
-				errorHandler
-			);
+			const products =
+				await productFacade.getAllProductsWithCollectionStatus(
+					token,
+					errorHandler
+				);
 			setLoading(false);
 			return products;
 		} catch (error) {
@@ -373,36 +374,39 @@ const VanitysProvider = ({ children }) => {
 
 	// Add existing product to user's vanity
 	const addExistingProductToVanity = async (token, existingProduct) => {
-	setLoading(true);
-	try {
-		console.log(`🔄 Adding existing product ${existingProduct.name} (ID: ${existingProduct.id}) to user vanity...`);
-		
-		const result = await productFacade.addProductToUserVanity(
-			token,
-			existingProduct.id,
-			errorHandler
-		);
-		
-		setLoading(false);
+		setLoading(true);
+		try {
+			console.log(
+				`🔄 Adding existing product ${existingProduct.name} (ID: ${existingProduct.id}) to user vanity...`
+			);
 
-		if (result) {
-			showNotificationTemporarily();
-			setProductsRefreshTrigger((prev) => prev + 1);
-			console.log(`✅ Product ${existingProduct.name} added to vanity successfully`);
-			return true;
-		} else {
+			const result = await productFacade.addProductToUserVanity(
+				token,
+				existingProduct.id,
+				errorHandler
+			);
+
+			setLoading(false);
+
+			if (result) {
+				showNotificationTemporarily();
+				setProductsRefreshTrigger((prev) => prev + 1);
+				console.log(
+					`✅ Product ${existingProduct.name} added to vanity successfully`
+				);
+				return true;
+			} else {
+				return false;
+			}
+		} catch (error) {
+			setLoading(false);
+			console.error('Error adding existing product to vanity:', error);
+			if (errorHandler) {
+				errorHandler.showGenericError();
+			}
 			return false;
 		}
-		
-	} catch (error) {
-		setLoading(false);
-		console.error('Error adding existing product to vanity:', error);
-		if (errorHandler) {
-			errorHandler.showGenericError();
-		}
-		return false;
-	}
-};
+	};
 
 	return (
 		<VanitysContext.Provider
@@ -498,8 +502,8 @@ const VanitysProvider = ({ children }) => {
 				updateProduct,
 				deleteProduct,
 				searchProducts,
-				getAllProductsWithCollectionStatus, 
-				addExistingProductToVanity, 
+				getAllProductsWithCollectionStatus,
+				addExistingProductToVanity,
 				productsRefreshTrigger,
 				setProductsRefreshTrigger,
 			}}
