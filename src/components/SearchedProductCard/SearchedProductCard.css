@@ -60,4 +60,46 @@
 
 .searchedProductCard__right--icon {
 	cursor: pointer;
+	transition: opacity 0.2s ease;
+}
+
+/* CLASSES FOR STATES */
+
+.searchedProductCard__right--collected {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+}
+
+.searchedProductCard__right--icon.adding {
+	opacity: 0.5;
+	cursor: not-allowed;
+	pointer-events: none;
+}
+
+.searchedProductCard__right--icon:hover:not(.adding) {
+	opacity: 0.8;
+	transform: scale(1.05);
+}
+
+.searchedProductCard.in-collection {
+	border-color: #4CAF50;
+	background-color: #f9fff9;
+}
+
+.searchedProductCard__right--collected span {
+	animation: checkmarkAppear 0.3s ease-in-out;
+}
+
+@keyframes checkmarkAppear {
+	0% {
+		opacity: 0;
+		transform: scale(0.5);
+	}
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
 }

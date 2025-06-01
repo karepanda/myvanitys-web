@@ -1,12 +1,67 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import './SearchedProductCard.css';
 import { VanitysContext } from '../../context/index';
 import { ProductPopup } from '../ProductReviewPopup/ProductReviewPopup';
 import { Modal } from '../Modal/Modal';
 
 const SearchedProductCard = ({ product }) => {
-	const { toggleProductPopup, toggleNotification, showProductPopup } =
-		useContext(VanitysContext);
+	const { 
+		toggleProductPopup, 
+		toggleNotification, 
+		showProductPopup,
+		apiResponse,
+		errorHandler,
+		addExistingProductToVanity 
+	} = useContext(VanitysContext);
+
+	const [isAdding, setIsAdding] = useState(false);
+
+	const averageRating = product.averageRating || 0;
+	
+	const isInCollection = product.inUserCollection;
+
+	// Handle adding product to vanity
+	const handleAddToVanity = async (e) => {
+		e.stopPropagation(); // Prevent triggering the card click
+		
+		if (isInCollection) {
+			console.log('Product already in collection');
+			return;
+		}
+
+		const token = apiResponse?.token;
+		
+		if (!token) {
+			errorHandler?.showErrorMessage?.(
+				'You are not authenticated. Please log in to continue.',
+				'Authentication error',
+				'error'
+			);
+			return;
+		}
+
+		setIsAdding(true);
+
+		try {
+			console.log(`Adding searched product ${product.name} to vanity...`);
+			
+			const success = await addExistingProductToVanity?.(token, product);
+			
+			if (success) {
+				console.log(`✅ Searched product ${product.name} added to vanity successfully`);
+				// Show notification
+				toggleNotification();
+			} else {
+				throw new Error('Failed to add product to vanity');
+			}
+			
+		} catch (error) {
+			console.error('Error adding searched product to vanity:', error);
+			errorHandler?.showGenericError?.();
+		} finally {
+			setIsAdding(false);
+		}
+	};
 
 	return (
 		<div className='searchedProductCard'>
@@ -17,7 +72,7 @@ const SearchedProductCard = ({ product }) => {
 				<p className='searchedProductCard__left--name'>{product.name}</p>
 				<p className='searchedProductCard__left--brand'>{product.brand}</p>
 				<p className='searchedProductCard__left--category'>
-					{product.category}
+					{product.category?.name || product.category || 'No category'}
 				</p>
 				<div className='searchedProductCard__starts'>
 					<img
@@ -26,21 +81,36 @@ const SearchedProductCard = ({ product }) => {
 						alt='Start Icon'
 					/>
 					<p className='searchedProductCard__start--number'>
-						{product.reviews[0].stars}
+						{averageRating.toFixed(1)}
 					</p>
 				</div>
 			</div>
 			<div className='searchedProductCard__right'>
-				<img
-					className='searchedProductCard__right--icon'
-					src='src/assets/plus_icon.png'
-					alt='Plus icon'
-					onClick={() => toggleNotification()}
-				/>
+				{isInCollection ? (
+					<div className='searchedProductCard__right--collected'>
+						<span style={{ color: 'green', fontSize: '24px' }}>✓</span>
+					</div>
+				) : (
+
+					<img
+						className={`searchedProductCard__right--icon ${isAdding ? 'adding' : ''}`}
+						src='src/assets/plus_icon.png'
+						alt='Plus icon'
+						onClick={handleAddToVanity}
+						style={{
+							cursor: isAdding ? 'not-allowed' : 'pointer',
+							opacity: isAdding ? 0.5 : 1
+						}}
+					/>
+				)}
 			</div>
 			{showProductPopup && (
 				<Modal>
-					<ProductPopup color={product.color} reviews={product.reviews} />
+					<ProductPopup 
+						color={product.colorHex || product.color} 
+						reviews={product.reviews || []}
+						product={product}
+					/>
 				</Modal>
 			)}
 		</div>

@@ -13,7 +13,7 @@
 .header-dashboard {
 	display: grid;
 	grid-template-rows: 1fr;
-	grid-template-columns: repeat(6, auto); /* 🔥 CAMBIO: 6 columnas para incluir logout */
+	grid-template-columns: repeat(6, auto);
 	align-items: center;
 	margin: 0 0 80px 0;
 	padding: 20px 96px 0px 96px;
@@ -33,9 +33,7 @@
 	width: 273px;
 	height: 30px;
 	background-color: var(--bg-color);
-	background-image: url('src/assets/icon _search.png');
-	background-repeat: no-repeat;
-	background-position: right;
+	padding-right: 35px;
 	border-bottom: 1px solid var(--black);
 	outline: none;
 }
@@ -229,4 +227,40 @@
 @keyframes spin {
   0% { transform: translateY(-50%) rotate(0deg); }
   100% { transform: translateY(-50%) rotate(360deg); }
+}
+
+.search-input-container {
+	position: relative;
+	display: inline-block;
+}
+
+.search-icon {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.search-icon-overlay.disabled {
+	cursor: not-allowed;
+	opacity: 0.5;
+}
+
+.search-loading-indicator {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%); 
+    font-size: 14px;
+    color: #666;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
 }
