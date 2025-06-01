@@ -6,6 +6,7 @@
 	padding: 12px;
 	border-radius: 15px;
 	border: 1px solid var(--border-card);
+	background-color: var(--white);
 }
 
 .publicProductCard__left {

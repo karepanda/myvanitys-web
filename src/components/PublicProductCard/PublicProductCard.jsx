@@ -58,9 +58,7 @@ const PublicProductCard = ({ product }) => {
 						src='src/assets/start_icon.png'
 						alt='Review icons'
 					/>
-					<p className='publicProductCard__left--reviews'>
-						{product.reviews}
-					</p>
+					<p className='publicProductCard__left--reviews'>4</p>
 				</div>
 			</div>
 			<div className='publicProductCard__right'>
@@ -68,9 +66,7 @@ const PublicProductCard = ({ product }) => {
 					src='/src/assets/plus_icon.png'
 					alt='Plus icon to add product'
 					className='publicProductCard__right--plusIcon'
-					onClick={() =>
-						alert('Add product functionality not implemented yet')
-					}
+					onClick={() => handleAddToVanity()}
 				/>
 			</div>
 		</div>
