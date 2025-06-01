@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { VanitysContext } from '../../context/index';
 import './PublicProductCard.css';
+import startIcon from '../../assets/start_icon.png';
+import plusIcon from '../../assets/plus_icon.png';
 
 const PublicProductCard = ({ product }) => {
 	const {
@@ -55,7 +57,7 @@ const PublicProductCard = ({ product }) => {
 				<div>
 					<img
 						className='publicProductCard__left--startIcon'
-						src='src/assets/start_icon.png'
+						src={startIcon}
 						alt='Review icons'
 					/>
 					<p className='publicProductCard__left--reviews'>4</p>
@@ -63,7 +65,7 @@ const PublicProductCard = ({ product }) => {
 			</div>
 			<div className='publicProductCard__right'>
 				<img
-					src='/src/assets/plus_icon.png'
+					src={plusIcon}
 					alt='Plus icon to add product'
 					className='publicProductCard__right--plusIcon'
 					onClick={() => handleAddToVanity()}
