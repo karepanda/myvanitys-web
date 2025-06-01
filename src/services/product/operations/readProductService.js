@@ -80,6 +80,7 @@ export const readProductService = {
 	},
 
 	/**
+	 * 🔥 Gets all products with collection status for the current user
 	 * @param {string} token - Authorization token
 	 * @param {Object} errorHandler - Error handler instance
 	 * @returns {Promise<Array|null>} - Array of products with collection status or null in case of error
@@ -94,8 +95,10 @@ export const readProductService = {
 
 			console.log('🔄 Calling API to fetch products with collection status...');
 
+			// 🔥 CORRECTO: Usar el endpoint /products que mapea a getAllProductsWithCollectionStatus
+			// Según tu OpenAPI spec, este GET /products devuelve productos con collection status
 			const products = await productApiAdapter.get(
-				'/products/collection-status',
+				'/products', // 🔥 Endpoint correcto según tu OpenAPI spec
 				token,
 				errorHandler
 			);
@@ -109,6 +112,42 @@ export const readProductService = {
 			
 			// Return empty array to avoid breaking the UI
 			return [];
+		}
+	},
+
+	/**
+	 * 🔥 NUEVA: Adds an existing product to user's vanity
+	 * @param {string} token - Authorization token
+	 * @param {string} productId - Product identifier to add to vanity
+	 * @param {Object} errorHandler - Error handler instance
+	 * @returns {Promise<Object|null>} - Product object or null in case of error
+	 */
+	addProductToUserVanity: async (token, productId, errorHandler) => {
+		try {
+			// Validate required parameters
+			if (!token || !productId) {
+				console.warn('Missing token or productId for addProductToUserVanity');
+				return null;
+			}
+
+			console.log(`🔄 Adding product ${productId} to user vanity...`);
+
+			// Call the API using the adapter
+			const product = await productApiAdapter.post(
+				`/products/${productId}/add-to-vanity`,
+				{}, // No body needed, productId is in URL
+				token,
+				errorHandler
+			);
+
+			console.log('✅ Product added to vanity successfully:', product);
+
+			return product;
+		} catch (error) {
+			console.error('❌ Error in addProductToUserVanity:', error);
+			
+			// Return null to indicate failure
+			return null;
 		}
 	},
 

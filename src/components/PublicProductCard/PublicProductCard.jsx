@@ -7,13 +7,13 @@ const PublicProductCard = ({ product }) => {
 	const {
 		apiResponse,
 		errorHandler,
-		toggleNotification,
-		setProductsRefreshTrigger
+		showNotificationTemporarily, // 🔥 CORRECTO: Esta es la función real del contexto
+		addExistingProductToVanity // 🔥 USAR: Función del contexto para añadir productos
 	} = useContext(VanitysContext);
 
 	const [isAdding, setIsAdding] = useState(false);
 
-	// Handle adding product to user's vanity
+	// Handle adding existing product to user's vanity
 	const handleAddToVanity = async () => {
 		const token = apiResponse?.token;
 		
@@ -29,19 +29,17 @@ const PublicProductCard = ({ product }) => {
 		setIsAdding(true);
 
 		try {
-			// 🔥 SIMULACIÓN: Aquí irá tu endpoint para añadir producto al usuario
 			console.log(`Adding product ${product.name} to vanity...`);
 			
-			// Simular delay de API
-			await new Promise(resolve => setTimeout(resolve, 1500));
+			// 🔥 USAR LA FUNCIÓN CORRECTA: addExistingProductToVanity del contexto
+			const success = await addExistingProductToVanity(token, product);
 			
-			// 🎉 Show success notification
-			toggleNotification();
-			
-			// 🔥 Trigger refresh de productos del usuario
-			setProductsRefreshTrigger(prev => prev + 1);
-			
-			console.log(`✅ Product ${product.name} added to vanity successfully`);
+			if (success) {
+				console.log(`✅ Product ${product.name} added to vanity successfully`);
+				// La notificación y refresh ya se manejan dentro de la función del contexto
+			} else {
+				throw new Error('Failed to add product to vanity');
+			}
 			
 		} catch (error) {
 			console.error('Error adding product to vanity:', error);
@@ -64,7 +62,7 @@ const PublicProductCard = ({ product }) => {
 				<p className='publicProductCard__left--color'>Color</p>
 				<div
 					className='publicProductCard__left--circle'
-					style={{ backgroundColor: product.color || product.colorHex }}
+					style={{ backgroundColor: product.color || product.colorHex || '#D9D9D9' }}
 				></div>
 				<div className='publicProductCard__left--rating'>
 					{Array(5)

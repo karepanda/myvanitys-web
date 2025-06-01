@@ -21,6 +21,8 @@ export const productFacade = {
 	getProductCategories: readProductService.getProductCategories,
 	getFeaturedProducts: readProductService.getFeaturedProducts,
 	getProductsPaginated: readProductService.getProductsPaginated,
+	getAllProductsWithCollectionStatus: readProductService.getAllProductsWithCollectionStatus,
+	addProductToUserVanity: readProductService.addProductToUserVanity, // 🔥 NUEVA FUNCIÓN
 
 	// Update
 	updateProduct: updateProductService.updateProduct,
