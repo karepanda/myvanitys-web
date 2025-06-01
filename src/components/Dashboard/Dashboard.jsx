@@ -147,42 +147,6 @@ const Dashboard = () => {
 				</button>
 			</div>
 
-			{/* Dynamic status bar */}
-			{dashboardMode === 'add-products' && (
-				<div className='dashboard__status-bar'>
-					{publicLoading ? (
-						<div className='dashboard__info-bar dashboard__info-bar--loading'>
-							<div className='loading-spinner-small'></div>
-							<p>Loading available products...</p>
-						</div>
-					) : !publicHasLoaded ? (
-						<div className='dashboard__info-bar dashboard__info-bar--info'>
-							<p>Products not loaded yet</p>
-							<button
-								onClick={loadPublicProducts}
-								className='load-products-button'
-							>
-								Load Products Now
-							</button>
-						</div>
-					) : publicProducts.length === 0 ? (
-						<div className='dashboard__info-bar dashboard__info-bar--success'>
-							<p>
-								🎉 You already have all available products in your
-								vanity!
-							</p>
-						</div>
-					) : (
-						<div className='dashboard__info-bar dashboard__info-bar--success'>
-							<p>
-								✨ Found {publicProducts.length} products you can add to
-								your vanity
-							</p>
-						</div>
-					)}
-				</div>
-			)}
-
 			{/*  Empty product logic */}
 			{products.length === 0 ? (
 				dashboardMode === 'my-vanity' ? (
