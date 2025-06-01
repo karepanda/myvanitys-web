@@ -42,9 +42,6 @@ const Dashboard = () => {
 			setDashboardMode('add-products');
 
 			if (!publicHasLoaded && !publicLoading) {
-				console.log(
-					'🚀 Auto-loading public products for add-products mode...'
-				);
 				loadPublicProducts();
 			}
 		} else {
@@ -56,17 +53,6 @@ const Dashboard = () => {
 		dashboardMode === 'my-vanity' ? userProducts : publicProducts;
 	const error = dashboardMode === 'my-vanity' ? userError : publicError;
 	const loading = dashboardMode === 'my-vanity' ? userLoading : publicLoading;
-
-	console.log('🎯 Dashboard render:', {
-		mode: dashboardMode,
-		productsCount: products?.length || 0,
-		loading,
-		hasError: !!error,
-		searchText,
-		publicHasLoaded,
-		userProductsCount: userProducts?.length || 0,
-		publicProductsCount: publicProducts?.length || 0,
-	});
 
 	const productId = userProducts[0]?.reviews?.[0]?.productId || null;
 
@@ -125,28 +111,6 @@ const Dashboard = () => {
 
 	return (
 		<div className={getStyleClass()}>
-			{/* Mode Selector */}
-			<div className='dashboard__mode-selector'>
-				<button
-					className={`mode-button ${
-						dashboardMode === 'my-vanity' ? 'active' : ''
-					}`}
-					onClick={() => handleModeChange('my-vanity')}
-				>
-					<span className='mode-icon'>💄</span>
-					My Vanity ({userProducts.length})
-				</button>
-				<button
-					className={`mode-button ${
-						dashboardMode === 'add-products' ? 'active' : ''
-					}`}
-					onClick={() => handleModeChange('add-products')}
-				>
-					<span className='mode-icon'>➕</span>
-					Add Products ({publicProducts.length})
-				</button>
-			</div>
-
 			{/*  Empty product logic */}
 			{products.length === 0 ? (
 				dashboardMode === 'my-vanity' ? (
@@ -185,16 +149,6 @@ const Dashboard = () => {
 					<div className='dashboard__categories'>
 						<Categories />
 					</div>
-
-					{/*  Info bar for active mode */}
-					<div className='dashboard__info-bar'>
-						{dashboardMode === 'my-vanity' ? (
-							<p>Showing your vanity collection</p>
-						) : (
-							<p>Showing products you can add to your vanity</p>
-						)}
-					</div>
-
 					<div className='productCard__wrapper'>
 						{(searchText ? filteredProducts : products).map((product) =>
 							searchText ? (

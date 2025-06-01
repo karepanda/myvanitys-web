@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './UserProfile.css';
 import { VanitysContext } from '../../context/index';
+import { useNavigate } from 'react-router-dom';
 
 const UserProfile = () => {
 	const {
@@ -11,6 +12,12 @@ const UserProfile = () => {
 		logout,
 		handleModeChange,
 	} = useContext(VanitysContext);
+
+	const navigate = useNavigate();
+
+	const goToMyVanity = () => {
+		navigate('/dashboard');
+	};
 
 	return (
 		<AnimatePresence>
@@ -63,7 +70,7 @@ const UserProfile = () => {
 					<div className='userProfile__buttons'>
 						<button
 							className='userProfile__buttons--goto'
-							onClick={() => handleModeChange('my-vanity')}
+							onClick={() => goToMyVanity()}
 						>
 							Go to My Vanity
 						</button>

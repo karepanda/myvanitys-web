@@ -40,9 +40,8 @@ const Navbar = () => {
 
 	const navigate = useNavigate();
 
-	const handleHomeClick = () => {
-		setApiResponse(null);
-		navigate('/');
+	const goToMyVanity = () => {
+		navigate('/dashboard');
 	};
 
 	const handleLogout = () => {
@@ -95,7 +94,7 @@ const Navbar = () => {
 	return (
 		<>
 			<header className={isAuthenticated ? 'header-dashboard' : 'header'}>
-				<h1 className='header__title' onClick={handleHomeClick}>
+				<h1 className='header__title' onClick={goToMyVanity}>
 					My Vanity´s
 				</h1>
 
