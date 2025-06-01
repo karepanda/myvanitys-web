@@ -31,7 +31,7 @@ const VanitysProvider = ({ children }) => {
 	const [searchText, setSearchText] = useState('');
 	const [selectedProduct, setSelectedProduct] = useState(null);
 	const [selectedCategory, setSelectedCategory] = useState(null);
-	const [color, setColor] = useState('#D9D9D9');
+	// const [color, setColor] = useState('#D9D9D9'); // 🔥 COMENTADO - no usado actualmente
 
 	// Review states
 	const [hoveredRating, setHoveredRating] = useState(0);
@@ -55,7 +55,7 @@ const VanitysProvider = ({ children }) => {
 		setErrorType
 	);
 
-	// 🔥 Automatic upload from localStorage
+	// utomatic upload from localStorage
 	useEffect(() => {
 		const loadSavedAuth = () => {
 			try {
@@ -64,7 +64,7 @@ const VanitysProvider = ({ children }) => {
 				if (savedAuth) {
 					const authData = JSON.parse(savedAuth);
 
-					// // Validate structure and expiry
+					// Validate structure and expiry
 					if (authData?.token && authData?.user?.id) {
 						// Check for expiration (if expiresAt)
 						if (authData.expiresAt && Date.now() > authData.expiresAt) {
@@ -75,9 +75,9 @@ const VanitysProvider = ({ children }) => {
 					} else {
 						localStorage.removeItem('vanitys_auth');
 					}
-				} else {
 				}
 			} catch (error) {
+				console.error('Error loading saved auth:', error);
 				localStorage.removeItem('vanitys_auth');
 			} finally {
 				setAuthInitialized(true);
@@ -115,7 +115,6 @@ const VanitysProvider = ({ children }) => {
 	};
 
 	// UI Functions
-
 	const showNotificationTemporarily = () => {
 		setShowNotification(true);
 		setTimeout(() => setShowNotification(false), 3000);
@@ -183,7 +182,7 @@ const VanitysProvider = ({ children }) => {
 		toggleCreateReviewPopup();
 	};
 
-	// 🔥 Authentication with existing session verification
+	// Authentication with existing session verification
 	const handleAuthentication = async () => {
 		// If there is already an active session, do not re-authenticate.
 		if (apiResponse?.token) {
@@ -207,6 +206,7 @@ const VanitysProvider = ({ children }) => {
 
 			return userData;
 		} catch (error) {
+			console.error('Error creating product:', error);
 			setLoading(false);
 			return null;
 		}
@@ -238,6 +238,7 @@ const VanitysProvider = ({ children }) => {
 			}
 			return newProduct;
 		} catch (error) {
+			console.error('Error getting products:', error);
 			setLoading(false);
 			return null;
 		}
@@ -250,6 +251,7 @@ const VanitysProvider = ({ children }) => {
 			setLoading(false);
 			return products;
 		} catch (error) {
+			console.error('Error finding products by user ID:', error);
 			setLoading(false);
 			return null;
 		}
@@ -266,6 +268,7 @@ const VanitysProvider = ({ children }) => {
 			setLoading(false);
 			return products;
 		} catch (error) {
+			console.error('Error getting product by ID:', error);
 			setLoading(false);
 			return null;
 		}
@@ -282,6 +285,7 @@ const VanitysProvider = ({ children }) => {
 			setLoading(false);
 			return product;
 		} catch (error) {
+			console.error('Error updating product:', error);
 			setLoading(false);
 			return null;
 		}
@@ -300,11 +304,11 @@ const VanitysProvider = ({ children }) => {
 
 			if (updatedProduct) {
 				showNotificationTemporarily();
-
 				setProductsRefreshTrigger((prev) => prev + 1);
 			}
 			return updatedProduct;
 		} catch (error) {
+			console.error('Error searching products:', error);
 			setLoading(false);
 			return null;
 		}
@@ -326,6 +330,7 @@ const VanitysProvider = ({ children }) => {
 			}
 			return success;
 		} catch (error) {
+			console.error('Error deleting product:', error);
 			setLoading(false);
 			return false;
 		}
@@ -343,10 +348,61 @@ const VanitysProvider = ({ children }) => {
 			setLoading(false);
 			return products;
 		} catch (error) {
+			console.error('Error getting products with collection status:', error);
 			setLoading(false);
 			return null;
 		}
 	};
+
+	// Get all products with collection status
+	const getAllProductsWithCollectionStatus = async (token) => {
+		setLoading(true);
+		try {
+			const products = await productFacade.getAllProductsWithCollectionStatus(
+				token, 
+				errorHandler
+			);
+			setLoading(false);
+			return products;
+		} catch (error) {
+			console.error('Error in handleAuthentication:', error);
+			setLoading(false);
+			return null;
+		}
+	};
+
+	// Add existing product to user's vanity
+	const addExistingProductToVanity = async (token, existingProduct) => {
+	setLoading(true);
+	try {
+		console.log(`🔄 Adding existing product ${existingProduct.name} (ID: ${existingProduct.id}) to user vanity...`);
+		
+		const result = await productFacade.addProductToUserVanity(
+			token,
+			existingProduct.id,
+			errorHandler
+		);
+		
+		setLoading(false);
+
+		if (result) {
+			showNotificationTemporarily();
+			setProductsRefreshTrigger((prev) => prev + 1);
+			console.log(`✅ Product ${existingProduct.name} added to vanity successfully`);
+			return true;
+		} else {
+			return false;
+		}
+		
+	} catch (error) {
+		setLoading(false);
+		console.error('Error adding existing product to vanity:', error);
+		if (errorHandler) {
+			errorHandler.showGenericError();
+		}
+		return false;
+	}
+};
 
 	return (
 		<VanitysContext.Provider
@@ -392,7 +448,7 @@ const VanitysProvider = ({ children }) => {
 				searchText,
 				selectedProduct,
 				selectedCategory,
-				color,
+				// color, // 🔥 COMENTADO - no usado actualmente
 
 				// Data setters
 				setApiResponse,
@@ -442,7 +498,10 @@ const VanitysProvider = ({ children }) => {
 				updateProduct,
 				deleteProduct,
 				searchProducts,
+				getAllProductsWithCollectionStatus, 
+				addExistingProductToVanity, 
 				productsRefreshTrigger,
+				setProductsRefreshTrigger,
 			}}
 		>
 			{children}

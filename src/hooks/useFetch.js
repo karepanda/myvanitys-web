@@ -1,4 +1,4 @@
-/ useFetch.js
+// src/hooks/useFetch.js
 import { useState, useEffect, useContext } from 'react';
 import { VanitysContext } from '../context';
 import { apiUtils } from '../utils/apiUtils';
