@@ -1,4 +1,4 @@
-// src/hooks/usePublicProducts.js - VERSIÓN MANUAL
+// src/hooks/usePublicProducts.js 
 import { useState, useContext } from 'react';
 import { VanitysContext } from '../context';
 
@@ -9,7 +9,7 @@ export const usePublicProducts = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [hasLoaded, setHasLoaded] = useState(false); // 🔥 NUEVO: Track si ya se cargó
+  const [hasLoaded, setHasLoaded] = useState(false);
 
   const { 
     apiResponse, 
@@ -19,12 +19,9 @@ export const usePublicProducts = () => {
     errorHandler
   } = useContext(VanitysContext);
 
-  // 🔥 NUEVA FUNCIÓN: Cargar productos manualmente
+
   const loadPublicProducts = async () => {
     console.log('🔄 MANUAL: Starting manual fetch...');
-    console.log('🔄 Auth initialized:', authInitialized);
-    console.log('🔄 Has token:', !!apiResponse?.token);
-    console.log('🔄 Has user ID:', !!apiResponse?.user?.id);
 
     if (!authInitialized || !apiResponse?.token || !apiResponse?.user?.id) {
       console.log('⏳ MANUAL: Not ready yet, cannot fetch...');
@@ -94,7 +91,6 @@ export const usePublicProducts = () => {
     }
   };
 
-  // 🔥 FUNCIÓN: Limpiar datos
   const clearData = () => {
     console.log('🧹 MANUAL: Clearing all data...');
     setAllProducts([]);
@@ -105,7 +101,7 @@ export const usePublicProducts = () => {
     setHasLoaded(false);
   };
 
-  // 🔍 Search functionality for public products (mantener)
+  // 🔍 Search functionality for public products
   const searchPublicProducts = (searchTerm) => {
     if (!hasLoaded) {
       console.warn('Cannot search - data not loaded yet');
@@ -125,7 +121,7 @@ export const usePublicProducts = () => {
     setFilteredProducts(searchResults);
   };
 
-  // 🔍 Filter by category (mantener)
+  // 🔍 Filter by category
   const filterByCategory = (categoryId) => {
     if (!hasLoaded) {
       console.warn('Cannot filter - data not loaded yet');
