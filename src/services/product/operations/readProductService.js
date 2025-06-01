@@ -78,6 +78,65 @@ export const readProductService = {
 			errorHandler
 		);
 	},
+
+	/**
+	 * @param {string} token - Authorization token
+	 * @param {Object} errorHandler - Error handler instance
+	 * @returns {Promise<Array|null>} - Array of products with collection status or null in case of error
+	 */
+	getAllProductsWithCollectionStatus: async (token, errorHandler) => {
+		try {
+			// Validate required parameters
+			if (!token) {
+				console.warn('Missing token for getAllProductsWithCollectionStatus');
+				return [];
+			}
+
+			console.log('🔄 Calling API to fetch products with collection status...');
+
+			const products = await productApiAdapter.get(
+				'/products/collection-status',
+				token,
+				errorHandler
+			);
+
+			console.log('✅ Products with collection status fetched successfully:', products?.length || 0);
+
+			// Return products or empty array if none
+			return products || [];
+		} catch (error) {
+			console.error('❌ Error in getAllProductsWithCollectionStatus:', error);
+			
+			// Return empty array to avoid breaking the UI
+			return [];
+		}
+	},
+
+	/**
+	 * Gets paginated products
+	 * @param {string} token - Authorization token
+	 * @param {number} page - Page number
+	 * @param {number} size - Page size
+	 * @param {Object} errorHandler - Error handler instance
+	 * @returns {Promise<Object|null>} - Paginated products response or null in case of error
+	 */
+	getProductsPaginated: async (token, page = 0, size = 10, errorHandler) => {
+		return await productApiAdapter.get(
+			`/products?page=${page}&size=${size}`,
+			token,
+			errorHandler
+		);
+	},
+
+	/**
+	 * Gets product categories
+	 * @param {string} token - Authorization token
+	 * @param {Object} errorHandler - Error handler instance
+	 * @returns {Promise<Array|null>} - Array of categories or null in case of error
+	 */
+	getProductCategories: async (token, errorHandler) => {
+		return await productApiAdapter.get('/products/categories', token, errorHandler);
+	},
 };
 
 export default readProductService;
