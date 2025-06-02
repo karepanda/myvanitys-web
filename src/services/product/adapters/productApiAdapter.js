@@ -8,9 +8,7 @@ const API_URL = import.meta.env.VITE_API_URL;
  * Handles HTTP communication and basic error handling
  */
 export const productApiAdapter = {
-	/**
-	 * Realiza una petición GET a la API de productos
-	 */
+
 	get: async (endpoint, token, errorHandler) => {
 		try {
 			const response = await fetch(`${API_URL}${endpoint}`, {
@@ -24,9 +22,6 @@ export const productApiAdapter = {
 		}
 	},
 
-	/**
-	 * Make a POST request to the product API
-	 */
 	post: async (endpoint, data, token, errorHandler) => {
 		try {
 			console.log('API Request:', {
@@ -48,9 +43,6 @@ export const productApiAdapter = {
 		}
 	},
 
-	/**
-	 * Make a PUT request to the product API
-	 */
 	put: async (endpoint, data, token, errorHandler) => {
 		try {
 			const response = await fetch(`${API_URL}${endpoint}`, {
@@ -65,9 +57,6 @@ export const productApiAdapter = {
 		}
 	},
 
-	/**
-	 * make a DELETE request to the product API
-	 */
 	delete: async (endpoint, token, errorHandler) => {
 		try {
 			const response = await fetch(`${API_URL}${endpoint}`, {

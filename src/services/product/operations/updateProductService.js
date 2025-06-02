@@ -37,7 +37,6 @@ export const updateProductService = {
   },
   
   /**
-   * Updates product price
    * @param {string} token - Authorization token
    * @param {string} productId - Product identifier
    * @param {number} price - New price

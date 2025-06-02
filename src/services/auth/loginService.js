@@ -6,7 +6,6 @@ export const loginService = {
     const API_URL = import.meta.env.VITE_API_URL;
     
     const authUrl = `${API_URL}/auth/google`;
-    console.log('Auth URL being used:', authUrl);
     
     try {
       if (!authCode) {
@@ -65,9 +64,6 @@ export const loginService = {
         }
         return null;
       }
-      
-      console.log('Authentication successful for user:', userData.email || 'Unknown');
-      console.log('Token received:', userData.token.substring(0, 10) + '...');
       
       return userData;
     } catch (error) {

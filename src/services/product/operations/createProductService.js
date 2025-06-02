@@ -4,16 +4,7 @@ import { productApiAdapter } from '../adapters/productApiAdapter';
 export const createProductService = {
 	createProduct: async (token, productData, errorHandler) => {
 		try {
-			console.log(
-				'Token used for authentication:',
-				token
-					? 'Token present, first characters: ' +
-							token.substring(0, 10) +
-							'...'
-					: 'Empty or null token'
-			);
 
-			//Verify token format
 			if (token && !token.startsWith('Bearer ')) {
 				console.warn(
 					'The token does not have the prefix “Bearer ”. Adding the prefix...'
@@ -27,7 +18,6 @@ export const createProductService = {
 				colorHex: productData.color || productData.colorHex,
 			};
 
-			console.log('Sending product data to API:', apiData);
 
 			const endpoint = '/products';
 			return await productApiAdapter.post(
