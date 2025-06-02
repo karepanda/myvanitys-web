@@ -9,6 +9,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { usePublicProducts } from '../../hooks/usePublicProducts';
 import { useProductSearch } from '../../hooks/useProductSearch';
 import searchIcon from '../../assets/icon _search.png';
+import userPhoto from '../../assets/user_photo.png';
 
 const Navbar = () => {
 	const {
@@ -133,28 +134,12 @@ const Navbar = () => {
 							value={searchText}
 							onChange={handleSearch}
 							onKeyDown={handleSearchKeyDown}
-							disabled={showCookieBanner || isSearching}
+							disabled={showCookieBanner || !isAuthenticated}
 						/>
 						{showCookieBanner && (
 							<span className='tooltip'>Accept cookies to search</span>
 						)}
 					</div>
-					{/* {isAuthenticated && !isSearching && (
-						<img
-							src={searchIcon}
-							alt='Search'
-							className={`search-icon ${
-								showCookieBanner ||
-								!searchText.trim() ||
-								searchText.trim().length < 2
-									? 'disabled'
-									: ''
-							}`}
-							onClick={handleSearchSubmit}
-							title='Search products'
-						/>
-					)} */}
-
 					<img
 						src={searchIcon}
 						alt='Search'
@@ -229,21 +214,14 @@ const Navbar = () => {
 						)}
 
 						<div className='tooltip-wrapper'>
-							<svg
-								xmlns='http://www.w3.org/2000/svg'
-								width='46'
-								height='46'
-								viewBox='0 0 24 24'
+							<img
+								src={userPhoto}
+								alt='User Photo'
 								onClick={() => !showCookieBanner && toggleUserProfile()}
-								className={`header__icon ${
-									showCookieBanner ? 'disabled-icon' : ''
-								}`}
 								style={{
 									cursor: showCookieBanner ? 'not-allowed' : 'pointer',
 								}}
-							>
-								<path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z' />
-							</svg>
+							/>
 							{showCookieBanner && (
 								<span className='tooltip'>
 									Accept cookies to open profile

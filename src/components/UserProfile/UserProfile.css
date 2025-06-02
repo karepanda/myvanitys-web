@@ -37,6 +37,11 @@
 	margin-bottom: 36px;
 }
 
+.userProfile__name--title {
+	font-size: 20px;
+	font-weight: 400;
+}
+
 .userProfile__buttons {
 	display: flex;
 	flex-direction: column;

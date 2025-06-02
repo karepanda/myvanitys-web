@@ -11,9 +11,13 @@ const UserProfile = () => {
 		showUserProfile,
 		logout,
 		handleModeChange,
+		toggleCreateProductPopup,
+		showCreateProductPopup,
 	} = useContext(VanitysContext);
 
 	const navigate = useNavigate();
+
+	console.log('showCreateProductPopup', showCreateProductPopup);
 
 	const goToMyVanity = () => {
 		navigate('/dashboard');
@@ -64,7 +68,7 @@ const UserProfile = () => {
 							/>
 						</svg>
 						<h1 className='userProfile__name--title'>
-							{apiResponse.name}
+							{apiResponse.user.name}
 						</h1>
 					</div>
 					<div className='userProfile__buttons'>
@@ -74,7 +78,13 @@ const UserProfile = () => {
 						>
 							Go to My Vanity
 						</button>
-						<button className='userProfile__buttons--createProduct'>
+						<button
+							className='userProfile__buttons--createProduct'
+							onClick={() => {
+								toggleCreateProductPopup();
+								toggleUserProfile();
+							}}
+						>
 							Create Product
 						</button>
 						<button
