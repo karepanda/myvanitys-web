@@ -139,7 +139,7 @@ const Navbar = () => {
 							<span className='tooltip'>Accept cookies to search</span>
 						)}
 					</div>
-					{isAuthenticated && !isSearching && (
+					{/* {isAuthenticated && !isSearching && (
 						<img
 							src={searchIcon}
 							alt='Search'
@@ -153,7 +153,21 @@ const Navbar = () => {
 							onClick={handleSearchSubmit}
 							title='Search products'
 						/>
-					)}
+					)} */}
+
+					<img
+						src={searchIcon}
+						alt='Search'
+						className={`search-icon ${
+							showCookieBanner ||
+							!searchText.trim() ||
+							searchText.trim().length < 2
+								? 'disabled'
+								: ''
+						}`}
+						onClick={handleSearchSubmit}
+						title='Search products'
+					/>
 
 					{isAuthenticated && isSearching && (
 						<div className='search-loading-indicator'>⟳</div>

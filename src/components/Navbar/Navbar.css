@@ -79,23 +79,6 @@
 	border-radius: 4px;
 }
 
-/* 🔥 NUEVO: Estilo para botón logout */
-.header__logout {
-	width: 100px;
-	height: 44px;
-	font-size: 14px;
-	font-weight: bold;
-	background-color: #dc3545; /* Color rojo para logout */
-	color: var(--white);
-	border-radius: 4px;
-	transition: background-color 0.2s;
-}
-
-.header__logout:hover {
-	background-color: #c82333;
-}
-
-/* 🔥 NUEVO: Loading state */
 .auth-loading {
 	display: flex;
 	align-items: center;
@@ -186,22 +169,17 @@
 .search-input-container {
 	position: relative;
 	display: inline-block;
+	width: fit-content;
 }
 
 .search-icon {
 	position: absolute;
-	right: 5px;
+	right: 12px;
 	top: 50%;
 	transform: translateY(-50%);
 	width: 20px;
 	height: 20px;
 	cursor: pointer;
-	transition: opacity 0.2s ease;
-}
-
-.search-icon-overlay.disabled {
-	cursor: not-allowed;
-	opacity: 0.5;
 }
 
 .search-loading-indicator {
