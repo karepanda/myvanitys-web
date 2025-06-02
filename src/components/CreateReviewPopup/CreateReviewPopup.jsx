@@ -15,24 +15,18 @@ const CreateReviewPopup = () => {
 		handleMouseOver,
 		handleMouseOut,
 		handleClick,
-		// Usar errorHandler en lugar de handleSubmitCreateReviewProduct
-		// handleSubmitCreateReviewProduct,
 		showMissingFieldsPopup,
 		setShowMissingFieldsPopup,
-		// Agregar estos estados para pasarlos como props a MissingFieldsPopup
 		errorMessage,
 		errorTitle,
 		errorType,
-        // También añadir errorHandler
         errorHandler
 	} = useContext(VanitysContext);
 
-    // Crear un nuevo manejador que use errorHandler
     const handleSubmitCreateReview = (e) => {
         e.preventDefault();
 
         if (selectedRating === 0) {
-            // Usar errorHandler en lugar de setShowMissingFieldsPopup directamente
             errorHandler.showValidationError('requiredFields');
             return;
         }
@@ -91,7 +85,6 @@ const CreateReviewPopup = () => {
 
 					<form
 						className='createReviewPopup__right--form'
-                        // Usar nuestro nuevo manejador
 						onSubmit={handleSubmitCreateReview}
 					>
                         {/* Resto del formulario */}

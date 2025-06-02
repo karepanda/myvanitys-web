@@ -17,7 +17,7 @@ const UserProfile = () => {
 
 	const navigate = useNavigate();
 
-	console.log('showCreateProductPopup', showCreateProductPopup);
+
 
 	const goToMyVanity = () => {
 		navigate('/dashboard');

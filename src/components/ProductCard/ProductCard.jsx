@@ -43,9 +43,6 @@ const ProductCard = ({ product, id }) => {
 		try {
 			const success = await deleteProduct(token, product.id);
 
-			if (success) {
-				console.log(`Product ${product.name} deleted successfully`);
-			}
 		} catch (error) {
 			console.error('Error deleting product:', error);
 			errorHandler.showGenericError();

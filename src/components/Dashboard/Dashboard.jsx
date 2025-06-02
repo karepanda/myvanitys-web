@@ -8,7 +8,6 @@ import { PublicProductCard } from '../PublicProductCard/PublicProductCard';
 import { SearchedProductCard } from '../SearchedProductCard/SearchedProductCard';
 import { VanitysContext } from '../../context/index';
 import { useFetchUserProducts, usePublicProducts } from '../../hooks';
-// 🔥 NUEVO: Importar hook de búsqueda
 import { useProductSearch } from '../../hooks/useProductSearch';
 import { Modal } from '../Modal/Modal';
 import { UserProfile } from '../UserProfile/UserProfile';
@@ -20,11 +19,9 @@ const Dashboard = () => {
 	const { searchText, showUserProfile, showNotification } =
 		useContext(VanitysContext);
 
-	// Estado para modo del dashboard
 	const [dashboardMode, setDashboardMode] = useState('my-vanity');
 	const [searchParams, setSearchParams] = useSearchParams();
 
-	// Hooks existentes
 	const {
 		products: userProducts,
 		error: userError,
@@ -38,7 +35,7 @@ const Dashboard = () => {
 		loadPublicProducts,
 	} = usePublicProducts();
 
-	// 🔥 NUEVO: Hook de búsqueda
+
 	const {
 		searchResults,
 		isSearching,
@@ -51,7 +48,6 @@ const Dashboard = () => {
 	useEffect(() => {
 		const modeFromUrl = searchParams.get('mode');
 		
-		// 🔥 NUEVO: Manejar modo search
 		if (modeFromUrl === 'search') {
 			setDashboardMode('search');
 		} else if (modeFromUrl === 'add-products') {
@@ -62,14 +58,13 @@ const Dashboard = () => {
 			}
 		} else {
 			setDashboardMode('my-vanity');
-			// 🔥 NUEVO: Limpiar búsqueda al salir del modo search
+
 			if (hasSearched) {
 				clearSearch();
 			}
 		}
 	}, [searchParams, publicHasLoaded, publicLoading, loadPublicProducts, hasSearched, clearSearch]);
 
-	// 🔥 NUEVO: Determinar productos según el modo
 	const getProducts = () => {
 		switch (dashboardMode) {
 			case 'search':
@@ -82,7 +77,6 @@ const Dashboard = () => {
 		}
 	};
 
-	// 🔥 NUEVO: Determinar error según el modo
 	const getError = () => {
 		switch (dashboardMode) {
 			case 'search':
@@ -95,7 +89,6 @@ const Dashboard = () => {
 		}
 	};
 
-	// 🔥 NUEVO: Determinar loading según el modo
 	const getLoading = () => {
 		switch (dashboardMode) {
 			case 'search':
@@ -114,7 +107,6 @@ const Dashboard = () => {
 
 	const productId = userProducts[0]?.reviews?.[0]?.productId || null;
 
-	// 🔥 MODIFICADO: Solo filtrar si no estamos en modo search
 	const filteredProducts = (searchText && dashboardMode !== 'search')
 		? products.filter((product) =>
 				product.name.toLowerCase().includes(searchText.toLowerCase())
@@ -134,14 +126,13 @@ const Dashboard = () => {
 			}
 		} else {
 			setSearchParams({});
-			// 🔥 NUEVO: Limpiar búsqueda al cambiar de modo
 			if (hasSearched) {
 				clearSearch();
 			}
 		}
 	};
 
-	// 🔥 NUEVO: Mensaje de loading dinámico
+
 	const getLoadingMessage = () => {
 		switch (dashboardMode) {
 			case 'search':
@@ -164,7 +155,7 @@ const Dashboard = () => {
 	}
 
 	if (error) {
-		// 🔥 NUEVO: Mensaje de error dinámico
+
 		const errorMessage = dashboardMode === 'search'
 			? `Search failed: ${error}`
 			: (error.message || 'Could not load your products. Please try again.');
@@ -186,7 +177,7 @@ const Dashboard = () => {
 
 	return (
 		<div className={getStyleClass()}>
-			{/* 🔥 NUEVO: Barra de estado solo para búsqueda */}
+			{/* NUEVO: Barra de estado solo para búsqueda */}
 			{dashboardMode === 'search' && (
 				<div className="dashboard__search-status">
 					{isSearching ? (
@@ -266,7 +257,6 @@ const Dashboard = () => {
 
 					<div className='productCard__wrapper'>
 						{(searchText && dashboardMode !== 'search' ? filteredProducts : products).map((product) =>
-							// 🔥 MODIFICADO: Lógica para mostrar componentes según modo
 							dashboardMode === 'search' ? (
 								<SearchedProductCard
 									key={product.id || `product-${Math.random()}`}

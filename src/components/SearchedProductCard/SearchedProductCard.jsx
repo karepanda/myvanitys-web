@@ -48,7 +48,6 @@ const SearchedProductCard = ({ product }) => {
 			const success = await addExistingProductToVanity?.(token, product);
 			
 			if (success) {
-				console.log(`✅ Searched product ${product.name} added to vanity successfully`);
 				// Show notification
 				toggleNotification();
 			} else {

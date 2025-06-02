@@ -59,7 +59,7 @@
   }
 }
 
-/* Responsive styles */
+
 @media (max-width: 600px) {
   .auth-callback__processing,
   .auth-callback__success,
