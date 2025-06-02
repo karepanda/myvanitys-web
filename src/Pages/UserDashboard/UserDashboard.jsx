@@ -59,6 +59,7 @@ const UserDashboard = () => {
 
 	return (
 		<>
+			{/* {showWelcomePopup && <WelcomePopup onClose={closePopup} />}
 			{apiResponse?.token ? (
 				<Dashboard />
 			) : (
@@ -67,9 +68,11 @@ const UserDashboard = () => {
 					<p>Please log in to access your dashboard.</p>
 					<p>Use the login button in the navigation bar to get started.</p>
 				</div>
-			)}
-
-			{showWelcomePopup && <WelcomePopup onClose={closePopup} />}
+			)} */}
+			<>
+				{showWelcomePopup && <WelcomePopup onClose={closePopup} />}
+				{apiResponse?.token && <Dashboard />}
+			</>
 		</>
 	);
 };

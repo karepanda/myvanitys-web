@@ -20,7 +20,7 @@ const VanitysProvider = ({ children }) => {
 	const [showCreateReviewPopup, setShowCreateReviewPopup] = useState(false);
 	const [showUserProfile, setShowUserProfile] = useState(false);
 	const [showNotification, setShowNotification] = useState(false);
-	const [showWelcomePopup, setShowWelcomePopup] = useState(false);
+	const [showWelcomePopup, setShowWelcomePopup] = useState(true);
 
 	// Product Upgrade Trigger
 	const [productsRefreshTrigger, setProductsRefreshTrigger] = useState(0);
