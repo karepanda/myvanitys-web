@@ -1,4 +1,3 @@
-// src/components/Navbar/Navbar.jsx
 import React, { useContext, useState } from 'react';
 import './Navbar.css';
 import { Modal } from '../Modal/Modal';
@@ -6,7 +5,7 @@ import { Register } from '../Register/Register';
 import { Login } from '../Login/Login';
 import { VanitysContext } from '../../context';
 import { CreateProductPopup } from '../CreateProductPopup/CreateProductPopup';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { usePublicProducts } from '../../hooks/usePublicProducts';
 import { useProductSearch } from '../../hooks/useProductSearch';
 import searchIcon from '../../assets/icon _search.png';
@@ -40,8 +39,13 @@ const Navbar = () => {
 	} = usePublicProducts();
 
 	const { searchProducts, isSearching } = useProductSearch();
-	
+
 	const [isSearchMode, setIsSearchMode] = useState(false);
+
+	const location = useLocation();
+	const isActive =
+		location.pathname === '/dashboard' &&
+		location.search.includes('mode=add-products');
 
 	const navigate = useNavigate();
 
@@ -55,37 +59,21 @@ const Navbar = () => {
 		setIsSearchMode(false);
 	};
 
-	// Función para ejecutar búsqueda
 	const handleSearchSubmit = async () => {
 		if (showCookieBanner || !searchText.trim()) return;
-		
+
 		if (searchText.trim().length < 2) {
-			console.warn('Search query must be at least 2 characters long');
 			return;
 		}
 
-		console.log('🔍 === SEARCH EXECUTION ===');
-		console.log(`Search query: "${searchText}"`);
-		
 		if (isSearching) {
-			console.log('⏳ Search already in progress...');
 			return;
 		}
 
-		// Navigate to dashboard in search mode
 		navigate('/dashboard?mode=search');
 		setIsSearchMode(true);
 
-		// Execute search
 		const success = await searchProducts(searchText);
-		
-		if (success) {
-			console.log('✅ Search completed successfully');
-		} else {
-			console.error('❌ Search failed');
-		}
-		
-		console.log('🏁 === END SEARCH ===');
 	};
 
 	const handleSearchKeyDown = (e) => {
@@ -123,18 +111,6 @@ const Navbar = () => {
 	const isAuthenticated = authInitialized && apiResponse?.token;
 	const showLoginButtons = authInitialized && !apiResponse?.token;
 
-	const getProductsButtonText = () => {
-		if (loading) {
-			return 'Loading...';
-		} else if (error) {
-			return 'Products (Error)';
-		} else if (hasLoaded) {
-			return `Products (${publicProducts?.length || 0})`;
-		} else {
-			return 'Products';
-		}
-	};
-
 	const getSearchPlaceholder = () => {
 		if (!isAuthenticated) return 'Search...';
 		return isSearching ? 'Searching...' : 'Search products...';
@@ -166,19 +142,21 @@ const Navbar = () => {
 					{isAuthenticated && !isSearching && (
 						<img
 							src={searchIcon}
-							alt="Search"
+							alt='Search'
 							className={`search-icon ${
-								showCookieBanner || !searchText.trim() || searchText.trim().length < 2
-									? 'disabled' 
+								showCookieBanner ||
+								!searchText.trim() ||
+								searchText.trim().length < 2
+									? 'disabled'
 									: ''
 							}`}
 							onClick={handleSearchSubmit}
-							title="Search products"
+							title='Search products'
 						/>
 					)}
-					
+
 					{isAuthenticated && isSearching && (
-						<div className="search-loading-indicator">⟳</div>
+						<div className='search-loading-indicator'>⟳</div>
 					)}
 				</div>
 
@@ -214,30 +192,21 @@ const Navbar = () => {
 						<Register />
 					</Modal>
 				)}
-				
+
 				{isAuthenticated && (
 					<>
-						<div className='tooltip-wrapper'>
-							<p
-								className={`header__products ${
-									showCookieBanner ? 'disabled' : ''
-								} ${loading ? 'loading' : ''}`}
-								onClick={handleProductsClick}
-								style={{
-									cursor:
-										showCookieBanner || loading
-											? 'not-allowed'
-											: 'pointer',
-								}}
-							>
-								{getProductsButtonText()}
-							</p>
-							{showCookieBanner && (
-								<span className='tooltip'>
-									Accept cookies to load products
-								</span>
-							)}
-						</div>
+						<p
+							className={`header__products ${isActive ? 'active' : ''}`}
+							onClick={handleProductsClick}
+						>
+							Products
+						</p>
+
+						{showCookieBanner && (
+							<span className='tooltip'>
+								Accept cookies to load products
+							</span>
+						)}
 
 						{renderButtonWithTooltip(
 							'Create Product',

@@ -59,8 +59,14 @@
 }
 
 .header__products {
-	font-size: 22px;
+	font-size: 24px;
 	font-weight: lighter;
+}
+
+.header__products.active {
+	font-weight: 400;
+	font-size: 24px;
+	color: var(--orange);
 }
 
 .header__create {
@@ -109,27 +115,21 @@
 }
 
 @keyframes dots {
-	0%, 20% {
-		color: rgba(0,0,0,0);
-		text-shadow:
-			.25em 0 0 rgba(0,0,0,0),
-			.5em 0 0 rgba(0,0,0,0);
+	0%,
+	20% {
+		color: rgba(0, 0, 0, 0);
+		text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
 	}
 	40% {
 		color: #666;
-		text-shadow:
-			.25em 0 0 rgba(0,0,0,0),
-			.5em 0 0 rgba(0,0,0,0);
+		text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
 	}
 	60% {
-		text-shadow:
-			.25em 0 0 #666,
-			.5em 0 0 rgba(0,0,0,0);
+		text-shadow: 0.25em 0 0 #666, 0.5em 0 0 rgba(0, 0, 0, 0);
 	}
-	80%, 100% {
-		text-shadow:
-			.25em 0 0 #666,
-			.5em 0 0 #666;
+	80%,
+	100% {
+		text-shadow: 0.25em 0 0 #666, 0.5em 0 0 #666;
 	}
 }
 
@@ -174,59 +174,13 @@
 	pointer-events: none;
 }
 
-/* Make .header__products interactive */
-.header__products {
-	font-size: 22px;
-	font-weight: lighter;
-	transition: opacity 0.3s ease; 
-	margin: 0; 
-}
-
-/* ADD: Hover effect for clickable products */
-.header__products:hover:not(.disabled) {
-	opacity: 0.8;
-	text-decoration: underline;
-}
-
-/* 🔥 ADD: Loading status for products */
-.header__products.loading {
-	opacity: 0.7;
-	cursor: not-allowed;
-}
-/* Añadir a Navbar.css */
-
-.header__products {
-  transition: all 0.3s ease;
-  user-select: none;
-}
-
-.header__products:hover:not(.disabled) {
-  opacity: 0.8;
-  transform: translateY(-1px);
-}
-
-.header__products.loading {
-  opacity: 0.7;
-  position: relative;
-}
-
-.header__products.loading::after {
-  content: '';
-  position: absolute;
-  right: -20px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 12px;
-  height: 12px;
-  border: 1px solid #666;
-  border-top: 1px solid transparent;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
 @keyframes spin {
-  0% { transform: translateY(-50%) rotate(0deg); }
-  100% { transform: translateY(-50%) rotate(360deg); }
+	0% {
+		transform: translateY(-50%) rotate(0deg);
+	}
+	100% {
+		transform: translateY(-50%) rotate(360deg);
+	}
 }
 
 .search-input-container {
@@ -235,14 +189,14 @@
 }
 
 .search-icon {
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    transition: opacity 0.2s ease;
+	position: absolute;
+	right: 5px;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 20px;
+	height: 20px;
+	cursor: pointer;
+	transition: opacity 0.2s ease;
 }
 
 .search-icon-overlay.disabled {
@@ -251,16 +205,20 @@
 }
 
 .search-loading-indicator {
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    transform: translateY(-50%); 
-    font-size: 14px;
-    color: #666;
-    animation: spin 1s linear infinite;
+	position: absolute;
+	right: 5px;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 14px;
+	color: #666;
+	animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-	0% { transform: rotate(0deg); }
-	100% { transform: rotate(360deg); }
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }
