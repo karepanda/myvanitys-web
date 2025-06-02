@@ -24,9 +24,7 @@ const UserDashboard = () => {
 		if (setShowModalRegister) setShowModalRegister(false);
 
 		if (!apiResponse?.token) {
-			console.log(
-				'🔐 No active session found. User needs to log in manually.'
-			);
+
 			return;
 		}
 

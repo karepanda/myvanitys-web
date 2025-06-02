@@ -21,27 +21,26 @@ export const usePublicProducts = () => {
 
 
   const loadPublicProducts = async () => {
-    console.log('🔄 MANUAL: Starting manual fetch...');
+
 
     if (!authInitialized || !apiResponse?.token || !apiResponse?.user?.id) {
-      console.log('⏳ MANUAL: Not ready yet, cannot fetch...');
+
       setError(new Error('User not authenticated'));
       return false;
     }
 
-    console.log('🚀 MANUAL: Starting manual products fetch...');
+
     setLoading(true);
     setError(null);
 
     try {
-      console.log('📡 Calling APIs...');
+
       const [allProductsResult, userProductsResult] = await Promise.all([
         getProducts(apiResponse.token, errorHandler),
         findProductsByUserId(apiResponse.token, apiResponse.user.id, errorHandler)
       ]);
 
-      console.log('📦 MANUAL: All products returned:', allProductsResult?.length || 0);
-      console.log('📦 MANUAL: User products returned:', userProductsResult?.length || 0);
+
 
       const allProds = allProductsResult || [];
       const userProds = userProductsResult || [];
@@ -49,9 +48,9 @@ export const usePublicProducts = () => {
       const userProductIds = new Set(userProds.map(product => product.id));
       const availableProducts = allProds.filter(product => !userProductIds.has(product.id));
 
-      console.log('✅ MANUAL: Products available to add:', availableProducts.length);
 
-      // 🔥 UPDATE STATES
+
+
       setAllProducts(allProds);
       setUserProducts(userProds);
       setPublicProducts(availableProducts);
@@ -59,11 +58,11 @@ export const usePublicProducts = () => {
       setError(null);
       setHasLoaded(true);
 
-      console.log('🏁 MANUAL: Manual fetch completed successfully');
+
       return true;
 
     } catch (err) {
-      console.error('❌ MANUAL: Error fetching products:', err);
+      console.error('MANUAL: Error fetching products:', err);
       
       // Error handling
       if (errorHandler) {
@@ -92,7 +91,6 @@ export const usePublicProducts = () => {
   };
 
   const clearData = () => {
-    console.log('🧹 MANUAL: Clearing all data...');
     setAllProducts([]);
     setUserProducts([]);
     setPublicProducts([]);
@@ -101,7 +99,6 @@ export const usePublicProducts = () => {
     setHasLoaded(false);
   };
 
-  // 🔍 Search functionality for public products
   const searchPublicProducts = (searchTerm) => {
     if (!hasLoaded) {
       console.warn('Cannot search - data not loaded yet');
@@ -121,7 +118,7 @@ export const usePublicProducts = () => {
     setFilteredProducts(searchResults);
   };
 
-  // 🔍 Filter by category
+
   const filterByCategory = (categoryId) => {
     if (!hasLoaded) {
       console.warn('Cannot filter - data not loaded yet');
@@ -140,7 +137,7 @@ export const usePublicProducts = () => {
     setFilteredProducts(categoryResults);
   };
 
-  console.log('🔍 MANUAL Hook state:', { 
+  console.log('MANUAL Hook state:', { 
     totalProducts: allProducts.length,
     userProducts: userProducts.length,
     availableProducts: publicProducts.length,

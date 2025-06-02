@@ -12,18 +12,15 @@ const API_URL = import.meta.env.VITE_API_URL;
  * @returns {Object} User data, error state, and loading state
  */
 const useFetchUserData = () => {
-  // Get error handler and loading state from the context
   const { errorHandler, loading: contextLoading, setLoading } = useContext(VanitysContext);
 
-  // Use useFetch to get user profile data
   const { data, error, loading: fetchLoading } = useFetch(
-    `${API_URL}/users/profile`,  // Changed from /dashboard to /users/profile for clarity
+    `${API_URL}/users/profile`,  
     'GET',
     {},
     errorHandler
   );
 
-  // Synchronize loading state with the context if necessary
   if (fetchLoading !== contextLoading) {
     setLoading(fetchLoading);
   }

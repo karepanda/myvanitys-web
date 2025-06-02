@@ -32,7 +32,7 @@
   margin: 0;
 }
 
-/* 🔥 NUEVO: Mensaje cuando no hay sesión */
+/* Mensaje cuando no hay sesión */
 .no-session-message {
   display: flex;
   flex-direction: column;
