@@ -12,6 +12,8 @@ const PublicProductCard = ({ product }) => {
 		addExistingProductToVanity,
 	} = useContext(VanitysContext);
 
+	console.log('product:', product);
+
 	const [isAdding, setIsAdding] = useState(false);
 
 	const handleAddToVanity = async () => {
@@ -60,7 +62,7 @@ const PublicProductCard = ({ product }) => {
 						src={startIcon}
 						alt='Review icons'
 					/>
-					<p className='publicProductCard__left--reviews'>4</p>
+					<p className='publicProductCard__left--reviews'>{}</p>
 				</div>
 			</div>
 			<div className='publicProductCard__right'>

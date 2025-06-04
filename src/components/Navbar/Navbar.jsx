@@ -120,7 +120,10 @@ const Navbar = () => {
 	return (
 		<>
 			<header className={isAuthenticated ? 'header-dashboard' : 'header'}>
-				<h1 className='header__title' onClick={goToMyVanity}>
+				<h1
+					className='header__title'
+					onClick={isAuthenticated ? goToMyVanity : undefined}
+				>
 					My Vanity´s
 				</h1>
 				<div className='search-input-container'>

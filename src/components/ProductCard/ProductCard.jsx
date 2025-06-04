@@ -42,7 +42,6 @@ const ProductCard = ({ product, id }) => {
 
 		try {
 			const success = await deleteProduct(token, product.id);
-
 		} catch (error) {
 			console.error('Error deleting product:', error);
 			errorHandler.showGenericError();
@@ -53,6 +52,8 @@ const ProductCard = ({ product, id }) => {
 		setSelectedProduct(product);
 		toggleCreateProductPopup(product);
 	};
+
+	console.log(product);
 
 	return (
 		<div className='productCard'>
@@ -72,7 +73,7 @@ const ProductCard = ({ product, id }) => {
 							<span
 								key={index}
 								className={
-									index < stars
+									index < product.averageRating
 										? 'productCard__left--star filled'
 										: 'productCard__left--star empty'
 								}
