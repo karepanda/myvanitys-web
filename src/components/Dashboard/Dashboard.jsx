@@ -35,19 +35,18 @@ const Dashboard = () => {
 		loadPublicProducts,
 	} = usePublicProducts();
 
-
 	const {
 		searchResults,
 		isSearching,
 		searchError,
 		hasSearched,
 		lastSearchQuery,
-		clearSearch
+		clearSearch,
 	} = useProductSearch();
 
 	useEffect(() => {
 		const modeFromUrl = searchParams.get('mode');
-		
+
 		if (modeFromUrl === 'search') {
 			setDashboardMode('search');
 		} else if (modeFromUrl === 'add-products') {
@@ -63,7 +62,14 @@ const Dashboard = () => {
 				clearSearch();
 			}
 		}
-	}, [searchParams, publicHasLoaded, publicLoading, loadPublicProducts, hasSearched, clearSearch]);
+	}, [
+		searchParams,
+		publicHasLoaded,
+		publicLoading,
+		loadPublicProducts,
+		hasSearched,
+		clearSearch,
+	]);
 
 	const getProducts = () => {
 		switch (dashboardMode) {
@@ -107,11 +113,12 @@ const Dashboard = () => {
 
 	const productId = userProducts[0]?.reviews?.[0]?.productId || null;
 
-	const filteredProducts = (searchText && dashboardMode !== 'search')
-		? products.filter((product) =>
-				product.name.toLowerCase().includes(searchText.toLowerCase())
-		  )
-		: products;
+	const filteredProducts =
+		searchText && dashboardMode !== 'search'
+			? products.filter((product) =>
+					product.name.toLowerCase().includes(searchText.toLowerCase())
+			  )
+			: products;
 
 	const getStyleClass = () => {
 		return products.length === 0 ? 'dashboard__noProducts' : 'dashboard';
@@ -131,7 +138,6 @@ const Dashboard = () => {
 			}
 		}
 	};
-
 
 	const getLoadingMessage = () => {
 		switch (dashboardMode) {
@@ -155,15 +161,19 @@ const Dashboard = () => {
 	}
 
 	if (error) {
-
-		const errorMessage = dashboardMode === 'search'
-			? `Search failed: ${error}`
-			: (error.message || 'Could not load your products. Please try again.');
+		const errorMessage =
+			dashboardMode === 'search'
+				? `Search failed: ${error}`
+				: error.message ||
+				  'Could not load your products. Please try again.';
 
 		return (
 			<div className='dashboard__error'>
 				<div className='error-icon'>⚠️</div>
-				<h3>Error {dashboardMode === 'search' ? 'searching' : 'loading'} products</h3>
+				<h3>
+					Error {dashboardMode === 'search' ? 'searching' : 'loading'}{' '}
+					products
+				</h3>
 				<p>{errorMessage}</p>
 				<button
 					className='retry-button'
@@ -179,23 +189,26 @@ const Dashboard = () => {
 		<div className={getStyleClass()}>
 			{/* NUEVO: Barra de estado solo para búsqueda */}
 			{dashboardMode === 'search' && (
-				<div className="dashboard__search-status">
+				<div className='dashboard__search-status'>
 					{isSearching ? (
-						<div className="search-status search-status--loading">
-							<div className="loading-spinner-small"></div>
+						<div className='search-status search-status--loading'>
+							<div className='loading-spinner-small'></div>
 							<p>Searching products...</p>
 						</div>
 					) : !hasSearched ? (
-						<div className="search-status search-status--info">
+						<div className='search-status search-status--info'>
 							<p>Use the search bar to find products</p>
 						</div>
 					) : searchResults.length === 0 ? (
-						<div className="search-status search-status--warning">
+						<div className='search-status search-status--warning'>
 							<p>No products found for "{lastSearchQuery}"</p>
 						</div>
 					) : (
-						<div className="search-status search-status--success">
-							<p>✨ Found {searchResults.length} products for "{lastSearchQuery}"</p>
+						<div className='search-status search-status--success'>
+							<p>
+								✨ Found {searchResults.length} products for "
+								{lastSearchQuery}"
+							</p>
 						</div>
 					)}
 				</div>
@@ -231,20 +244,26 @@ const Dashboard = () => {
 								</p>
 							</>
 						) : (
-							<>
-								<h3>No products available to add</h3>
-								<p>You already have all available products! 🎉</p>
+							<div className='dashboard__noProduct'>
+								<h3 className='dashboard__noProducts--title'>
+									No products available to add
+								</h3>
+								<p className='dashboard__noProduct--phrase'>
+									You already have all available products!
+								</p>
 								<button
-									className='switch-mode-button'
+									className='dashboard__noProduct--button'
 									onClick={() => handleModeChange('my-vanity')}
 								>
 									View My Vanity
 								</button>
-							</>
+							</div>
 						)}
 					</div>
 				)
-			) : searchText && filteredProducts.length === 0 && dashboardMode !== 'search' ? (
+			) : searchText &&
+			  filteredProducts.length === 0 &&
+			  dashboardMode !== 'search' ? (
 				<div className='no-search-results'>
 					<p>No products found for "{searchText}"</p>
 					<p>Try a different search term</p>
@@ -256,13 +275,16 @@ const Dashboard = () => {
 					</div>
 
 					<div className='productCard__wrapper'>
-						{(searchText && dashboardMode !== 'search' ? filteredProducts : products).map((product) =>
+						{(searchText && dashboardMode !== 'search'
+							? filteredProducts
+							: products
+						).map((product) =>
 							dashboardMode === 'search' ? (
 								<SearchedProductCard
 									key={product.id || `product-${Math.random()}`}
 									product={product}
 								/>
-							) : (searchText && dashboardMode !== 'search') ? (
+							) : searchText && dashboardMode !== 'search' ? (
 								<SearchedProductCard
 									key={product.id || `product-${Math.random()}`}
 									product={product}

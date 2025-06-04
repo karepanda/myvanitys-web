@@ -23,7 +23,6 @@ const Navbar = () => {
 		toggleCreateProductPopup,
 		searchText,
 		handleSearch,
-		setApiResponse,
 		toggleUserProfile,
 		showCookieBanner,
 		logout,

@@ -1,4 +1,3 @@
-// services/product/operations/createProductService.js
 import { productApiAdapter } from '../adapters/productApiAdapter';
 
 export const createProductService = {

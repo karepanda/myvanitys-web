@@ -1,36 +1,36 @@
 import React, { useContext, useState } from 'react';
 import './SearchedProductCard.css';
 import { VanitysContext } from '../../context/index';
-import { ProductPopup } from '../ProductReviewPopup/ProductReviewPopup';
+import { ProductPopup } from '../ProductPopup/ProductPopup';
 import { Modal } from '../Modal/Modal';
 
 const SearchedProductCard = ({ product }) => {
-	const { 
-		toggleProductPopup, 
-		toggleNotification, 
+	const {
+		toggleProductPopup,
+		toggleNotification,
 		showProductPopup,
 		apiResponse,
 		errorHandler,
-		addExistingProductToVanity 
+		addExistingProductToVanity,
 	} = useContext(VanitysContext);
 
 	const [isAdding, setIsAdding] = useState(false);
 
 	const averageRating = product.averageRating || 0;
-	
+
 	const isInCollection = product.inUserCollection;
 
 	// Handle adding product to vanity
 	const handleAddToVanity = async (e) => {
 		e.stopPropagation(); // Prevent triggering the card click
-		
+
 		if (isInCollection) {
 			console.log('Product already in collection');
 			return;
 		}
 
 		const token = apiResponse?.token;
-		
+
 		if (!token) {
 			errorHandler?.showErrorMessage?.(
 				'You are not authenticated. Please log in to continue.',
@@ -44,16 +44,15 @@ const SearchedProductCard = ({ product }) => {
 
 		try {
 			console.log(`Adding searched product ${product.name} to vanity...`);
-			
+
 			const success = await addExistingProductToVanity?.(token, product);
-			
+
 			if (success) {
 				// Show notification
 				toggleNotification();
 			} else {
 				throw new Error('Failed to add product to vanity');
 			}
-			
 		} catch (error) {
 			console.error('Error adding searched product to vanity:', error);
 			errorHandler?.showGenericError?.();
@@ -90,23 +89,24 @@ const SearchedProductCard = ({ product }) => {
 						<span style={{ color: 'green', fontSize: '24px' }}>✓</span>
 					</div>
 				) : (
-
 					<img
-						className={`searchedProductCard__right--icon ${isAdding ? 'adding' : ''}`}
+						className={`searchedProductCard__right--icon ${
+							isAdding ? 'adding' : ''
+						}`}
 						src='src/assets/plus_icon.png'
 						alt='Plus icon'
 						onClick={handleAddToVanity}
 						style={{
 							cursor: isAdding ? 'not-allowed' : 'pointer',
-							opacity: isAdding ? 0.5 : 1
+							opacity: isAdding ? 0.5 : 1,
 						}}
 					/>
 				)}
 			</div>
 			{showProductPopup && (
 				<Modal>
-					<ProductPopup 
-						color={product.colorHex || product.color} 
+					<ProductPopup
+						color={product.colorHex || product.color}
 						reviews={product.reviews || []}
 						product={product}
 					/>
