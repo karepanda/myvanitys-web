@@ -126,8 +126,11 @@ const VanitysProvider = ({ children }) => {
 		sessionStorage.setItem('cookieBannerClosed', 'true');
 		setShowCookieBanner(false);
 	};
-	const toggleProductPopup = () => setShowProductPopup((prev) => !prev);
-
+	const toggleProductPopup = (product = null) => {
+		setSelectedProduct(product);
+		setShowProductPopup(!!product);
+		l;
+	};
 	const toggleCreateProductPopup = (product = null) => {
 		setShowCreateProductPopup((prev) => !prev);
 		setSelectedProduct(product);
@@ -452,7 +455,6 @@ const VanitysProvider = ({ children }) => {
 				searchText,
 				selectedProduct,
 				selectedCategory,
-				// color, // 🔥 COMENTADO - no usado actualmente
 
 				// Data setters
 				setApiResponse,

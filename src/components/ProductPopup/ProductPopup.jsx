@@ -1,21 +1,20 @@
 import React, { useContext } from 'react';
 import './ProductPopup.css';
 import { IoClose } from 'react-icons/io5';
+import { FaRegStar } from 'react-icons/fa';
+import { FaStar } from 'react-icons/fa6';
 import { VanitysContext } from '../../context/index';
 
-const ProductPopup = ({ product }) => {
-	const { toggleProductPopup, toggleNotification, apiResponse } =
-		useContext(VanitysContext);
-
-	console.log('product:', product);
+const ProductPopup = ({ handleAddToVanity, isAdding }) => {
+	const { toggleProductPopup, selectedProduct } = useContext(VanitysContext);
 
 	return (
 		<div className='productPopup'>
 			<div className='productPopup__wrapper'>
 				<section className='productPopup__header'>
 					<p className='productPopup__header--title'>
-						<strong>{product.name} - </strong>
-						{product.brand}
+						<strong>{selectedProduct.name} - </strong>
+						{selectedProduct.brand}
 					</p>
 					<IoClose
 						size={40}
@@ -25,34 +24,45 @@ const ProductPopup = ({ product }) => {
 				</section>
 
 				<section className='productPopup__reviews'>
-					<p className='productPopup__reviews--text'>
-						Lorem ipsum dolor sit amet consectetur adipiscing elit dictum
-						habitant nibh, natoque eget interdum massa velit tristique
-						suscipit curabitur augue.
-					</p>
-					<p className='productPopup__reviews--text'>
-						Lorem ipsum dolor sit amet consectetur adipiscing elit dictum
-						habitant nibh, natoque eget interdum massa velit tristique
-						suscipit curabitur augue.
-					</p>
-					{/* {reviews.map((review) => (
-						<div key={review.id} className='productPopup__reviews--one'>
-							<div className='productPopup__reviews--stars'>
-								{Array.from({ length: 5 }, (_, i) => (
-									<span key={i}>{i < review.stars ? '★' : '☆'}</span>
-								))}
+					{selectedProduct.reviews &&
+					selectedProduct.reviews.length > 0 ? (
+						selectedProduct.reviews.map((review) => (
+							<div
+								key={review.id}
+								className='productPopup__reviews--one'
+							>
+								<div className='productPopup__reviews--stars'>
+									{Array.from({ length: 5 }, (_, i) => (
+										<span key={i}>
+											{i < review.rating ? (
+												<FaStar size={20} />
+											) : (
+												<FaRegStar size={20} />
+											)}
+										</span>
+									))}
+								</div>
+								<p className='productPopup__reviews--text'>
+									{review.comment}
+								</p>
 							</div>
-							<p className='productPopup__reviews--text'>
-								Lorem ipsum dolor sit amet consectetur adipiscing elit
-								dictum habitant nibh, natoque eget interdum massa velit
-								tristique suscipit curabitur augue.
-							</p>
-						</div>
-					))} */}
+						))
+					) : (
+						<p className='productPopup__reviews--noReviews'>
+							This product has no reviews available.
+						</p>
+					)}
 				</section>
 				<section className='productPopup__add'>
-					<button className='productPopup__add--buttom'>
-						Add Product to My Vanity
+					<button
+						className='productPopup__add--buttom'
+						onClick={() => {
+							handleAddToVanity();
+							toggleProductPopup();
+						}}
+						disabled={isAdding}
+					>
+						{isAdding ? 'Adding...' : 'Add Product to My Vanity'}
 					</button>
 				</section>
 			</div>

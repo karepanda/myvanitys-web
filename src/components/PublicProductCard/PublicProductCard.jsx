@@ -3,16 +3,17 @@ import { VanitysContext } from '../../context/index';
 import './PublicProductCard.css';
 import startIcon from '../../assets/start_icon.png';
 import plusIcon from '../../assets/plus_icon.png';
+import { ProductPopup } from '../ProductPopup/ProductPopup';
+import { Modal } from '../Modal/Modal';
 
 const PublicProductCard = ({ product }) => {
 	const {
 		apiResponse,
 		errorHandler,
-		showNotificationTemporarily,
 		addExistingProductToVanity,
+		toggleProductPopup,
+		showProductPopup,
 	} = useContext(VanitysContext);
-
-	console.log('product:', product);
 
 	const [isAdding, setIsAdding] = useState(false);
 
@@ -27,14 +28,6 @@ const PublicProductCard = ({ product }) => {
 			);
 			return;
 		}
-
-		const handleAverageRating = (product) => {
-			if (product.averageRating == null) {
-				average = 0;
-			} else {
-				average = product.averageRating;
-			}
-		};
 
 		setIsAdding(true);
 
@@ -59,7 +52,10 @@ const PublicProductCard = ({ product }) => {
 
 	return (
 		<div className='publicProductCard'>
-			<div className='publicProductCard__left'>
+			<div
+				className='publicProductCard__left'
+				onClick={() => toggleProductPopup(product)}
+			>
 				<p className='publicProductCard__left--name'>{product.name}</p>
 				<p className='publicProductCard__left--description'>
 					{product.brand}
@@ -81,6 +77,14 @@ const PublicProductCard = ({ product }) => {
 					onClick={() => handleAddToVanity()}
 				/>
 			</div>
+			{showProductPopup && (
+				<Modal>
+					<ProductPopup
+						handleAddToVanity={handleAddToVanity}
+						isAdding={isAdding}
+					/>
+				</Modal>
+			)}
 		</div>
 	);
 };
