@@ -28,6 +28,14 @@ const PublicProductCard = ({ product }) => {
 			return;
 		}
 
+		const handleAverageRating = (product) => {
+			if (product.averageRating == null) {
+				average = 0;
+			} else {
+				average = product.averageRating;
+			}
+		};
+
 		setIsAdding(true);
 
 		try {
@@ -44,9 +52,9 @@ const PublicProductCard = ({ product }) => {
 		}
 	};
 
-	const stars =
-		product.reviews && product.reviews.length > 0
-			? product.reviews[0].stars
+	const average =
+		product.averageRating && product.averageRating != 0
+			? product.averageRating
 			: 0;
 
 	return (
@@ -62,7 +70,7 @@ const PublicProductCard = ({ product }) => {
 						src={startIcon}
 						alt='Review icons'
 					/>
-					<p className='publicProductCard__left--reviews'>{}</p>
+					<p className='publicProductCard__left--reviews'>{average}</p>
 				</div>
 			</div>
 			<div className='publicProductCard__right'>
