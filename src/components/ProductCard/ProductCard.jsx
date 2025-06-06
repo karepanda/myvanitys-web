@@ -4,6 +4,7 @@ import { useContext } from 'react';
 import { Modal } from '../Modal/Modal';
 import { CreateReviewPopup } from '../CreateReviewPopup/CreateReviewPopup';
 import { CreateProductPopup } from '../CreateProductPopup/CreateProductPopup';
+import { ProductPopup } from '../ProductPopup/ProductPopup';
 
 const ProductCard = ({ product, id }) => {
 	const {
@@ -15,6 +16,8 @@ const ProductCard = ({ product, id }) => {
 		apiResponse,
 		errorHandler,
 		setSelectedProduct,
+		toggleProductPopup,
+		showProductPopup,
 	} = useContext(VanitysContext);
 
 	const stars =
@@ -53,11 +56,17 @@ const ProductCard = ({ product, id }) => {
 		toggleCreateProductPopup(product);
 	};
 
-	console.log(product);
+	const click = () => {
+		setSelectedProduct(product);
+		toggleProductPopup();
+	};
 
 	return (
 		<div className='productCard'>
-			<div className='productCard__left'>
+			<div
+				className='productCard__left'
+				onClick={() => toggleProductPopup(product)}
+			>
 				<h1 className='productCard__left--name'>{product.name}</h1>
 
 				<p className='productCard__left--brand'>{product.brand}</p>
@@ -127,6 +136,12 @@ const ProductCard = ({ product, id }) => {
 			{showCreateProductPopup && (
 				<Modal>
 					<CreateProductPopup />
+				</Modal>
+			)}
+
+			{showProductPopup && (
+				<Modal>
+					<ProductPopup />
 				</Modal>
 			)}
 		</div>

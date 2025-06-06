@@ -129,7 +129,6 @@ const VanitysProvider = ({ children }) => {
 	const toggleProductPopup = (product = null) => {
 		setSelectedProduct(product);
 		setShowProductPopup(!!product);
-		l;
 	};
 	const toggleCreateProductPopup = (product = null) => {
 		setShowCreateProductPopup((prev) => !prev);

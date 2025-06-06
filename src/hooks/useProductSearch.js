@@ -154,14 +154,6 @@ export const useProductSearch = () => {
 		setSearchResults(filteredResults);
 	};
 
-	console.log('SEARCH Hook state:', {
-		searchResultsCount: searchResults.length,
-		isSearching,
-		hasError: !!searchError,
-		hasSearched,
-		lastSearchQuery,
-	});
-
 	return {
 		// Data
 		searchResults,

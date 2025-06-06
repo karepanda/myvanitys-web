@@ -7,13 +7,8 @@ import { ProductPopup } from '../ProductPopup/ProductPopup';
 import { Modal } from '../Modal/Modal';
 
 const PublicProductCard = ({ product }) => {
-	const {
-		errorHandler,
-		handleAddToVanity,
-		isAdding,
-		toggleProductPopup,
-		showProductPopup,
-	} = useContext(VanitysContext);
+	const { handleAddToVanity, toggleProductPopup, showProductPopup } =
+		useContext(VanitysContext);
 
 	const average =
 		product.averageRating && product.averageRating !== 0
