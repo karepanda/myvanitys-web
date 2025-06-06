@@ -5,9 +5,9 @@ import { FaRegStar } from 'react-icons/fa';
 import { FaStar } from 'react-icons/fa6';
 import { VanitysContext } from '../../context/index';
 
-const ProductPopup = ({ handleAddToVanity, isAdding }) => {
-	const { toggleProductPopup, selectedProduct } = useContext(VanitysContext);
-
+const ProductPopup = () => {
+	const { toggleProductPopup, selectedProduct, handleAddToVanity, isAdding } =
+		useContext(VanitysContext);
 	return (
 		<div className='productPopup'>
 			<section className='productPopup__header'>
@@ -52,7 +52,7 @@ const ProductPopup = ({ handleAddToVanity, isAdding }) => {
 				<button
 					className='productPopup__add--buttom'
 					onClick={() => {
-						handleAddToVanity();
+						handleAddToVanity(selectedProduct);
 						toggleProductPopup();
 					}}
 					disabled={isAdding}

@@ -49,10 +49,7 @@ const PublicProductCard = ({ product }) => {
 			</div>
 			{showProductPopup && (
 				<Modal>
-					<ProductPopup
-						handleAddToVanity={() => handleAddToVanity(product)}
-						isAdding={isAdding}
-					/>
+					<ProductPopup />
 				</Modal>
 			)}
 		</div>
