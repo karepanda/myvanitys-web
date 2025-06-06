@@ -411,6 +411,37 @@ const VanitysProvider = ({ children }) => {
 		}
 	};
 
+	// New global state
+	const [isAdding, setIsAdding] = useState(false);
+
+	// Global handler function
+	const handleAddToVanity = async (product) => {
+		const token = apiResponse?.token;
+
+		if (!token) {
+			errorHandler.showErrorMessage(
+				'You are not authenticated. Please log in to continue.',
+				'Authentication error',
+				'error'
+			);
+			return;
+		}
+
+		setIsAdding(true);
+
+		try {
+			const success = await addExistingProductToVanity(token, product);
+
+			if (!success) {
+				throw new Error('Failed to add product to vanity');
+			}
+		} catch (error) {
+			errorHandler.showGenericError();
+		} finally {
+			setIsAdding(false);
+		}
+	};
+
 	return (
 		<VanitysContext.Provider
 			value={{
@@ -508,6 +539,9 @@ const VanitysProvider = ({ children }) => {
 				addExistingProductToVanity,
 				productsRefreshTrigger,
 				setProductsRefreshTrigger,
+				handleAddToVanity,
+				isAdding,
+				setIsAdding,
 			}}
 		>
 			{children}

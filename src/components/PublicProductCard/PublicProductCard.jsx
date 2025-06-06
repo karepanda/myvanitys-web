@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { VanitysContext } from '../../context/index';
 import './PublicProductCard.css';
 import startIcon from '../../assets/start_icon.png';
@@ -8,45 +8,15 @@ import { Modal } from '../Modal/Modal';
 
 const PublicProductCard = ({ product }) => {
 	const {
-		apiResponse,
 		errorHandler,
-		addExistingProductToVanity,
+		handleAddToVanity,
+		isAdding,
 		toggleProductPopup,
 		showProductPopup,
 	} = useContext(VanitysContext);
 
-	const [isAdding, setIsAdding] = useState(false);
-
-	const handleAddToVanity = async () => {
-		const token = apiResponse?.token;
-
-		if (!token) {
-			errorHandler.showErrorMessage(
-				'You are not authenticated. Please log in to continue.',
-				'Authentication error',
-				'error'
-			);
-			return;
-		}
-
-		setIsAdding(true);
-
-		try {
-			const success = await addExistingProductToVanity(token, product);
-
-			if (success) {
-			} else {
-				throw new Error('Failed to add product to vanity');
-			}
-		} catch (error) {
-			errorHandler.showGenericError();
-		} finally {
-			setIsAdding(false);
-		}
-	};
-
 	const average =
-		product.averageRating && product.averageRating != 0
+		product.averageRating && product.averageRating !== 0
 			? product.averageRating
 			: 0;
 
@@ -74,13 +44,13 @@ const PublicProductCard = ({ product }) => {
 					src={plusIcon}
 					alt='Plus icon to add product'
 					className='publicProductCard__right--plusIcon'
-					onClick={() => handleAddToVanity()}
+					onClick={() => handleAddToVanity(product)}
 				/>
 			</div>
 			{showProductPopup && (
 				<Modal>
 					<ProductPopup
-						handleAddToVanity={handleAddToVanity}
+						handleAddToVanity={() => handleAddToVanity(product)}
 						isAdding={isAdding}
 					/>
 				</Modal>
