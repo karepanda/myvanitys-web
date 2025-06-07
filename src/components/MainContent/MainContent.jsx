@@ -2,8 +2,12 @@ import React, { useContext } from 'react';
 import './MainContent.css';
 import homeIllustration from '../../assets/home_illustration.png';
 import createProduct from '../../assets/CreateProduct.png';
+import { VanitysContext } from '../../context/index';
+import { Modal } from '../Modal/Modal';
+import { UserProfile } from '../UserProfile/UserProfile';
 
 export const Main = () => {
+	const { showUserProfile } = useContext(VanitysContext);
 	return (
 		<div className='main'>
 			<section className='main__register'>
@@ -40,6 +44,12 @@ export const Main = () => {
 					</p>
 				</div>
 			</section>
+
+			{showUserProfile && (
+				<Modal>
+					<UserProfile />
+				</Modal>
+			)}
 		</div>
 	);
 };
