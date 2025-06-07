@@ -11,3 +11,5 @@ export { useFetchUserData } from './useFetchUserData';
 export { useFetchUserProducts } from './useFetchUserProducts';
 export { usePublicProducts } from './usePublicProducts';
 
+// Hooks for mutations/actions
+export { useDeleteProduct } from './useDeleteProduct';
