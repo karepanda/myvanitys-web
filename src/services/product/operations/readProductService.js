@@ -49,7 +49,12 @@ export const readProductService = {
 				errorHandler
 			);
 
-			return products || [];
+			const productsWithCollection = (products || []).map(product => ({
+            ...product,
+            inUserCollection: true
+        }));
+
+			return productsWithCollection || [];
 		} catch (error) {
 
 			console.error(
