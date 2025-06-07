@@ -5,10 +5,7 @@ import { updateProductService } from './operations/updateProductService';
 import { deleteProductService } from './operations/deleteProductService';
 import { searchProductService } from './operations/searchProductService';
 
-/**
- * Product service facade
- * Provides a unified interface for all product related operations
- */
+
 export const productFacade = {
 	// Create
 	createProduct: createProductService.createProduct,
@@ -22,7 +19,7 @@ export const productFacade = {
 	getFeaturedProducts: readProductService.getFeaturedProducts,
 	getProductsPaginated: readProductService.getProductsPaginated,
 	getAllProductsWithCollectionStatus: readProductService.getAllProductsWithCollectionStatus,
-	addProductToUserVanity: readProductService.addProductToUserVanity, // 🔥 NUEVA FUNCIÓN
+	addProductToUserVanity: readProductService.addProductToUserVanity, 
 
 	// Update
 	updateProduct: updateProductService.updateProduct,

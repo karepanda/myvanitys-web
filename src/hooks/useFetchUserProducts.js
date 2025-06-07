@@ -11,7 +11,7 @@ export const useFetchUserProducts = () => {
 		authInitialized,
 		findProductsByUserId,
 		errorHandler,
-		productsRefreshTrigger, // 🔥 Trigger for refresh
+		productsRefreshTrigger, 
 	} = useContext(VanitysContext);
 
 	useEffect(() => {

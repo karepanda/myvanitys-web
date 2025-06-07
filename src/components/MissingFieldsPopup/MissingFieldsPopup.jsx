@@ -17,16 +17,13 @@ const MissingFieldsPopup = ({
 		console.log('Closing popup');
 
 		if (onClose) {
-			console.log('Using provided onClose function');
 			onClose();
 		} else {
-			console.log('Using context setShowMissingFieldsPopup');
+
 			setShowMissingFieldsPopup(false);
 		}
 
-		// 🔥 SOLO redirigir si explícitamente se solicita
 		if (redirectToHome) {
-			console.log('Redirecting to home as requested');
 			window.location.href = '/';
 		}
 	};
@@ -42,7 +39,7 @@ const MissingFieldsPopup = ({
 				return `${baseClass} ${baseClass}--info`;
 			case 'warning':
 			default:
-				return baseClass; // Original style is warning
+				return baseClass; 
 		}
 	};
 

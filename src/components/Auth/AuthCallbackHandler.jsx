@@ -28,22 +28,16 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
 
 	useEffect(() => {
 		const processAuthCode = async () => {
-			// 🔥 PREVENT multiple executions
 			if (hasProcessed.current) {
-				console.log('🔄 Auth already processed, skipping...');
 				return;
 			}
 
 			hasProcessed.current = true;
 
 			try {
-				// 🔍 URL DEBUG
-				console.log('🔍 === AUTH CALLBACK DEBUG ===');
-				console.log('Current URL:', window.location.href);
-				console.log('URL search params:', window.location.search);
 
 				const urlParams = new URLSearchParams(window.location.search);
-				console.log('URL params:');
+
 				for (const [key, value] of urlParams.entries()) {
 					console.log(`  ${key}: ${value}`);
 				}
@@ -51,20 +45,18 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
 				const state = urlParams.get('state');
 				const isRegistration = state === 'register';
 
-				console.log('🔍 Is Registration Flow?:', isRegistration);
-				console.log('🔍 === END DEBUG ===');
+
 
 				// Update processing message based on flow
 				setProcessingMessage(
 					isRegistration ? 'Creating your account...' : 'Logging you in...'
 				);
 
-				console.log('🔄 Processing auth callback using authService...');
 
-				// 🎯 USE EXISTING authService.handleAuthentication
+
 				const result = await authService.handleAuthentication(errorHandler);
 
-				// 🔥 Clean URL AFTER processing
+
 				if (window.history && window.history.replaceState) {
 					window.history.replaceState(
 						{},
@@ -97,16 +89,10 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
 					return;
 				}
 
-				// 🎯 HANDLE REGISTRATION FLOW (User creation without login)
+
 				if (isRegistration && result.requiresLogin) {
-					console.log('✅ REGISTRATION SUCCESSFUL - User created!');
-					console.log('👤 New user ID:', result.userId);
 
-					// 🎉 Show WelcomePopup for successful registration
-					console.log('🎉 Showing welcome popup for new user...');
 					setShowWelcomePopup(true);
-
-					console.log('🏠 Redirecting to home for login...');
 
 					// Navigate to home after showing welcome popup
 					setTimeout(() => {
@@ -116,7 +102,7 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
 						// Show login modal after arriving at home
 						setTimeout(() => {
 							if (setShowModalLogin) {
-								console.log('🔑 Opening login modal for new user...');
+
 								setShowModalLogin(true);
 							}
 						}, 1500);
@@ -125,7 +111,7 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
 					return;
 				}
 
-				// 🎯 HANDLE LOGIN FLOW (Normal authentication with token)
+
 				if (!result.token) {
 					console.error('No token returned from authentication service');
 					errorHandler.handleApiError(
@@ -137,13 +123,8 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
 					return;
 				}
 
-				console.log('✅ LOGIN SUCCESSFUL!');
-				console.log(
-					'Token received:',
-					result.token.substring(0, 10) + '...'
-				);
 
-				// Create auth data for context
+
 				const authData = {
 					token: result.token,
 					user: {
@@ -156,7 +137,6 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
 					expiresAt: Date.now() + 30 * 24 * 60 * 60 * 1000,
 				};
 
-				console.log('🔥 Saving auth data and navigating to dashboard...');
 
 				updateAuthData(authData);
 
@@ -168,12 +148,10 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
 
 				// Navigate to dashboard
 				setTimeout(() => {
-					console.log('🔥 Executing navigation to:', redirectTo);
 					setProcessingAuth(false);
 					navigate(redirectTo);
 				}, 1000);
 			} catch (error) {
-				console.error('Error processing authentication:', error);
 
 				// Use ErrorHandler for proper error display
 				errorHandler.showGenericError();

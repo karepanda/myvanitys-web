@@ -9,7 +9,6 @@ const Register = () => {
 
   // Función simple que solo cierra este modal
   const handleCloseRegister = () => {
-    console.log("Closing register modal");
     toggleModalRegister(); //  Uses the existing toggle function
   };
 

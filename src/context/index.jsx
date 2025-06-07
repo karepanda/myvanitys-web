@@ -20,7 +20,7 @@ const VanitysProvider = ({ children }) => {
 	const [showCreateReviewPopup, setShowCreateReviewPopup] = useState(false);
 	const [showUserProfile, setShowUserProfile] = useState(false);
 	const [showNotification, setShowNotification] = useState(false);
-	const [showWelcomePopup, setShowWelcomePopup] = useState(false);
+	const [showWelcomePopup, setShowWelcomePopup] = useState(true);
 
 	// Product Upgrade Trigger
 	const [productsRefreshTrigger, setProductsRefreshTrigger] = useState(0);
@@ -31,7 +31,6 @@ const VanitysProvider = ({ children }) => {
 	const [searchText, setSearchText] = useState('');
 	const [selectedProduct, setSelectedProduct] = useState(null);
 	const [selectedCategory, setSelectedCategory] = useState(null);
-	// const [color, setColor] = useState('#D9D9D9'); // 🔥 COMENTADO - no usado actualmente
 
 	// Review states
 	const [hoveredRating, setHoveredRating] = useState(0);
@@ -126,8 +125,10 @@ const VanitysProvider = ({ children }) => {
 		sessionStorage.setItem('cookieBannerClosed', 'true');
 		setShowCookieBanner(false);
 	};
-	const toggleProductPopup = () => setShowProductPopup((prev) => !prev);
-
+	const toggleProductPopup = (product = null) => {
+		setSelectedProduct(product);
+		setShowProductPopup(!!product);
+	};
 	const toggleCreateProductPopup = (product = null) => {
 		setShowCreateProductPopup((prev) => !prev);
 		setSelectedProduct(product);
@@ -408,6 +409,37 @@ const VanitysProvider = ({ children }) => {
 		}
 	};
 
+	// New global state
+	const [isAdding, setIsAdding] = useState(false);
+
+	// Global handler function
+	const handleAddToVanity = async (product) => {
+		const token = apiResponse?.token;
+
+		if (!token) {
+			errorHandler.showErrorMessage(
+				'You are not authenticated. Please log in to continue.',
+				'Authentication error',
+				'error'
+			);
+			return;
+		}
+
+		setIsAdding(true);
+
+		try {
+			const success = await addExistingProductToVanity(token, product);
+
+			if (!success) {
+				throw new Error('Failed to add product to vanity');
+			}
+		} catch (error) {
+			errorHandler.showGenericError();
+		} finally {
+			setIsAdding(false);
+		}
+	};
+
 	return (
 		<VanitysContext.Provider
 			value={{
@@ -452,7 +484,6 @@ const VanitysProvider = ({ children }) => {
 				searchText,
 				selectedProduct,
 				selectedCategory,
-				// color, // 🔥 COMENTADO - no usado actualmente
 
 				// Data setters
 				setApiResponse,
@@ -506,6 +537,9 @@ const VanitysProvider = ({ children }) => {
 				addExistingProductToVanity,
 				productsRefreshTrigger,
 				setProductsRefreshTrigger,
+				handleAddToVanity,
+				isAdding,
+				setIsAdding,
 			}}
 		>
 			{children}

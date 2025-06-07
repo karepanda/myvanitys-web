@@ -35,13 +35,13 @@
 }
 
 .publicProductCard__left--startIcon {
-	width: 32px;
+	width: 26px;
 	margin-right: 4px;
 	object-fit: contain;
 }
 
 .publicProductCard__left--reviews {
-	font-size: 28px;
+	font-size: 24px;
 	font-weight: 400;
 	color: var(--orange);
 }

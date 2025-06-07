@@ -1,4 +1,3 @@
-// src/components/Navbar/Navbar.jsx
 import React, { useContext, useState } from 'react';
 import './Navbar.css';
 import { Modal } from '../Modal/Modal';
@@ -6,10 +5,11 @@ import { Register } from '../Register/Register';
 import { Login } from '../Login/Login';
 import { VanitysContext } from '../../context';
 import { CreateProductPopup } from '../CreateProductPopup/CreateProductPopup';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { usePublicProducts } from '../../hooks/usePublicProducts';
 import { useProductSearch } from '../../hooks/useProductSearch';
 import searchIcon from '../../assets/icon _search.png';
+import userPhoto from '../../assets/user_photo.png';
 
 const Navbar = () => {
 	const {
@@ -23,7 +23,6 @@ const Navbar = () => {
 		toggleCreateProductPopup,
 		searchText,
 		handleSearch,
-		setApiResponse,
 		toggleUserProfile,
 		showCookieBanner,
 		logout,
@@ -40,8 +39,13 @@ const Navbar = () => {
 	} = usePublicProducts();
 
 	const { searchProducts, isSearching } = useProductSearch();
-	
+
 	const [isSearchMode, setIsSearchMode] = useState(false);
+
+	const location = useLocation();
+	const isActive =
+		location.pathname === '/dashboard' &&
+		location.search.includes('mode=add-products');
 
 	const navigate = useNavigate();
 
@@ -55,37 +59,21 @@ const Navbar = () => {
 		setIsSearchMode(false);
 	};
 
-	// Función para ejecutar búsqueda
 	const handleSearchSubmit = async () => {
 		if (showCookieBanner || !searchText.trim()) return;
-		
+
 		if (searchText.trim().length < 2) {
-			console.warn('Search query must be at least 2 characters long');
 			return;
 		}
 
-		console.log('🔍 === SEARCH EXECUTION ===');
-		console.log(`Search query: "${searchText}"`);
-		
 		if (isSearching) {
-			console.log('⏳ Search already in progress...');
 			return;
 		}
 
-		// Navigate to dashboard in search mode
 		navigate('/dashboard?mode=search');
 		setIsSearchMode(true);
 
-		// Execute search
 		const success = await searchProducts(searchText);
-		
-		if (success) {
-			console.log('✅ Search completed successfully');
-		} else {
-			console.error('❌ Search failed');
-		}
-		
-		console.log('🏁 === END SEARCH ===');
 	};
 
 	const handleSearchKeyDown = (e) => {
@@ -123,18 +111,6 @@ const Navbar = () => {
 	const isAuthenticated = authInitialized && apiResponse?.token;
 	const showLoginButtons = authInitialized && !apiResponse?.token;
 
-	const getProductsButtonText = () => {
-		if (loading) {
-			return 'Loading...';
-		} else if (error) {
-			return 'Products (Error)';
-		} else if (hasLoaded) {
-			return `Products (${publicProducts?.length || 0})`;
-		} else {
-			return 'Products';
-		}
-	};
-
 	const getSearchPlaceholder = () => {
 		if (!isAuthenticated) return 'Search...';
 		return isSearching ? 'Searching...' : 'Search products...';
@@ -143,7 +119,11 @@ const Navbar = () => {
 	return (
 		<>
 			<header className={isAuthenticated ? 'header-dashboard' : 'header'}>
-				<h1 className='header__title' onClick={goToMyVanity}>
+				<h1
+					className='header__title'
+					disabled={showCookieBanner || !isAuthenticated}
+					onClick={isAuthenticated ? goToMyVanity : undefined}
+				>
 					My Vanity´s
 				</h1>
 				<div className='search-input-container'>
@@ -157,28 +137,28 @@ const Navbar = () => {
 							value={searchText}
 							onChange={handleSearch}
 							onKeyDown={handleSearchKeyDown}
-							disabled={showCookieBanner || isSearching}
+							disabled={showCookieBanner || !isAuthenticated}
 						/>
 						{showCookieBanner && (
 							<span className='tooltip'>Accept cookies to search</span>
 						)}
 					</div>
-					{isAuthenticated && !isSearching && (
-						<img
-							src={searchIcon}
-							alt="Search"
-							className={`search-icon ${
-								showCookieBanner || !searchText.trim() || searchText.trim().length < 2
-									? 'disabled' 
-									: ''
-							}`}
-							onClick={handleSearchSubmit}
-							title="Search products"
-						/>
-					)}
-					
+					<img
+						src={searchIcon}
+						alt='Search'
+						className={`search-icon ${
+							showCookieBanner ||
+							!searchText.trim() ||
+							searchText.trim().length < 2
+								? 'disabled'
+								: ''
+						}`}
+						onClick={handleSearchSubmit}
+						title='Search products'
+					/>
+
 					{isAuthenticated && isSearching && (
-						<div className="search-loading-indicator">⟳</div>
+						<div className='search-loading-indicator'>⟳</div>
 					)}
 				</div>
 
@@ -214,30 +194,21 @@ const Navbar = () => {
 						<Register />
 					</Modal>
 				)}
-				
+
 				{isAuthenticated && (
 					<>
-						<div className='tooltip-wrapper'>
-							<p
-								className={`header__products ${
-									showCookieBanner ? 'disabled' : ''
-								} ${loading ? 'loading' : ''}`}
-								onClick={handleProductsClick}
-								style={{
-									cursor:
-										showCookieBanner || loading
-											? 'not-allowed'
-											: 'pointer',
-								}}
-							>
-								{getProductsButtonText()}
-							</p>
-							{showCookieBanner && (
-								<span className='tooltip'>
-									Accept cookies to load products
-								</span>
-							)}
-						</div>
+						<p
+							className={`header__products ${isActive ? 'active' : ''}`}
+							onClick={handleProductsClick}
+						>
+							Products
+						</p>
+
+						{showCookieBanner && (
+							<span className='tooltip'>
+								Accept cookies to load products
+							</span>
+						)}
 
 						{renderButtonWithTooltip(
 							'Create Product',
@@ -246,21 +217,14 @@ const Navbar = () => {
 						)}
 
 						<div className='tooltip-wrapper'>
-							<svg
-								xmlns='http://www.w3.org/2000/svg'
-								width='46'
-								height='46'
-								viewBox='0 0 24 24'
+							<img
+								src={userPhoto}
+								alt='User Photo'
 								onClick={() => !showCookieBanner && toggleUserProfile()}
-								className={`header__icon ${
-									showCookieBanner ? 'disabled-icon' : ''
-								}`}
 								style={{
 									cursor: showCookieBanner ? 'not-allowed' : 'pointer',
 								}}
-							>
-								<path d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z' />
-							</svg>
+							/>
 							{showCookieBanner && (
 								<span className='tooltip'>
 									Accept cookies to open profile

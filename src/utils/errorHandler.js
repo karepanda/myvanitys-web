@@ -8,30 +8,30 @@ export class ErrorHandler {
 		this.setType = setType;
 	}
 
-	// Main method to display error messages
+	
 	showErrorMessage(message, title, type) {
-		console.error('🚨 ERROR HANDLER CALLED:', { message, title, type });
-		console.error('🚨 STACK TRACE:', new Error().stack);
+		console.error('ERROR HANDLER CALLED:', { message, title, type });
+		console.error('STACK TRACE:', new Error().stack);
 		if (this.setMessage) this.setMessage(message);
 		if (this.setTitle) this.setTitle(title);
 		if (this.setType) this.setType(type);
 		if (this.setShowPopup) this.setShowPopup(true);
 	}
 
-	// Method to handle API errors
+	
 	handleApiError(category, status, errorText) {
 		const errorInfo = getErrorMessage(category, status);
 
-		// Try to parse error response for more details if text is provided
+		
 		if (errorText) {
 			try {
 				const errorData = JSON.parse(errorText);
 				if (errorData.message) {
-					// Override with server message if available
+					
 					errorInfo.message = errorData.message;
 				}
 			} catch (e) {
-				// Ignore JSON parsing errors
+				
 			}
 		}
 
@@ -40,7 +40,7 @@ export class ErrorHandler {
 		return errorInfo;
 	}
 
-	// Convenience methods for common errors
+	
 	showValidationError(code = 'requiredFields') {
 		const errorInfo = getErrorMessage('validation', code);
 		this.showErrorMessage(errorInfo.message, errorInfo.title, errorInfo.type);

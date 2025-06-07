@@ -36,26 +36,22 @@ export const readProductService = {
 	 */
 	findProductsByUserId: async (token, userId, errorHandler) => {
 		try {
-			// Validate required parameters
 			if (!token || !userId) {
 				console.warn('Missing token or userId for findProductsByUserId');
 				return [];
 			}
 
-			console.log(`Calling API to fetch products for user: ${userId}`);
-
-			// Call the API using the adapter
-			// Using the correct route: /users/{userId}/products
 			const products = await productApiAdapter.get(
 				`/users/${userId}/products`,
 				token,
 				errorHandler
 			);
 
-			// Return products or empty array if none
-			return products || [];
+			return (products || []).map((product) => ({
+				...product,
+				inUserCollection: true,
+			}));
 		} catch (error) {
-			// Log the error only, avoid using errorHandler to prevent loops
 			console.error(
 				`Error in findProductsByUserId for user ${userId}:`,
 				error
@@ -80,7 +76,7 @@ export const readProductService = {
 	},
 
 	/**
-	 * 🔥 Gets all products with collection status for the current user
+	 * Gets all products with collection status for the current user
 	 * @param {string} token - Authorization token
 	 * @param {Object} errorHandler - Error handler instance
 	 * @returns {Promise<Array|null>} - Array of products with collection status or null in case of error
@@ -89,34 +85,32 @@ export const readProductService = {
 		try {
 			// Validate required parameters
 			if (!token) {
-				console.warn('Missing token for getAllProductsWithCollectionStatus');
+				console.warn(
+					'Missing token for getAllProductsWithCollectionStatus'
+				);
 				return [];
 			}
 
-			console.log('🔄 Calling API to fetch products with collection status...');
-
-			// 🔥 CORRECTO: Usar el endpoint /products que mapea a getAllProductsWithCollectionStatus
+			// CORRECTO: Usar el endpoint /products que mapea a getAllProductsWithCollectionStatus
 			// Según tu OpenAPI spec, este GET /products devuelve productos con collection status
 			const products = await productApiAdapter.get(
-				'/products', // 🔥 Endpoint correcto según tu OpenAPI spec
+				'/products', //  Endpoint correcto según tu OpenAPI spec
 				token,
 				errorHandler
 			);
 
-			console.log('✅ Products with collection status fetched successfully:', products?.length || 0);
-
 			// Return products or empty array if none
 			return products || [];
 		} catch (error) {
-			console.error('❌ Error in getAllProductsWithCollectionStatus:', error);
-			
+			console.error(' Error in getAllProductsWithCollectionStatus:', error);
+
 			// Return empty array to avoid breaking the UI
 			return [];
 		}
 	},
 
 	/**
-	 * 🔥 NUEVA: Adds an existing product to user's vanity
+	 *  NUEVA: Adds an existing product to user's vanity
 	 * @param {string} token - Authorization token
 	 * @param {string} productId - Product identifier to add to vanity
 	 * @param {Object} errorHandler - Error handler instance
@@ -126,11 +120,11 @@ export const readProductService = {
 		try {
 			// Validate required parameters
 			if (!token || !productId) {
-				console.warn('Missing token or productId for addProductToUserVanity');
+				console.warn(
+					'Missing token or productId for addProductToUserVanity'
+				);
 				return null;
 			}
-
-			console.log(`🔄 Adding product ${productId} to user vanity...`);
 
 			// Call the API using the adapter
 			const product = await productApiAdapter.post(
@@ -140,12 +134,10 @@ export const readProductService = {
 				errorHandler
 			);
 
-			console.log('✅ Product added to vanity successfully:', product);
-
 			return product;
 		} catch (error) {
-			console.error('❌ Error in addProductToUserVanity:', error);
-			
+			console.error('Error in addProductToUserVanity:', error);
+
 			// Return null to indicate failure
 			return null;
 		}
@@ -174,7 +166,11 @@ export const readProductService = {
 	 * @returns {Promise<Array|null>} - Array of categories or null in case of error
 	 */
 	getProductCategories: async (token, errorHandler) => {
-		return await productApiAdapter.get('/products/categories', token, errorHandler);
+		return await productApiAdapter.get(
+			'/products/categories',
+			token,
+			errorHandler
+		);
 	},
 };
 

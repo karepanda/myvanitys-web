@@ -4,6 +4,7 @@ import { useContext } from 'react';
 import { Modal } from '../Modal/Modal';
 import { CreateReviewPopup } from '../CreateReviewPopup/CreateReviewPopup';
 import { CreateProductPopup } from '../CreateProductPopup/CreateProductPopup';
+import { ProductPopup } from '../ProductPopup/ProductPopup';
 
 const ProductCard = ({ product, id }) => {
 	const {
@@ -15,6 +16,8 @@ const ProductCard = ({ product, id }) => {
 		apiResponse,
 		errorHandler,
 		setSelectedProduct,
+		toggleProductPopup,
+		showProductPopup,
 	} = useContext(VanitysContext);
 
 	const stars =
@@ -42,10 +45,6 @@ const ProductCard = ({ product, id }) => {
 
 		try {
 			const success = await deleteProduct(token, product.id);
-
-			if (success) {
-				console.log(`Product ${product.name} deleted successfully`);
-			}
 		} catch (error) {
 			console.error('Error deleting product:', error);
 			errorHandler.showGenericError();
@@ -57,9 +56,17 @@ const ProductCard = ({ product, id }) => {
 		toggleCreateProductPopup(product);
 	};
 
+	const click = () => {
+		setSelectedProduct(product);
+		toggleProductPopup();
+	};
+
 	return (
 		<div className='productCard'>
-			<div className='productCard__left'>
+			<div
+				className='productCard__left'
+				onClick={() => toggleProductPopup(product)}
+			>
 				<h1 className='productCard__left--name'>{product.name}</h1>
 
 				<p className='productCard__left--brand'>{product.brand}</p>
@@ -75,7 +82,7 @@ const ProductCard = ({ product, id }) => {
 							<span
 								key={index}
 								className={
-									index < stars
+									index < product.averageRating
 										? 'productCard__left--star filled'
 										: 'productCard__left--star empty'
 								}
@@ -86,22 +93,6 @@ const ProductCard = ({ product, id }) => {
 				</div>
 			</div>
 			<div className='productCard__right'>
-				{/* <div className='productCard__right--edit'>
-					<svg
-						className='productCard__right--icon'
-						xmlns='http://www.w3.org/2000/svg'
-						width='38'
-						height='38'
-						viewBox='0 0 24 24'
-						onClick={handleEditProduct}
-						title='Edit product'
-					>
-						<path
-							fill='currentColor'
-							d='M3 21v-4.25L16.2 3.575q.3-.275.663-.425t.762-.15t.775.15t.65.45L20.425 5q.3.275.438.65T21 6.4q0 .4-.137.763t-.438.662L7.25 21zM17.6 7.8L19 6.4L17.6 5l-1.4 1.4z'
-						/>
-					</svg>
-				</div> */}
 				<div className='productCard__right--rating'>
 					<svg
 						className='productCard__right--icon'
@@ -145,6 +136,12 @@ const ProductCard = ({ product, id }) => {
 			{showCreateProductPopup && (
 				<Modal>
 					<CreateProductPopup />
+				</Modal>
+			)}
+
+			{showProductPopup && (
+				<Modal>
+					<ProductPopup />
 				</Modal>
 			)}
 		</div>
