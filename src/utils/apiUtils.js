@@ -4,8 +4,8 @@ export const apiUtils = {
 	getCommonHeaders: (token = null) => {
 		const headers = {
 			'Content-Type': 'application/json',
-			'X-Request-Id': generateRequestId(),
-			'X-Flow-Id': generateFlowId(),
+			'X-Request-ID': generateRequestId(),  
+			'X-Flow-ID': generateFlowId(),
 			'User-Agent': 'MyVanitysApp/1.0',
 			'Accept-Language': 'en-US',
 		};
@@ -18,6 +18,6 @@ export const apiUtils = {
 	},
 };
 
-// Funciones privadas
+// Private functions
 const generateRequestId = () => uuidv4();
 const generateFlowId = () => uuidv4();

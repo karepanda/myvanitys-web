@@ -13,3 +13,6 @@ export { usePublicProducts } from './usePublicProducts';
 
 // Hooks for mutations/actions
 export { useDeleteProduct } from './useDeleteProduct';
+
+// Hooks for reviews
+export { useReviews } from './useReviews';
