@@ -17,8 +17,6 @@ const UserProfile = () => {
 
 	const navigate = useNavigate();
 
-
-
 	const goToMyVanity = () => {
 		navigate('/dashboard');
 	};
@@ -74,7 +72,10 @@ const UserProfile = () => {
 					<div className='userProfile__buttons'>
 						<button
 							className='userProfile__buttons--goto'
-							onClick={() => goToMyVanity()}
+							onClick={() => {
+								toggleUserProfile();
+								goToMyVanity();
+							}}
 						>
 							Go to My Vanity
 						</button>
