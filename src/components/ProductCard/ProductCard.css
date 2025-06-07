@@ -26,6 +26,11 @@
 	font-size: 20px;
 	font-weight: bold;
 	color: var(--pink-text);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 100%; /* o un valor fijo como 200px si lo prefieres */
+	display: block;
 }
 
 .productCard__left--brand {
