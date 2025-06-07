@@ -4,6 +4,7 @@ import { readProductService } from './operations/readProductService';
 import { updateProductService } from './operations/updateProductService';
 import { deleteProductService } from './operations/deleteProductService';
 import { searchProductService } from './operations/searchProductService';
+import { reviewService } from './operations/reviewService';
 
 /**
  * Product service facade
@@ -22,7 +23,7 @@ export const productFacade = {
 	getFeaturedProducts: readProductService.getFeaturedProducts,
 	getProductsPaginated: readProductService.getProductsPaginated,
 	getAllProductsWithCollectionStatus: readProductService.getAllProductsWithCollectionStatus,
-	addProductToUserVanity: readProductService.addProductToUserVanity, // 🔥 NUEVA FUNCIÓN
+	addProductToUserVanity: readProductService.addProductToUserVanity,
 
 	// Update
 	updateProduct: updateProductService.updateProduct,
@@ -37,6 +38,13 @@ export const productFacade = {
 	searchProducts: searchProductService.searchProducts,
 	searchProductsByCategory: searchProductService.searchProductsByCategory,
 	searchProductsByPriceRange: searchProductService.searchProductsByPriceRange,
+
+	// Reviews
+	addReviewToProduct: reviewService.addReviewToProduct,
+	getProductReviews: reviewService.getProductReviews,
+	updateReview: reviewService.updateReview,
+	deleteReview: reviewService.deleteReview,
+	getUserReviews: reviewService.getUserReviews,
 };
 
 export default productFacade;

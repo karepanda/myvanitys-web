@@ -54,6 +54,10 @@ const VanitysProvider = ({ children }) => {
 		setErrorType
 	);
 
+	// Computed values for authentication and token
+	const isAuthenticated = !!(apiResponse?.token);
+	const userToken = apiResponse?.token || null;
+
 	// utomatic upload from localStorage
 	useEffect(() => {
 		const loadSavedAuth = () => {
@@ -393,7 +397,7 @@ const VanitysProvider = ({ children }) => {
 				showNotificationTemporarily();
 				setProductsRefreshTrigger((prev) => prev + 1);
 				console.log(
-					`✅ Product ${existingProduct.name} added to vanity successfully`
+					`Product ${existingProduct.name} added to vanity successfully`
 				);
 				return true;
 			} else {
@@ -524,6 +528,8 @@ const VanitysProvider = ({ children }) => {
 				initiateRegister,
 				logout,
 				updateAuthData,
+				isAuthenticated,
+				userToken,
 
 				// Products
 				createProduct,

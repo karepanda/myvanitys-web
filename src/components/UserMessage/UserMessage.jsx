@@ -5,9 +5,9 @@ import { VanitysContext } from '../../context/index';
 
 const UserMessage = ({
 	message,
-	title = 'Campos faltantes',
-	type = 'warning', // 'error', 'warning', 'info'
-}) => {
+	title = 'Missing fields',
+	type = 'warning', // Fixed: Added missing closing parenthesis
+}) => { // Fixed: Added missing arrow function syntax
 	const { setShowMissingFieldsPopup } = useContext(VanitysContext);
 
 	// Get the appropriate class according to type

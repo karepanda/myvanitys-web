@@ -119,3 +119,73 @@
 	background-color: var(--pink-text);
 	color: var(--white);
 }
+
+.productPopup__reviews--loading {
+	text-align: center;
+	font-size: 16px;
+	color: #666;
+	padding: 20px;
+}
+
+.productPopup__reviews--date {
+	font-size: 12px;
+	color: #999;
+	margin-top: 8px;
+	margin-bottom: 0;
+}
+
+.productPopup__reviews--noReviews {
+	text-align: center;
+	padding: 40px 20px;
+}
+
+.productPopup__reviews--encouragement {
+	font-size: 14px;
+	color: #666;
+	margin-top: 8px;
+	font-style: italic;
+}
+
+.productPopup__reviews--addButton {
+	display: flex;
+	justify-content: center;
+	padding: 20px;
+	border-top: 1px solid #eee;
+	margin-top: 20px;
+}
+
+.productPopup__reviews--addReviewBtn {
+	background-color: var(--pink-text);
+	color: var(--white);
+	border: none;
+	border-radius: 8px;
+	padding: 12px 24px;
+	font-size: 16px;
+	font-weight: 500;
+	cursor: pointer;
+	transition: all 0.2s;
+}
+
+.productPopup__reviews--addReviewBtn:hover {
+	opacity: 0.9;
+	transform: translateY(-1px);
+}
+
+.productPopup__reviews--addReviewBtn:active {
+	transform: translateY(0);
+}
+
+/* Mejorar el espacio entre reviews */
+.productPopup__reviews--one:not(:last-child) {
+	border-bottom: 1px solid #f0f0f0;
+	padding-bottom: 16px;
+	margin-bottom: 16px;
+}
+
+/* Responsive para botón de review */
+@media (max-width: 480px) {
+	.productPopup__reviews--addReviewBtn {
+		width: 100%;
+		max-width: 250px;
+	}
+}
