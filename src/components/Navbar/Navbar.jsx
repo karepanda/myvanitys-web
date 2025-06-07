@@ -121,6 +121,7 @@ const Navbar = () => {
 			<header className={isAuthenticated ? 'header-dashboard' : 'header'}>
 				<h1
 					className='header__title'
+					disabled={showCookieBanner || !isAuthenticated}
 					onClick={isAuthenticated ? goToMyVanity : undefined}
 				>
 					My Vanity´s

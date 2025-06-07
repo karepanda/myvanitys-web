@@ -8,6 +8,7 @@ import { VanitysContext } from '../../context/index';
 const ProductPopup = () => {
 	const { toggleProductPopup, selectedProduct, handleAddToVanity, isAdding } =
 		useContext(VanitysContext);
+
 	return (
 		<div className='productPopup'>
 			<section className='productPopup__header'>
@@ -51,13 +52,16 @@ const ProductPopup = () => {
 			<section className='productPopup__add'>
 				<button
 					className='productPopup__add--buttom'
+					style={{
+						display: selectedProduct.inUserCollection ? 'none' : 'block',
+					}}
 					onClick={() => {
 						handleAddToVanity(selectedProduct);
 						toggleProductPopup();
 					}}
 					disabled={isAdding}
 				>
-					{isAdding ? 'Adding...' : 'Add Product to My Vanity'}
+					{!selectedProduct.inUserCollection ? 'Add to my Vanitys' : ''}
 				</button>
 			</section>
 		</div>

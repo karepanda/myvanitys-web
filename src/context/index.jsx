@@ -31,7 +31,6 @@ const VanitysProvider = ({ children }) => {
 	const [searchText, setSearchText] = useState('');
 	const [selectedProduct, setSelectedProduct] = useState(null);
 	const [selectedCategory, setSelectedCategory] = useState(null);
-	// const [color, setColor] = useState('#D9D9D9'); // 🔥 COMENTADO - no usado actualmente
 
 	// Review states
 	const [hoveredRating, setHoveredRating] = useState(0);

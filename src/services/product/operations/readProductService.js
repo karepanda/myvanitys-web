@@ -36,12 +36,10 @@ export const readProductService = {
 	 */
 	findProductsByUserId: async (token, userId, errorHandler) => {
 		try {
-
 			if (!token || !userId) {
 				console.warn('Missing token or userId for findProductsByUserId');
 				return [];
 			}
-
 
 			const products = await productApiAdapter.get(
 				`/users/${userId}/products`,
@@ -49,14 +47,11 @@ export const readProductService = {
 				errorHandler
 			);
 
-			const productsWithCollection = (products || []).map(product => ({
-            ...product,
-            inUserCollection: true
-        }));
-
-			return productsWithCollection || [];
+			return (products || []).map((product) => ({
+				...product,
+				inUserCollection: true,
+			}));
 		} catch (error) {
-
 			console.error(
 				`Error in findProductsByUserId for user ${userId}:`,
 				error
@@ -90,10 +85,11 @@ export const readProductService = {
 		try {
 			// Validate required parameters
 			if (!token) {
-				console.warn('Missing token for getAllProductsWithCollectionStatus');
+				console.warn(
+					'Missing token for getAllProductsWithCollectionStatus'
+				);
 				return [];
 			}
-
 
 			// CORRECTO: Usar el endpoint /products que mapea a getAllProductsWithCollectionStatus
 			// Según tu OpenAPI spec, este GET /products devuelve productos con collection status
@@ -103,12 +99,11 @@ export const readProductService = {
 				errorHandler
 			);
 
-
 			// Return products or empty array if none
 			return products || [];
 		} catch (error) {
 			console.error(' Error in getAllProductsWithCollectionStatus:', error);
-			
+
 			// Return empty array to avoid breaking the UI
 			return [];
 		}
@@ -125,10 +120,11 @@ export const readProductService = {
 		try {
 			// Validate required parameters
 			if (!token || !productId) {
-				console.warn('Missing token or productId for addProductToUserVanity');
+				console.warn(
+					'Missing token or productId for addProductToUserVanity'
+				);
 				return null;
 			}
-
 
 			// Call the API using the adapter
 			const product = await productApiAdapter.post(
@@ -138,11 +134,10 @@ export const readProductService = {
 				errorHandler
 			);
 
-
 			return product;
 		} catch (error) {
 			console.error('Error in addProductToUserVanity:', error);
-			
+
 			// Return null to indicate failure
 			return null;
 		}
@@ -171,7 +166,11 @@ export const readProductService = {
 	 * @returns {Promise<Array|null>} - Array of categories or null in case of error
 	 */
 	getProductCategories: async (token, errorHandler) => {
-		return await productApiAdapter.get('/products/categories', token, errorHandler);
+		return await productApiAdapter.get(
+			'/products/categories',
+			token,
+			errorHandler
+		);
 	},
 };
 
