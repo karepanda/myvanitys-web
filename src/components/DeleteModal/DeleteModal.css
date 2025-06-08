@@ -1,0 +1,80 @@
+.deleteModal {
+	display: flex;
+	flex-direction: column;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.2);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 20;
+}
+
+.deleteModal__header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: 638px;
+	height: 72px;
+	background-color: var(--text-color);
+	color: var(--white);
+	font-size: 24px;
+	border-radius: 15px 15px 0 0;
+	padding: 0 24px;
+}
+
+.deleteModal__header--icon {
+	cursor: pointer;
+}
+
+.deleteModal__text {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 638px;
+	height: 300px;
+	overflow-y: scroll;
+	background-color: var(--bg-color);
+	padding: 20px;
+	font-size: 20px;
+}
+
+.deleteModal__text--name {
+	font-weight: bold;
+}
+
+.deleteModal__buttons {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	width: 638px;
+	background-color: var(--bg-color);
+	height: 150px;
+	border-radius: 0 0 15px 15px;
+	padding: 20px;
+}
+
+.deleteModal__buttons--confirm {
+	width: 200px;
+	height: 50px;
+	font-size: 16px;
+	font-weight: 500;
+	border-radius: 4px;
+	background-color: var(--pink-text);
+	color: var(--white);
+}
+
+.deleteModal__buttons--cancel {
+	width: 200px;
+	height: 50px;
+	font-size: 16px;
+	font-weight: 500;
+	border-radius: 4px;
+	background-color: var(--pink-text);
+	color: var(--white);
+}

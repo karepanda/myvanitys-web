@@ -5,19 +5,21 @@ import { Modal } from '../Modal/Modal';
 import { CreateReviewPopup } from '../CreateReviewPopup/CreateReviewPopup';
 import { CreateProductPopup } from '../CreateProductPopup/CreateProductPopup';
 import { ProductPopup } from '../ProductPopup/ProductPopup';
+import { DeleteModal } from '../DeleteModal/DeleteModal';
 
 const ProductCard = ({ product, id }) => {
 	const {
 		showCreateReviewPopup,
 		toggleCreateReviewPopup,
 		showCreateProductPopup,
-		toggleCreateProductPopup,
 		deleteProduct,
 		apiResponse,
 		errorHandler,
-		setSelectedProduct,
 		toggleProductPopup,
 		showProductPopup,
+		showDeleteModal,
+		setShowDeleteModal,
+		reviewProductId,
 	} = useContext(VanitysContext);
 
 	const stars =
@@ -25,13 +27,11 @@ const ProductCard = ({ product, id }) => {
 			? product.reviews[0].stars
 			: 0;
 
-	const handleDeleteProduct = async () => {
-		if (
-			!window.confirm(`Are you sure you want to remove "${product.name}"?`)
-		) {
-			return;
-		}
+	const handleDeleteProduct = () => {
+		setShowDeleteModal(true);
+	};
 
+	const confirmDeleteProduct = async () => {
 		const token = apiResponse?.token;
 
 		if (!token) {
@@ -40,25 +40,18 @@ const ProductCard = ({ product, id }) => {
 				'Authentication error',
 				'error'
 			);
+			setShowDeleteModal(false);
 			return;
 		}
 
 		try {
-			const success = await deleteProduct(token, product.id);
+			await deleteProduct(token, product.id);
 		} catch (error) {
 			console.error('Error deleting product:', error);
 			errorHandler.showGenericError();
+		} finally {
+			setShowDeleteModal(false);
 		}
-	};
-
-	const handleEditProduct = () => {
-		setSelectedProduct(product);
-		toggleCreateProductPopup(product);
-	};
-
-	const click = () => {
-		setSelectedProduct(product);
-		toggleProductPopup();
 	};
 
 	return (
@@ -67,7 +60,9 @@ const ProductCard = ({ product, id }) => {
 				className='productCard__left'
 				onClick={() => toggleProductPopup(product)}
 			>
-				<h1 className='productCard__left--name'>{product.name}</h1>
+				<h1 className='productCard__left--name' title={product.name}>
+					{product.name}
+				</h1>
 
 				<p className='productCard__left--brand'>{product.brand}</p>
 				<p className='productCard__left--color'>Color</p>
@@ -142,6 +137,25 @@ const ProductCard = ({ product, id }) => {
 			{showProductPopup && (
 				<Modal>
 					<ProductPopup />
+				</Modal>
+			)}
+
+			{showDeleteModal && (
+				<Modal>
+					<DeleteModal
+						onConfirm={confirmDeleteProduct}
+						onCancel={() => setShowDeleteModal(false)}
+						productName={product.name}
+					/>
+				</Modal>
+			)}
+
+			{showCreateReviewPopup && reviewProductId && (
+				<Modal>
+					<CreateReviewPopup
+						productId={reviewProductId}
+						onClose={() => toggleCreateReviewPopup(null)}
+					/>
 				</Modal>
 			)}
 		</div>
