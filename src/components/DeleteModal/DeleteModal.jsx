@@ -12,15 +12,21 @@ const DeleteModal = ({ onConfirm, onCancel, productName }) => {
 				/>
 			</section>
 
-			<section className='deleteModal__reviews'>
-				<p>Are you sure you want to delete "{productName}"?</p>
+			<section className='deleteModal__text'>
+				<p className='deleteModal__text--messagge'>
+					Are you sure you want to delete{' '}
+				</p>
+				<p className='deleteModal__text--name'>"{productName}"?</p>
 			</section>
 
-			<section className='deleteModal__add'>
-				<button className='deleteModal__add--buttom' onClick={onConfirm}>
+			<section className='deleteModal__buttons'>
+				<button
+					className='deleteModal__buttons--confirm'
+					onClick={onConfirm}
+				>
 					Confirm
 				</button>
-				<button className='deleteModal__add--buttom' onClick={onCancel}>
+				<button className='deleteModal__buttons--cancel' onClick={onCancel}>
 					Cancel
 				</button>
 			</section>
