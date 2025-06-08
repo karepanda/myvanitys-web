@@ -32,6 +32,7 @@ const VanitysProvider = ({ children }) => {
 	const [searchText, setSearchText] = useState('');
 	const [selectedProduct, setSelectedProduct] = useState(null);
 	const [selectedCategory, setSelectedCategory] = useState(null);
+	const [notificationType, setNotificationType] = useState('add');
 
 	// Review states
 	const [hoveredRating, setHoveredRating] = useState(0);
@@ -120,7 +121,8 @@ const VanitysProvider = ({ children }) => {
 	};
 
 	// UI Functions
-	const showNotificationTemporarily = () => {
+	const showNotificationTemporarily = (type = 'add') => {
+		setNotificationType(type);
 		setShowNotification(true);
 		setTimeout(() => setShowNotification(false), 3000);
 	};
@@ -192,7 +194,6 @@ const VanitysProvider = ({ children }) => {
 		toggleCreateReviewPopup();
 	};
 
-	// Authentication with existing session verification
 	const handleAuthentication = async () => {
 		// If there is already an active session, do not re-authenticate.
 		if (apiResponse?.token) {
@@ -230,11 +231,9 @@ const VanitysProvider = ({ children }) => {
 		authService.initiateGoogleAuth('register');
 	};
 
-	// Product functions using facade
 	const createProduct = async (token, productData) => {
 		setLoading(true);
 		try {
-			// This calls your createProductService (not modified)
 			const newProduct = await productFacade.createProduct(
 				token,
 				productData,
@@ -243,12 +242,12 @@ const VanitysProvider = ({ children }) => {
 			setLoading(false);
 
 			if (newProduct) {
-				showNotificationTemporarily();
+				showNotificationTemporarily('add');
 				setProductsRefreshTrigger((prev) => prev + 1);
 			}
 			return newProduct;
 		} catch (error) {
-			console.error('Error getting products:', error);
+			console.error('Error creating product:', error);
 			setLoading(false);
 			return null;
 		}
@@ -313,12 +312,12 @@ const VanitysProvider = ({ children }) => {
 			setLoading(false);
 
 			if (updatedProduct) {
-				showNotificationTemporarily();
+				showNotificationTemporarily('update');
 				setProductsRefreshTrigger((prev) => prev + 1);
 			}
 			return updatedProduct;
 		} catch (error) {
-			console.error('Error searching products:', error);
+			console.error('Error updating product:', error);
 			setLoading(false);
 			return null;
 		}
@@ -335,7 +334,7 @@ const VanitysProvider = ({ children }) => {
 			setLoading(false);
 
 			if (success) {
-				showNotificationTemporarily();
+				showNotificationTemporarily('delete');
 				setProductsRefreshTrigger((prev) => prev + 1);
 			}
 			return success;
@@ -364,7 +363,6 @@ const VanitysProvider = ({ children }) => {
 		}
 	};
 
-	// Get all products with collection status
 	const getAllProductsWithCollectionStatus = async (token) => {
 		setLoading(true);
 		try {
@@ -382,7 +380,6 @@ const VanitysProvider = ({ children }) => {
 		}
 	};
 
-	// Add existing product to user's vanity
 	const addExistingProductToVanity = async (token, existingProduct) => {
 		setLoading(true);
 		try {
@@ -442,6 +439,8 @@ const VanitysProvider = ({ children }) => {
 			if (!success) {
 				throw new Error('Failed to add product to vanity');
 			}
+
+			showNotificationTemporarily('add');
 		} catch (error) {
 			errorHandler.showGenericError();
 		} finally {
@@ -555,6 +554,8 @@ const VanitysProvider = ({ children }) => {
 				setShowDeleteModal,
 				reviewProductId,
 				setReviewProductId,
+				notificationType,
+				setNotificationType,
 			}}
 		>
 			{children}
