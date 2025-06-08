@@ -29,7 +29,7 @@
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	max-width: 100%; /* o un valor fijo como 200px si lo prefieres */
+	max-width: 100%;
 	display: block;
 }
 

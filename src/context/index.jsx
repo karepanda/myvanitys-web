@@ -21,6 +21,7 @@ const VanitysProvider = ({ children }) => {
 	const [showUserProfile, setShowUserProfile] = useState(false);
 	const [showNotification, setShowNotification] = useState(false);
 	const [showWelcomePopup, setShowWelcomePopup] = useState(true);
+	const [showDeleteModal, setShowDeleteModal] = useState(false);
 
 	// Product Upgrade Trigger
 	const [productsRefreshTrigger, setProductsRefreshTrigger] = useState(0);
@@ -36,6 +37,7 @@ const VanitysProvider = ({ children }) => {
 	const [hoveredRating, setHoveredRating] = useState(0);
 	const [selectedRating, setSelectedRating] = useState(0);
 	const [reviewText, setReviewText] = useState('');
+	const [reviewProductId, setReviewProductId] = useState(null);
 
 	// Loading state
 	const [loading, setLoading] = useState(false);
@@ -55,7 +57,7 @@ const VanitysProvider = ({ children }) => {
 	);
 
 	// Computed values for authentication and token
-	const isAuthenticated = !!(apiResponse?.token);
+	const isAuthenticated = !!apiResponse?.token;
 	const userToken = apiResponse?.token || null;
 
 	// utomatic upload from localStorage
@@ -140,8 +142,11 @@ const VanitysProvider = ({ children }) => {
 
 	const toggleMissingFieldsPopup = () =>
 		setShowMissingFieldsPopup((prev) => !prev);
-	const toggleCreateReviewPopup = () =>
+	const toggleCreateReviewPopup = (productId = null) => {
+		setReviewProductId(productId);
 		setShowCreateReviewPopup((prev) => !prev);
+	};
+
 	const toggleUserProfile = () => setShowUserProfile((prev) => !prev);
 
 	// Rating handlers
@@ -546,6 +551,10 @@ const VanitysProvider = ({ children }) => {
 				handleAddToVanity,
 				isAdding,
 				setIsAdding,
+				showDeleteModal,
+				setShowDeleteModal,
+				reviewProductId,
+				setReviewProductId,
 			}}
 		>
 			{children}

@@ -8,39 +8,30 @@ import { CreateReviewPopup } from '../CreateReviewPopup/CreateReviewPopup';
 import { useReviews } from '../../hooks';
 
 const ProductPopup = () => {
-	const { 
-		toggleProductPopup, 
-		selectedProduct, 
-		handleAddToVanity, 
+	const {
+		toggleProductPopup,
+		selectedProduct,
+		handleAddToVanity,
 		isAdding,
-		userToken, // Asumiendo que tienes el token en el contexto
-		isAuthenticated // Asumiendo que tienes el estado de autenticación
+		isAuthenticated,
+		toggleCreateReviewPopup,
 	} = useContext(VanitysContext);
 
-	const [showCreateReviewPopup, setShowCreateReviewPopup] = useState(false);
-	const [reviewsRefreshTrigger, setReviewsRefreshTrigger] = useState(0);
-
-	// Hook para manejar reviews si necesitas funcionalidades adicionales
 	const {
 		reviews,
 		loading: reviewsLoading,
-		loadReviews
+		loadReviews,
 	} = useReviews(selectedProduct?.id);
 
 	const handleReviewCreated = (newReview) => {
 		console.log('New review created:', newReview);
-		// Trigger refresh of reviews - esto podría recargar selectedProduct desde el contexto
-		setReviewsRefreshTrigger(prev => prev + 1);
-		
-		// Opcional: Si quieres actualizar inmediatamente sin recargar desde el servidor
-		// Podrías actualizar selectedProduct en el contexto directamente
+		setReviewsRefreshTrigger((prev) => prev + 1);
 	};
 
 	const handleCloseReviewPopup = () => {
 		setShowCreateReviewPopup(false);
 	};
 
-	// Usar reviews del producto seleccionado o del hook si prefieres
 	const displayReviews = selectedProduct?.reviews || reviews;
 
 	return (
@@ -60,10 +51,15 @@ const ProductPopup = () => {
 
 				<section className='productPopup__reviews'>
 					{reviewsLoading ? (
-						<p className='productPopup__reviews--loading'>Loading reviews...</p>
+						<p className='productPopup__reviews--loading'>
+							Loading reviews...
+						</p>
 					) : displayReviews && displayReviews.length > 0 ? (
 						displayReviews.map((review) => (
-							<div key={review.id} className='productPopup__reviews--one'>
+							<div
+								key={review.id}
+								className='productPopup__reviews--one'
+							>
 								<div className='productPopup__reviews--stars'>
 									{Array.from({ length: 5 }, (_, i) => (
 										<span key={i}>
@@ -78,7 +74,6 @@ const ProductPopup = () => {
 								<p className='productPopup__reviews--text'>
 									{review.comment}
 								</p>
-								{/* Opcional: mostrar fecha y usuario */}
 								{review.createdAt && (
 									<p className='productPopup__reviews--date'>
 										{new Date(review.createdAt).toLocaleDateString()}
@@ -96,46 +91,33 @@ const ProductPopup = () => {
 							)}
 						</div>
 					)}
-
-					{/* Botón para agregar review */}
-					{isAuthenticated && (
-						<div className='productPopup__reviews--addButton'>
-							<button
-								onClick={() => setShowCreateReviewPopup(true)}
-								className='productPopup__reviews--addReviewBtn'
-							>
-								Write a Review
-							</button>
-						</div>
-					)}
 				</section>
 
 				<section className='productPopup__add'>
-					<button
-						className='productPopup__add--buttom'
-						style={{
-							display: selectedProduct.inUserCollection ? 'none' : 'block',
-						}}
-						onClick={() => {
-							handleAddToVanity(selectedProduct);
-							toggleProductPopup();
-						}}
-						disabled={isAdding}
-					>
-						{!selectedProduct.inUserCollection ? 'Add to my Vanitys' : ''}
-					</button>
+					{!selectedProduct.inUserCollection ? (
+						<button
+							className='productPopup__add--buttom'
+							onClick={() => {
+								handleAddToVanity(selectedProduct);
+								toggleProductPopup();
+							}}
+							disabled={isAdding}
+						>
+							Add to my Vanitys
+						</button>
+					) : (
+						<button
+							onClick={() => {
+								toggleProductPopup();
+								toggleCreateReviewPopup(selectedProduct.id);
+							}}
+							className='productPopup__add--buttonReview'
+						>
+							Write a Review
+						</button>
+					)}
 				</section>
 			</div>
-
-			{/* Popup para crear review */}
-			{showCreateReviewPopup && (
-				<CreateReviewPopup 
-					productId={selectedProduct.id} 
-					token={userToken}
-					onClose={handleCloseReviewPopup}
-					onReviewCreated={handleReviewCreated}
-				/>
-			)}
 		</>
 	);
 };

@@ -17,19 +17,16 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 		handleClick,
 		showMissingFieldsPopup,
 		setShowMissingFieldsPopup,
-		errorMessage,
-		errorTitle,
-		errorType,
-		errorHandler,
-		userToken, // Token from context
-		isAuthenticated // Authentication status from context
+		userToken,
 	} = useContext(VanitysContext);
+
+	console.log('productId', productId);
 
 	const [isSubmitting, setIsSubmitting] = React.useState(false);
 	const [messageConfig, setMessageConfig] = React.useState({
 		message: '',
 		title: '',
-		type: 'warning'
+		type: 'warning',
 	});
 
 	const showMessage = (message, title, type) => {
@@ -88,42 +85,44 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 
 			if (result) {
 				console.log('Review created successfully:', result);
-				
+
 				// Show success message
 				showMessage(
 					'Your review has been added successfully!',
 					'Review Added',
 					'info'
 				);
-				
+
 				// Reset form
 				setSelectedRating(0);
 				setReviewText('');
-				
+
 				// Notify parent component that review was created
 				if (onReviewCreated) {
 					onReviewCreated(result);
 				}
-				
+
 				// Close popup after a short delay to show success message
 				setTimeout(() => {
 					handleClosePopup();
 				}, 1500);
 			}
-
 		} catch (error) {
 			console.error('Error creating review:', error);
-			
-			// Show error message
-			const errorMsg = error.message || 'Failed to create review. Please try again.';
-			showMessage(errorMsg, 'Error Creating Review', 'error');
 
+			// Show error message
+			const errorMsg =
+				error.message || 'Failed to create review. Please try again.';
+			showMessage(errorMsg, 'Error Creating Review', 'error');
 		} finally {
 			setIsSubmitting(false);
 		}
 	};
 
 	const handleClosePopup = () => {
+		setSelectedRating(0);
+		setReviewText('');
+
 		if (onClose) {
 			onClose();
 		} else {
@@ -202,13 +201,17 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 								className='createReviewPopup__right--textarea'
 								value={reviewText}
 								onChange={(e) => setReviewText(e.target.value)}
-								placeholder="Write your review here..."
+								placeholder='Write your review here...'
 								disabled={isSubmitting}
 							></textarea>
 							<button
 								type='submit'
 								className='createReviewPopup__right--button'
-								disabled={isSubmitting || selectedRating === 0 || !reviewText.trim()}
+								disabled={
+									isSubmitting ||
+									selectedRating === 0 ||
+									!reviewText.trim()
+								}
 							>
 								{isSubmitting ? 'Creating Review...' : 'Create Review'}
 							</button>

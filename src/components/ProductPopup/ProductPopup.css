@@ -112,7 +112,7 @@
 	border-radius: 0 0 15px 15px;
 }
 
-.productPopup__add--buttom {
+button[class^='productPopup__add--'] {
 	width: 294px;
 	height: 64px;
 	border-radius: 4px;

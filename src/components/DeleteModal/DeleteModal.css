@@ -1,0 +1,61 @@
+.deleteModal {
+	display: flex;
+	flex-direction: column;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.2);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 20;
+}
+
+.deleteModal__header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	width: 782px;
+	height: 72px;
+	background-color: var(--text-color);
+	color: var(--white);
+	font-size: 24px;
+	border-radius: 15px 15px 0 0;
+	padding: 0 24px;
+}
+
+.deleteModal__header--icon {
+	cursor: pointer;
+}
+
+.deleteModal__reviews {
+	display: flex;
+	flex-direction: column;
+	width: 782px;
+	height: 400px;
+	padding: 60px 30px;
+	overflow-y: scroll;
+	background-color: var(--bg-color);
+}
+
+.deleteModal__add {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 782px;
+	background-color: var(--bg-color);
+	height: 200px;
+	padding: 30px;
+	border-radius: 0 0 15px 15px;
+}
+
+.deleteModal__add--buttom {
+	width: 294px;
+	height: 64px;
+	border-radius: 4px;
+	background-color: var(--pink-text);
+	color: var(--white);
+}

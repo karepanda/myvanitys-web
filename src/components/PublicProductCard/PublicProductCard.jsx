@@ -21,7 +21,9 @@ const PublicProductCard = ({ product }) => {
 				className='publicProductCard__left'
 				onClick={() => toggleProductPopup(product)}
 			>
-				<p className='publicProductCard__left--name'>{product.name}</p>
+				<p className='publicProductCard__left--name' title={product.name}>
+					{product.name}
+				</p>
 				<p className='publicProductCard__left--description'>
 					{product.brand}
 				</p>

@@ -14,12 +14,18 @@
 	flex-direction: column;
 	justify-content: space-between;
 	width: 85%;
+	cursor: pointer;
 }
 
 .publicProductCard__left--name {
 	font-size: 20px;
 	font-weight: 500;
 	color: var(--orange);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 100%;
+	display: block;
 }
 
 .publicProductCard__left--description {
