@@ -18,20 +18,31 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 		showMissingFieldsPopup,
 		setShowMissingFieldsPopup,
 		userToken,
+		// To refresh the products
+		setProductsRefreshTrigger,
 	} = useContext(VanitysContext);
 
 	console.log('productId', productId);
 
 	const [isSubmitting, setIsSubmitting] = React.useState(false);
-	const [messageConfig, setMessageConfig] = React.useState({
+	const [localMessageConfig, setLocalMessageConfig] = React.useState({
 		message: '',
 		title: '',
 		type: 'warning',
+		show: false,
 	});
 
 	const showMessage = (message, title, type) => {
-		setMessageConfig({ message, title, type });
-		setShowMissingFieldsPopup(true);
+		setLocalMessageConfig({ 
+			message, 
+			title, 
+			type, 
+			show: true 
+		});
+	};
+
+	const hideMessage = () => {
+		setLocalMessageConfig(prev => ({ ...prev, show: false }));
 	};
 
 	const handleSubmitCreateReview = async (e) => {
@@ -70,7 +81,7 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 		try {
 			const reviewData = {
 				rating: selectedRating,
-				comment: reviewText.trim(), // Changed from 'text' to 'comment' to match API
+				comment: reviewText.trim(),
 			};
 
 			console.log('Submitting review:', reviewData);
@@ -80,7 +91,7 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 				userToken,
 				productId,
 				reviewData,
-				null // errorHandler placeholder
+				null
 			);
 
 			if (result) {
@@ -97,6 +108,11 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 				setSelectedRating(0);
 				setReviewText('');
 
+				// Update products after creating the review
+				if (setProductsRefreshTrigger) {
+					setProductsRefreshTrigger(prev => prev + 1);
+				}
+
 				// Notify parent component that review was created
 				if (onReviewCreated) {
 					onReviewCreated(result);
@@ -104,6 +120,7 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 
 				// Close popup after a short delay to show success message
 				setTimeout(() => {
+					hideMessage();
 					handleClosePopup();
 				}, 1500);
 			}
@@ -122,6 +139,7 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 	const handleClosePopup = () => {
 		setSelectedRating(0);
 		setReviewText('');
+		hideMessage();
 
 		if (onClose) {
 			onClose();
@@ -220,12 +238,13 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 				</div>
 			</div>
 
-			{/* UserMessage component for all messages */}
-			{showMissingFieldsPopup && (
+			{/* UserMessage component for local messages only */}
+			{localMessageConfig.show && (
 				<UserMessage
-					message={messageConfig.message}
-					title={messageConfig.title}
-					type={messageConfig.type}
+					message={localMessageConfig.message}
+					title={localMessageConfig.title}
+					type={localMessageConfig.type}
+					onClose={hideMessage}
 				/>
 			)}
 		</>

@@ -23,8 +23,9 @@ const VanitysProvider = ({ children }) => {
 	const [showWelcomePopup, setShowWelcomePopup] = useState(true);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-	// Product Upgrade Trigger
+	// Product Refresh Triggers
 	const [productsRefreshTrigger, setProductsRefreshTrigger] = useState(0);
+	const [publicProductsRefreshTrigger, setPublicProductsRefreshTrigger] = useState(0); // ← NUEVO
 
 	// Data states
 	const [apiResponse, setApiResponse] = useState(null);
@@ -61,7 +62,7 @@ const VanitysProvider = ({ children }) => {
 	const isAuthenticated = !!apiResponse?.token;
 	const userToken = apiResponse?.token || null;
 
-	// utomatic upload from localStorage
+	// Automatic upload from localStorage
 	useEffect(() => {
 		const loadSavedAuth = () => {
 			try {
@@ -418,7 +419,7 @@ const VanitysProvider = ({ children }) => {
 	// New global state
 	const [isAdding, setIsAdding] = useState(false);
 
-	// Global handler function
+	// Global handler function - ACTUALIZADO
 	const handleAddToVanity = async (product) => {
 		const token = apiResponse?.token;
 
@@ -439,6 +440,10 @@ const VanitysProvider = ({ children }) => {
 			if (!success) {
 				throw new Error('Failed to add product to vanity');
 			}
+
+			// CLAVE: Incrementar ambos triggers después del éxito
+			setProductsRefreshTrigger((prev) => prev + 1);
+			setPublicProductsRefreshTrigger((prev) => prev + 1);
 
 			showNotificationTemporarily('add');
 		} catch (error) {
@@ -547,6 +552,8 @@ const VanitysProvider = ({ children }) => {
 				addExistingProductToVanity,
 				productsRefreshTrigger,
 				setProductsRefreshTrigger,
+				publicProductsRefreshTrigger,
+				setPublicProductsRefreshTrigger,
 				handleAddToVanity,
 				isAdding,
 				setIsAdding,

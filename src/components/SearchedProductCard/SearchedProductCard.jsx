@@ -1,3 +1,4 @@
+// src/components/SearchedProductCard/SearchedProductCard.jsx
 import React, { useContext, useState } from 'react';
 import './SearchedProductCard.css';
 import { VanitysContext } from '../../context/index';
@@ -50,6 +51,7 @@ const SearchedProductCard = ({ product }) => {
 			if (success) {
 				// Show notification
 				toggleNotification();
+				// The refresh is automatically handled in handleAddToVanity of the context.
 			} else {
 				throw new Error('Failed to add product to vanity');
 			}
