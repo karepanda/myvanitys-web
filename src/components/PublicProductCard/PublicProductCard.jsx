@@ -1,3 +1,4 @@
+// src/components/PublicProductCard/PublicProductCard.jsx
 import React, { useContext } from 'react';
 import { VanitysContext } from '../../context/index';
 import './PublicProductCard.css';
@@ -7,8 +8,11 @@ import { ProductPopup } from '../ProductPopup/ProductPopup';
 import { Modal } from '../Modal/Modal';
 
 const PublicProductCard = ({ product }) => {
-	const { handleAddToVanity, toggleProductPopup, showProductPopup } =
-		useContext(VanitysContext);
+	const { 
+		handleAddToVanity, 
+		toggleProductPopup, 
+		showProductPopup,
+	} = useContext(VanitysContext);
 
 	const average =
 		product.averageRating && product.averageRating !== 0

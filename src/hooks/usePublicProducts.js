@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { VanitysContext } from '../context';
 
 export const usePublicProducts = () => {
@@ -16,6 +16,8 @@ export const usePublicProducts = () => {
 		getProducts,
 		findProductsByUserId,
 		errorHandler,
+		publicProductsRefreshTrigger, // ← Agregar estos triggers
+		productsRefreshTrigger, // ← Agregar estos triggers
 	} = useContext(VanitysContext);
 
 	const loadPublicProducts = async () => {
@@ -84,6 +86,23 @@ export const usePublicProducts = () => {
 			setLoading(false);
 		}
 	};
+
+	// UseEffect to reload automatically when the triggers change
+	useEffect(() => {
+		if (authInitialized && apiResponse?.token && apiResponse?.user?.id) {
+			console.log('🔄 usePublicProducts auto-refresh triggered by:', {
+				publicProductsRefreshTrigger,
+				productsRefreshTrigger
+			});
+			loadPublicProducts();
+		}
+	}, [
+		authInitialized,
+		apiResponse?.token,
+		apiResponse?.user?.id,
+		publicProductsRefreshTrigger, // Listen to changes in public products
+		productsRefreshTrigger, // Listen to user's product changes
+	]);
 
 	const clearData = () => {
 		setAllProducts([]);
