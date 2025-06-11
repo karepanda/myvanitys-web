@@ -9,3 +9,17 @@
 .categories__list > li {
 	cursor: pointer;
 }
+
+.categories__item {
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.categories__item:hover {
+	background-color: #f0f0f0;
+}
+
+.categories__item--active {
+	color: var(--orange);
+	cursor: pointer;
+}

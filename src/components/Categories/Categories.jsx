@@ -1,18 +1,34 @@
 import React from 'react';
 import './Categories.css';
 
-const Categories = () => {
+const Categories = ({ selectedCategory, onCategoryChange }) => {
+	const categories = [
+		'Face',
+		'Eyes',
+		'Eyelash',
+		'Brows',
+		'Lips',
+		'Cream',
+		'Serum',
+		'Toner',
+	];
+
 	return (
 		<div className='categories'>
 			<ul className='categories__list'>
-				<li>Face</li>
-				<li>Eyes</li>
-				<li>Eyelash</li>
-				<li>Brows</li>
-				<li>Lips</li>
-				<li>Cream</li>
-				<li>Serum</li>
-				<li>Toner</li>
+				{categories.map((category) => (
+					<li
+						key={category}
+						className={
+							selectedCategory === category
+								? 'categories__item--active'
+								: 'categories__item'
+						}
+						onClick={() => onCategoryChange(category)}
+					>
+						{category}
+					</li>
+				))}
 			</ul>
 		</div>
 	);

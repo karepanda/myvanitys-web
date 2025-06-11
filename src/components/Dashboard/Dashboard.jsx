@@ -1,4 +1,3 @@
-// src/components/Dashboard/Dashboard.jsx
 import React, { useContext, useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Categories } from '../Categories/Categories';
@@ -20,6 +19,7 @@ const Dashboard = () => {
 		useContext(VanitysContext);
 
 	const [dashboardMode, setDashboardMode] = useState('my-vanity');
+	const [selectedCategory, setSelectedCategory] = useState('');
 	const [searchParams, setSearchParams] = useSearchParams();
 
 	const {
@@ -46,6 +46,16 @@ const Dashboard = () => {
 
 	useEffect(() => {
 		const modeFromUrl = searchParams.get('mode');
+		const newMode =
+			modeFromUrl === 'search'
+				? 'search'
+				: modeFromUrl === 'add-products'
+				? 'add-products'
+				: 'my-vanity';
+
+		if (newMode !== dashboardMode) {
+			setSelectedCategory('');
+		}
 
 		if (modeFromUrl === 'search') {
 			setDashboardMode('search');
@@ -64,6 +74,7 @@ const Dashboard = () => {
 		}
 	}, [
 		searchParams,
+		dashboardMode,
 		publicHasLoaded,
 		publicLoading,
 		loadPublicProducts,
@@ -113,12 +124,23 @@ const Dashboard = () => {
 
 	const productId = userProducts[0]?.reviews?.[0]?.productId || null;
 
-	const filteredProducts =
-		searchText && dashboardMode !== 'search'
-			? products.filter((product) =>
-					product.name.toLowerCase().includes(searchText.toLowerCase())
-			  )
-			: products;
+	const filterBySearchText = (products) => {
+		if (!searchText || dashboardMode === 'search') return products;
+		return products.filter((product) =>
+			product.name.toLowerCase().includes(searchText.toLowerCase())
+		);
+	};
+
+	const filterByCategory = (products) => {
+		if (!selectedCategory) return products;
+		return products.filter(
+			(product) =>
+				product.category?.name?.toLowerCase() ===
+				selectedCategory.toLowerCase()
+		);
+	};
+
+	const filteredProducts = filterByCategory(filterBySearchText(products));
 
 	const getStyleClass = () => {
 		return products.length === 0 ? 'dashboard__noProducts' : 'dashboard';
@@ -126,6 +148,7 @@ const Dashboard = () => {
 
 	const handleModeChange = (newMode) => {
 		setDashboardMode(newMode);
+		setSelectedCategory('');
 		if (newMode === 'add-products') {
 			setSearchParams({ mode: 'add-products' });
 			if (!publicHasLoaded && !publicLoading) {
@@ -136,6 +159,14 @@ const Dashboard = () => {
 			if (hasSearched) {
 				clearSearch();
 			}
+		}
+	};
+
+	const handleCategoryChange = (category) => {
+		if (selectedCategory === category) {
+			setSelectedCategory('');
+		} else {
+			setSelectedCategory(category);
 		}
 	};
 
@@ -187,7 +218,6 @@ const Dashboard = () => {
 
 	return (
 		<div className={getStyleClass()}>
-			{/* NUEVO: Barra de estado solo para búsqueda */}
 			{dashboardMode === 'search' && (
 				<div className='dashboard__search-status'>
 					{isSearching ? (
@@ -214,7 +244,6 @@ const Dashboard = () => {
 				</div>
 			)}
 
-			{/*  Empty product logic */}
 			{products.length === 0 ? (
 				dashboardMode === 'search' ? (
 					<div className='no-search-results'>
@@ -261,48 +290,71 @@ const Dashboard = () => {
 						)}
 					</div>
 				)
-			) : searchText &&
-			  filteredProducts.length === 0 &&
-			  dashboardMode !== 'search' ? (
-				<div className='no-search-results'>
-					<p>No products found for "{searchText}"</p>
-					<p>Try a different search term</p>
-				</div>
 			) : (
 				<>
 					<div className='dashboard__categories'>
-						<Categories />
+						<Categories
+							selectedCategory={selectedCategory}
+							onCategoryChange={handleCategoryChange}
+						/>
 					</div>
 
-					<div className='productCard__wrapper'>
-						{(searchText && dashboardMode !== 'search'
-							? filteredProducts
-							: products
-						).map((product) =>
-							dashboardMode === 'search' ? (
-								<SearchedProductCard
-									key={product.id || `product-${Math.random()}`}
-									product={product}
-								/>
-							) : searchText && dashboardMode !== 'search' ? (
-								<SearchedProductCard
-									key={product.id || `product-${Math.random()}`}
-									product={product}
-								/>
-							) : dashboardMode === 'my-vanity' ? (
-								<ProductCard
-									key={product.id || `product-${Math.random()}`}
-									product={product}
-									id={productId}
-								/>
-							) : (
-								<PublicProductCard
-									key={product.id || `product-${Math.random()}`}
-									product={product}
-								/>
-							)
-						)}
-					</div>
+					{filteredProducts.length === 0 ? (
+						<div className='no-search-results'>
+							{selectedCategory && searchText ? (
+								<>
+									<h3>No products found</h3>
+									<p>
+										No products found for "{searchText}" in category "
+										{selectedCategory}"
+									</p>
+									<p>Try a different search term or category</p>
+								</>
+							) : selectedCategory ? (
+								<>
+									<h3>No products in this category</h3>
+									<p>
+										No products found in category "{selectedCategory}"
+									</p>
+									<p>Try selecting a different category</p>
+								</>
+							) : searchText ? (
+								<>
+									<h3>No products found</h3>
+									<p>No products found for "{searchText}"</p>
+									<p>Try a different search term</p>
+								</>
+							) : null}
+						</div>
+					) : (
+						<div className='productCard__wrapper'>
+							{filteredProducts.map((product) =>
+								dashboardMode === 'search' ? (
+									<SearchedProductCard
+										key={product.id || `product-${Math.random()}`}
+										product={product}
+									/>
+								) : (searchText && dashboardMode !== 'search') ||
+								  selectedCategory ? (
+									<SearchedProductCard
+										key={product.id || `product-${Math.random()}`}
+										product={product}
+									/>
+								) : dashboardMode === 'my-vanity' ? (
+									<ProductCard
+										key={product.id || `product-${Math.random()}`}
+										product={product}
+										id={productId}
+									/>
+								) : (
+									<PublicProductCard
+										key={product.id || `product-${Math.random()}`}
+										product={product}
+									/>
+								)
+							)}
+						</div>
+					)}
 				</>
 			)}
 
