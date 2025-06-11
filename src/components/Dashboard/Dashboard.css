@@ -113,7 +113,7 @@
 .no-search-results {
 	text-align: center;
 	padding: 60px 20px;
-	background: #f8f9fa;
+	background: var(--bg-color);
 	border-radius: 12px;
 	margin: 40px;
 }
