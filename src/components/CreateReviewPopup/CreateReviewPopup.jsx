@@ -3,6 +3,7 @@ import './CreateReviewPopup.css';
 import { VanitysContext } from '../../context/index';
 import { UserMessage } from '../UserMessage/UserMessage';
 import { productFacade } from '../../services/product/productFacade';
+import reviewIllustration from '../../assets/product_review_illustration.png';
 
 const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 	const {
@@ -33,16 +34,16 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 	});
 
 	const showMessage = (message, title, type) => {
-		setLocalMessageConfig({ 
-			message, 
-			title, 
-			type, 
-			show: true 
+		setLocalMessageConfig({
+			message,
+			title,
+			type,
+			show: true,
 		});
 	};
 
 	const hideMessage = () => {
-		setLocalMessageConfig(prev => ({ ...prev, show: false }));
+		setLocalMessageConfig((prev) => ({ ...prev, show: false }));
 	};
 
 	const handleSubmitCreateReview = async (e) => {
@@ -110,7 +111,7 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 
 				// Update products after creating the review
 				if (setProductsRefreshTrigger) {
-					setProductsRefreshTrigger(prev => prev + 1);
+					setProductsRefreshTrigger((prev) => prev + 1);
 				}
 
 				// Notify parent component that review was created
@@ -173,7 +174,7 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 					<div className='createReviewPopup__left'>
 						<picture className='createReviewPopup__left--picture'>
 							<img
-								src='src/assets/product_review_illustration.png'
+								src={reviewIllustration}
 								alt='Product Review Illustration'
 								className='createReviewPopup__left--image'
 							/>

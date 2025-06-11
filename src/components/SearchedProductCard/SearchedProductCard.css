@@ -19,6 +19,9 @@
 	font-weight: 600;
 	font-size: 20px;
 	margin-bottom: 10px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .searchedProductCard__left--brand {
@@ -85,7 +88,7 @@
 }
 
 .searchedProductCard.in-collection {
-	border-color: #4CAF50;
+	border-color: #4caf50;
 	background-color: #f9fff9;
 }
 
