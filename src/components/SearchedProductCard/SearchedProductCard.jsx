@@ -4,6 +4,8 @@ import './SearchedProductCard.css';
 import { VanitysContext } from '../../context/index';
 import { ProductPopup } from '../ProductPopup/ProductPopup';
 import { Modal } from '../Modal/Modal';
+import startIcon from '../../assets/start_icon.png';
+import plusIcon from '../../assets/plus_icon.png';
 
 const SearchedProductCard = ({ product }) => {
 	const {
@@ -17,9 +19,12 @@ const SearchedProductCard = ({ product }) => {
 
 	const [isAdding, setIsAdding] = useState(false);
 
-	const averageRating = product.averageRating || 0;
-
 	const isInCollection = product.inUserCollection;
+
+	const average =
+		product.averageRating && product.averageRating !== 0
+			? product.averageRating
+			: 0;
 
 	// Handle adding product to vanity
 	const handleAddToVanity = async (e) => {
@@ -77,12 +82,10 @@ const SearchedProductCard = ({ product }) => {
 				<div className='searchedProductCard__starts'>
 					<img
 						className='searchedProductCard__start--icon'
-						src='src/assets/start_icon.png'
+						src={startIcon}
 						alt='Start Icon'
 					/>
-					<p className='searchedProductCard__start--number'>
-						{averageRating.toFixed(1)}
-					</p>
+					<p className='searchedProductCard__start--number'>{average}</p>
 				</div>
 			</div>
 			<div className='searchedProductCard__right'>
@@ -95,7 +98,7 @@ const SearchedProductCard = ({ product }) => {
 						className={`searchedProductCard__right--icon ${
 							isAdding ? 'adding' : ''
 						}`}
-						src='src/assets/plus_icon.png'
+						src={plusIcon}
 						alt='Plus icon'
 						onClick={handleAddToVanity}
 						style={{
