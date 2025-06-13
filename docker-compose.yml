@@ -35,6 +35,8 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
       - SERVER_PORT=8080
       - JAVA_OPTS=-Xmx512m -Xms256m
+      - GOOGLE_CLIENT_ID=780556869332-1sf3nmlm6df03r73jnh8a5kll8ev3ifo.apps.googleusercontent.com
+      - GOOGLE_CLIENT_SECRET=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
     ports:
       - "8080:8080"
     depends_on:
@@ -43,7 +45,7 @@ services:
     networks:
       - myvanitys-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8080/myvanitys/actuator/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -53,26 +55,14 @@ services:
   # Frontend con Nginx
   frontend:
     build:
-      context: .  # Contexto actual (carpeta del frontend)
+      context: .
       dockerfile: Dockerfile
     container_name: myvanitys-frontend
     ports:
-      - "80:80"
+      - "5173:80"
     depends_on:
       api:
         condition: service_healthy
-    networks:
-      - myvanitys-network
-    restart: unless-stopped
-
-  # Librería de especificaciones (si es necesaria como servicio)
-  specifications:
-    build:
-      context: ../myvanitys-specifications  # Ruta relativa al repo de specs
-      dockerfile: Dockerfile
-    container_name: myvanitys-specifications
-    ports:
-      - "8081:8081"
     networks:
       - myvanitys-network
     restart: unless-stopped
