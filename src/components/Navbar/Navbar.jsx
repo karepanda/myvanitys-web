@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import './Navbar.css';
+import './Navbar.responsive.css';
 import { Modal } from '../Modal/Modal';
 import { Register } from '../Register/Register';
 import { Login } from '../Login/Login';
@@ -10,6 +11,7 @@ import { usePublicProducts } from '../../hooks/usePublicProducts';
 import { useProductSearch } from '../../hooks/useProductSearch';
 import searchIcon from '../../assets/icon _search.png';
 import userPhoto from '../../assets/user_photo.png';
+import menuHamburguer from '../../assets/menu-hamburguer.png';
 
 const Navbar = () => {
 	const {
@@ -119,6 +121,14 @@ const Navbar = () => {
 	return (
 		<>
 			<header className={isAuthenticated ? 'header-dashboard' : 'header'}>
+				<div className='header__menu'>
+					<img
+						className='header__menu--icon'
+						src={menuHamburguer}
+						alt='Menu'
+					/>
+				</div>
+
 				<h1
 					className='header__title'
 					disabled={showCookieBanner || !isAuthenticated}
@@ -126,6 +136,11 @@ const Navbar = () => {
 				>
 					My Vanity´s
 				</h1>
+
+				<div className='header__search'>
+					<img className='header__search--icon' src={searchIcon} alt='' />
+				</div>
+
 				<div className='search-input-container'>
 					<div className='tooltip-wrapper'>
 						<input
