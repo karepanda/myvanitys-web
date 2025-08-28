@@ -22,6 +22,10 @@
 	margin: 0;
 }
 
+html {
+	overflow: hidden;
+}
+
 body {
 	background-color: var(--bg-color);
 	font-family: 'Montserrat', serif;

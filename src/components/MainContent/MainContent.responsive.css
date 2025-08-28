@@ -1,4 +1,11 @@
 @media (max-width: 1024px) {
+	.main__register {
+		padding: 20px 2rem 0px 2rem;
+	}
+
+	.main__organize {
+		padding: 20px 2rem 0px 2rem;
+	}
 }
 
 @media (max-width: 768px) {
