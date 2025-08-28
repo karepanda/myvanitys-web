@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
 import './MainContent.css';
+import './MainContent.responsive.css';
+
 import homeIllustration from '../../assets/home_illustration.png';
 import createProduct from '../../assets/CreateProduct.png';
 import { VanitysContext } from '../../context/index';
