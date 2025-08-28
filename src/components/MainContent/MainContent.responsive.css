@@ -12,6 +12,14 @@
 }
 
 @media (max-width: 480px) {
+	.main__register {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.main__organize {
+		display: none;
+	}
 }
 
 /* @media (max-width: 320px) {
