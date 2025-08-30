@@ -28,6 +28,7 @@ const Navbar = () => {
 		toggleUserProfile,
 		showCookieBanner,
 		logout,
+		renderButtonWithTooltip,
 	} = useContext(VanitysContext);
 
 	const {
@@ -94,21 +95,6 @@ const Navbar = () => {
 		setIsSearchMode(false);
 		navigate('/dashboard?mode=add-products');
 	};
-
-	const renderButtonWithTooltip = (label, onClick, className) => (
-		<div className='tooltip-wrapper'>
-			<button
-				className={`${className} ${showCookieBanner ? 'disabled' : ''}`}
-				onClick={onClick}
-				disabled={showCookieBanner}
-			>
-				{label}
-			</button>
-			{showCookieBanner && (
-				<span className='tooltip'>Accept cookies to use this</span>
-			)}
-		</div>
-	);
 
 	const isAuthenticated = authInitialized && apiResponse?.token;
 	const showLoginButtons = authInitialized && !apiResponse?.token;

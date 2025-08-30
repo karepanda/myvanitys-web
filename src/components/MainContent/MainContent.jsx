@@ -9,7 +9,18 @@ import { Modal } from '../Modal/Modal';
 import { UserProfile } from '../UserProfile/UserProfile';
 
 export const Main = () => {
-	const { showUserProfile } = useContext(VanitysContext);
+	const {
+		showUserProfile,
+		apiResponse,
+		authInitialized,
+		toggleModalLogin,
+		showCookieBanner,
+		toggleModalRegister,
+	} = useContext(VanitysContext);
+
+	const showLoginButtons = authInitialized && !apiResponse?.token;
+	const isAuthenticated = authInitialized && apiResponse?.token;
+
 	return (
 		<div className='main'>
 			<section className='main__register'>
@@ -24,6 +35,7 @@ export const Main = () => {
 						Register Now
 					</button>
 				</div>
+
 				<picture className='main__home-illustration'>
 					<img src={homeIllustration} alt='Vanity´s Home image' />
 				</picture>
