@@ -36,9 +36,9 @@ export const Main = () => {
 					</button>
 				</div>
 
-				<picture className='main__home-illustration'>
+				<div className='main__home-illustration'>
 					<img src={homeIllustration} alt='Vanity´s Home image' />
-				</picture>
+				</div>
 			</section>
 
 			<section className='main__organize'>
