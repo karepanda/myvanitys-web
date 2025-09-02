@@ -11,7 +11,28 @@
 @media (max-width: 768px) {
 	.main__register {
 		flex-direction: column;
-		align-items: flex-start;
+	}
+
+	.main__register--text {
+		display: flex;
+		width: 328px;
+		flex-wrap: wrap;
+	}
+
+	.main__register--text-title {
+		font-size: 2.25rem;
+	}
+
+	.main__register--text-paragraph {
+		font-size: 2rem;
+	}
+
+	.main__register--text-button {
+		display: none;
+	}
+
+	.main__product-illustration {
+		justify-self: center;
 	}
 
 	.main__organize {

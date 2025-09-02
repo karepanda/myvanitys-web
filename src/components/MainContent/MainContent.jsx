@@ -42,9 +42,9 @@ export const Main = () => {
 			</section>
 
 			<section className='main__organize'>
-				<picture className='main__product-illustration'>
+				<div className='main__product-illustration'>
 					<img src={createProduct} alt="Vanity's Create Product" />
-				</picture>
+				</div>
 				<div className='main__organize--text'>
 					<p className='main__organize--text-title'>
 						Organize Your <br /> Cosmetic in Seconds
