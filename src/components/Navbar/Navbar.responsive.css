@@ -1,28 +1,27 @@
 /* TABLET - 1024px y menos */
-@media (max-width: 1024px) {
-	.header,
-	.header-dashboard {
-		justify-content: space-between;
-		padding: 20px 2rem 0px 2rem;
-		gap: 1rem;
-	}
 
-	.header__title {
-		font-size: 2rem;
-	}
+.header,
+.header-dashboard {
+	justify-content: space-between;
+	padding: 20px 2rem 0px 2rem;
+	gap: 1rem;
+}
 
-	.header__input {
-		width: 200px;
-	}
+.header__title {
+	font-size: 2rem;
+}
 
-	.header__create {
-		width: 150px;
-		font-size: 12px;
-	}
+.header__input {
+	width: 200px;
+}
 
-	.header__products {
-		font-size: 20px;
-	}
+.header__create {
+	width: 150px;
+	font-size: 12px;
+}
+
+.header__products {
+	font-size: 20px;
 }
 
 /* TABLET PEQUEÑA - 768px y menos */
@@ -43,7 +42,7 @@
 		height: 1.5rem;
 	}
 
-	.tooltip-wrapper {
+	.header__tooltip-wrapper {
 		display: none;
 	}
 
@@ -74,7 +73,7 @@
 	}
 
 	.header__title {
-		font-size: 1.8rem;
+		font-size: 1.5rem;
 	}
 
 	/* HEADER */

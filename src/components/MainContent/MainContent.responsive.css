@@ -11,12 +11,37 @@
 @media (max-width: 768px) {
 	.main__register {
 		flex-direction: column;
+		gap: 10px;
 	}
 
 	.main__register--text {
 		display: flex;
 		width: 328px;
 		flex-wrap: wrap;
+	}
+
+	.main__tooltip-wrapper {
+		display: block;
+	}
+
+	.main__register--button {
+		width: 205px;
+		height: 52px;
+		background-color: var(--pink);
+		color: var(--text-color2);
+		border-radius: 4px;
+		font-size: 1.25rem;
+		font-weight: bold;
+	}
+
+	.main__login--button {
+		width: 129px;
+		height: 52px;
+		background-color: var(--orange);
+		color: var(--white);
+		border-radius: 4px;
+		font-size: 1.25rem;
+		font-weight: bold;
 	}
 
 	.main__register--text-title {

@@ -16,6 +16,7 @@ export const Main = () => {
 		toggleModalLogin,
 		showCookieBanner,
 		toggleModalRegister,
+		renderButtonWithTooltip,
 	} = useContext(VanitysContext);
 
 	const showLoginButtons = authInitialized && !apiResponse?.token;
@@ -35,6 +36,23 @@ export const Main = () => {
 						Register Now
 					</button>
 				</div>
+
+				{showLoginButtons && (
+					<>
+						{renderButtonWithTooltip(
+							'Register Now',
+							toggleModalRegister,
+							'main__register--button',
+							'main'
+						)}
+						{renderButtonWithTooltip(
+							'Log in',
+							toggleModalLogin,
+							'main__login--button',
+							'main'
+						)}
+					</>
+				)}
 
 				<div className='main__home-illustration'>
 					<img src={homeIllustration} alt='Vanity´s Home image' />

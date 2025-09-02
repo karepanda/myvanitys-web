@@ -18,6 +18,10 @@
 	z-index: 10;
 }
 
+.main__tooltip-wrapper {
+	display: none;
+}
+
 .main__register {
 	display: flex;
 	align-items: center;

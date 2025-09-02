@@ -454,8 +454,13 @@ const VanitysProvider = ({ children }) => {
 		}
 	};
 
-	const renderButtonWithTooltip = (label, onClick, className) => (
-		<div className='tooltip-wrapper'>
+	const renderButtonWithTooltip = (
+		label,
+		onClick,
+		className,
+		classNameTooltip
+	) => (
+		<div className={`${classNameTooltip}__tooltip-wrapper`}>
 			<button
 				className={`${className} ${showCookieBanner ? 'disabled' : ''}`}
 				onClick={onClick}

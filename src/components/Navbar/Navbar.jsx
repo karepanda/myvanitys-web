@@ -128,7 +128,7 @@ const Navbar = () => {
 				</div>
 
 				<div className='search-input-container'>
-					<div className='tooltip-wrapper'>
+					<div className='header__tooltip-wrapper'>
 						<input
 							className={`header__input ${
 								showCookieBanner ? 'disabled' : ''
@@ -168,12 +168,14 @@ const Navbar = () => {
 						{renderButtonWithTooltip(
 							'Log in',
 							toggleModalLogin,
-							'header__login'
+							'header__login',
+							'header'
 						)}
 						{renderButtonWithTooltip(
 							'Register',
 							toggleModalRegister,
-							'header__register'
+							'header__register',
+							'header'
 						)}
 					</>
 				)}
@@ -214,7 +216,8 @@ const Navbar = () => {
 						{renderButtonWithTooltip(
 							'Create Product',
 							toggleCreateProductPopup,
-							'header__create'
+							'header__create',
+							'header'
 						)}
 
 						<div className='tooltip-wrapper'>
