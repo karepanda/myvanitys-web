@@ -1,5 +1,7 @@
 import React from 'react';
-import '../CookieBanner/CookieBanner.css';
+import './CookieBanner.css';
+import './CookieBanner.responsive.css';
+
 import { useContext } from 'react';
 import { VanitysContext } from '../../context';
 
