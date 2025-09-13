@@ -2,6 +2,7 @@ import { IoClose, IoLogoGoogle } from 'react-icons/io5';
 import { useContext } from 'react';
 import { VanitysContext } from '../../context';
 import './Popup.css';
+import './Popup.responsive.css';
 
 const Popup = ({
 	title,
