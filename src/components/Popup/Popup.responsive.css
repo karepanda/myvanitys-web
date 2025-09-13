@@ -1,14 +1,22 @@
-/* @media (max-width: 1024px) {
+@media (max-width: 768px) {
+	.popup__container {
+		display: flex;
+		flex-direction: column;
+		height: 100vh;
+		justify-content: flex-start;
+	}
 
+	.popup__header {
+		border-radius: 0%;
+	}
+
+	.popup__image {
+		margin: 0 auto;
+	}
 }
 
-@media (max-width: 768px) {
-
-} */
-/* 
-@media (max-width: 480px) {
-	
-} */
-
 @media (max-width: 320px) {
+	.popup__description--btn {
+		width: 75%;
+	}
 }
