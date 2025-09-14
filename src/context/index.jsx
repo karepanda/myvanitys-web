@@ -25,7 +25,8 @@ const VanitysProvider = ({ children }) => {
 
 	// Product Refresh Triggers
 	const [productsRefreshTrigger, setProductsRefreshTrigger] = useState(0);
-	const [publicProductsRefreshTrigger, setPublicProductsRefreshTrigger] = useState(0); // ← NUEVO
+	const [publicProductsRefreshTrigger, setPublicProductsRefreshTrigger] =
+		useState(0); // ← NUEVO
 
 	// Data states
 	const [apiResponse, setApiResponse] = useState(null);
@@ -453,6 +454,26 @@ const VanitysProvider = ({ children }) => {
 		}
 	};
 
+	const renderButtonWithTooltip = (
+		label,
+		onClick,
+		className,
+		classNameTooltip
+	) => (
+		<div className={`${classNameTooltip}__tooltip-wrapper`}>
+			<button
+				className={`${className} ${showCookieBanner ? 'disabled' : ''}`}
+				onClick={onClick}
+				disabled={showCookieBanner}
+			>
+				{label}
+			</button>
+			{showCookieBanner && (
+				<span className='tooltip'>Accept cookies to use this</span>
+			)}
+		</div>
+	);
+
 	return (
 		<VanitysContext.Provider
 			value={{
@@ -539,6 +560,7 @@ const VanitysProvider = ({ children }) => {
 				updateAuthData,
 				isAuthenticated,
 				userToken,
+				renderButtonWithTooltip,
 
 				// Products
 				createProduct,

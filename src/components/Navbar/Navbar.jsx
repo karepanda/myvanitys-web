@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import './Navbar.css';
+import './Navbar.responsive.css';
 import { Modal } from '../Modal/Modal';
 import { Register } from '../Register/Register';
 import { Login } from '../Login/Login';
@@ -10,6 +11,7 @@ import { usePublicProducts } from '../../hooks/usePublicProducts';
 import { useProductSearch } from '../../hooks/useProductSearch';
 import searchIcon from '../../assets/icon _search.png';
 import userPhoto from '../../assets/user_photo.png';
+import menuHamburguer from '../../assets/menu-hamburguer.png';
 
 const Navbar = () => {
 	const {
@@ -26,6 +28,7 @@ const Navbar = () => {
 		toggleUserProfile,
 		showCookieBanner,
 		logout,
+		renderButtonWithTooltip,
 	} = useContext(VanitysContext);
 
 	const {
@@ -93,21 +96,6 @@ const Navbar = () => {
 		navigate('/dashboard?mode=add-products');
 	};
 
-	const renderButtonWithTooltip = (label, onClick, className) => (
-		<div className='tooltip-wrapper'>
-			<button
-				className={`${className} ${showCookieBanner ? 'disabled' : ''}`}
-				onClick={onClick}
-				disabled={showCookieBanner}
-			>
-				{label}
-			</button>
-			{showCookieBanner && (
-				<span className='tooltip'>Accept cookies to use this</span>
-			)}
-		</div>
-	);
-
 	const isAuthenticated = authInitialized && apiResponse?.token;
 	const showLoginButtons = authInitialized && !apiResponse?.token;
 
@@ -119,6 +107,14 @@ const Navbar = () => {
 	return (
 		<>
 			<header className={isAuthenticated ? 'header-dashboard' : 'header'}>
+				<div className='header__menu'>
+					<img
+						className='header__menu--icon'
+						src={menuHamburguer}
+						alt='Menu'
+					/>
+				</div>
+
 				<h1
 					className='header__title'
 					disabled={showCookieBanner || !isAuthenticated}
@@ -126,8 +122,13 @@ const Navbar = () => {
 				>
 					My Vanity´s
 				</h1>
+
+				<div className='header__search'>
+					<img className='header__search--icon' src={searchIcon} alt='' />
+				</div>
+
 				<div className='search-input-container'>
-					<div className='tooltip-wrapper'>
+					<div className='header__tooltip-wrapper'>
 						<input
 							className={`header__input ${
 								showCookieBanner ? 'disabled' : ''
@@ -167,12 +168,14 @@ const Navbar = () => {
 						{renderButtonWithTooltip(
 							'Log in',
 							toggleModalLogin,
-							'header__login'
+							'header__login',
+							'header'
 						)}
 						{renderButtonWithTooltip(
 							'Register',
 							toggleModalRegister,
-							'header__register'
+							'header__register',
+							'header'
 						)}
 					</>
 				)}
@@ -213,7 +216,8 @@ const Navbar = () => {
 						{renderButtonWithTooltip(
 							'Create Product',
 							toggleCreateProductPopup,
-							'header__create'
+							'header__create',
+							'header'
 						)}
 
 						<div className='tooltip-wrapper'>

@@ -1,6 +1,5 @@
 .main {
 	width: 100%;
-	height: auto;
 }
 
 .main--disabled {
@@ -19,11 +18,15 @@
 	z-index: 10;
 }
 
+.main__tooltip-wrapper {
+	display: none;
+}
+
 .main__register {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	height: 350px;
+	height: 50%;
 }
 
 .main__register--text {
@@ -55,7 +58,7 @@
 	align-items: center;
 	justify-content: center;
 	background-color: var(--white);
-	height: auto;
+	height: 50%;
 }
 
 .main__organize--text {
