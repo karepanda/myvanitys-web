@@ -1,21 +1,20 @@
-import React from 'react';
+import { getCategoryLabel } from '../../utils/dashboardProducts';
 import './Categories.css';
 
-const Categories = () => {
-	return (
-		<div className='categories'>
-			<ul className='categories__list'>
-				<li>Face</li>
-				<li>Eyes</li>
-				<li>Eyelash</li>
-				<li>Brows</li>
-				<li>Lips</li>
-				<li>Cream</li>
-				<li>Serum</li>
-				<li>Toner</li>
-			</ul>
-		</div>
-	);
-};
+const Categories = ({ categories, selected, onSelect }) => (
+	<div className='categories' aria-label='Product categories'>
+		{categories.map((category) => (
+			<button
+				key={category}
+				type='button'
+				className={`categories__chip${selected === category ? ' categories__chip--active' : ''}`}
+				onClick={() => onSelect(category)}
+				aria-pressed={selected === category}
+			>
+				{getCategoryLabel(category)}
+			</button>
+		))}
+	</div>
+);
 
 export { Categories };

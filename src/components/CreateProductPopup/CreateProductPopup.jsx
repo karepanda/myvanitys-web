@@ -5,10 +5,8 @@ import './CreateProductPopup.css';
 import { useForm } from 'react-hook-form';
 import { Modal } from '../Modal/Modal';
 import { MissingFieldsPopup } from '../MissingFieldsPopup/MissingFieldsPopup';
-import imageForm from '../../assets/image-form.png';
 
 const CreateProductPopup = () => {
-	// Define the array of categories with their ID and name
 	const categories = [
 		{ id: '123e4567-e89b-12d3-a456-426614174000', name: 'Face' },
 		{ id: '550e8400-e29b-41d4-a716-446655440001', name: 'Eyes' },
@@ -20,7 +18,6 @@ const CreateProductPopup = () => {
 		{ id: '01969b32-e411-7df9-815f-9142e7c4f6e5', name: 'Toner' },
 	];
 
-	// Local state for selected category
 	const [localCategoryId, setLocalCategoryId] = useState('');
 
 	const {
@@ -47,7 +44,6 @@ const CreateProductPopup = () => {
 		setValue,
 	} = useForm();
 
-	// Function to handle category change
 	const handleCategoryChange = (e) => {
 		const newCategoryId = e.target.value;
 		setLocalCategoryId(newCategoryId);
@@ -69,13 +65,11 @@ const CreateProductPopup = () => {
 
 	const onSubmitProductCreateForm = async (data) => {
 		try {
-			// Prepare data for submission - solo incluir los datos necesarios
 			const productData = {
 				...data,
 				categoryId: localCategoryId,
 			};
 
-			// Get context token
 			const token = apiResponse?.token;
 
 			if (!token) {
@@ -87,25 +81,21 @@ const CreateProductPopup = () => {
 				return;
 			}
 
-			// Using the createProduct function of the context
 			const response = await createProduct(token, productData);
 
 			if (response) {
-				console.log('Product created successfully');
 				setFormData(productData);
 				setShowMissingFieldsPopup(false);
 				setShowCreateProductPopup(false);
 				reset();
 				setLocalCategoryId('');
 			}
-		} catch (error) {
-			console.error('Failed to create product:', error);
+		} catch {
 			errorHandler.showGenericError();
 		}
 	};
 
 	const handleFormError = (formErrors) => {
-		// Display specific error message if category is missing
 		if (formErrors.categoryId) {
 			errorHandler.showErrorMessage(
 				'Please select a category for your product.',
@@ -113,7 +103,6 @@ const CreateProductPopup = () => {
 				'warning'
 			);
 		} else {
-			// Use errorHandler to display validation errors
 			errorHandler.showValidationError('requiredFields');
 		}
 	};
@@ -123,24 +112,16 @@ const CreateProductPopup = () => {
 			<div className='createProduct__container shadow-lg'>
 				<section className='createProduct__header'>
 					<h1 className='createProduct__header--title'>
-						Add Products to your Vanity
+						Create product
 					</h1>
-					<IoClose
-						onClick={() => toggleCreateProductPopup()}
-						size={40}
-						className='createProduct__header--icon'
-					/>
+					<button type='button' className='createProduct__header--close' onClick={toggleCreateProductPopup} aria-label='Close create product form'>
+						<IoClose aria-hidden='true' />
+					</button>
 				</section>
-
-				<img
-					className='createProduct__left--image'
-					src={imageForm}
-					alt='Register image'
-				/>
 
 				<section className='createProduct__right'>
 					<h1 className='createProduct__right--title'>
-						Create your Product
+						Add a product to My Vanity’s
 					</h1>
 					<form
 						className='createProduct__right--form'
@@ -149,21 +130,21 @@ const CreateProductPopup = () => {
 							handleFormError
 						)}
 					>
-						<label htmlFor='name'>Insert the name of the product:</label>
+						<label htmlFor='name'>Product name</label>
 						<input
 							type='text'
 							className='createProduct__right--name'
 							id='name'
 							{...register('name', { required: true, minLength: 2 })}
 						/>
-						<label htmlFor='brand'>Insert Brand name:</label>
+						<label htmlFor='brand'>Brand</label>
 						<input
 							type='text'
 							className='createProduct__right--brand'
 							id='brand'
 							{...register('brand', { required: true, minLength: 2 })}
 						/>
-						<label htmlFor='categorySelect'>Choose a Category:</label>
+						<label htmlFor='categorySelect'>Category</label>
 						<div className='createProduct__right--wrapper'>
 							<select
 								id='categorySelect'
@@ -172,7 +153,7 @@ const CreateProductPopup = () => {
 								onChange={handleCategoryChange}
 							>
 								<option value='' disabled>
-									Select a Category:
+									Select a category
 								</option>
 								{categories.map((category) => (
 									<option key={category.id} value={category.id}>
@@ -193,20 +174,12 @@ const CreateProductPopup = () => {
 						</div>
 
 						{errors.categoryId && (
-							<span
-								style={{
-									color: 'red',
-									fontSize: '12px',
-									marginTop: '-15px',
-									display: 'block',
-									marginBottom: '10px',
-								}}
-							>
+							<span className='createProduct__error'>
 								Please select a category
 							</span>
 						)}
 
-						<label htmlFor='color'>Choose Color of the product:</label>
+						<label htmlFor='color'>Product color</label>
 						<div className='createProduct__right--color'>
 							<input
 								type='color'
@@ -217,13 +190,7 @@ const CreateProductPopup = () => {
 						</div>
 
 						{Object.keys(errors).length > 0 && (
-							<div
-								style={{
-									color: 'red',
-									marginBottom: '10px',
-									fontSize: '12px',
-								}}
-							>
+							<div className='createProduct__error'>
 								Please fill in all required fields.
 							</div>
 						)}

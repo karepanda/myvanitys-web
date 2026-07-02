@@ -1,60 +1,6 @@
-.notification {
-	position: fixed;
-	bottom: -100px; /* Oculto inicialmente */
-	left: 50%;
-	height: 30px;
-	transform: translateX(-50%);
-	background-color: var(--white);
-	color: var(--black);
-	border-radius: 15px;
-	border: 1px solid var(--pink);
-	padding: 0 14px;
-	font-size: 18px;
-	opacity: 0;
-	transition: opacity 0.3s ease-in-out;
-}
-
-.highlight {
-	font-weight: bold;
-	color: var(--orange);
-}
-
-.animate-in {
-	animation: slide-in-out 3s ease-in-out forwards;
-	opacity: 1;
-}
-
-.animate-out {
-	animation: slide-out 3s ease-in-out forwards;
-	opacity: 0;
-}
-
-@keyframes slide-in-out {
-	0% {
-		bottom: -100px;
-		opacity: 0;
-	}
-	30% {
-		bottom: 100px;
-		opacity: 1;
-	}
-	70% {
-		bottom: 100px;
-		opacity: 1;
-	}
-	100% {
-		bottom: -100px;
-		opacity: 0;
-	}
-}
-
-@keyframes slide-out {
-	from {
-		bottom: 50%;
-		opacity: 1;
-	}
-	to {
-		bottom: -100px;
-		opacity: 0;
-	}
-}
+.notification { position: fixed; z-index: calc(var(--z-modal) + 10); right: var(--space-4); bottom: calc(var(--mobile-nav-height) + var(--space-4)); left: var(--space-4); padding: var(--space-4); border: 1px solid var(--color-mint); border-radius: var(--radius-md); background: var(--color-surface); box-shadow: var(--shadow-dialog); color: var(--color-text); opacity: 0; }
+.notification h1 { font-size: var(--font-size-sm); font-weight: 500; text-align: center; }
+.notification .highlight { color: var(--color-success); font-weight: 800; }
+.notification.animate-in { animation: notification-in-out 3s ease forwards; }
+@keyframes notification-in-out { 0%, 100% { opacity: 0; transform: translateY(18px); } 12%, 85% { opacity: 1; transform: translateY(0); } }
+@media (min-width: 768px) { .notification { right: var(--space-6); bottom: var(--space-6); left: auto; min-width: 320px; } }

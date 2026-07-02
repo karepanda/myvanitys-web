@@ -4,7 +4,45 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4efc78d5-8992-4d6f-8951-246c9419d5f3" name="Changes" comment="chore: add initial project configuration files and guidelines" />
+    <list default="true" id="4efc78d5-8992-4d6f-8951-246c9419d5f3" name="Changes" comment="chore: add initial project configuration files and guidelines">
+      <change afterPath="$PROJECT_DIR$/src/dev/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dev/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dev/palette.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dev/previews.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dev/useInitial.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CLAUDE.md" beforeDir="false" afterPath="$PROJECT_DIR$/CLAUDE.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/UserDashboard/UserDashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/UserDashboard/UserDashboard.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/UserDashboard/UserDashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/UserDashboard/UserDashboard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Categories/Categories.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Categories/Categories.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Categories/Categories.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Categories/Categories.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CreateProductPopup/CreateProductPopup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CreateProductPopup/CreateProductPopup.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CreateProductPopup/CreateProductPopup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CreateProductPopup/CreateProductPopup.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CreateReviewPopup/CreateReviewPopup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CreateReviewPopup/CreateReviewPopup.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CreateReviewPopup/CreateReviewPopup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CreateReviewPopup/CreateReviewPopup.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Dashboard/Dashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dashboard/Dashboard.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Dashboard/Dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dashboard/Dashboard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DeleteModal/DeleteModal.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DeleteModal/DeleteModal.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DeleteModal/DeleteModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DeleteModal/DeleteModal.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Modal/Modal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Modal/Modal.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Notification/Notification.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Notification/Notification.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Notification/Notification.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Notification/Notification.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ProductCard/ProductCard.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductCard/ProductCard.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ProductCard/ProductCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductCard/ProductCard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ProductPopup/ProductPopup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductPopup/ProductPopup.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ProductPopup/ProductPopup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductPopup/ProductPopup.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PublicProductCard/PublicProductCard.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/PublicProductCard/PublicProductCard.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SearchedProductCard/SearchedProductCard.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SearchedProductCard/SearchedProductCard.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UserProfile/UserProfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserProfile/UserProfile.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UserProfile/UserProfile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserProfile/UserProfile.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/App.test.js" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,13 +54,24 @@
     </persistenceIdMap>
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="145" />
+    <option name="cachedIndexableFilesCount" value="161" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="com.intellij.reactbuddy.palette" />
+        <option value="com.intellij.reactbuddy.previews" />
+        <option value="com.intellij.reactbuddy.index" />
+        <option value="com.intellij.reactbuddy.useInitial" />
+        <option value="com.intellij.reactbuddy.README" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feat/VANITYS32-update-first-mobile" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -55,23 +104,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.5396141182522138" />
-      <entry key="MS500" value="1.8860419300952227" />
-      <entry key="S2" value="2.8346888673992545" />
-      <entry key="S5" value="5.192331518782029" />
-      <entry key="S10" value="7.052217456387406" />
-      <entry key="S30" value="9.63748220525559" />
-      <entry key="S60" value="11.387653439960898" />
-      <entry key="M2" value="12.846254425435742" />
-      <entry key="M5" value="14.033563498946828" />
-      <entry key="M10" value="14.497104859595956" />
-      <entry key="M15" value="14.660185347479835" />
-      <entry key="M30" value="14.827770681638862" />
-      <entry key="H1" value="14.91329597860848" />
-      <entry key="H2" value="14.956499525772413" />
-      <entry key="H4" value="14.978212505685299" />
-      <entry key="D1" value="14.996363564297523" />
-      <entry key="W1" value="14.999480382008075" />
+      <entry key="MS100" value="1.030406794684382" />
+      <entry key="MS500" value="2.73024204336012" />
+      <entry key="S2" value="6.064196185776296" />
+      <entry key="S5" value="10.0485823926278" />
+      <entry key="S10" value="15.071785187376761" />
+      <entry key="S30" value="23.002437912594377" />
+      <entry key="S60" value="26.420129414562442" />
+      <entry key="M2" value="29.649088159258138" />
+      <entry key="M5" value="42.454429750133706" />
+      <entry key="M10" value="64.26700515351851" />
+      <entry key="M15" value="78.52253952380418" />
+      <entry key="M30" value="99.11308989052654" />
+      <entry key="H1" value="112.66083217427915" />
+      <entry key="H2" value="120.4470418066332" />
+      <entry key="H4" value="124.62299370572828" />
+      <entry key="D1" value="128.25612035370426" />
+      <entry key="W1" value="128.89337378668756" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -93,23 +142,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.439522749214012" />
-      <entry key="MS500" value="1.860237620618621" />
-      <entry key="S2" value="2.825051381727324" />
-      <entry key="S5" value="5.185400754979895" />
-      <entry key="S10" value="7.04743808000545" />
-      <entry key="S30" value="9.6338640434017" />
-      <entry key="S60" value="11.38449009256895" />
-      <entry key="M2" value="12.844021578458733" />
-      <entry key="M5" value="14.032446043780334" />
-      <entry key="M10" value="14.496501306954091" />
-      <entry key="M15" value="14.65977238901283" />
-      <entry key="M30" value="14.827558741823392" />
-      <entry key="H1" value="14.913188611696997" />
-      <entry key="H2" value="14.956445489010564" />
-      <entry key="H4" value="14.97818539846633" />
-      <entry key="D1" value="14.996359034045446" />
-      <entry key="W1" value="14.9994797345254" />
+      <entry key="MS100" value="0.9950090465718405" />
+      <entry key="MS500" value="2.708797932980943" />
+      <entry key="S2" value="6.0516880866039715" />
+      <entry key="S5" value="10.0398968988465" />
+      <entry key="S10" value="15.065085580224254" />
+      <entry key="S30" value="22.998961484476002" />
+      <entry key="S60" value="26.41810744318861" />
+      <entry key="M2" value="29.64767248461547" />
+      <entry key="M5" value="42.4526010299046" />
+      <entry key="M10" value="64.26510684589563" />
+      <entry key="M15" value="78.5208686712153" />
+      <entry key="M30" value="99.11197034557341" />
+      <entry key="H1" value="112.66018082395425" />
+      <entry key="H2" value="120.44669007386433" />
+      <entry key="H4" value="124.62281088533454" />
+      <entry key="D1" value="128.25608887823748" />
+      <entry key="W1" value="128.89336926503833" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -131,7 +180,7 @@
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "copilot.chat.legacySessionMetadata.migrated": "true",
-    "git-widget-placeholder": "feat/VANITYS33-kare",
+    "git-widget-placeholder": "feat/visual-rework",
     "javascript.preferred.runtime.type.id": "node",
     "junie.onboarding.icon.badge.shown": "true",
     "last_opened_file_path": "D:/karel/Tesis/myvanitys/myvanitys-web",
@@ -140,7 +189,10 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "npm.start # Dev server at http://localhost:5173.executor": "Run",
+    "npm.start # Development server.executor": "Run",
     "npm.start.executor": "Run",
+    "npm.test # Run tests in watch mode.executor": "Run",
     "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }

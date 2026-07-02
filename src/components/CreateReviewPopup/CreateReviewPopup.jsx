@@ -3,7 +3,7 @@ import './CreateReviewPopup.css';
 import { VanitysContext } from '../../context/index';
 import { UserMessage } from '../UserMessage/UserMessage';
 import { productFacade } from '../../services/product/productFacade';
-import reviewIllustration from '../../assets/product_review_illustration.png';
+import { IoClose } from 'react-icons/io5';
 
 const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 	const {
@@ -16,14 +16,9 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 		handleMouseOver,
 		handleMouseOut,
 		handleClick,
-		showMissingFieldsPopup,
-		setShowMissingFieldsPopup,
 		userToken,
-		// To refresh the products
 		setProductsRefreshTrigger,
 	} = useContext(VanitysContext);
-
-	console.log('productId', productId);
 
 	const [isSubmitting, setIsSubmitting] = React.useState(false);
 	const [localMessageConfig, setLocalMessageConfig] = React.useState({
@@ -49,7 +44,6 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 	const handleSubmitCreateReview = async (e) => {
 		e.preventDefault();
 
-		// Validation
 		if (selectedRating === 0) {
 			showMessage(
 				'Please select a rating for the product.',
@@ -85,9 +79,6 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 				comment: reviewText.trim(),
 			};
 
-			console.log('Submitting review:', reviewData);
-
-			// Call the actual API
 			const result = await productFacade.addReviewToProduct(
 				userToken,
 				productId,
@@ -96,39 +87,29 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 			);
 
 			if (result) {
-				console.log('Review created successfully:', result);
-
-				// Show success message
 				showMessage(
 					'Your review has been added successfully!',
 					'Review Added',
 					'info'
 				);
 
-				// Reset form
 				setSelectedRating(0);
 				setReviewText('');
 
-				// Update products after creating the review
 				if (setProductsRefreshTrigger) {
 					setProductsRefreshTrigger((prev) => prev + 1);
 				}
 
-				// Notify parent component that review was created
 				if (onReviewCreated) {
 					onReviewCreated(result);
 				}
 
-				// Close popup after a short delay to show success message
 				setTimeout(() => {
 					hideMessage();
 					handleClosePopup();
 				}, 1500);
 			}
 		} catch (error) {
-			console.error('Error creating review:', error);
-
-			// Show error message
 			const errorMsg =
 				error.message || 'Failed to create review. Please try again.';
 			showMessage(errorMsg, 'Error Creating Review', 'error');
@@ -155,34 +136,18 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 				<div className='createReviewPopup__container'>
 					<div className='createReviewPopup__header'>
 						<h1 className='createReviewPopup__header--title'>
-							Add Review to Product
+							Write review
 						</h1>
-						<svg
-							xmlns='http://www.w3.org/2000/svg'
-							width='38'
-							height='38'
-							viewBox='0 0 24 24'
+						<button type='button' aria-label='Close review form'
 							className='createReviewPopup__header--close'
 							onClick={handleClosePopup}
 						>
-							<path
-								fill='currentColor'
-								d='m12 13.4l-4.9 4.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275t.7.275t.275.7t-.275.7L13.4 12l4.9 4.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275z'
-							/>
-						</svg>
-					</div>
-					<div className='createReviewPopup__left'>
-						<picture className='createReviewPopup__left--picture'>
-							<img
-								src={reviewIllustration}
-								alt='Product Review Illustration'
-								className='createReviewPopup__left--image'
-							/>
-						</picture>
+							<IoClose aria-hidden='true' />
+						</button>
 					</div>
 					<div className='createReviewPopup__right'>
 						<p className='createReviewPopup__right--title'>
-							Create Your Review
+							Share your experience
 						</p>
 
 						<form
@@ -239,7 +204,6 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 				</div>
 			</div>
 
-			{/* UserMessage component for local messages only */}
 			{localMessageConfig.show && (
 				<UserMessage
 					message={localMessageConfig.message}

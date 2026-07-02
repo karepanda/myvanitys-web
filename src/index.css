@@ -1,38 +1,72 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-	--bg-color: #faf8f0;
-	--white: #ffffff;
-	--black: #000000;
-	--text-color: #717171;
-	--text-color2: #2c2c2c;
-	--orange: #ff6f61;
-	--pink: #f4c4d7;
-	--pink-text: #e76d9d;
-	--bg-input: #d9d9d9;
-	--border-card: #ffb5ae;
+	--color-background: #fbf6f0;
+	--color-surface: #ffffff;
+	--color-text: #2f2525;
+	--color-text-muted: #6f6262;
+	--color-text-subtle: #948787;
+	--color-border: #e9dfda;
+	--color-border-soft: #f0e8e3;
+	--color-coral: #ff785f;
+	--color-pink-strong: #f6548c;
+	--color-pink: #f4a9c5;
+	--color-pink-soft: #fde7f0;
+	--color-peach: #ffb39e;
+	--color-peach-soft: #ffeadc;
+	--color-lilac: #cfc1ff;
+	--color-lilac-soft: #eee9ff;
+	--color-yellow: #f2cf7d;
+	--color-yellow-soft: #fff4d5;
+	--color-rose: #f4a5b8;
+	--color-mint: #add8c3;
+	--color-mint-soft: #e7f6ee;
+	--color-star: #ffc75c;
+	--color-success: #357b5a;
+	--color-danger: #b44747;
+	--color-focus: rgba(80, 108, 190, 0.42);
+	--space-1: 4px;
+	--space-2: 8px;
+	--space-3: 12px;
+	--space-4: 16px;
+	--space-5: 20px;
+	--space-6: 24px;
+	--space-8: 32px;
+	--radius-sm: 10px;
+	--radius-md: 14px;
+	--radius-card: 18px;
+	--radius-dialog: 24px;
+	--radius-pill: 999px;
+	--shadow-card: 0 8px 24px rgba(78, 56, 48, 0.07);
+	--shadow-card-hover: 0 12px 30px rgba(78, 56, 48, 0.12);
+	--shadow-control: 0 5px 15px rgba(78, 56, 48, 0.05);
+	--shadow-dialog: 0 24px 70px rgba(48, 32, 27, 0.2);
+	--shadow-navigation: 0 -8px 25px rgba(78, 56, 48, 0.08);
+	--font-size-xs: 0.75rem;
+	--font-size-sm: 0.875rem;
+	--mobile-nav-height: 76px;
+	--desktop-nav-height: 72px;
+	--transition-fast: 160ms ease;
+	--z-navigation: 20;
+	--z-modal: 100;
+	--bg-color: var(--color-background);
+	--white: var(--color-surface);
+	--black: var(--color-text);
+	--text-color: var(--color-text-muted);
+	--text-color2: var(--color-text);
+	--orange: var(--color-coral);
+	--pink: var(--color-pink);
+	--pink-text: var(--color-pink-strong);
+	--bg-input: #eee7e2;
+	--border-card: var(--color-peach);
 }
 
-* {
-	box-sizing: border-box;
-	padding: 0;
-	margin: 0;
-}
-
-html {
-	overflow: hidden;
-}
-
-body {
-	background-color: var(--bg-color);
-	font-family: 'Montserrat', serif;
-	width: 100vw;
-}
-
-#modal {
-	display: flex;
-	justify-content: center;
-}
+* { box-sizing: border-box; padding: 0; margin: 0; }
+html { min-width: 320px; overflow-x: hidden; }
+body { min-width: 320px; min-height: 100vh; overflow-x: hidden; background: var(--color-background); color: var(--color-text); font-family: 'Montserrat', sans-serif; }
+button, input, select, textarea { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+#modal { position: relative; z-index: var(--z-modal); }
