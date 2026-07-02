@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4efc78d5-8992-4d6f-8951-246c9419d5f3" name="Changes" comment="chore: add initial project configuration files and guidelines" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_D:/karel/Tesis/myvanitys/myvanitys-web" value="36ymaF8gdcIi83EZK9yVpw1tbnZ" />
+    </persistenceIdMap>
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="145" />
+    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feat/VANITYS32-update-first-mobile" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;karepanda&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/karepanda/myvanitys-web.git&quot;,
+    &quot;accountId&quot;: &quot;ad7db3cf-64bd-4e88-b62a-6796b57eb92c&quot;
+  },
+  &quot;recentNewPullRequestHead&quot;: {
+    &quot;server&quot;: {
+      &quot;useHttp&quot;: false,
+      &quot;host&quot;: &quot;github.com&quot;,
+      &quot;port&quot;: null,
+      &quot;suffix&quot;: null
+    },
+    &quot;owner&quot;: &quot;karepanda&quot;,
+    &quot;repository&quot;: &quot;myvanitys-web&quot;
+  }
+}</component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.5396141182522138" />
+      <entry key="MS500" value="1.8860419300952227" />
+      <entry key="S2" value="2.8346888673992545" />
+      <entry key="S5" value="5.192331518782029" />
+      <entry key="S10" value="7.052217456387406" />
+      <entry key="S30" value="9.63748220525559" />
+      <entry key="S60" value="11.387653439960898" />
+      <entry key="M2" value="12.846254425435742" />
+      <entry key="M5" value="14.033563498946828" />
+      <entry key="M10" value="14.497104859595956" />
+      <entry key="M15" value="14.660185347479835" />
+      <entry key="M30" value="14.827770681638862" />
+      <entry key="H1" value="14.91329597860848" />
+      <entry key="H2" value="14.956499525772413" />
+      <entry key="H4" value="14.978212505685299" />
+      <entry key="D1" value="14.996363564297523" />
+      <entry key="W1" value="14.999480382008075" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="0.0" />
+      <entry key="S30" value="0.0" />
+      <entry key="S60" value="0.0" />
+      <entry key="M2" value="0.0" />
+      <entry key="M5" value="0.0" />
+      <entry key="M10" value="0.0" />
+      <entry key="M15" value="0.0" />
+      <entry key="M30" value="0.0" />
+      <entry key="H1" value="0.0" />
+      <entry key="H2" value="0.0" />
+      <entry key="H4" value="0.0" />
+      <entry key="D1" value="0.0" />
+      <entry key="W1" value="0.0" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="1.439522749214012" />
+      <entry key="MS500" value="1.860237620618621" />
+      <entry key="S2" value="2.825051381727324" />
+      <entry key="S5" value="5.185400754979895" />
+      <entry key="S10" value="7.04743808000545" />
+      <entry key="S30" value="9.6338640434017" />
+      <entry key="S60" value="11.38449009256895" />
+      <entry key="M2" value="12.844021578458733" />
+      <entry key="M5" value="14.032446043780334" />
+      <entry key="M10" value="14.496501306954091" />
+      <entry key="M15" value="14.65977238901283" />
+      <entry key="M30" value="14.827558741823392" />
+      <entry key="H1" value="14.913188611696997" />
+      <entry key="H2" value="14.956445489010564" />
+      <entry key="H4" value="14.97818539846633" />
+      <entry key="D1" value="14.996359034045446" />
+      <entry key="W1" value="14.9994797345254" />
+    </decayedShown>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="36ymaF8gdcIi83EZK9yVpw1tbnZ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "copilot.chat.legacySessionMetadata.migrated": "true",
+    "git-widget-placeholder": "feat/VANITYS33-kare",
+    "javascript.preferred.runtime.type.id": "node",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "D:/karel/Tesis/myvanitys/myvanitys-web",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "npm.start.executor": "Run",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="ReactDesignerToolWindowState">
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.intellij.reactbuddy.reactComponents" value="false" />
+        <entry key="com.intellij.reactbuddy.reactInspector" value="false" />
+        <entry key="com.intellij.reactbuddy.storybook" value="false" />
+      </map>
+    </option>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-WS-261.25134.101" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4efc78d5-8992-4d6f-8951-246c9419d5f3" name="Changes" comment="" />
+      <created>1765987248004</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1765987248004</updated>
+      <workItem from="1765987248005" duration="7000" />
+      <workItem from="1765987286171" duration="70000" />
+      <workItem from="1765987368626" duration="1118000" />
+      <workItem from="1773150126879" duration="26000" />
+      <workItem from="1782995958677" duration="6476000" />
+      <workItem from="1783004898992" duration="842000" />
+    </task>
+    <task id="LOCAL-00001" summary="chore: add initial project configuration files and guidelines">
+      <option name="closed" value="true" />
+      <created>1783001854833</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1783001854833</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="chore: add initial project configuration files and guidelines" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: add initial project configuration files and guidelines" />
+  </component>
+</project>
