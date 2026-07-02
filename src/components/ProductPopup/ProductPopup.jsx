@@ -8,6 +8,9 @@ import { CreateReviewPopup } from '../CreateReviewPopup/CreateReviewPopup';
 import { useReviews } from '../../hooks';
 import { getCategoryLabel, getCategoryName, getSafeHexColor } from '../../utils/dashboardProducts';
 
+const categoryClass = (category) =>
+	String(category || 'other').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+
 const ProductPopup = () => {
 	const {
 		toggleProductPopup,
@@ -33,7 +36,7 @@ const ProductPopup = () => {
 	return (
 		<>
 			<div className='productPopup'>
-				<section className='productPopup__header'>
+				<section className={`productPopup__header productPopup__header--${categoryClass(category)}`}>
 					<div>
 						{category && <span className='productPopup__category'>{getCategoryLabel(category)}</span>}
 						<h1 className='productPopup__header--title'>{selectedProduct.name}</h1>

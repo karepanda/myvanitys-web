@@ -39,12 +39,19 @@ const ProductCard = ({
 	return (
 		<article
 			className={`productCard productCard--${variant} productCard--${categoryClass(category)}`}
+			onClick={() => onOpen(product)}
+			onKeyDown={(event) => {
+				if (event.target === event.currentTarget && (event.key === 'Enter' || event.key === ' ')) {
+					event.preventDefault();
+					onOpen(product);
+				}
+			}}
+			role='button'
+			tabIndex={0}
+			aria-label={`Open details for ${product?.name || 'product'}`}
 		>
-			<button
-				type='button'
+			<div
 				className='productCard__content'
-				onClick={() => onOpen(product)}
-				aria-label={`Open details for ${product?.name || 'product'}`}
 			>
 				<div className='productCard__details'>
 					{category && <span className='productCard__category'>{getCategoryLabel(category)}</span>}
@@ -64,7 +71,7 @@ const ProductCard = ({
 					</svg>
 					<code>{color}</code>
 				</div>
-			</button>
+			</div>
 
 			{variant === 'collection' ? (
 				<div className='productCard__menu' ref={menuRef}>

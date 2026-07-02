@@ -23,6 +23,7 @@
 
 @media (min-width: 768px) {
 	.dashboard { min-height: calc(100dvh - var(--desktop-nav-height)); padding: var(--space-8) var(--space-6); }
+	.dashboard__eyebrow { display: none; }
 	.dashboard__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-5); }
 }
 

@@ -1,22 +1,13 @@
 @media (max-width: 768px) {
 	.popup__container {
-		display: flex;
-		flex-direction: column;
-		height: 100vh;
-		justify-content: flex-start;
+		min-height: 0;
+		grid-template-columns: 1fr;
 	}
-
-	.popup__header {
-		border-radius: 0%;
-	}
-
-	.popup__image {
-		margin: 0 auto;
-	}
+	.popup__imageWrap { display: none; }
+	.popup__description { min-height: 480px; padding: 96px 28px 40px; text-align: center; }
 }
 
-@media (max-width: 320px) {
-	.popup__description--btn {
-		width: 75%;
-	}
+@media (max-width: 420px) {
+	.popup { padding: 0; place-items: end center; }
+	.popup__container { width: 100%; border-radius: var(--radius-dialog) var(--radius-dialog) 0 0; }
 }

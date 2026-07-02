@@ -25,7 +25,7 @@
 
 .productCard:hover { transform: translateY(-2px); box-shadow: var(--shadow-card-hover); }
 .productCard__content { display: grid; width: 100%; padding: 0; grid-template-columns: minmax(0, 1fr) 76px; gap: var(--space-4); border: 0; background: transparent; font: inherit; text-align: left; cursor: pointer; }
-.productCard__content:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 4px; border-radius: var(--radius-sm); }
+.productCard:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; }
 .productCard__details { min-width: 0; }
 .productCard__category { display: inline-flex; min-height: 24px; align-items: center; padding: 0 var(--space-2); border-radius: var(--radius-pill); background: color-mix(in srgb, var(--category-color) 28%, white); color: var(--color-text); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
 .productCard__brand { margin-top: var(--space-3); color: var(--color-text-subtle); font-size: var(--font-size-sm); }

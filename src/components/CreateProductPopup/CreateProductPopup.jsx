@@ -19,6 +19,7 @@ const CreateProductPopup = () => {
 	];
 
 	const [localCategoryId, setLocalCategoryId] = useState('');
+	const [productColor, setProductColor] = useState('#8A8A8A');
 
 	const {
 		toggleCreateProductPopup,
@@ -52,14 +53,18 @@ const CreateProductPopup = () => {
 
 	useEffect(() => {
 		if (selectedProduct) {
+			const selectedColor = selectedProduct.colorHex || selectedProduct.color || '#8A8A8A';
 			reset({
 				...selectedProduct,
 				categoryId: selectedProduct.categoryId || '',
+				color: selectedColor,
 			});
 			setLocalCategoryId(selectedProduct.categoryId || '');
+			setProductColor(selectedColor);
 		} else {
-			reset();
+			reset({ color: '#8A8A8A' });
 			setLocalCategoryId('');
+			setProductColor('#8A8A8A');
 		}
 	}, [selectedProduct, reset]);
 
@@ -89,6 +94,7 @@ const CreateProductPopup = () => {
 				setShowCreateProductPopup(false);
 				reset();
 				setLocalCategoryId('');
+				setProductColor('#8A8A8A');
 			}
 		} catch {
 			errorHandler.showGenericError();
@@ -185,7 +191,12 @@ const CreateProductPopup = () => {
 								type='color'
 								id='color'
 								{...register('color', { required: true })}
-								defaultValue='#D9D9D9'
+								value={productColor}
+								onChange={(event) => {
+									setProductColor(event.target.value);
+									setValue('color', event.target.value, { shouldValidate: true });
+								}}
+								aria-label='Choose product color'
 							/>
 						</div>
 

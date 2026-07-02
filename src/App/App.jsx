@@ -18,10 +18,11 @@ const AppContent = () => {
 		errorTitle,
 		errorType,
 	} = useContext(VanitysContext);
+	const standaloneRoute = location.pathname === '/dashboard' || location.pathname === '/callback';
 
 	return (
-		<div className={`app-container${location.pathname === '/dashboard' ? ' app-container--dashboard' : ''}`}>
-			{location.pathname !== '/dashboard' && <Navbar />}
+		<div className={`app-container${standaloneRoute ? ' app-container--dashboard' : ''}`}>
+			{!standaloneRoute && <Navbar />}
 			<AppRoutes />
 			{showMissingFieldsPopup && (
 				<Modal>

@@ -3,22 +3,37 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
+  <component name="BackgroundAgentGlobalSettings">
+    <option name="selectedModelId" value="auto" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="4efc78d5-8992-4d6f-8951-246c9419d5f3" name="Changes" comment="feat: implement visual rework for dashboard and product components">
+    <list default="true" id="4efc78d5-8992-4d6f-8951-246c9419d5f3" name="Changes" comment="feat: enhance dashboard and product components with improved search functionality and responsive design">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/index-BifoXZEE.css" beforeDir="false" afterPath="$PROJECT_DIR$/dist/assets/index-BifoXZEE.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/assets/index-Bt7-SxRt.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/assets/index-Bt7-SxRt.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Dashboard/Dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dashboard/Dashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MainContent/MainContent.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MainContent/MainContent.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MainContent/MainContent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MainContent/MainContent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MainContent/MainContent.responsive.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MainContent/MainContent.responsive.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App/App.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Auth/Auth.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Auth/Auth.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Auth/AuthCallbackHandler.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Auth/AuthCallbackHandler.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Categories/Categories.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Categories/Categories.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ConfirmationDialog/ConfirmationDialog.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ConfirmationDialog/ConfirmationDialog.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CookieBanner/CookieBanner.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CookieBanner/CookieBanner.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CookieBanner/CookieBanner.responsive.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CookieBanner/CookieBanner.responsive.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CreateProductPopup/CreateProductPopup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CreateProductPopup/CreateProductPopup.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CreateProductPopup/CreateProductPopup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CreateProductPopup/CreateProductPopup.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Dashboard/Dashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dashboard/Dashboard.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MissingFieldsPopup/MissingFieldsPopup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MissingFieldsPopup/MissingFieldsPopup.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MissingFieldsPopup/MissingFieldsPopup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MissingFieldsPopup/MissingFieldsPopup.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Navbar/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/Navbar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/context/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useProductSearch.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useProductSearch.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/usePublicProducts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/usePublicProducts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/product/operations/searchProductService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/product/operations/searchProductService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/utils/dashboardProducts.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/utils/dashboardProducts.test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/dashboardProducts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/dashboardProducts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Navbar/Navbar.responsive.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/Navbar.responsive.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Popup/Popup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Popup/Popup.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Popup/Popup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Popup/Popup.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Popup/Popup.responsive.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Popup/Popup.responsive.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ProductCard/ProductCard.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductCard/ProductCard.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ProductCard/ProductCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductCard/ProductCard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ProductPopup/ProductPopup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductPopup/ProductPopup.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ProductPopup/ProductPopup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductPopup/ProductPopup.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UserMessage/UserMessage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserMessage/UserMessage.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UserMessage/UserMessage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserMessage/UserMessage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/WelcomePopup/WelcomePopup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/WelcomePopup/WelcomePopup.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/WelcomePopup/WelcomePopup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/WelcomePopup/WelcomePopup.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,23 +96,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.030406794684382" />
-      <entry key="MS500" value="2.73024204336012" />
-      <entry key="S2" value="6.064196185776296" />
-      <entry key="S5" value="10.0485823926278" />
-      <entry key="S10" value="15.071785187376761" />
-      <entry key="S30" value="23.002437912594377" />
-      <entry key="S60" value="26.420129414562442" />
-      <entry key="M2" value="29.649088159258138" />
-      <entry key="M5" value="42.454429750133706" />
-      <entry key="M10" value="64.26700515351851" />
-      <entry key="M15" value="78.52253952380418" />
-      <entry key="M30" value="99.11308989052654" />
-      <entry key="H1" value="112.66083217427915" />
-      <entry key="H2" value="120.4470418066332" />
-      <entry key="H4" value="124.62299370572828" />
-      <entry key="D1" value="128.25612035370426" />
-      <entry key="W1" value="128.89337378668756" />
+      <entry key="MS100" value="1.659753955386447" />
+      <entry key="MS500" value="1.9201876506248752" />
+      <entry key="S2" value="1.9794202975869268" />
+      <entry key="S5" value="1.9917167307382933" />
+      <entry key="S10" value="1.9958497530944581" />
+      <entry key="S30" value="1.998614666101029" />
+      <entry key="S60" value="1.9993070929904524" />
+      <entry key="M2" value="1.9996534864594093" />
+      <entry key="M5" value="1.9998613801725043" />
+      <entry key="M10" value="1.9999307708056198" />
+      <entry key="M15" value="2.000047004528691" />
+      <entry key="M30" value="2.1079642061919257" />
+      <entry key="H1" value="5.718711278674187" />
+      <entry key="H2" value="23.882979381222583" />
+      <entry key="H4" value="55.11942556567309" />
+      <entry key="D1" value="113.26381984478904" />
+      <entry key="W1" value="128.30276502891854" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -119,29 +134,43 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.9950090465718405" />
-      <entry key="MS500" value="2.708797932980943" />
-      <entry key="S2" value="6.0516880866039715" />
-      <entry key="S5" value="10.0398968988465" />
-      <entry key="S10" value="15.065085580224254" />
-      <entry key="S30" value="22.998961484476002" />
-      <entry key="S60" value="26.41810744318861" />
-      <entry key="M2" value="29.64767248461547" />
-      <entry key="M5" value="42.4526010299046" />
-      <entry key="M10" value="64.26510684589563" />
-      <entry key="M15" value="78.5208686712153" />
-      <entry key="M30" value="99.11197034557341" />
-      <entry key="H1" value="112.66018082395425" />
-      <entry key="H2" value="120.44669007386433" />
-      <entry key="H4" value="124.62281088533454" />
-      <entry key="D1" value="128.25608887823748" />
-      <entry key="W1" value="128.89336926503833" />
+      <entry key="MS100" value="1.4961982434636283" />
+      <entry key="MS500" value="1.8796496459306529" />
+      <entry key="S2" value="1.9688340518288552" />
+      <entry key="S5" value="1.9874445956443378" />
+      <entry key="S10" value="1.9937073555944467" />
+      <entry key="S30" value="1.9978991216130713" />
+      <entry key="S60" value="1.9989491439137679" />
+      <entry key="M2" value="1.9994744676877878" />
+      <entry key="M5" value="1.9997897620446539" />
+      <entry key="M10" value="1.9998949599691043" />
+      <entry key="M15" value="2.0000231282624834" />
+      <entry key="M30" value="2.1079510490689675" />
+      <entry key="H1" value="5.71868381010303" />
+      <entry key="H2" value="23.88291249355522" />
+      <entry key="H4" value="55.11934614793834" />
+      <entry key="D1" value="113.26379229072157" />
+      <entry key="W1" value="128.30276056262088" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
   <component name="ProjectId" id="36ymaF8gdcIi83EZK9yVpw1tbnZ" />
+  <component name="ProjectSessionTemplates">
+    <option name="panelTemplate">
+      <template>
+        <option name="modeId" value="Ask" />
+        <option name="model">
+          <model>
+            <option name="modelType" value="builtin_id" />
+            <option name="modelValue" value="auto" />
+          </model>
+        </option>
+        <option name="targetType" value="LOCAL" />
+      </template>
+    </option>
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -232,7 +261,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783017294336</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="feat: enhance dashboard and product components with improved search functionality and responsive design">
+      <option name="closed" value="true" />
+      <created>1783025423693</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1783025423693</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -241,6 +278,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="chore: add initial project configuration files and guidelines" />
     <MESSAGE value="feat: implement visual rework for dashboard and product components" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: implement visual rework for dashboard and product components" />
+    <MESSAGE value="feat: enhance dashboard and product components with improved search functionality and responsive design" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: enhance dashboard and product components with improved search functionality and responsive design" />
   </component>
 </project>

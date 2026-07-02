@@ -6,8 +6,9 @@ import { VanitysContext } from '../../context/index';
 const UserMessage = ({
 	message,
 	title = 'Missing fields',
-	type = 'warning', // Fixed: Added missing closing parenthesis
-}) => { // Fixed: Added missing arrow function syntax
+	type = 'warning',
+	onClose,
+}) => {
 	const { setShowMissingFieldsPopup } = useContext(VanitysContext);
 
 	// Get the appropriate class according to type
@@ -26,18 +27,18 @@ const UserMessage = ({
 	};
 
 	return (
-		<div className='missingFieldsPopup'>
+		<div className='missingFieldsPopup' role='alertdialog' aria-modal='true'>
+			<div className='missingFieldsPopup__panel'>
 			<section className={getHeaderClass()}>
-				<h1 className='missingFieldsPopup__header--title'>{title}</h1>
-				<IoClose
-					onClick={() => setShowMissingFieldsPopup(false)}
-					size={40}
-					className='missingFieldsPopup__header--icon'
-				/>
+				<span className='missingFieldsPopup__marker' aria-hidden='true'>!</span>
+				<button type='button' className='missingFieldsPopup__header--icon' onClick={() => onClose ? onClose() : setShowMissingFieldsPopup(false)} aria-label='Close message'><IoClose aria-hidden='true' /></button>
 			</section>
 			<section className='missingFieldsPopup__content'>
+				<h1 className='missingFieldsPopup__header--title'>{title}</h1>
 				<p className='missingFieldsPopup__content--text'>{message}</p>
+				<button type='button' className='missingFieldsPopup__action' onClick={() => onClose ? onClose() : setShowMissingFieldsPopup(false)}>Got it</button>
 			</section>
+			</div>
 		</div>
 	);
 };

@@ -72,13 +72,13 @@ const Navbar = () => {
 	return (
 		<>
 			<header className={isAuthenticated ? 'header-dashboard' : 'header'}>
-				<div className='header__menu'>
+				{isAuthenticated && <div className='header__menu'>
 					<img
 						className='header__menu--icon'
 						src={menuHamburguer}
 						alt='Menu'
 					/>
-				</div>
+				</div>}
 
 				<h1
 					className='header__title'
@@ -88,11 +88,11 @@ const Navbar = () => {
 					My Vanity´s
 				</h1>
 
-				<div className='header__search'>
+				{isAuthenticated && <div className='header__search'>
 					<img className='header__search--icon' src={searchIcon} alt='' />
-				</div>
+				</div>}
 
-				<div className='search-input-container'>
+				{isAuthenticated && <div className='search-input-container'>
 					<div className='header__tooltip-wrapper'>
 						<input
 							className={`header__input ${
@@ -123,7 +123,7 @@ const Navbar = () => {
 						title='Search products'
 					/>
 
-				</div>
+				</div>}
 
 				{showLoginButtons && (
 					<>
