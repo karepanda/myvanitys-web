@@ -1,5 +1,12 @@
 export const ALL_CATEGORIES = 'All';
 
+export const normalizeProductCollection = (value) => {
+	if (Array.isArray(value)) return value;
+	if (Array.isArray(value?.content)) return value.content;
+	if (Array.isArray(value?.products)) return value.products;
+	return [];
+};
+
 export const getCategoryName = (product) => {
 	const category = product?.category;
 	if (typeof category === 'string') return category.trim();
@@ -11,7 +18,7 @@ export const getCategoryLabel = (category) =>
 	category === 'Eyelash' ? 'Lashes' : category;
 
 export const getAvailableCategories = (products = []) => {
-	const categories = products
+	const categories = normalizeProductCollection(products)
 		.map(getCategoryName)
 		.filter(Boolean)
 		.filter((category, index, list) => list.indexOf(category) === index);
@@ -21,11 +28,11 @@ export const getAvailableCategories = (products = []) => {
 
 export const filterByCategory = (products = [], category = ALL_CATEGORIES) =>
 	category === ALL_CATEGORIES
-		? [...products]
-		: products.filter((product) => getCategoryName(product) === category);
+		? [...normalizeProductCollection(products)]
+		: normalizeProductCollection(products).filter((product) => getCategoryName(product) === category);
 
 export const sortProducts = (products = [], sort = 'default') => {
-	const result = [...products];
+	const result = [...normalizeProductCollection(products)];
 	const compare = (field) => (left, right) =>
 		String(left?.[field] || '').localeCompare(String(right?.[field] || ''), 'en', {
 			sensitivity: 'base',

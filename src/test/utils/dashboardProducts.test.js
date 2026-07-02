@@ -6,6 +6,7 @@ import {
 	getCategoryLabel,
 	getCategoryName,
 	getSafeHexColor,
+	normalizeProductCollection,
 	sortProducts,
 } from '../../utils/dashboardProducts';
 
@@ -24,6 +25,14 @@ describe('dashboard product utilities', () => {
 
 	it('only returns available categories and always includes All', () => {
 		expect(getAvailableCategories(products)).toEqual([ALL_CATEGORIES, 'Face', 'Eyelash']);
+	});
+
+	it('normalizes array and wrapped API product responses', () => {
+		expect(normalizeProductCollection(products)).toBe(products);
+		expect(normalizeProductCollection({ content: products })).toEqual(products);
+		expect(normalizeProductCollection({ products })).toEqual(products);
+		expect(normalizeProductCollection(null)).toEqual([]);
+		expect(getAvailableCategories({ content: products })).toEqual([ALL_CATEGORIES, 'Face', 'Eyelash']);
 	});
 
 	it('filters by normalized category and restores all products', () => {

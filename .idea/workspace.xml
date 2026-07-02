@@ -4,44 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4efc78d5-8992-4d6f-8951-246c9419d5f3" name="Changes" comment="chore: add initial project configuration files and guidelines">
-      <change afterPath="$PROJECT_DIR$/src/dev/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/palette.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/previews.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dev/useInitial.js" afterDir="false" />
+    <list default="true" id="4efc78d5-8992-4d6f-8951-246c9419d5f3" name="Changes" comment="feat: implement visual rework for dashboard and product components">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CLAUDE.md" beforeDir="false" afterPath="$PROJECT_DIR$/CLAUDE.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/UserDashboard/UserDashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/UserDashboard/UserDashboard.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/UserDashboard/UserDashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/UserDashboard/UserDashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Categories/Categories.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Categories/Categories.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Categories/Categories.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Categories/Categories.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CreateProductPopup/CreateProductPopup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CreateProductPopup/CreateProductPopup.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CreateProductPopup/CreateProductPopup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CreateProductPopup/CreateProductPopup.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CreateReviewPopup/CreateReviewPopup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CreateReviewPopup/CreateReviewPopup.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CreateReviewPopup/CreateReviewPopup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CreateReviewPopup/CreateReviewPopup.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Dashboard/Dashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dashboard/Dashboard.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/index-BifoXZEE.css" beforeDir="false" afterPath="$PROJECT_DIR$/dist/assets/index-BifoXZEE.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/assets/index-Bt7-SxRt.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/assets/index-Bt7-SxRt.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Dashboard/Dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dashboard/Dashboard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/DeleteModal/DeleteModal.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DeleteModal/DeleteModal.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/DeleteModal/DeleteModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DeleteModal/DeleteModal.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Modal/Modal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Modal/Modal.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Notification/Notification.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Notification/Notification.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Notification/Notification.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Notification/Notification.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProductCard/ProductCard.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductCard/ProductCard.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProductCard/ProductCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductCard/ProductCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProductPopup/ProductPopup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductPopup/ProductPopup.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProductPopup/ProductPopup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductPopup/ProductPopup.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PublicProductCard/PublicProductCard.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PublicProductCard/PublicProductCard.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SearchedProductCard/SearchedProductCard.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SearchedProductCard/SearchedProductCard.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UserProfile/UserProfile.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserProfile/UserProfile.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UserProfile/UserProfile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserProfile/UserProfile.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/App.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MainContent/MainContent.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MainContent/MainContent.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MainContent/MainContent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MainContent/MainContent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MainContent/MainContent.responsive.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MainContent/MainContent.responsive.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Navbar/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/Navbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/context/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/index.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useProductSearch.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useProductSearch.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/usePublicProducts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/usePublicProducts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/product/operations/searchProductService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/product/operations/searchProductService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/utils/dashboardProducts.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/utils/dashboardProducts.test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/dashboardProducts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/dashboardProducts.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -206,6 +183,18 @@
       </map>
     </option>
   </component>
+  <component name="RunManager">
+    <configuration name="start" type="js.build_tools.npm" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -235,7 +224,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783001854833</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="feat: implement visual rework for dashboard and product components">
+      <option name="closed" value="true" />
+      <created>1783017294336</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1783017294336</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -243,6 +240,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="chore: add initial project configuration files and guidelines" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: add initial project configuration files and guidelines" />
+    <MESSAGE value="feat: implement visual rework for dashboard and product components" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: implement visual rework for dashboard and product components" />
   </component>
 </project>

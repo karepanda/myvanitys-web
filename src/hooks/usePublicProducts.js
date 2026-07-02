@@ -1,5 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 import { VanitysContext } from '../context';
+import { normalizeProductCollection } from '../utils/dashboardProducts';
 
 export const usePublicProducts = () => {
 	const [publicProducts, setPublicProducts] = useState([]);
@@ -39,8 +40,8 @@ export const usePublicProducts = () => {
 				),
 			]);
 
-			const allProds = allProductsResult || [];
-			const userProds = userProductsResult || [];
+			const allProds = normalizeProductCollection(allProductsResult);
+			const userProds = normalizeProductCollection(userProductsResult);
 
 			const userProductIds = new Set(userProds.map((product) => product.id));
 			const availableProducts = allProds.filter(
@@ -126,8 +127,8 @@ export const usePublicProducts = () => {
 
 		const searchResults = publicProducts.filter((product) => {
 			return (
-				product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-				product.brand.toLowerCase().includes(searchTerm.toLowerCase())
+				String(product?.name || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+				String(product?.brand || '').toLowerCase().includes(searchTerm.toLowerCase())
 			);
 		});
 

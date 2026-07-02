@@ -33,6 +33,7 @@ const Dashboard = () => {
 	const {
 		apiResponse,
 		searchText,
+		setSearchText,
 		handleSearch,
 		showCreateProductPopup,
 		toggleCreateProductPopup,
@@ -88,6 +89,14 @@ const Dashboard = () => {
 		}
 	}, [mode, publicHasLoaded, publicLoading]);
 
+	useEffect(() => {
+		if (mode !== 'search') return;
+		const query = (searchParams.get('q') || '').trim();
+		if (query.length < 2 || query === lastSearchQuery || isSearching) return;
+		setSearchText(query);
+		searchProducts(query);
+	}, [mode, searchParams, lastSearchQuery, isSearching, setSearchText]);
+
 	const modeProducts = mode === 'search' ? searchResults : mode === 'add-products' ? publicProducts : userProducts;
 	const error = mode === 'search' ? searchError : mode === 'add-products' ? publicError : userError;
 	const loading = mode === 'search' ? isSearching : mode === 'add-products' ? publicLoading : userLoading;
@@ -112,7 +121,9 @@ const Dashboard = () => {
 	const submitSearch = async (event) => {
 		event?.preventDefault();
 		if (searchText.trim().length < 2 || isSearching) return;
-		await searchProducts(searchText);
+		const query = searchText.trim();
+		setSearchParams({ mode: 'search', q: query });
+		await searchProducts(query);
 	};
 
 	const confirmDelete = async () => {

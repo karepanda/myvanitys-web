@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import './Navbar.css';
 import './Navbar.responsive.css';
 import { Modal } from '../Modal/Modal';
@@ -7,8 +7,6 @@ import { Login } from '../Login/Login';
 import { VanitysContext } from '../../context';
 import { CreateProductPopup } from '../CreateProductPopup/CreateProductPopup';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { usePublicProducts } from '../../hooks/usePublicProducts';
-import { useProductSearch } from '../../hooks/useProductSearch';
 import searchIcon from '../../assets/icon _search.png';
 import userPhoto from '../../assets/user_photo.png';
 import menuHamburguer from '../../assets/menu-hamburguer.png';
@@ -27,23 +25,8 @@ const Navbar = () => {
 		handleSearch,
 		toggleUserProfile,
 		showCookieBanner,
-		logout,
 		renderButtonWithTooltip,
 	} = useContext(VanitysContext);
-
-	const {
-		publicProducts,
-		allProducts,
-		userProducts,
-		loading,
-		error,
-		hasLoaded,
-		loadPublicProducts,
-	} = usePublicProducts();
-
-	const { searchProducts, isSearching } = useProductSearch();
-
-	const [isSearchMode, setIsSearchMode] = useState(false);
 
 	const location = useLocation();
 	const isActive =
@@ -53,30 +36,17 @@ const Navbar = () => {
 	const navigate = useNavigate();
 
 	const goToMyVanity = () => {
-		setIsSearchMode(false);
 		navigate('/dashboard');
 	};
 
-	const handleLogout = () => {
-		logout();
-		setIsSearchMode(false);
-	};
-
-	const handleSearchSubmit = async () => {
+	const handleSearchSubmit = () => {
 		if (showCookieBanner || !searchText.trim()) return;
 
 		if (searchText.trim().length < 2) {
 			return;
 		}
 
-		if (isSearching) {
-			return;
-		}
-
-		navigate('/dashboard?mode=search');
-		setIsSearchMode(true);
-
-		const success = await searchProducts(searchText);
+		navigate(`/dashboard?mode=search&q=${encodeURIComponent(searchText.trim())}`);
 	};
 
 	const handleSearchKeyDown = (e) => {
@@ -85,14 +55,9 @@ const Navbar = () => {
 		}
 	};
 
-	const handleProductsClick = async () => {
+	const handleProductsClick = () => {
 		if (showCookieBanner) return;
 
-		if (loading) {
-			return;
-		}
-
-		setIsSearchMode(false);
 		navigate('/dashboard?mode=add-products');
 	};
 
@@ -101,7 +66,7 @@ const Navbar = () => {
 
 	const getSearchPlaceholder = () => {
 		if (!isAuthenticated) return 'Search...';
-		return isSearching ? 'Searching...' : 'Search products...';
+		return 'Search products...';
 	};
 
 	return (
@@ -132,7 +97,7 @@ const Navbar = () => {
 						<input
 							className={`header__input ${
 								showCookieBanner ? 'disabled' : ''
-							} ${isSearching ? 'searching' : ''}`}
+							}`}
 							type='text'
 							placeholder={getSearchPlaceholder()}
 							value={searchText}
@@ -158,9 +123,6 @@ const Navbar = () => {
 						title='Search products'
 					/>
 
-					{isAuthenticated && isSearching && (
-						<div className='search-loading-indicator'>⟳</div>
-					)}
 				</div>
 
 				{showLoginButtons && (

@@ -20,7 +20,9 @@ const VanitysProvider = ({ children }) => {
 	const [showCreateReviewPopup, setShowCreateReviewPopup] = useState(false);
 	const [showUserProfile, setShowUserProfile] = useState(false);
 	const [showNotification, setShowNotification] = useState(false);
-	const [showWelcomePopup, setShowWelcomePopup] = useState(true);
+	// The welcome dialog is opt-in: authentication flows open it only for a
+	// newly-created user. Starting as `true` made it appear after every reload.
+	const [showWelcomePopup, setShowWelcomePopup] = useState(false);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 
 	// Product Refresh Triggers
