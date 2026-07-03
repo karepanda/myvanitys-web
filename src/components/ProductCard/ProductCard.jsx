@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 import { FiCheck, FiMoreHorizontal, FiPlus, FiStar, FiTrash2, FiEdit3 } from 'react-icons/fi';
 import {
 	getCategoryLabel,
@@ -108,6 +109,23 @@ const ProductCard = ({
 			)}
 		</article>
 	);
+};
+
+ProductCard.propTypes = {
+	product: PropTypes.shape({
+		name: PropTypes.string,
+		brand: PropTypes.string,
+		colorHex: PropTypes.string,
+		averageRating: PropTypes.number,
+		reviews: PropTypes.array,
+		inUserCollection: PropTypes.bool,
+	}).isRequired,
+	variant: PropTypes.oneOf(['collection', 'search']).isRequired,
+	onOpen: PropTypes.func.isRequired,
+	onAdd: PropTypes.func,
+	onReview: PropTypes.func,
+	onDelete: PropTypes.func,
+	isAdding: PropTypes.bool,
 };
 
 export { ProductCard };

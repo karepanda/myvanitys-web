@@ -7,33 +7,10 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4efc78d5-8992-4d6f-8951-246c9419d5f3" name="Changes" comment="feat: enhance dashboard and product components with improved search functionality and responsive design">
+    <list default="true" id="4efc78d5-8992-4d6f-8951-246c9419d5f3" name="Changes" comment="feat: update visual design and accessibility for various components, enhancing user experience">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Auth/Auth.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Auth/Auth.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Auth/AuthCallbackHandler.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Auth/AuthCallbackHandler.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Categories/Categories.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Categories/Categories.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ConfirmationDialog/ConfirmationDialog.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ConfirmationDialog/ConfirmationDialog.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CookieBanner/CookieBanner.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CookieBanner/CookieBanner.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CookieBanner/CookieBanner.responsive.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CookieBanner/CookieBanner.responsive.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CreateProductPopup/CreateProductPopup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CreateProductPopup/CreateProductPopup.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CreateProductPopup/CreateProductPopup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CreateProductPopup/CreateProductPopup.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Dashboard/Dashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Dashboard/Dashboard.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MissingFieldsPopup/MissingFieldsPopup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MissingFieldsPopup/MissingFieldsPopup.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MissingFieldsPopup/MissingFieldsPopup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MissingFieldsPopup/MissingFieldsPopup.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/Navbar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navbar/Navbar.responsive.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar/Navbar.responsive.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Popup/Popup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Popup/Popup.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Popup/Popup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Popup/Popup.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Popup/Popup.responsive.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Popup/Popup.responsive.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProductCard/ProductCard.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductCard/ProductCard.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eslint.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/eslint.config.mjs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ProductCard/ProductCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductCard/ProductCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProductPopup/ProductPopup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductPopup/ProductPopup.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProductPopup/ProductPopup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductPopup/ProductPopup.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UserMessage/UserMessage.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserMessage/UserMessage.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UserMessage/UserMessage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UserMessage/UserMessage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/WelcomePopup/WelcomePopup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/WelcomePopup/WelcomePopup.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/WelcomePopup/WelcomePopup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/WelcomePopup/WelcomePopup.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,6 +130,9 @@
       <entry key="W1" value="128.30276056262088" />
     </decayedShown>
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -175,34 +155,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "copilot.chat.legacySessionMetadata.migrated": "true",
-    "git-widget-placeholder": "feat/visual-rework",
-    "javascript.preferred.runtime.type.id": "node",
-    "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "D:/karel/Tesis/myvanitys/myvanitys-web",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.start # Dev server at http://localhost:5173.executor": "Run",
-    "npm.start # Development server.executor": "Run",
-    "npm.start.executor": "Run",
-    "npm.test # Run tests in watch mode.executor": "Run",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;copilot.chat.legacySessionMetadata.migrated&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feat/visual-rework&quot;,
+    &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/karel/Tesis/myvanitys/myvanitys-web&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.start # Dev server at http://localhost:5173.executor&quot;: &quot;Run&quot;,
+    &quot;npm.start # Development server.executor&quot;: &quot;Run&quot;,
+    &quot;npm.start.executor&quot;: &quot;Run&quot;,
+    &quot;npm.test # Run tests in watch mode.executor&quot;: &quot;Run&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
@@ -227,7 +207,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-WS-261.25134.101" />
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-WS-261.26222.58" />
       </set>
     </attachedChunks>
   </component>
@@ -244,6 +224,7 @@
       <workItem from="1773150126879" duration="26000" />
       <workItem from="1782995958677" duration="6476000" />
       <workItem from="1783004898992" duration="842000" />
+      <workItem from="1783084041477" duration="1364000" />
     </task>
     <task id="LOCAL-00001" summary="chore: add initial project configuration files and guidelines">
       <option name="closed" value="true" />
@@ -274,6 +255,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="chore: add initial project configuration files and guidelines" />
