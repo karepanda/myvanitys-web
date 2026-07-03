@@ -7,10 +7,8 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4efc78d5-8992-4d6f-8951-246c9419d5f3" name="Changes" comment="feat: update visual design and accessibility for various components, enhancing user experience">
+    <list default="true" id="4efc78d5-8992-4d6f-8951-246c9419d5f3" name="Changes" comment="feat: enhance ProductCard component with PropTypes validation and update ESLint configuration">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eslint.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/eslint.config.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProductCard/ProductCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProductCard/ProductCard.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -224,7 +222,7 @@
       <workItem from="1773150126879" duration="26000" />
       <workItem from="1782995958677" duration="6476000" />
       <workItem from="1783004898992" duration="842000" />
-      <workItem from="1783084041477" duration="1364000" />
+      <workItem from="1783084041477" duration="3126000" />
     </task>
     <task id="LOCAL-00001" summary="chore: add initial project configuration files and guidelines">
       <option name="closed" value="true" />
@@ -250,7 +248,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783025423693</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="feat: enhance ProductCard component with PropTypes validation and update ESLint configuration">
+      <option name="closed" value="true" />
+      <created>1783085611141</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1783085611141</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -271,6 +277,7 @@
     <MESSAGE value="chore: add initial project configuration files and guidelines" />
     <MESSAGE value="feat: implement visual rework for dashboard and product components" />
     <MESSAGE value="feat: enhance dashboard and product components with improved search functionality and responsive design" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: enhance dashboard and product components with improved search functionality and responsive design" />
+    <MESSAGE value="feat: enhance ProductCard component with PropTypes validation and update ESLint configuration" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: enhance ProductCard component with PropTypes validation and update ESLint configuration" />
   </component>
 </project>
