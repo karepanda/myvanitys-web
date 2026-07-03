@@ -7,8 +7,13 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4efc78d5-8992-4d6f-8951-246c9419d5f3" name="Changes" comment="feat: enhance ProductCard component with PropTypes validation and update ESLint configuration">
+    <list default="true" id="4efc78d5-8992-4d6f-8951-246c9419d5f3" name="Changes" comment="feat: update workspace configuration to reflect recent changes in ProductCard component">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Categories/Categories.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Categories/Categories.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CreateProductPopup/CreateProductPopup.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CreateProductPopup/CreateProductPopup.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DashboardNavigation/DashboardNavigation.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DashboardNavigation/DashboardNavigation.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MainContent/MainContent.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MainContent/MainContent.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MainContent/MainContent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MainContent/MainContent.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,23 +76,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.659753955386447" />
-      <entry key="MS500" value="1.9201876506248752" />
-      <entry key="S2" value="1.9794202975869268" />
-      <entry key="S5" value="1.9917167307382933" />
-      <entry key="S10" value="1.9958497530944581" />
-      <entry key="S30" value="1.998614666101029" />
-      <entry key="S60" value="1.9993070929904524" />
-      <entry key="M2" value="1.9996534864594093" />
-      <entry key="M5" value="1.9998613801725043" />
-      <entry key="M10" value="1.9999307708056198" />
-      <entry key="M15" value="2.000047004528691" />
-      <entry key="M30" value="2.1079642061919257" />
-      <entry key="H1" value="5.718711278674187" />
-      <entry key="H2" value="23.882979381222583" />
-      <entry key="H4" value="55.11942556567309" />
-      <entry key="D1" value="113.26381984478904" />
-      <entry key="W1" value="128.30276502891854" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0000099979142132" />
+      <entry key="S2" value="1.0607192992646335" />
+      <entry key="S5" value="1.4320460247653735" />
+      <entry key="S10" value="1.9382083227786067" />
+      <entry key="S30" value="3.039765868350807" />
+      <entry key="S60" value="3.757785775625396" />
+      <entry key="M2" value="4.290259755560937" />
+      <entry key="M5" value="4.690867147361482" />
+      <entry key="M10" value="4.8408437229532995" />
+      <entry key="M15" value="4.893120579474177" />
+      <entry key="M30" value="5.070957973047465" />
+      <entry key="H1" value="8.01738637403526" />
+      <entry key="H2" value="23.305254846413575" />
+      <entry key="H4" value="59.69470187095848" />
+      <entry key="D1" value="166.17269608917104" />
+      <entry key="W1" value="202.17181835080774" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -95,37 +100,37 @@
       <entry key="S2" value="0.0" />
       <entry key="S5" value="0.0" />
       <entry key="S10" value="0.0" />
-      <entry key="S30" value="0.0" />
-      <entry key="S60" value="0.0" />
-      <entry key="M2" value="0.0" />
-      <entry key="M5" value="0.0" />
-      <entry key="M10" value="0.0" />
-      <entry key="M15" value="0.0" />
-      <entry key="M30" value="0.0" />
-      <entry key="H1" value="0.0" />
-      <entry key="H2" value="0.0" />
-      <entry key="H4" value="0.0" />
-      <entry key="D1" value="0.0" />
-      <entry key="W1" value="0.0" />
+      <entry key="S30" value="2.81685663334774E-149" />
+      <entry key="S60" value="5.307406742905345E-75" />
+      <entry key="M2" value="7.285244172533508E-38" />
+      <entry key="M5" value="1.4245884510817297E-15" />
+      <entry key="M10" value="5.162363510152192E-8" />
+      <entry key="M15" value="2.3093918291214364E-5" />
+      <entry key="M30" value="0.013567996289474383" />
+      <entry key="H1" value="0.36022845478956095" />
+      <entry key="H2" value="1.888941517940339" />
+      <entry key="H4" value="4.341430663604298" />
+      <entry key="D1" value="8.700468637353993" />
+      <entry key="W1" value="9.803061756565624" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.4961982434636283" />
-      <entry key="MS500" value="1.8796496459306529" />
-      <entry key="S2" value="1.9688340518288552" />
-      <entry key="S5" value="1.9874445956443378" />
-      <entry key="S10" value="1.9937073555944467" />
-      <entry key="S30" value="1.9978991216130713" />
-      <entry key="S60" value="1.9989491439137679" />
-      <entry key="M2" value="1.9994744676877878" />
-      <entry key="M5" value="1.9997897620446539" />
-      <entry key="M10" value="1.9998949599691043" />
-      <entry key="M15" value="2.0000231282624834" />
-      <entry key="M30" value="2.1079510490689675" />
-      <entry key="H1" value="5.71868381010303" />
-      <entry key="H2" value="23.88291249355522" />
-      <entry key="H4" value="55.11934614793834" />
-      <entry key="D1" value="113.26379229072157" />
-      <entry key="W1" value="128.30276056262088" />
+      <entry key="MS100" value="5.673921467256651E-23" />
+      <entry key="MS500" value="3.554602378367488E-5" />
+      <entry key="S2" value="0.08306957365232488" />
+      <entry key="S5" value="0.49006530676116383" />
+      <entry key="S10" value="1.032707446365714" />
+      <entry key="S30" value="2.373354627846298" />
+      <entry key="S60" value="3.3156066857123934" />
+      <entry key="M2" value="4.031164143240574" />
+      <entry key="M5" value="4.5762027101190785" />
+      <entry key="M10" value="4.781485973628038" />
+      <entry key="M15" value="4.85310627920488" />
+      <entry key="M30" value="5.064188588166236" />
+      <entry key="H1" value="8.366315596328558" />
+      <entry key="H2" value="25.18612616457916" />
+      <entry key="H4" value="64.0301268242926" />
+      <entry key="D1" value="174.8715659567583" />
+      <entry key="W1" value="211.97462971548273" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -222,7 +227,7 @@
       <workItem from="1773150126879" duration="26000" />
       <workItem from="1782995958677" duration="6476000" />
       <workItem from="1783004898992" duration="842000" />
-      <workItem from="1783084041477" duration="3126000" />
+      <workItem from="1783084041477" duration="10096000" />
     </task>
     <task id="LOCAL-00001" summary="chore: add initial project configuration files and guidelines">
       <option name="closed" value="true" />
@@ -256,7 +261,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783085611141</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="feat: update workspace configuration to reflect recent changes in ProductCard component">
+      <option name="closed" value="true" />
+      <created>1783092416967</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1783092416967</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -278,6 +291,7 @@
     <MESSAGE value="feat: implement visual rework for dashboard and product components" />
     <MESSAGE value="feat: enhance dashboard and product components with improved search functionality and responsive design" />
     <MESSAGE value="feat: enhance ProductCard component with PropTypes validation and update ESLint configuration" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: enhance ProductCard component with PropTypes validation and update ESLint configuration" />
+    <MESSAGE value="feat: update workspace configuration to reflect recent changes in ProductCard component" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: update workspace configuration to reflect recent changes in ProductCard component" />
   </component>
 </project>

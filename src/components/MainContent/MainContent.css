@@ -30,8 +30,10 @@
 	padding: 56px 48px 96px;
 }
 
+button.header__register{border: 0; border-radius: var(--radius-pill); background: var(--color-coral); color: white; box-shadow: 0 10px 24px rgba(255,120,95,.25);}
+button.header__login{border-radius: var(--radius-pill); border: 4px solid var(--orange); color: var(--color-coral); box-shadow: 0 10px 24px rgba(255,120,95,.25); }
 .main__hero-copy { max-width: 620px; }
-.main__eyebrow { color: var(--color-pink-strong); font-size: .78rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+.main__upperTitle { color: var(--color-pink-strong); font-size: 1rem; font-weight: 800; letter-spacing: .13em; }
 .main__hero h1 { max-width: 650px; margin: 18px 0 24px; font-size: clamp(2.7rem, 5.4vw, 4.9rem); line-height: 1.02; letter-spacing: -.055em; }
 .main__hero-description { max-width: 570px; color: var(--color-text-muted); font-size: 1.08rem; line-height: 1.75; }
 .main__hero-actions { display: flex; align-items: center; gap: 14px; margin-top: 32px; flex-wrap: wrap; }

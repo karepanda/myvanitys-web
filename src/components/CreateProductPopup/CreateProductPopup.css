@@ -17,7 +17,7 @@
 	padding: var(--space-6) var(--space-5) max(var(--space-6), env(safe-area-inset-bottom));
 	flex-direction: column;
 	overflow-y: auto;
-	border-radius: var(--radius-dialog) var(--radius-dialog) 0 0;
+	border-radius: var(--radius-dialog);
 	background: var(--color-background);
 	box-shadow: var(--shadow-dialog);
 }

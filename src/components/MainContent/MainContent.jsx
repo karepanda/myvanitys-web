@@ -28,7 +28,7 @@ export const Main = () => {
 		<div className='main'>
 			<section className='main__hero'>
 				<div className='main__hero-copy'>
-					<p className='main__eyebrow'>Your beauty collection, beautifully organized</p>
+					<p className='main__upperTitle'>Your beauty collection, beautifully organized</p>
 					<h1>Everything in your vanity, finally in one place.</h1>
 					<p className='main__hero-description'>
 						My Vanity’s helps you remember what you own, discover products from the community and keep the routine you love close at hand.
@@ -49,7 +49,7 @@ export const Main = () => {
 
 			<section className='main__intro' aria-labelledby='how-it-works'>
 				<div className='main__intro-heading'>
-					<p className='main__eyebrow'>What is My Vanity’s?</p>
+					<p className='main__upperTitle'>What is My Vanity’s?</p>
 					<h2 id='how-it-works'>A calmer way to enjoy your collection</h2>
 					<p>Build a digital home for your cosmetics in a few easy steps.</p>
 				</div>
@@ -61,7 +61,7 @@ export const Main = () => {
 				<div className='main__organize'>
 					<div className='main__product-illustration'><img src={createProduct} alt='Example of adding a product to My Vanity’s' /></div>
 					<div className='main__organize-copy'>
-						<p className='main__eyebrow'>Made to feel effortless</p>
+						<p className='main__upperTitle'>Made to feel effortless</p>
 						<h2>Add a product in seconds.</h2>
 						<p>Name it, choose its brand and category, and it becomes part of your vanity. No spreadsheets, no forgotten drawers.</p>
 						{showLoginButtons && <button className='main__text-action' onClick={toggleModalRegister}>Start organizing <span aria-hidden='true'>→</span></button>}

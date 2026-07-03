@@ -31,7 +31,7 @@
 
 .categories__chip--active {
 	background: var(--color-pink-strong) !important;
-	box-shadow: 0 7px 16px rgba(246, 84, 140, 0.25);
+	box-shadow: 0 5px 5px rgba(246, 84, 140, 0.25);
 	color: var(--color-surface);
 }
 
