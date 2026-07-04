@@ -4,8 +4,7 @@
 	margin: 0 0 80px 0;
 	padding: 20px 96px 0px 96px;
 	height: 100px;
-	align-items: center;
-	width: 100vw;
+	width: 100%;
 }
 
 .header-dashboard {
@@ -16,7 +15,6 @@
 	margin: 0 0 80px 0;
 	padding: 20px 96px 0px 96px;
 	height: 100px;
-	align-items: center;
 }
 
 .header__menu {
