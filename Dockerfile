@@ -22,7 +22,6 @@ COPY nginx.conf.template /etc/nginx/nginx.conf.template
 COPY --from=build /app/dist /usr/share/nginx/html
 
 ENV PORT=80
-EXPOSE 80
 
 RUN apk add --no-cache gettext
 
