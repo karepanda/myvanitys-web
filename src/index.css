@@ -29,7 +29,8 @@ html {
 body {
 	background-color: var(--bg-color);
 	font-family: 'Montserrat', serif;
-	width: 100vw;
+	width: 100%;
+	overflow-x: hidden;
 }
 
 #modal {

@@ -31,6 +31,8 @@
 
 .main__register--text {
 	width: 460px;
+	max-width: 100%;
+	overflow-wrap: break-word;
 }
 
 .main__register--text-title {
