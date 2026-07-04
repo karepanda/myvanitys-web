@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import './ProductPopup.css';
 import { IoClose } from 'react-icons/io5';
 import { FaRegStar } from 'react-icons/fa';
@@ -6,6 +6,10 @@ import { FaStar } from 'react-icons/fa6';
 import { VanitysContext } from '../../context/index';
 import { CreateReviewPopup } from '../CreateReviewPopup/CreateReviewPopup';
 import { useReviews } from '../../hooks';
+import { getCategoryLabel, getCategoryName, getSafeHexColor } from '../../utils/dashboardProducts';
+
+const categoryClass = (category) =>
+	String(category || 'other').toLowerCase().replace(/[^a-z0-9]+/g, '-');
 
 const ProductPopup = () => {
 	const {
@@ -17,36 +21,34 @@ const ProductPopup = () => {
 		toggleCreateReviewPopup,
 	} = useContext(VanitysContext);
 
-	const {
-		reviews,
-		loading: reviewsLoading,
-		loadReviews,
-	} = useReviews(selectedProduct?.id);
+	const { reviews, loading: reviewsLoading, loadReviews } = useReviews(selectedProduct?.id);
 
-	const handleReviewCreated = (newReview) => {
-		console.log('New review created:', newReview);
-		setReviewsRefreshTrigger((prev) => prev + 1);
-	};
+	useEffect(() => {
+		if (selectedProduct?.id && !selectedProduct?.reviews) loadReviews();
+	}, [selectedProduct?.id, selectedProduct?.reviews, loadReviews]);
 
-	const handleCloseReviewPopup = () => {
-		setShowCreateReviewPopup(false);
-	};
+	if (!selectedProduct) return null;
 
 	const displayReviews = selectedProduct?.reviews || reviews;
+	const category = getCategoryName(selectedProduct);
+	const color = getSafeHexColor(selectedProduct.colorHex);
 
 	return (
 		<>
 			<div className='productPopup'>
-				<section className='productPopup__header'>
-					<p className='productPopup__header--title'>
-						<strong>{selectedProduct.name} - </strong>
-						{selectedProduct.brand}
-					</p>
-					<IoClose
-						size={40}
-						className='productPopup__header--icon'
-						onClick={() => toggleProductPopup()}
-					/>
+				<section className={`productPopup__header productPopup__header--${categoryClass(category)}`}>
+					<div>
+						{category && <span className='productPopup__category'>{getCategoryLabel(category)}</span>}
+						<h1 className='productPopup__header--title'>{selectedProduct.name}</h1>
+						<p>{selectedProduct.brand}</p>
+					</div>
+					<button type='button' className='productPopup__header--close' onClick={() => toggleProductPopup()} aria-label='Close product details'>
+						<IoClose aria-hidden='true' />
+					</button>
+				</section>
+				<section className='productPopup__color'>
+					<svg viewBox='0 0 64 64' role='img' aria-label={`Color ${color}`}><circle cx='32' cy='32' r='29' fill={color} /></svg>
+					<div><span>Color</span><code>{color}</code></div>
 				</section>
 
 				<section className='productPopup__reviews'>
@@ -63,7 +65,7 @@ const ProductPopup = () => {
 								<div className='productPopup__reviews--stars'>
 									{Array.from({ length: 5 }, (_, i) => (
 										<span key={i}>
-											{i < review.rating ? (
+										{i < (review.rating || review.stars || 0) ? (
 												<FaStar size={20} />
 											) : (
 												<FaRegStar size={20} />
@@ -103,7 +105,7 @@ const ProductPopup = () => {
 							}}
 							disabled={isAdding}
 						>
-							Add to my Vanitys
+							Add to My Vanity
 						</button>
 					) : (
 						<button
@@ -113,7 +115,7 @@ const ProductPopup = () => {
 							}}
 							className='productPopup__add--buttonReview'
 						>
-							Write a Review
+							Write review
 						</button>
 					)}
 				</section>

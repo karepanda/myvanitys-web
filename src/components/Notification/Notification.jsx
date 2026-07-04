@@ -9,8 +9,8 @@ export const Notification = () => {
 		switch (notificationType) {
 			case 'add':
 				return {
-					description: 'Product has been added to your Vanity',
-					highlight: 'Vanity',
+					description: 'Product has been added to My Vanity’s',
+					highlight: 'My Vanity’s',
 				};
 			case 'update':
 				return {
@@ -19,8 +19,8 @@ export const Notification = () => {
 				};
 			case 'delete':
 				return {
-					description: 'Product has been deleted from your Vanity',
-					highlight: 'Vanity',
+					description: 'Product has been deleted from My Vanity’s',
+					highlight: 'My Vanity’s',
 				};
 			default:
 				return {

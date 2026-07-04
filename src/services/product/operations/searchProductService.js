@@ -1,5 +1,6 @@
 // services/product/operations/searchProductService.js
 import { productApiAdapter } from '../adapters/productApiAdapter';
+import { normalizeProductCollection } from '../../../utils/dashboardProducts';
 
 export const searchProductService = {
 	/**
@@ -35,15 +36,16 @@ export const searchProductService = {
 				}
 			});
 
-			const products = await productApiAdapter.get(
+			const response = await productApiAdapter.get(
 				`/products/search?${searchParams.toString()}`,
 				token,
 				errorHandler
 			);
 
-			console.log(`✅ Search completed. Found ${products?.length || 0} products`);
+			const products = normalizeProductCollection(response);
+			console.log(`✅ Search completed. Found ${products.length} products`);
 
-			return products || [];
+			return products;
 		} catch (error) {
 			console.error(`❌ Error in searchProducts for query "${query}":`, error);
 			return [];
@@ -67,15 +69,16 @@ export const searchProductService = {
 
 			console.log(`🔍 Searching products in category: ${categoryId}`);
 
-			const products = await productApiAdapter.get(
+			const response = await productApiAdapter.get(
 				`/products/category/${categoryId}`,
 				token,
 				errorHandler
 			);
 
-			console.log(`✅ Category search completed. Found ${products?.length || 0} products`);
+			const products = normalizeProductCollection(response);
+			console.log(`✅ Category search completed. Found ${products.length} products`);
 
-			return products || [];
+			return products;
 		} catch (error) {
 			console.error(`❌ Error in searchProductsByCategory for category ${categoryId}:`, error);
 			return [];

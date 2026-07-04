@@ -44,18 +44,18 @@ const MissingFieldsPopup = ({
 	};
 
 	return (
-		<div className='missingFieldsPopup'>
+		<div className='missingFieldsPopup' role='alertdialog' aria-modal='true' aria-labelledby='message-title'>
+			<div className='missingFieldsPopup__panel'>
 			<section className={getHeaderClass()}>
-				<h1 className='missingFieldsPopup__header--title'>{title}</h1>
-				<IoClose
-					onClick={handleClose}
-					size={40}
-					className='missingFieldsPopup__header--icon'
-				/>
+				<span className='missingFieldsPopup__marker' aria-hidden='true'>!</span>
+				<button type='button' onClick={handleClose} className='missingFieldsPopup__header--icon' aria-label='Close message'><IoClose aria-hidden='true' /></button>
 			</section>
 			<section className='missingFieldsPopup__content'>
+				<h1 id='message-title' className='missingFieldsPopup__header--title'>{title}</h1>
 				<p className='missingFieldsPopup__content--text'>{message}</p>
+				<button type='button' className='missingFieldsPopup__action' onClick={handleClose}>Got it</button>
 			</section>
+			</div>
 		</div>
 	);
 };

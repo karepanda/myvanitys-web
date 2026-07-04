@@ -1,4 +1,3 @@
-// src/pages/UserDashboard/UserDashboard.jsx
 import React, { useEffect, useContext } from 'react';
 import { Dashboard } from '../../components/Dashboard/Dashboard';
 import { VanitysContext } from '../../context';
@@ -57,20 +56,8 @@ const UserDashboard = () => {
 
 	return (
 		<>
-			{/* {showWelcomePopup && <WelcomePopup onClose={closePopup} />}
-			{apiResponse?.token ? (
-				<Dashboard />
-			) : (
-				<div className='no-session-message'>
-					<h2>Welcome to My Vanity's!</h2>
-					<p>Please log in to access your dashboard.</p>
-					<p>Use the login button in the navigation bar to get started.</p>
-				</div>
-			)} */}
-			<>
-				{showWelcomePopup && <WelcomePopup onClose={closePopup} />}
-				{apiResponse?.token && <Dashboard />}
-			</>
+			{showWelcomePopup && <WelcomePopup onClose={closePopup} />}
+			{apiResponse?.token && <Dashboard />}
 		</>
 	);
 };

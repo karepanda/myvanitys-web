@@ -1,80 +1,12 @@
-.deleteModal {
-	display: flex;
-	flex-direction: column;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-	background-color: rgba(0, 0, 0, 0.2);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	z-index: 20;
-}
-
-.deleteModal__header {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	width: 638px;
-	height: 72px;
-	background-color: var(--text-color);
-	color: var(--white);
-	font-size: 24px;
-	border-radius: 15px 15px 0 0;
-	padding: 0 24px;
-}
-
-.deleteModal__header--icon {
-	cursor: pointer;
-}
-
-.deleteModal__text {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	width: 638px;
-	height: 300px;
-	overflow-y: scroll;
-	background-color: var(--bg-color);
-	padding: 20px;
-	font-size: 20px;
-}
-
-.deleteModal__text--name {
-	font-weight: bold;
-}
-
-.deleteModal__buttons {
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	width: 638px;
-	background-color: var(--bg-color);
-	height: 150px;
-	border-radius: 0 0 15px 15px;
-	padding: 20px;
-}
-
-.deleteModal__buttons--confirm {
-	width: 200px;
-	height: 50px;
-	font-size: 16px;
-	font-weight: 500;
-	border-radius: 4px;
-	background-color: var(--pink-text);
-	color: var(--white);
-}
-
-.deleteModal__buttons--cancel {
-	width: 200px;
-	height: 50px;
-	font-size: 16px;
-	font-weight: 500;
-	border-radius: 4px;
-	background-color: var(--pink-text);
-	color: var(--white);
-}
+.deleteModal { position: fixed; z-index: var(--z-modal); inset: 0; display: flex; padding-top: var(--space-6); align-items: center; justify-content: flex-end; flex-direction: column; background: rgba(45, 34, 31, .38); backdrop-filter: blur(5px); }
+.deleteModal__header, .deleteModal__text, .deleteModal__buttons { width: 100%; max-width: 520px; background: var(--color-background); }
+.deleteModal__header { display: flex; padding: var(--space-4) var(--space-4) 0; justify-content: flex-end; border-radius: var(--radius-dialog) var(--radius-dialog) 0 0; }
+.deleteModal__header--close { display: grid; width: 44px; height: 44px; place-items: center; border: 0; border-radius: 50%; background: transparent; color: var(--color-text); font-size: 1.75rem; cursor: pointer; }
+.deleteModal__text { padding: var(--space-3) var(--space-6) var(--space-6); text-align: center; }
+.deleteModal__text--messagge { color: var(--color-text-muted); line-height: 1.55; }
+.deleteModal__text--name { margin-top: var(--space-2); color: var(--color-text); font-weight: 700; }
+.deleteModal__buttons { display: flex; padding: 0 var(--space-5) max(var(--space-6), env(safe-area-inset-bottom)); flex-direction: column; gap: var(--space-2); }
+.deleteModal__buttons button { min-height: 48px; border-radius: var(--radius-pill); font-weight: 700; cursor: pointer; }
+.deleteModal__buttons--confirm { border: 0; background: var(--color-danger); color: var(--color-surface); }
+.deleteModal__buttons--cancel { border: 1px solid var(--color-border); background: var(--color-surface); color: var(--color-text); }
+@media (min-width: 768px) { .deleteModal { padding: var(--space-6); justify-content: center; } .deleteModal__buttons { flex-direction: row; border-radius: 0 0 var(--radius-dialog) var(--radius-dialog); } .deleteModal__buttons button { flex: 1; } }

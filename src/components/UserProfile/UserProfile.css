@@ -1,78 +1,15 @@
-.userProfile {
-	display: flex;
-	flex-direction: column;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 300px;
-	height: 100vh;
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-	z-index: 20;
-	background-color: var(--bg-color);
-	padding: 20px;
-	box-shadow: 1px 0px 7px 0px rgba(0, 0, 0, 0.2);
-}
-
-.userProfile__header {
-	display: flex;
-	justify-content: flex-end;
-	align-items: flex-start;
-	height: 104px;
-	width: 100%;
-}
-
-.userProfile__header--title {
-	font-weight: 600;
-	font-size: 20px;
-}
-
-.userProfile__name {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
-	height: 104px;
-	margin-bottom: 36px;
-}
-
-.userProfile__name--title {
-	font-size: 20px;
-	font-weight: 400;
-}
-
-.userProfile__buttons {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
-
-.userProfile__buttons button {
-	width: 210px;
-	height: 52px;
-	border-radius: 4px;
-	margin-bottom: 44px;
-	font-size: 20px;
-	font-weight: bold;
-}
-.userProfile__buttons--goto {
-	background-color: var(--orange);
-	color: var(--white);
-}
-
-.userProfile__buttons--createProduct {
-	width: 224px !important;
-	color: var(--orange);
-	border: 4px solid var(--orange);
-	border-radius: 4px;
-}
-
-.userProfile__buttons--logOut {
-	width: 120px !important;
-	height: 46px !important;
-	font-size: 14px !important;
-	border: 4px solid var(--black);
-	border-radius: 4px;
-}
+.userProfile { position: fixed; z-index: var(--z-modal); inset: 0; display: flex; padding-top: var(--space-6); align-items: flex-end; justify-content: center; background: rgba(45, 34, 31, .38); backdrop-filter: blur(5px); }
+.userProfile__panel { width: 100%; padding: var(--space-6) var(--space-5) max(var(--space-6), env(safe-area-inset-bottom)); border-radius: var(--radius-dialog) var(--radius-dialog) 0 0; background: var(--color-background); box-shadow: var(--shadow-dialog); }
+.userProfile__header { display: flex; align-items: center; justify-content: space-between; }
+.userProfile__header h1 { font-size: 1.25rem; }
+.userProfile__header button { display: grid; width: 44px; height: 44px; place-items: center; border: 0; border-radius: 50%; background: transparent; color: var(--color-text); font-size: 1.75rem; cursor: pointer; }
+.userProfile__name { display: flex; margin: var(--space-6) 0; align-items: center; flex-direction: column; gap: var(--space-2); }
+.userProfile__name > svg { color: var(--color-pink-strong); font-size: 4rem; }
+.userProfile__name--title { font-size: 1.1rem; }
+.userProfile__buttons { display: flex; flex-direction: column; gap: var(--space-2); }
+.userProfile__buttons button { min-height: 48px; border-radius: var(--radius-pill); font-weight: 700; cursor: pointer; }
+.userProfile__buttons--goto { border: 0; background: var(--color-coral); color: var(--color-surface); }
+.userProfile__buttons--createProduct { border: 1px solid var(--color-coral); background: var(--color-surface); color: var(--color-coral); }
+.userProfile__buttons--logOut { border: 0; background: transparent; color: var(--color-danger); }
+.userProfile button:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; }
+@media (min-width: 768px) { .userProfile { padding: var(--space-6); align-items: center; } .userProfile__panel { width: min(100%, 460px); border-radius: var(--radius-dialog); } }

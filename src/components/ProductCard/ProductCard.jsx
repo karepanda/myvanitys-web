@@ -1,165 +1,131 @@
+import { useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
+import { FiCheck, FiMoreHorizontal, FiPlus, FiStar, FiTrash2, FiEdit3 } from 'react-icons/fi';
+import {
+	getCategoryLabel,
+	getCategoryName,
+	getSafeHexColor,
+} from '../../utils/dashboardProducts';
 import './ProductCard.css';
-import { VanitysContext } from '../../context/index';
-import { useContext } from 'react';
-import { Modal } from '../Modal/Modal';
-import { CreateReviewPopup } from '../CreateReviewPopup/CreateReviewPopup';
-import { CreateProductPopup } from '../CreateProductPopup/CreateProductPopup';
-import { ProductPopup } from '../ProductPopup/ProductPopup';
-import { DeleteModal } from '../DeleteModal/DeleteModal';
 
-const ProductCard = ({ product, id }) => {
-	const {
-		showCreateReviewPopup,
-		toggleCreateReviewPopup,
-		showCreateProductPopup,
-		deleteProduct,
-		apiResponse,
-		errorHandler,
-		toggleProductPopup,
-		showProductPopup,
-		showDeleteModal,
-		setShowDeleteModal,
-		reviewProductId,
-	} = useContext(VanitysContext);
+const categoryClass = (category) =>
+	String(category || 'other').toLowerCase().replace(/[^a-z0-9]+/g, '-');
 
-	const stars =
-		product.reviews && product.reviews.length > 0
-			? product.reviews[0].stars
-			: 0;
+const ProductCard = ({
+	product,
+	variant,
+	onOpen,
+	onAdd,
+	onReview,
+	onDelete,
+	isAdding = false,
+}) => {
+	const [menuOpen, setMenuOpen] = useState(false);
+	const menuRef = useRef(null);
+	const category = getCategoryName(product);
+	const color = getSafeHexColor(product?.colorHex);
+	const rating = Number(product?.averageRating || 0);
+	const reviewCount = Array.isArray(product?.reviews) ? product.reviews.length : null;
+	const isCollected = Boolean(product?.inUserCollection);
 
-	const handleDeleteProduct = () => {
-		setShowDeleteModal(true);
-	};
-
-	const confirmDeleteProduct = async () => {
-		const token = apiResponse?.token;
-
-		if (!token) {
-			errorHandler.showErrorMessage(
-				'You are not authenticated. Please log in to continue.',
-				'Authentication error',
-				'error'
-			);
-			setShowDeleteModal(false);
-			return;
-		}
-
-		try {
-			await deleteProduct(token, product.id);
-		} catch (error) {
-			console.error('Error deleting product:', error);
-			errorHandler.showGenericError();
-		} finally {
-			setShowDeleteModal(false);
-		}
-	};
+	useEffect(() => {
+		if (!menuOpen) return undefined;
+		const close = (event) => {
+			if (!menuRef.current?.contains(event.target)) setMenuOpen(false);
+		};
+		document.addEventListener('pointerdown', close);
+		return () => document.removeEventListener('pointerdown', close);
+	}, [menuOpen]);
 
 	return (
-		<div className='productCard'>
+		<article
+			className={`productCard productCard--${variant} productCard--${categoryClass(category)}`}
+			onClick={() => onOpen(product)}
+			onKeyDown={(event) => {
+				if (event.target === event.currentTarget && (event.key === 'Enter' || event.key === ' ')) {
+					event.preventDefault();
+					onOpen(product);
+				}
+			}}
+			role='button'
+			tabIndex={0}
+			aria-label={`Open details for ${product?.name || 'product'}`}
+		>
 			<div
-				className='productCard__left'
-				onClick={() => toggleProductPopup(product)}
+				className='productCard__content'
 			>
-				<h1 className='productCard__left--name' title={product.name}>
-					{product.name}
-				</h1>
-
-				<p className='productCard__left--brand'>{product.brand}</p>
-				<p className='productCard__left--color'>Color</p>
-				<div
-					className='productCard__left--circle'
-					style={{ backgroundColor: product.colorHex }}
-				></div>
-				<div className='productCard__left--rating'>
-					{Array(5)
-						.fill(0)
-						.map((_, index) => (
-							<span
-								key={index}
-								className={
-									index < product.averageRating
-										? 'productCard__left--star filled'
-										: 'productCard__left--star empty'
-								}
-							>
-								★
-							</span>
-						))}
+				<div className='productCard__details'>
+					{category && <span className='productCard__category'>{getCategoryLabel(category)}</span>}
+					<p className='productCard__brand'>{product?.brand}</p>
+					<h2 className='productCard__name'>{product?.name}</h2>
+					<div className='productCard__rating' aria-label={`${rating.toFixed(1)} out of 5 stars`}>
+						<FiStar aria-hidden='true' />
+						<strong>{rating.toFixed(1)}</strong>
+						{reviewCount !== null && (
+							<span>{reviewCount} {reviewCount === 1 ? 'review' : 'reviews'}</span>
+						)}
+					</div>
 				</div>
-			</div>
-			<div className='productCard__right'>
-				<div className='productCard__right--rating'>
-					<svg
-						className='productCard__right--icon'
-						xmlns='http://www.w3.org/2000/svg'
-						width='38'
-						height='38'
-						viewBox='0 0 24 24'
-						onClick={() => toggleCreateReviewPopup()}
-						title='Add review'
-					>
-						<path
-							fill='currentColor'
-							d='M3 20.077V4.616q0-.691.463-1.153T4.615 3h14.77q.69 0 1.152.463T21 4.616v10.769q0 .69-.463 1.153T19.385 17H6.077zm6.517-6.404L12 12.167l2.483 1.506l-.66-2.825l2.196-1.884l-2.886-.256L12 6.058l-1.133 2.65l-2.886.256l2.196 1.884z'
-						/>
+				<div className='productCard__swatch'>
+					<svg viewBox='0 0 64 64' role='img' aria-label={`Color ${color}`}>
+						<circle cx='32' cy='32' r='29' fill={color} />
 					</svg>
-				</div>
-				<div className='productCard__right--delete'>
-					<svg
-						className='productCard__right--icon'
-						xmlns='http://www.w3.org/2000/svg'
-						width='38'
-						height='38'
-						viewBox='0 0 56 56'
-						onClick={handleDeleteProduct}
-						title='Delete product'
-					>
-						<path
-							fill='currentColor'
-							d='M4.106 17.09h47.788c2.649 0 3.985-1.57 3.985-4.195V10.62c0-2.625-1.336-4.195-3.985-4.195H4.106C1.598 6.426.12 7.996.12 10.62v2.274c0 2.625 1.336 4.195 3.985 4.195m11.601 32.484h24.586c4.617 0 6.469-2.437 7.148-6.984l3.352-22.313H5.231L8.558 42.59c.703 4.57 2.53 6.984 7.148 6.984m5.555-7.242c-1.055 0-1.875-.867-1.875-1.898c0-.516.21-.938.562-1.29l5.39-5.437l-5.39-5.46a1.73 1.73 0 0 1-.562-1.29c0-1.008.843-1.828 1.875-1.828c.492 0 .914.21 1.265.539l5.461 5.438l5.485-5.462c.398-.351.797-.562 1.265-.562c1.055 0 1.899.82 1.899 1.875c0 .492-.211.89-.586 1.266l-5.414 5.484l5.39 5.414c.352.375.586.773.586 1.313c0 1.03-.843 1.898-1.875 1.898c-.539 0-.96-.258-1.312-.586l-5.438-5.414l-5.437 5.414c-.328.352-.797.586-1.29.586'
-						/>
-					</svg>
+					<code>{color}</code>
 				</div>
 			</div>
 
-			{showCreateReviewPopup && (
-				<Modal>
-					<CreateReviewPopup productId={product.id} />
-				</Modal>
+			{variant === 'collection' ? (
+				<div className='productCard__menu' ref={menuRef}>
+					<button
+						type='button'
+						className='productCard__menuTrigger'
+						onClick={(event) => { event.stopPropagation(); setMenuOpen((open) => !open); }}
+						aria-label={`Actions for ${product?.name}`}
+						aria-expanded={menuOpen}
+					>
+						<FiMoreHorizontal aria-hidden='true' />
+					</button>
+					{menuOpen && (
+						<div className='productCard__menuPanel'>
+							<button type='button' onClick={(event) => { event.stopPropagation(); setMenuOpen(false); onReview(product); }}>
+								<FiEdit3 aria-hidden='true' /> Write review
+							</button>
+							<button type='button' className='productCard__delete' onClick={(event) => { event.stopPropagation(); setMenuOpen(false); onDelete(product); }}>
+								<FiTrash2 aria-hidden='true' /> Delete
+							</button>
+						</div>
+					)}
+				</div>
+			) : (
+				<button
+					type='button'
+					className={`productCard__add${isCollected ? ' productCard__add--collected' : ''}`}
+					onClick={(event) => { event.stopPropagation(); if (!isCollected) onAdd(product); }}
+					disabled={isCollected || isAdding}
+				>
+					{isCollected ? <FiCheck aria-hidden='true' /> : <FiPlus aria-hidden='true' />}
+					{isCollected ? 'Already in your vanity' : isAdding ? 'Adding…' : 'Add to My Vanity'}
+				</button>
 			)}
-
-			{showCreateProductPopup && (
-				<Modal>
-					<CreateProductPopup />
-				</Modal>
-			)}
-
-			{showProductPopup && (
-				<Modal>
-					<ProductPopup />
-				</Modal>
-			)}
-
-			{showDeleteModal && (
-				<Modal>
-					<DeleteModal
-						onConfirm={confirmDeleteProduct}
-						onCancel={() => setShowDeleteModal(false)}
-						productName={product.name}
-					/>
-				</Modal>
-			)}
-
-			{showCreateReviewPopup && reviewProductId && (
-				<Modal>
-					<CreateReviewPopup
-						productId={reviewProductId}
-						onClose={() => toggleCreateReviewPopup(null)}
-					/>
-				</Modal>
-			)}
-		</div>
+		</article>
 	);
+};
+
+ProductCard.propTypes = {
+	product: PropTypes.shape({
+		name: PropTypes.string,
+		brand: PropTypes.string,
+		colorHex: PropTypes.string,
+		averageRating: PropTypes.number,
+		reviews: PropTypes.array,
+		inUserCollection: PropTypes.bool,
+	}).isRequired,
+	variant: PropTypes.oneOf(['collection', 'search']).isRequired,
+	onOpen: PropTypes.func.isRequired,
+	onAdd: PropTypes.func,
+	onReview: PropTypes.func,
+	onDelete: PropTypes.func,
+	isAdding: PropTypes.bool,
 };
 
 export { ProductCard };

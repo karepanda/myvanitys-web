@@ -1,0 +1,48 @@
+import { FiCompass, FiHeart, FiPlus, FiSearch, FiUser } from 'react-icons/fi';
+import './DashboardNavigation.css';
+
+const items = [
+	{ id: 'my-vanity', label: 'My Vanity', icon: FiHeart },
+	{ id: 'search', label: 'Search', icon: FiSearch },
+	{ id: 'add', label: 'Add', icon: FiPlus },
+	{ id: 'add-products', label: 'Explore', icon: FiCompass },
+	{ id: 'profile', label: 'Profile', icon: FiUser },
+];
+
+const DashboardNavigation = ({ mode, onModeChange, onAdd, onProfile }) => {
+	const handleClick = (id) => {
+		if (id === 'add') onAdd();
+		else if (id === 'profile') onProfile();
+		else onModeChange(id);
+	};
+
+	return (
+		<nav className='dashboardNavigation' aria-label='Dashboard navigation'>
+			<a className='dashboardNavigation__brand' href='/dashboard'>
+				My Vanity’s
+			</a>
+			<div className='dashboardNavigation__items'>
+				{items.map(({ id, label, icon: Icon }) => {
+					const isActive = id === mode || (id === 'profile' && false);
+					return (
+						<button
+							key={id}
+							type='button'
+							className={`dashboardNavigation__item dashboardNavigation__item--${id}${
+								isActive ? ' dashboardNavigation__item--active' : ''
+							}`}
+							onClick={() => handleClick(id)}
+							aria-current={isActive ? 'page' : undefined}
+							aria-label={id === 'add' ? 'Add product' : label}
+						>
+							<span className='dashboardNavigation__icon'><Icon aria-hidden='true' /></span>
+							<span>{label}</span>
+						</button>
+					);
+				})}
+			</div>
+		</nav>
+	);
+};
+
+export { DashboardNavigation };

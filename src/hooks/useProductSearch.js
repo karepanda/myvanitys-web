@@ -2,6 +2,7 @@
 import { useState, useContext } from 'react';
 import { VanitysContext } from '../context';
 import { productFacade } from '../services/product/productFacade';
+import { normalizeProductCollection } from '../utils/dashboardProducts';
 
 export const useProductSearch = () => {
 	const [searchResults, setSearchResults] = useState([]);
@@ -40,7 +41,7 @@ export const useProductSearch = () => {
 				errorHandler
 			);
 
-			const searchResults = results || [];
+			const searchResults = normalizeProductCollection(results);
 
 			setSearchResults(searchResults);
 			setSearchError(null);
@@ -99,7 +100,7 @@ export const useProductSearch = () => {
 				errorHandler
 			);
 
-			const categoryResults = results || [];
+			const categoryResults = normalizeProductCollection(results);
 
 			setSearchResults(categoryResults);
 			setSearchError(null);

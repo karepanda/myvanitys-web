@@ -167,6 +167,8 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
 		return (
 			<div className='auth-callback'>
 				<div className='auth-callback__processing'>
+					<p className='auth-callback__brand'>My Vanity’s</p>
+					<p className='auth-callback__eyebrow'>Almost there</p>
 					<h2>Almost there!</h2>
 					<div className='auth-callback__spinner'></div>
 					<p>{processingMessage}</p>
@@ -179,6 +181,7 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
 	return (
 		<div className='auth-callback'>
 			<div className='auth-callback__error'>
+				<p className='auth-callback__brand'>My Vanity’s</p>
 				<h2>Authentication error</h2>
 				<p>An error occurred during the authentication process.</p>
 				<button

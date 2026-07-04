@@ -5,7 +5,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-npm start          # Dev server at http://localhost:5173
+# Development server
+npm start          
 npm run build      # Production build
 npm test           # Run tests in watch mode
 npm run test:coverage  # Run tests with coverage report (no watch)

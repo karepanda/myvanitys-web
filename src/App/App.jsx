@@ -1,5 +1,5 @@
 // src/App/App.jsx
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, useLocation } from 'react-router-dom';
 import { AppRoutes } from '../Routes/index';
 import { Navbar } from '../components/Navbar/Navbar';
 import { VanitysContext, VanitysProvider } from '../context';
@@ -10,6 +10,7 @@ import { useContext } from 'react';
 import './App.css';
 
 const AppContent = () => {
+	const location = useLocation();
 	const {
 		showMissingFieldsPopup,
 		setShowMissingFieldsPopup,
@@ -17,10 +18,11 @@ const AppContent = () => {
 		errorTitle,
 		errorType,
 	} = useContext(VanitysContext);
+	const standaloneRoute = location.pathname === '/dashboard' || location.pathname === '/callback';
 
 	return (
-		<div className='app-container'>
-			<Navbar />
+		<div className={`app-container${standaloneRoute ? ' app-container--dashboard' : ''}`}>
+			{!standaloneRoute && <Navbar />}
 			<AppRoutes />
 			{showMissingFieldsPopup && (
 				<Modal>

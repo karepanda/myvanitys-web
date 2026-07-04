@@ -5,11 +5,9 @@ const DeleteModal = ({ onConfirm, onCancel, productName }) => {
 	return (
 		<div className='deleteModal'>
 			<section className='deleteModal__header'>
-				<IoClose
-					size={40}
-					className='deleteModal__header--icon'
-					onClick={onCancel}
-				/>
+				<button type='button' className='deleteModal__header--close' onClick={onCancel} aria-label='Close delete confirmation'>
+					<IoClose aria-hidden='true' />
+				</button>
 			</section>
 
 			<section className='deleteModal__text'>

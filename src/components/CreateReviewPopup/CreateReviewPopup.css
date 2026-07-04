@@ -1,119 +1,21 @@
-.createReviewPopup {
-	display: flex;
-	flex-direction: column;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-	background-color: rgba(0, 0, 0, 0.1);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	z-index: 20;
-}
+.createReviewPopup { position: fixed; z-index: var(--z-modal); inset: 0; display: flex; padding-top: var(--space-6); align-items: flex-end; justify-content: center; background: rgba(45, 34, 31, .38); backdrop-filter: blur(5px); }
+.createReviewPopup__container { width: 100%; padding: var(--space-6) var(--space-5) max(var(--space-6), env(safe-area-inset-bottom)); border-radius: var(--radius-dialog) var(--radius-dialog) 0 0; background: var(--color-background); box-shadow: var(--shadow-dialog); }
+.createReviewPopup__header { display: flex; align-items: center; justify-content: space-between; }
+.createReviewPopup__header--title { color: var(--color-text); font-size: 1.25rem; }
+.createReviewPopup__header--close { display: grid; width: 44px; height: 44px; place-items: center; border: 0; border-radius: 50%; background: transparent; color: var(--color-text); font-size: 1.75rem; cursor: pointer; }
+.createReviewPopup__right { margin-top: var(--space-4); }
+.createReviewPopup__right--title { margin-bottom: var(--space-5); color: var(--color-text-muted); font-size: var(--font-size-sm); }
+.createReviewPopup__right--form { display: flex; flex-direction: column; gap: var(--space-3); }
+.createReviewPopup__stars { display: flex; gap: var(--space-2); }
+.createReviewPopup__stars .star { width: 34px; height: 34px; fill: var(--color-border); stroke: var(--color-text-subtle); cursor: pointer; transition: fill var(--transition-fast); }
+.createReviewPopup__stars .star.active { fill: var(--color-star); }
+.createReviewPopup__right--label { color: var(--color-text); font-size: var(--font-size-sm); font-weight: 600; }
+.createReviewPopup__right--textarea { width: 100%; min-height: 140px; padding: var(--space-3); resize: vertical; border: 1px solid var(--color-border); border-radius: var(--radius-md); outline: 0; background: var(--color-surface); color: var(--color-text); }
+.createReviewPopup__right--textarea:focus { border-color: var(--color-pink-strong); box-shadow: 0 0 0 3px var(--color-focus); }
+.createReviewPopup__right--button { min-height: 48px; margin-top: var(--space-2); border: 0; border-radius: var(--radius-pill); background: var(--color-coral); color: var(--color-surface); font-weight: 700; cursor: pointer; }
+.createReviewPopup__right--button:disabled { opacity: .45; cursor: not-allowed; }
 
-.createReviewPopup__container {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	grid-template-rows: 10%;
-	grid-column-gap: 0px;
-	grid-row-gap: 0px;
-	width: 764px;
-	height: 644px;
-	background-color: var(--bg-color);
-	grid-template-areas:
-		'header header'
-		'left right';
-	border-radius: 15px;
-}
-
-.createReviewPopup__header {
-	grid-area: header;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	width: 100%;
-	height: 72px;
-	background-color: var(--text-color);
-	color: var(--white);
-	font-size: 24px;
-	font-weight: bold;
-	padding: 0 24px;
-	border-radius: 12px 12px 0 0;
-}
-
-.createReviewPopup__header--title {
-	margin: 0 auto;
-}
-
-.createReviewPopup__header--close {
-	cursor: pointer;
-}
-
-.createReviewPopup__left {
-	grid-area: left;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.createReviewPopup__right {
-	grid-area: right;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
-
-.createReviewPopup__right--title {
-	font-size: 18px;
-	font-weight: 600;
-	margin-bottom: 40px;
-}
-
-.createReviewPopup__right--form {
-	display: flex;
-	flex-direction: column;
-}
-
-.createReviewPopup__stars {
-	display: flex;
-	cursor: pointer;
-	margin-bottom: 4px;
-}
-
-.star {
-	fill: #f1f1f1;
-	stroke: black;
-	transition: fill 0.3s ease, fill 0.3s ease;
-}
-
-.star.active {
-	fill: gold;
-}
-
-.createReviewPopup__right--label {
-	font-size: 12px;
-}
-
-.createReviewPopup__right--textarea {
-	display: block;
-	width: 300px;
-	height: 130px;
-	padding: 6px;
-	margin-bottom: 40px;
-	resize: none;
-	background-color: #d9d9d9;
-}
-
-.createReviewPopup__right--button {
-	align-self: center;
-	width: 165px;
-	height: 40px;
-	color: var(--text-color2);
-	background-color: var(--pink);
-	border-radius: 4px;
-	font-size: 14px;
-	font-weight: bold;
+@media (min-width: 768px) {
+	.createReviewPopup { padding: var(--space-6); align-items: center; }
+	.createReviewPopup__container { width: min(100%, 560px); border-radius: var(--radius-dialog); }
 }
