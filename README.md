@@ -2,7 +2,7 @@
 
 Frontend for **MyVanitys**, a web application for managing personal cosmetics collections (a "vanity"). Built with **React + Vite** and deployed on **Railway** via Docker (Nginx).
 
-> 📖 For architecture, endpoints, authentication flow, design patterns, and detailed troubleshooting, see [`TECHNICAL_DOCUMENTATION.md`](./TECHNICAL_DOCUMENTATION.md). This README covers quickstart only.
+> 📖 For architecture, endpoints, authentication flow, design patterns, and detailed troubleshooting, see [`TECHNICAL_DOCUMENTATION.md`](./docs/TECHNICAL_DOCUMENTATION.md). This README covers quickstart only.
 
 ## Prerequisites
 
@@ -93,4 +93,4 @@ To develop without depending on the real Google OAuth2 backend, the repo include
 
 ## More Information
 
-Full documentation on architecture, stack, design patterns, consumed endpoints, authentication flow, testing, and deployment lives in [`TECHNICAL_DOCUMENTATION.md`](./TECHNICAL_DOCUMENTATION.md).
+Full documentation on architecture, stack, design patterns, consumed endpoints, authentication flow, testing, and deployment lives in [`TECHNICAL_DOCUMENTATION.md`](./docs/TECHNICAL_DOCUMENTATION.md).
