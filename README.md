@@ -1,109 +1,96 @@
-# Getting Started with Create React App
+# MyVanitys Web
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Frontend for **MyVanitys**, a web application for managing personal cosmetics collections (a "vanity"). Built with **React + Vite** and deployed on **Railway** via Docker (Nginx).
+
+> 📖 For architecture, endpoints, authentication flow, design patterns, and detailed troubleshooting, see [`TECHNICAL_DOCUMENTATION.md`](./TECHNICAL_DOCUMENTATION.md). This README covers quickstart only.
+
+## Prerequisites
+
+- Node.js 18.x
+- npm
+- Docker + Docker Compose (optional, for running the full stack with the backend)
+
+## Installation & Setup
+
+```bash
+# 1. Clone the repository
+git clone <repo-url>
+cd myvanitys-web
+
+# 2. Install dependencies
+npm install
+
+# 3. Configure environment variables
+cp .env.development .env   # or .env.production for prod values
+
+# 4. Start the development server (Vite)
+npm start
+```
+
+Open [http://localhost:5173](http://localhost:5173) to view the app. ⚠️ **Not port 3000** — that was the Create React App port; this project uses Vite.
+
+The page auto-reloads on save. Lint errors show up in the browser console.
 
 ## Available Scripts
 
-In the project directory, you can run:
+| Command | Description |
+|---|---|
+| `npm start` | Starts the Vite development server on `localhost:5173` |
+| `npm test` | Runs tests with Vitest in watch mode |
+| `npm run test:coverage` | Runs tests with a coverage report |
+| `npm run build` | Produces the production build in `dist/` |
 
-### `npm start`
+## Full Stack with Docker
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```bash
+docker compose up
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Starts PostgreSQL + the API (Spring Boot, `../myvanitys-api`) + this frontend. See section 10 of the technical documentation for details on the multi-stage build and Nginx configuration.
 
-### `npm test`
+## WireMock — Local Google OAuth2 Simulation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To develop without depending on the real Google OAuth2 backend, the repo includes WireMock stubs in `Docker/wiremock/`.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-## Setting Up WireMock
-
-To run WireMock for simulating Google OAuth2 API, follow these steps:
-
-1. **Build the Docker Image**  
-   Navigate to the WireMock directory and build the Docker image using the following command:
+1. **Build the Docker image**
    ```bash
+   cd Docker/wiremock
    docker build -t wiremock .
+   ```
 
-2. **Run the Docker Container**
-Start the WireMock container with the following command:
+2. **Run the container**
+   ```bash
+   docker run -d -p 8080:8080 --name my-wiremock wiremock
+   ```
 
-docker run -d -p 8080:8080 --name my-wiremock wiremock
+3. **Verify the stubs loaded correctly**
+   ```bash
+   curl http://localhost:8080/__admin/mappings
+   ```
 
-3. **Verify the Stubs
-You can check if the stubs are correctly loaded by accessing the following endpoint:
+4. **Test the token exchange simulation**
+   ```bash
+   curl -X POST http://localhost:8080/oauth2/v4/token \
+     -d "code=AUTHORIZATION_CODE&client_id=YOUR_CLIENT_ID&client_secret=YOUR_CLIENT_SECRET&redirect_uri=YOUR_REDIRECT_URI&grant_type=authorization_code"
+   ```
 
-curl http://localhost:8080/__admin/mappings
+5. **Access the WireMock admin interface**
 
-4. **Testing the Stubs**
-To test the token retrieval simulation, use the following command:
-curl -X POST http://localhost:8080/oauth2/v4/token -d "code=AUTHORIZATION_CODE&client_id=YOUR_CLIENT_ID&client_secret=YOUR_CLIENT_SECRET&redirect_uri=YOUR_REDIRECT_URI&grant_type=authorization_code"
+   [http://localhost:8080/__admin](http://localhost:8080/__admin)
 
-5. **Access WireMock Admin Interface**
-You can access the WireMock admin interface at:
-http://localhost:8080/__admin
+6. **Test the `/auth/google` endpoint**
+   ```bash
+   curl -X POST http://localhost:8080/auth/google \
+     -H "Content-Type: application/json" \
+     -H "X-Request-ID: d2919d3f-6b2f-49f4-9dd5-efbbc9b1c8f8" \
+     -H "X-Flow-ID: 123e4567-e89b-12d3-a456-426614174000" \
+     -H "Accept-Language: en-US" \
+     -H "User-Agent: MyVanitysApp/1.0" \
+     -d '{
+           "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.example.payload.signature"
+         }'
+   ```
 
-6. **Probar el Endpoint /auth/google**
- To test the token retrieval simulation, use the following command:
- curl -X POST http://localhost:8080/auth/google \
--H "Content-Type: application/json" \
--H "X-Request-ID: d2919d3f-6b2f-49f4-9dd5-efbbc9b1c8f8" \
--H "X-Flow-ID: 123e4567-e89b-12d3-a456-426614174000" \
--H "Accept-Language: en-US" \
--H "User-Agent: MyVanitysApp/1.0" \
--d '{
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.example.payload.signature"
-    }'
+## More Information
+
+Full documentation on architecture, stack, design patterns, consumed endpoints, authentication flow, testing, and deployment lives in [`TECHNICAL_DOCUMENTATION.md`](./TECHNICAL_DOCUMENTATION.md).
