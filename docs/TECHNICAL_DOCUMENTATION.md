@@ -1,6 +1,6 @@
 # MyVanitys Web — Technical Documentation
 
-> **Version:** 0.3.0 | **Last Updated:** 2026-07-05 | **Owner:** [NOT FOUND IN REPO]
+> **Version:** 0.3.0 | **Last Updated:** 2026-07-05 
 
 ---
 
