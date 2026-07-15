@@ -1,11 +1,17 @@
 .app-container {
 	display: grid;
 	grid-template-columns: 1fr;
-	grid-template-rows: 100px auto;
+	grid-template-rows: auto 1fr;
 	min-height: 100vh;
 	position: relative;
 }
 
-.app-container--dashboard {
-	display: block;
+.app-container--authenticated {
+	padding-bottom: var(--mobile-nav-height);
+}
+
+@media (min-width: 768px) {
+	.app-container--authenticated {
+		padding-bottom: 0;
+	}
 }
