@@ -47,6 +47,18 @@
 .productCard__add--collected { background: var(--color-mint-soft); color: var(--color-success); cursor: default; }
 .productCard button:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; }
 
+@media (max-width: 480px) {
+	.productCard { min-height: 180px; padding: var(--space-3); gap: var(--space-3); }
+	.productCard__content { grid-template-columns: minmax(0, 1fr) 52px; gap: var(--space-3); }
+	.productCard__swatch svg { width: 44px; height: 44px; }
+	.productCard__name { font-size: 0.9rem; }
+	.productCard__category { font-size: 0.62rem; }
+	.productCard__brand { font-size: 0.75rem; }
+	.productCard__menuTrigger { width: 38px; height: 38px; font-size: 1.2rem; }
+	.productCard__menuPanel { right: var(--space-3); min-width: 160px; }
+	.productCard__add { min-height: 40px; font-size: 0.8rem; }
+}
+
 @media (min-width: 768px) {
 	.productCard { min-height: 230px; }
 }

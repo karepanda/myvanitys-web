@@ -1,4 +1,5 @@
-import React, { useEffect, useContext } from 'react';
+import  { useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Dashboard } from '../../components/Dashboard/Dashboard';
 import { VanitysContext } from '../../context';
 import { WelcomePopup } from '../../components/WelcomePopup/WelcomePopup';
@@ -14,6 +15,8 @@ const UserDashboard = () => {
 		setShowModalRegister,
 	} = useContext(VanitysContext);
 
+	const navigate = useNavigate();
+
 	useEffect(() => {
 		if (!authInitialized) {
 			return;
@@ -23,7 +26,7 @@ const UserDashboard = () => {
 		if (setShowModalRegister) setShowModalRegister(false);
 
 		if (!apiResponse?.token) {
-
+			navigate('/', { replace: true });
 			return;
 		}
 
@@ -37,6 +40,7 @@ const UserDashboard = () => {
 		setShowModalLogin,
 		setShowModalRegister,
 		setShowWelcomePopup,
+		navigate,
 	]);
 
 	const closePopup = () => {

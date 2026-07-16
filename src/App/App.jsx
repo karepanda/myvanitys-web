@@ -26,6 +26,11 @@ const AppContent = () => {
 
 	return (
 		<div className={`app-container${isAuthenticated ? ' app-container--authenticated' : ''}`}>
+			{!isCallback && !authInitialized && (
+				<header className='header header--loading' aria-busy='true'>
+					<h1 className='header__title'>My Vanity's</h1>
+				</header>
+			)}
 			{!isCallback && !isAuthenticated && authInitialized && <Navbar />}
 			{!isCallback && isAuthenticated && <DashboardNavigation />}
 			<AppRoutes />

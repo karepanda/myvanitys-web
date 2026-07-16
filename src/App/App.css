@@ -10,6 +10,14 @@
 	padding-bottom: var(--mobile-nav-height);
 }
 
+.header--loading {
+	height: 100px;
+	display: flex;
+	align-items: center;
+	margin: 0 0 80px 0;
+	padding: 20px 96px 0 96px;
+}
+
 @media (min-width: 768px) {
 	.app-container--authenticated {
 		padding-bottom: 0;
