@@ -1,9 +1,10 @@
 // src/context/index.js
 import React from 'react';
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect, useRef } from 'react';
 import { ErrorHandler } from '../utils/errorHandler';
 import { authService } from '../services/auth/authService';
 import { productFacade } from '../services/product/productFacade';
+import { getJwtExpiration } from '../utils/jwt';
 
 const VanitysContext = createContext();
 
@@ -12,7 +13,11 @@ const VanitysProvider = ({ children }) => {
 	const [showModalRegister, setShowModalRegister] = useState(false);
 	const [showModalLogin, setShowModalLogin] = useState(false);
 	const [showCookieBanner, setShowCookieBanner] = useState(() => {
-		return sessionStorage.getItem('cookieBannerClosed') !== 'true';
+		try {
+			return sessionStorage.getItem('cookieBannerClosed') !== 'true';
+		} catch {
+			return false;
+		}
 	});
 	const [showCreateProductPopup, setShowCreateProductPopup] = useState(false);
 	const [showMissingFieldsPopup, setShowMissingFieldsPopup] = useState(false);
@@ -54,12 +59,16 @@ const VanitysProvider = ({ children }) => {
 	const [errorType, setErrorType] = useState('warning');
 
 	// Create ErrorHandler instance
-	const errorHandler = new ErrorHandler(
-		setShowMissingFieldsPopup,
-		setErrorMessage,
-		setErrorTitle,
-		setErrorType
-	);
+	const errorHandlerRef = useRef(null);
+	if (!errorHandlerRef.current) {
+		errorHandlerRef.current = new ErrorHandler(
+			setShowMissingFieldsPopup,
+			setErrorMessage,
+			setErrorTitle,
+			setErrorType
+		);
+	}
+	const errorHandler = errorHandlerRef.current;
 
 	// Computed values for authentication and token
 	const isAuthenticated = !!apiResponse?.token;
@@ -74,13 +83,11 @@ const VanitysProvider = ({ children }) => {
 				if (savedAuth) {
 					const authData = JSON.parse(savedAuth);
 
-					// Validate structure and expiry
 					if (authData?.token && authData?.user?.id) {
-						// Check for expiration (if expiresAt)
 						if (authData.expiresAt && Date.now() > authData.expiresAt) {
 							localStorage.removeItem('vanitys_auth');
 						} else {
-							setApiResponse(authData);
+							updateAuthData(authData, false);
 						}
 					} else {
 						localStorage.removeItem('vanitys_auth');
@@ -115,13 +122,19 @@ const VanitysProvider = ({ children }) => {
 		window.location.href = '/';
 	};
 
-	const updateAuthData = (authData) => {
+	const updateAuthData = (authData, showWelcome = true) => {
 		if (!authData.expiresAt) {
-			authData.expiresAt = Date.now() + 30 * 24 * 60 * 60 * 1000;
+			const jwtExp = authData.token ? getJwtExpiration(authData.token) : null;
+			authData.expiresAt = jwtExp || Date.now() + 30 * 24 * 60 * 60 * 1000;
 		}
 
 		setApiResponse(authData);
 		localStorage.setItem('vanitys_auth', JSON.stringify(authData));
+
+		if (showWelcome && authData.isNewUser && !sessionStorage.getItem('welcomeShow')) {
+			setShowWelcomePopup(true);
+			sessionStorage.setItem('welcomeShow', 'true');
+		}
 	};
 
 	// UI Functions
@@ -199,7 +212,6 @@ const VanitysProvider = ({ children }) => {
 	};
 
 	const handleAuthentication = async () => {
-		// If there is already an active session, do not re-authenticate.
 		if (apiResponse?.token) {
 			return apiResponse;
 		}
@@ -211,17 +223,11 @@ const VanitysProvider = ({ children }) => {
 
 			if (userData) {
 				updateAuthData(userData);
-
-				// Show welcome popup for new users
-				if (userData.isNewUser && !sessionStorage.getItem('welcomeShow')) {
-					setShowWelcomePopup(true);
-					sessionStorage.setItem('welcomeShow', 'true');
-				}
 			}
 
 			return userData;
 		} catch (error) {
-			console.error('Error creating product:', error);
+			console.error('Error during authentication:', error);
 			setLoading(false);
 			return null;
 		}

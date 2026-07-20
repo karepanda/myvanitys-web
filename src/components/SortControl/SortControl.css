@@ -29,3 +29,8 @@
 	outline-offset: 2px;
 }
 
+@media (max-width: 480px) {
+	.sortControl { min-height: 38px; padding: 0 var(--space-2); gap: var(--space-1); }
+	.sortControl__label { font-size: 0.75rem; }
+}
+

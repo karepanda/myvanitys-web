@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState, useRef } from 'react';
+import  { useContext, useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { VanitysContext } from '../../context';
 import { authService } from '../../services/auth/authService';
+import { getJwtExpiration } from '../../utils/jwt';
 import './Auth.css';
 
 /**
@@ -125,32 +126,27 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
 
 
 
-				const authData = {
-					token: result.token,
-					user: {
-						id: result.userId || result.id,
-						name: result.name || result.displayName,
-						email: result.email,
-						profilePicture: result.profilePicture || result.picture,
-					},
-					isNewUser: result.isNewUser || false,
-					expiresAt: Date.now() + 30 * 24 * 60 * 60 * 1000,
-				};
+			const jwtExp = getJwtExpiration(result.token);
+			const authData = {
+				token: result.token,
+				user: {
+					id: result.userId || result.id,
+					name: result.name || result.displayName,
+					email: result.email,
+					profilePicture: result.profilePicture || result.picture,
+				},
+				isNewUser: result.isNewUser || false,
+				expiresAt: jwtExp || Date.now() + 30 * 24 * 60 * 60 * 1000,
+			};
 
 
-				updateAuthData(authData);
+			updateAuthData(authData);
 
-				// Show welcome popup for new users (login flow)
-				if (authData.isNewUser && !sessionStorage.getItem('welcomeShow')) {
-					setShowWelcomePopup(true);
-					sessionStorage.setItem('welcomeShow', 'true');
-				}
-
-				// Navigate to dashboard
-				setTimeout(() => {
-					setProcessingAuth(false);
-					navigate(redirectTo);
-				}, 1000);
+			// Navigate to dashboard
+			setTimeout(() => {
+				setProcessingAuth(false);
+				navigate(redirectTo);
+			}, 1000);
 			} catch (error) {
 
 				// Use ErrorHandler for proper error display

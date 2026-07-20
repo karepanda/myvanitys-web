@@ -5,147 +5,36 @@ import { Modal } from '../Modal/Modal';
 import { Register } from '../Register/Register';
 import { Login } from '../Login/Login';
 import { VanitysContext } from '../../context';
-import { CreateProductPopup } from '../CreateProductPopup/CreateProductPopup';
-import { useNavigate, useLocation } from 'react-router-dom';
-import searchIcon from '../../assets/icon _search.png';
-import userPhoto from '../../assets/user_photo.png';
-import menuHamburguer from '../../assets/menu-hamburguer.png';
 
+//TO-DO: FIX ERRORS
 const Navbar = () => {
 	const {
 		showModalRegister,
 		toggleModalRegister,
 		toggleModalLogin,
 		showModalLogin,
-		apiResponse,
-		authInitialized,
-		showCreateProductPopup,
-		toggleCreateProductPopup,
-		searchText,
-		handleSearch,
-		toggleUserProfile,
 		showCookieBanner,
 		renderButtonWithTooltip,
 	} = useContext(VanitysContext);
 
-	const location = useLocation();
-	const isActive =
-		location.pathname === '/dashboard' &&
-		location.search.includes('mode=add-products');
-
-	const navigate = useNavigate();
-
-	const goToMyVanity = () => {
-		navigate('/dashboard');
-	};
-
-	const handleSearchSubmit = () => {
-		if (showCookieBanner || !searchText.trim()) return;
-
-		if (searchText.trim().length < 2) {
-			return;
-		}
-
-		navigate(`/dashboard?mode=search&q=${encodeURIComponent(searchText.trim())}`);
-	};
-
-	const handleSearchKeyDown = (e) => {
-		if (e.key === 'Enter') {
-			handleSearchSubmit();
-		}
-	};
-
-	const handleProductsClick = () => {
-		if (showCookieBanner) return;
-
-		navigate('/dashboard?mode=add-products');
-	};
-
-	const isAuthenticated = authInitialized && apiResponse?.token;
-	const showLoginButtons = authInitialized && !apiResponse?.token;
-
-	const getSearchPlaceholder = () => {
-		if (!isAuthenticated) return 'Search...';
-		return 'Search products...';
-	};
-
 	return (
 		<>
-			<header className={isAuthenticated ? 'header-dashboard' : 'header'}>
-				{isAuthenticated && <div className='header__menu'>
-					<img
-						className='header__menu--icon'
-						src={menuHamburguer}
-						alt='Menu'
-					/>
-				</div>}
-
-				<h1
-					className='header__title'
-					disabled={showCookieBanner || !isAuthenticated}
-					onClick={isAuthenticated ? goToMyVanity : undefined}
-				>
-					My Vanity´s
+			<header className='header'>
+				<h1 className='header__title'>
+					My Vanity's
 				</h1>
 
-				{isAuthenticated && <div className='header__search'>
-					<img className='header__search--icon' src={searchIcon} alt='' />
-				</div>}
-
-				{isAuthenticated && <div className='search-input-container'>
-					<div className='header__tooltip-wrapper'>
-						<input
-							className={`header__input ${
-								showCookieBanner ? 'disabled' : ''
-							}`}
-							type='text'
-							placeholder={getSearchPlaceholder()}
-							value={searchText}
-							onChange={handleSearch}
-							onKeyDown={handleSearchKeyDown}
-							disabled={showCookieBanner || !isAuthenticated}
-						/>
-						{showCookieBanner && (
-							<span className='tooltip'>Accept cookies to search</span>
-						)}
-					</div>
-					<img
-						src={searchIcon}
-						alt='Search'
-						className={`search-icon ${
-							showCookieBanner ||
-							!searchText.trim() ||
-							searchText.trim().length < 2
-								? 'disabled'
-								: ''
-						}`}
-						onClick={handleSearchSubmit}
-						title='Search products'
-					/>
-
-				</div>}
-
-				{showLoginButtons && (
-					<>
-						{renderButtonWithTooltip(
-							'Log in',
-							toggleModalLogin,
-							'header__login',
-							'header'
-						)}
-						{renderButtonWithTooltip(
-							'Register',
-							toggleModalRegister,
-							'header__register',
-							'header'
-						)}
-					</>
+				{renderButtonWithTooltip(
+					'Log in',
+					toggleModalLogin,
+					'header__login',
+					'header'
 				)}
-
-				{!authInitialized && (
-					<div className='auth-loading'>
-						<span className='loading-text'>Loading...</span>
-					</div>
+				{renderButtonWithTooltip(
+					'Register',
+					toggleModalRegister,
+					'header__register',
+					'header'
 				)}
 
 				{showModalLogin && (
@@ -157,52 +46,6 @@ const Navbar = () => {
 				{showModalRegister && (
 					<Modal>
 						<Register />
-					</Modal>
-				)}
-
-				{isAuthenticated && (
-					<>
-						<p
-							className={`header__products ${isActive ? 'active' : ''}`}
-							onClick={handleProductsClick}
-						>
-							Products
-						</p>
-
-						{showCookieBanner && (
-							<span className='tooltip'>
-								Accept cookies to load products
-							</span>
-						)}
-
-						{renderButtonWithTooltip(
-							'Create Product',
-							toggleCreateProductPopup,
-							'header__create',
-							'header'
-						)}
-
-						<div className='tooltip-wrapper'>
-							<img
-								src={userPhoto}
-								alt='User Photo'
-								onClick={() => !showCookieBanner && toggleUserProfile()}
-								style={{
-									cursor: showCookieBanner ? 'not-allowed' : 'pointer',
-								}}
-							/>
-							{showCookieBanner && (
-								<span className='tooltip'>
-									Accept cookies to open profile
-								</span>
-							)}
-						</div>
-					</>
-				)}
-
-				{showCreateProductPopup && (
-					<Modal>
-						<CreateProductPopup />
 					</Modal>
 				)}
 			</header>

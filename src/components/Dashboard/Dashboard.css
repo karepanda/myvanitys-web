@@ -1,5 +1,5 @@
 .dashboardShell { min-height: 100dvh; background: var(--color-background); }
-.dashboard { width: min(100%, 1220px); min-height: 100dvh; margin: 0 auto; padding: var(--space-6) var(--space-4) calc(var(--mobile-nav-height) + var(--space-8)); }
+.dashboard { width: min(100%, 1220px); margin: 0 auto; padding: var(--space-6) var(--space-4); }
 .dashboard__welcome { display: flex; align-items: end; justify-content: space-between; margin-bottom: var(--space-5); }
 .dashboard__eyebrow { margin-bottom: var(--space-1); color: var(--color-pink-strong); font-size: var(--font-size-xs); font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
 .dashboard__welcome h1 { color: var(--color-text); font-size: clamp(1.6rem, 7vw, 2.4rem); line-height: 1.15; }
@@ -21,8 +21,15 @@
 .dashboardState__spinner { width: 38px; height: 38px; border: 4px solid var(--color-pink-soft); border-top-color: var(--color-pink-strong); border-radius: 50%; animation: dashboard-spin .75s linear infinite; }
 @keyframes dashboard-spin { to { transform: rotate(360deg); } }
 
+@media (max-width: 480px) {
+	.dashboard { padding: var(--space-5) var(--space-3); }
+	.dashboard__toolbar { flex-wrap: wrap; }
+	.dashboard__search { min-height: 48px; padding: 4px 4px 4px var(--space-3); gap: var(--space-2); }
+	.dashboard__search input { height: 38px; font-size: var(--font-size-sm); }
+}
+
 @media (min-width: 768px) {
-	.dashboard { min-height: calc(100dvh - var(--desktop-nav-height)); padding: var(--space-8) var(--space-6); }
+	.dashboard { padding: var(--space-8) var(--space-6); }
 	.dashboard__eyebrow { display: none; }
 	.dashboard__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-5); }
 }

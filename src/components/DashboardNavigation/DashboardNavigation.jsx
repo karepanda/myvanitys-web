@@ -1,4 +1,7 @@
+import React, { useContext } from 'react';
+import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
 import { FiCompass, FiHeart, FiPlus, FiSearch, FiUser } from 'react-icons/fi';
+import { VanitysContext } from '../../context';
 import './DashboardNavigation.css';
 
 const items = [
@@ -9,21 +12,41 @@ const items = [
 	{ id: 'profile', label: 'Profile', icon: FiUser },
 ];
 
-const DashboardNavigation = ({ mode, onModeChange, onAdd, onProfile }) => {
+const DashboardNavigation = () => {
+	const { toggleCreateProductPopup, toggleUserProfile } = useContext(VanitysContext);
+	const [searchParams, setSearchParams] = useSearchParams();
+	const navigate = useNavigate();
+	const location = useLocation();
+
+	const modeParam = searchParams.get('mode');
+	const mode =
+		location.pathname === '/dashboard' &&
+		(modeParam === 'search' || modeParam === 'add-products')
+			? modeParam
+			: location.pathname === '/dashboard'
+				? 'my-vanity'
+				: null;
+
+	const changeMode = (nextMode) => {
+		if (nextMode === 'search') setSearchParams({ mode: 'search' });
+		else if (nextMode === 'add-products') setSearchParams({ mode: 'add-products' });
+		else navigate('/dashboard');
+	};
+
 	const handleClick = (id) => {
-		if (id === 'add') onAdd();
-		else if (id === 'profile') onProfile();
-		else onModeChange(id);
+		if (id === 'add') toggleCreateProductPopup();
+		else if (id === 'profile') toggleUserProfile();
+		else changeMode(id);
 	};
 
 	return (
 		<nav className='dashboardNavigation' aria-label='Dashboard navigation'>
 			<a className='dashboardNavigation__brand' href='/dashboard'>
-				My Vanity’s
+				My Vanity's
 			</a>
 			<div className='dashboardNavigation__items'>
 				{items.map(({ id, label, icon: Icon }) => {
-					const isActive = id === mode || (id === 'profile' && false);
+					const isActive = id === mode;
 					return (
 						<button
 							key={id}

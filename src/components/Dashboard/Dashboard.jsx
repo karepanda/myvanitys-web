@@ -2,7 +2,6 @@ import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { FiAlertCircle, FiSearch, FiSliders } from 'react-icons/fi';
 import { useSearchParams } from 'react-router-dom';
 import { Categories } from '../Categories/Categories';
-import { DashboardNavigation } from '../DashboardNavigation/DashboardNavigation';
 import { ProductCard } from '../ProductCard/ProductCard';
 import { SortControl } from '../SortControl/SortControl';
 import { Modal } from '../Modal/Modal';
@@ -23,6 +22,7 @@ import {
 } from '../../utils/dashboardProducts';
 import './Dashboard.css';
 
+//TO-DO: FIX ERRORS
 const MODE_CONTENT = {
 	'my-vanity': { title: 'My products', emptyTitle: 'Your vanity is ready for its first product', emptyText: 'Create a product or explore the community collection.' },
 	search: { title: 'Search results', emptyTitle: 'Find your next favorite', emptyText: 'Search by product name or brand using at least two characters.' },
@@ -147,12 +147,6 @@ const Dashboard = () => {
 
 	return (
 		<div className='dashboardShell'>
-			<DashboardNavigation
-				mode={mode}
-				onModeChange={changeMode}
-				onAdd={toggleCreateProductPopup}
-				onProfile={toggleUserProfile}
-			/>
 			<main className='dashboard'>
 				<header className='dashboard__welcome'>
 					<div>

@@ -1,7 +1,7 @@
-// src/App/App.jsx
 import { BrowserRouter, useLocation } from 'react-router-dom';
 import { AppRoutes } from '../Routes/index';
 import { Navbar } from '../components/Navbar/Navbar';
+import { DashboardNavigation } from '../components/DashboardNavigation/DashboardNavigation';
 import { VanitysContext, VanitysProvider } from '../context';
 import { MissingFieldsPopup } from '../components/MissingFieldsPopup/MissingFieldsPopup';
 import { Modal } from '../components/Modal/Modal';
@@ -17,12 +17,22 @@ const AppContent = () => {
 		errorMessage,
 		errorTitle,
 		errorType,
+		apiResponse,
+		authInitialized,
 	} = useContext(VanitysContext);
-	const standaloneRoute = location.pathname === '/dashboard' || location.pathname === '/callback';
+
+	const isCallback = location.pathname === '/callback';
+	const isAuthenticated = authInitialized && apiResponse?.token;
 
 	return (
-		<div className={`app-container${standaloneRoute ? ' app-container--dashboard' : ''}`}>
-			{!standaloneRoute && <Navbar />}
+		<div className={`app-container${isAuthenticated ? ' app-container--authenticated' : ''}`}>
+			{!isCallback && !authInitialized && (
+				<header className='header header--loading' aria-busy='true'>
+					<h1 className='header__title'>My Vanity's</h1>
+				</header>
+			)}
+			{!isCallback && !isAuthenticated && authInitialized && <Navbar />}
+			{!isCallback && isAuthenticated && <DashboardNavigation />}
 			<AppRoutes />
 			{showMissingFieldsPopup && (
 				<Modal>
