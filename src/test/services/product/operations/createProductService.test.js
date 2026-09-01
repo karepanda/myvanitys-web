@@ -13,7 +13,6 @@ vi.mock('../../../../services/product/adapters/productApiAdapter', () => ({
 describe('createProductService', () => {
 	
 	const token = 'test-token';
-	const tokenWithBearer = 'Bearer test-token';
 	const productData = {
 		name: 'Test Product',
 		brand: 'Test Brand',
@@ -33,7 +32,7 @@ describe('createProductService', () => {
 		vi.spyOn(console, 'error').mockImplementation(() => {});
 	});
 
-	it('debería llamar al adaptador con los datos correctos y añadir Bearer al token', async () => {
+	it('debería llamar al adaptador con los datos correctos y el token sin modificar', async () => {
 	
 		productApiAdapter.post.mockResolvedValue({ id: 1, ...productData });
 
@@ -54,7 +53,7 @@ describe('createProductService', () => {
 				colorHex: productData.color,
 			},
 	
-			'Bearer test-token',
+			token,
 			errorHandler
 		);
 
@@ -62,13 +61,14 @@ describe('createProductService', () => {
 		expect(result).toEqual({ id: 1, ...productData });
 	});
 
-	it('debería mantener el prefijo "Bearer " en el token si ya lo tiene', async () => {
+	it('no debería añadir el prefijo Bearer antes de delegar en el adaptador', async () => {
 
 		productApiAdapter.post.mockResolvedValue({ id: 1, ...productData });
 
 
+		const rawToken = 'test-token-sin-bearer';
 		await createProductService.createProduct(
-			tokenWithBearer,
+			rawToken,
 			productData,
 			errorHandler
 		);
@@ -77,28 +77,7 @@ describe('createProductService', () => {
 		expect(productApiAdapter.post).toHaveBeenCalledWith(
 			'/products',
 			expect.any(Object),
-			tokenWithBearer,
-			errorHandler
-		);
-	});
-
-	it('debería añadir el prefijo "Bearer " al token si no lo tiene', async () => {
-
-		productApiAdapter.post.mockResolvedValue({ id: 1, ...productData });
-
-
-		const tokenSinBearer = 'test-token-sin-bearer';
-		await createProductService.createProduct(
-			tokenSinBearer,
-			productData,
-			errorHandler
-		);
-
-
-		expect(productApiAdapter.post).toHaveBeenCalledWith(
-			'/products',
-			expect.any(Object),
-			'Bearer test-token-sin-bearer',
+			rawToken,
 			errorHandler
 		);
 	});
