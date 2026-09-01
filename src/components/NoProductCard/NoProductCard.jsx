@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import './NoProductCard.css';
 import { VanitysContext } from '../../context/index';
 import createProduct from '../../assets/CreateProduct.png';

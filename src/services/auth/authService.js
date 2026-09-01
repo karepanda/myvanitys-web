@@ -45,13 +45,13 @@ export const authService = {
     if (authMode === 'register') {
       try {
         result = await registerService.register(code, errorHandler);
-      } catch (registerError) {
+      } catch {
         result = null;
       }
     } else {
       try {
         result = await loginService.authenticate(code, errorHandler);
-      } catch (loginError) {
+      } catch {
         result = null;
       }
     }

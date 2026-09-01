@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import './UserMessage.css';
 import { IoClose } from 'react-icons/io5';
 import { VanitysContext } from '../../context/index';

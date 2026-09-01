@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiGrid, FiHeart, FiSearch } from 'react-icons/fi';
 import './MainContent.css';

@@ -1,4 +1,3 @@
-import React from 'react';
 import './CookieBanner.css';
 import './CookieBanner.responsive.css';
 
@@ -15,7 +14,7 @@ const CookieBanner = () => {
 				our website. By using our site, you acknowledge that you have read
 				and understood our
 				<span className='cookieBanner__highlight'> Cookie Policy </span>
-				 & <span className='cookieBanner__highlight'>Privacy Policy</span>
+				 {'&'} <span className='cookieBanner__highlight'>Privacy Policy</span>
 			</p>
 			<button
 				onClick={() => closeCookieBanner()}

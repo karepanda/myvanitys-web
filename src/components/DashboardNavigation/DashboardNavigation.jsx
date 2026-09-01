@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
 import { FiCompass, FiHeart, FiPlus, FiSearch, FiUser } from 'react-icons/fi';
 import { VanitysContext } from '../../context';

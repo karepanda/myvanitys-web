@@ -1,5 +1,5 @@
 // components/ProductReviews.jsx
-import React, { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useReviews } from '../hooks';
 import { UserMessage } from './UserMessage/UserMessage';
@@ -16,7 +16,6 @@ const ProductReviews = ({ productId, token }) => {
     loadReviews,
     addReview,
     deleteReview,
-    clearError,
   } = useReviews(productId);
 
   const { showMissingFieldsPopup, setShowMissingFieldsPopup } = useContext(VanitysContext);

@@ -30,8 +30,8 @@ export class ErrorHandler {
 					
 					errorInfo.message = errorData.message;
 				}
-			} catch (e) {
-				
+			} catch {
+				// Keep the default message when the response body is not JSON.
 			}
 		}
 

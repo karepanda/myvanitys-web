@@ -147,7 +147,7 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
 				setProcessingAuth(false);
 				navigate(redirectTo);
 			}, 1000);
-			} catch (error) {
+			} catch {
 
 				// Use ErrorHandler for proper error display
 				errorHandler.showGenericError();

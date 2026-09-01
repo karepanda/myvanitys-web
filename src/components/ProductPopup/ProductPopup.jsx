@@ -1,10 +1,9 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import './ProductPopup.css';
 import { IoClose } from 'react-icons/io5';
 import { FaRegStar } from 'react-icons/fa';
 import { FaStar } from 'react-icons/fa6';
 import { VanitysContext } from '../../context/index';
-import { CreateReviewPopup } from '../CreateReviewPopup/CreateReviewPopup';
 import { useReviews } from '../../hooks';
 import { getCategoryLabel, getCategoryName, getSafeHexColor } from '../../utils/dashboardProducts';
 

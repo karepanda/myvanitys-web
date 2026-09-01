@@ -1,5 +1,4 @@
 // src/context/index.js
-import React from 'react';
 import { createContext, useState, useEffect, useRef } from 'react';
 import { ErrorHandler } from '../utils/errorHandler';
 import { authService } from '../services/auth/authService';
@@ -200,11 +199,6 @@ const VanitysProvider = ({ children }) => {
 			errorHandler.showValidationError('requiredFields');
 			return;
 		}
-
-		const reviewData = {
-			rating: selectedRating,
-			text: reviewText,
-		};
 
 		setSelectedRating(0);
 		setReviewText('');
@@ -455,7 +449,7 @@ const VanitysProvider = ({ children }) => {
 			setPublicProductsRefreshTrigger((prev) => prev + 1);
 
 			showNotificationTemporarily('add');
-		} catch (error) {
+		} catch {
 			errorHandler.showGenericError();
 		} finally {
 			setIsAdding(false);
