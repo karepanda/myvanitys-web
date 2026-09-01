@@ -1,13 +1,6 @@
-import React, { useState } from 'react';
 import './Form.css';
 
 const Form = () => {
-	const [categoriaSeleccionada, setCategoriaSeleccionada] = useState('');
-
-	const manejarCambio = (event) => {
-		setCategoriaSeleccionada(event.target.value);
-	};
-
 	return (
 		<form action='' className='form'>
 			<h1 className='form__title'>Create your Product</h1>

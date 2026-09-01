@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import './Navbar.css';
 import './Navbar.responsive.css';
 import { Modal } from '../Modal/Modal';
@@ -13,7 +13,6 @@ const Navbar = () => {
 		toggleModalRegister,
 		toggleModalLogin,
 		showModalLogin,
-		showCookieBanner,
 		renderButtonWithTooltip,
 	} = useContext(VanitysContext);
 

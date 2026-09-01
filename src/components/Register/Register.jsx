@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { VanitysContext } from '../../context';
 import { Popup } from '../Popup/Popup';
 import registerLogin from '../../assets/register_logIn.png';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Main } from '../../components/MainContent/MainContent';
 import { CookieBanner } from '../../components/CookieBanner/CookieBanner';
 import { Modal } from '../../components/Modal/Modal';

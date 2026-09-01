@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { IoClose } from 'react-icons/io5';
 import { VanitysContext } from '../../context/index';
 import './CreateProductPopup.css';

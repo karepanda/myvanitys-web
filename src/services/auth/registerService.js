@@ -24,8 +24,6 @@ export const registerService = {
       };
       
       console.log("Payload being sent:", JSON.stringify(payload));
-      const authUrl = `${API_URL}/auth/register`;
-      
       const response = await fetch(`${API_URL}/auth/register`, {
         method: 'POST',
         headers: {
