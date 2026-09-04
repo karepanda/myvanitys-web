@@ -1,5 +1,5 @@
 import './PageNotFound.css';
-import homeIllustration from '../../assets/home_illustration.png';
+import homeIllustration from '../../assets/home_illustration.optimized.png';
 import { useNavigate } from 'react-router-dom';
 
 const PageNotFound = () => {

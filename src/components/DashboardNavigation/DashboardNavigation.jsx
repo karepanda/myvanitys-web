@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useSearchParams, useNavigate, useLocation } from 'react-router-dom';
 import { FiCompass, FiHeart, FiPlus, FiSearch, FiUser } from 'react-icons/fi';
 import { VanitysContext } from '../../context';
 import './DashboardNavigation.css';
@@ -41,9 +41,9 @@ const DashboardNavigation = () => {
 
 	return (
 		<nav className='dashboardNavigation' aria-label='Dashboard navigation'>
-			<a className='dashboardNavigation__brand' href='/dashboard'>
+			<Link className='dashboardNavigation__brand' to='/dashboard'>
 				My Vanity's
-			</a>
+			</Link>
 			<div className='dashboardNavigation__items'>
 				{items.map(({ id, label, icon: Icon }) => {
 					const isActive = id === mode;

@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { VanitysContext } from '../../context';
 import { Popup } from '../Popup/Popup';
-import registerLogin from '../../assets/register_logIn.png';
+import registerLogin from '../../assets/register_logIn.optimized.png';
 
 const Login = () => {
 	const { toggleModalLogin } = useContext(VanitysContext);

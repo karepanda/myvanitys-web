@@ -29,4 +29,6 @@
 
 .cookieBanner__highlight {
 	color: var(--pink);
+	text-decoration: underline;
+	text-underline-offset: 3px;
 }

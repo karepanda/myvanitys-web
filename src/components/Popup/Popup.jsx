@@ -50,7 +50,7 @@ const Popup = ({
 					<p className='popup__brand'>My Vanity’s</p>
 					<button type='button' onClick={handleClose} className='popup__header--icon' aria-label={`Close ${title}`}><IoClose aria-hidden='true' /></button>
 				</section>
-				<div className='popup__imageWrap'><img className='popup__image' src={imageUrl} alt='' /></div>
+				<div className='popup__imageWrap'><img className='popup__image' src={imageUrl} alt='' width='900' height='900' decoding='async' /></div>
 				<section className='popup__description'>
 					<p className='popup__eyebrow'>{title === 'Login' ? 'Welcome back' : 'Your vanity starts here'}</p>
 					<h1 id='auth-popup-title' className='popup__description--title'>{descriptionTitle}</h1>

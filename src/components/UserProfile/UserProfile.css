@@ -11,5 +11,9 @@
 .userProfile__buttons--goto { border: 0; background: var(--color-coral); color: var(--color-surface); }
 .userProfile__buttons--createProduct { border: 1px solid var(--color-coral); background: var(--color-surface); color: var(--color-coral); }
 .userProfile__buttons--logOut { border: 0; background: transparent; color: var(--color-danger); }
+.userProfile__legal { display: flex; justify-content: center; gap: var(--space-4); margin-top: var(--space-2); font-size: var(--font-size-xs); }
+.userProfile__legal a { color: var(--color-text-muted); text-underline-offset: 3px; }
+.userProfile__legal a:hover { color: var(--color-pink-strong); }
+.userProfile__legal a:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; border-radius: 2px; }
 .userProfile button:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; }
 @media (min-width: 768px) { .userProfile { padding: var(--space-6); align-items: center; } .userProfile__panel { width: min(100%, 460px); border-radius: var(--radius-dialog); } }

@@ -11,4 +11,7 @@ root.render(
 	</React.StrictMode>
 );
 
-reportWebVitals();
+reportWebVitals((metric) => {
+	window.dispatchEvent(new CustomEvent('myvanitys:web-vital', { detail: metric }));
+	if (import.meta.env.DEV) console.info('[Web Vital]', metric);
+});

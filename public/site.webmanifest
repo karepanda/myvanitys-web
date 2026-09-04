@@ -1,0 +1,10 @@
+{
+  "name": "My Vanity's",
+  "short_name": "My Vanity's",
+  "description": "Your beauty collection, beautifully organized.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fbf6f0",
+  "theme_color": "#ff785f",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}
