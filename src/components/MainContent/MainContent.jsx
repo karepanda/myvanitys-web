@@ -4,8 +4,8 @@ import { FiGrid, FiHeart, FiSearch } from 'react-icons/fi';
 import './MainContent.css';
 import './MainContent.responsive.css';
 
-import homeIllustration from '../../assets/home_illustration.png';
-import createProduct from '../../assets/CreateProduct.png';
+import homeIllustration from '../../assets/home_illustration.optimized.png';
+import createProduct from '../../assets/CreateProduct.optimized.png';
 import { VanitysContext } from '../../context/index';
 import { Modal } from '../Modal/Modal';
 import { UserProfile } from '../UserProfile/UserProfile';
@@ -43,7 +43,7 @@ export const Main = () => {
 
 				<div className='main__hero-visual' aria-hidden='true'>
 					<span className='main__visual-label'>Your personal beauty shelf</span>
-					<img src={homeIllustration} alt='' />
+					<img src={homeIllustration} alt='' width='900' height='900' fetchpriority='high' />
 				</div>
 			</section>
 
@@ -59,7 +59,7 @@ export const Main = () => {
 					<article><span><FiHeart /></span><p>03</p><h3>Remember</h3><div>Review your favorites and keep useful notes for later.</div></article>
 				</div>
 				<div className='main__organize'>
-					<div className='main__product-illustration'><img src={createProduct} alt='Example of adding a product to My Vanity’s' /></div>
+					<div className='main__product-illustration'><img src={createProduct} alt='Product being added to a digital beauty collection' width='900' height='900' loading='lazy' decoding='async' /></div>
 					<div className='main__organize-copy'>
 						<p className='main__upperTitle'>Made to feel effortless</p>
 						<h2>Add a product in seconds.</h2>

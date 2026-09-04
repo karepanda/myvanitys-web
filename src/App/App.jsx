@@ -7,6 +7,8 @@ import { MissingFieldsPopup } from '../components/MissingFieldsPopup/MissingFiel
 import { Modal } from '../components/Modal/Modal';
 
 import { useContext } from 'react';
+import { PublicFooter } from '../components/PublicFooter/PublicFooter';
+import { Seo } from '../components/Seo/Seo';
 import './App.css';
 
 const AppContent = () => {
@@ -23,9 +25,11 @@ const AppContent = () => {
 
 	const isCallback = location.pathname === '/callback';
 	const isAuthenticated = authInitialized && apiResponse?.token;
+	const showPublicFooter = ['/', '/privacy', '/terms'].includes(location.pathname) && !isAuthenticated;
 
 	return (
 		<div className={`app-container${isAuthenticated ? ' app-container--authenticated' : ''}`}>
+			<Seo />
 			{!isCallback && !authInitialized && (
 				<header className='header header--loading' aria-busy='true'>
 					<h1 className='header__title'>My Vanity's</h1>
@@ -34,6 +38,7 @@ const AppContent = () => {
 			{!isCallback && !isAuthenticated && authInitialized && <Navbar />}
 			{!isCallback && isAuthenticated && <DashboardNavigation />}
 			<AppRoutes />
+			{showPublicFooter && <PublicFooter />}
 			{showMissingFieldsPopup && (
 				<Modal>
 					<MissingFieldsPopup
