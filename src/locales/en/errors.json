@@ -1,0 +1,14 @@
+{
+	"auth": {
+		"badRequest": { "message": "Invalid authentication request. Please try again.", "title": "Bad Request" },
+		"invalidToken": { "message": "Invalid or expired token. Please log in again.", "title": "Authentication Error" },
+		"forbidden": { "message": "Access denied. You do not have permission to access this resource.", "title": "Forbidden" },
+		"serviceNotFound": { "message": "Authentication service not found. Please try again later.", "title": "Not Found" },
+		"serverError": { "message": "An error occurred on the server during authentication. Please try again later.", "title": "Server Error" },
+		"unknown": { "message": "An unexpected error occurred during authentication. Please try again.", "title": "Authentication Error" },
+		"tokenMissing": { "message": "Access token not found. Please try logging in again.", "title": "Authentication Error" },
+		"userDataMissing": { "message": "No user data received from the authentication service.", "title": "Authentication Error" },
+		"registrationFailed": { "message": "Account creation failed. Please try registering again.", "title": "Registration Error" },
+		"userIdMissing": { "message": "Account was not created successfully. Please try again.", "title": "Registration Error" }
+	}
+}

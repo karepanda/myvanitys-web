@@ -1,5 +1,6 @@
 import { IoClose, IoLogoGoogle } from 'react-icons/io5';
 import { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import { VanitysContext } from '../../context';
 import './Popup.css';
 import './Popup.responsive.css';
@@ -13,6 +14,7 @@ const Popup = ({
 	closeFunction,
 	authMode,
 }) => {
+	const { t } = useTranslation('auth');
 	// Using context to obtain authentication functions
 	const { initiateLogin, initiateRegister } = useContext(VanitysContext);
 
@@ -48,11 +50,11 @@ const Popup = ({
 			<div className='popup__container'>
 				<section className='popup__header'>
 					<p className='popup__brand'>My Vanity’s</p>
-					<button type='button' onClick={handleClose} className='popup__header--icon' aria-label={`Close ${title}`}><IoClose aria-hidden='true' /></button>
+					<button type='button' onClick={handleClose} className='popup__header--icon' aria-label={t('popup.close', { title })}><IoClose aria-hidden='true' /></button>
 				</section>
 				<div className='popup__imageWrap'><img className='popup__image' src={imageUrl} alt='' width='900' height='900' decoding='async' /></div>
 				<section className='popup__description'>
-					<p className='popup__eyebrow'>{title === 'Login' ? 'Welcome back' : 'Your vanity starts here'}</p>
+					<p className='popup__eyebrow'>{authMode === 'login' ? t('login.eyebrow') : t('register.eyebrow')}</p>
 					<h1 id='auth-popup-title' className='popup__description--title'>{descriptionTitle}</h1>
 					<p className='popup__description--text'>{description}</p>
 					<button
@@ -62,7 +64,7 @@ const Popup = ({
 						<IoLogoGoogle />
 						{textButtom}
 					</button>
-					<p className='popup__privacy'>We only use Google to securely identify your account.</p>
+					<p className='popup__privacy'>{t('popup.privacy')}</p>
 				</section>
 			</div>
 		</div>

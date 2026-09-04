@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import './Navbar.css';
 import './Navbar.responsive.css';
 import { Modal } from '../Modal/Modal';
@@ -8,6 +9,7 @@ import { VanitysContext } from '../../context';
 
 //TO-DO: FIX ERRORS
 const Navbar = () => {
+	const { t } = useTranslation('auth');
 	const {
 		showModalRegister,
 		toggleModalRegister,
@@ -24,13 +26,13 @@ const Navbar = () => {
 				</h1>
 
 				{renderButtonWithTooltip(
-					'Log in',
+					t('navbar.login'),
 					toggleModalLogin,
 					'header__login',
 					'header'
 				)}
 				{renderButtonWithTooltip(
-					'Register',
+					t('navbar.register'),
 					toggleModalRegister,
 					'header__register',
 					'header'
