@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { IoClose, IoPersonCircleOutline } from 'react-icons/io5';
 import './UserProfile.css';
 import { VanitysContext } from '../../context/index';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const UserProfile = () => {
 	const {
@@ -61,6 +61,10 @@ const UserProfile = () => {
 						>
 							Log out
 						</button>
+						<nav className='userProfile__legal' aria-label='Legal information'>
+							<Link to='/privacy' onClick={toggleUserProfile}>Privacy Policy</Link>
+							<Link to='/terms' onClick={toggleUserProfile}>Terms of Use</Link>
+						</nav>
 					</div>
 					</div>
 				</div>

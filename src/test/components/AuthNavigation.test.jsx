@@ -2,11 +2,13 @@
  * @vitest-environment jsdom
  */
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { VanitysContext } from '../../context';
 import { Navbar } from '../../components/Navbar/Navbar';
 import { DashboardNavigation } from '../../components/DashboardNavigation/DashboardNavigation';
+import { UserProfile } from '../../components/UserProfile/UserProfile';
+import { LegalPage } from '../../Pages/Legal/LegalPage';
 
 const mockAuthData = {
 	token: 'test-token-123',
@@ -283,6 +285,46 @@ describe('Auth Navigation', () => {
 
 			screen.getByLabelText('Profile').click();
 			expect(toggleUserProfile).toHaveBeenCalled();
+		});
+	});
+
+	describe('authenticated legal navigation', () => {
+		it('shows legal links below logout and closes the profile when used', () => {
+			const toggleUserProfile = vi.fn();
+			const contextValue = buildAuthContextValue({
+				apiResponse: mockAuthData,
+				showUserProfile: true,
+				toggleUserProfile,
+				logout: vi.fn(),
+			});
+
+			render(
+				<TestVanitysWrapper contextValue={contextValue}>
+					<MemoryRouter initialEntries={['/dashboard']}>
+						<UserProfile />
+					</MemoryRouter>
+				</TestVanitysWrapper>
+			);
+
+			const privacy = screen.getByRole('link', { name: 'Privacy Policy' });
+			expect(privacy).toHaveAttribute('href', '/privacy');
+			expect(screen.getByRole('link', { name: 'Terms of Use' })).toHaveAttribute('href', '/terms');
+			fireEvent.click(privacy);
+			expect(toggleUserProfile).toHaveBeenCalled();
+		});
+
+		it('returns authenticated users from a legal page to the dashboard', () => {
+			const contextValue = buildAuthContextValue({ apiResponse: mockAuthData });
+
+			render(
+				<TestVanitysWrapper contextValue={contextValue}>
+					<MemoryRouter initialEntries={['/privacy']}>
+						<LegalPage type='privacy' />
+					</MemoryRouter>
+				</TestVanitysWrapper>
+			);
+
+			expect(screen.getByRole('link', { name: /Back to My Vanity$/ })).toHaveAttribute('href', '/dashboard');
 		});
 	});
 
