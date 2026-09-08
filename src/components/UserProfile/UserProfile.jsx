@@ -3,6 +3,7 @@ import { IoClose, IoPersonCircleOutline } from 'react-icons/io5';
 import './UserProfile.css';
 import { VanitysContext } from '../../context/index';
 import { Link, useNavigate } from 'react-router-dom';
+import { LanguageSelector } from '../LanguageSelector/LanguageSelector';
 
 const UserProfile = () => {
 	const {
@@ -64,6 +65,7 @@ const UserProfile = () => {
 						<nav className='userProfile__legal' aria-label='Legal information'>
 							<Link to='/privacy' onClick={toggleUserProfile}>Privacy Policy</Link>
 							<Link to='/terms' onClick={toggleUserProfile}>Terms of Use</Link>
+							<LanguageSelector />
 						</nav>
 					</div>
 					</div>

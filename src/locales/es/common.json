@@ -1,3 +1,17 @@
 {
-	"appName": "My Vanity’s"
+	"appName": "My Vanity’s",
+	"navigation": {
+		"ariaLabel": "Navegación del panel",
+		"myVanity": "Mi Vanity",
+		"search": "Buscar",
+		"add": "Añadir",
+		"addProduct": "Añadir producto",
+		"explore": "Explorar",
+		"profile": "Perfil"
+	},
+	"language": {
+		"label": "Idioma",
+		"es": "Español",
+		"en": "English"
+	}
 }
