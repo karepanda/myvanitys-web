@@ -9,8 +9,10 @@ import createProduct from '../../assets/CreateProduct.optimized.png';
 import { VanitysContext } from '../../context/index';
 import { Modal } from '../Modal/Modal';
 import { UserProfile } from '../UserProfile/UserProfile';
+import { useTranslation } from 'react-i18next';
 
 export const Main = () => {
+	const { t } = useTranslation('common');
 	const {
 		showUserProfile,
 		apiResponse,
@@ -28,43 +30,43 @@ export const Main = () => {
 		<div className='main'>
 			<section className='main__hero'>
 				<div className='main__hero-copy'>
-					<p className='main__upperTitle'>Your beauty collection, beautifully organized</p>
-					<h1>Everything in your vanity, finally in one place.</h1>
+					<p className='main__upperTitle'>{t('home.hero.eyebrow')}</p>
+					<h1>{t('home.hero.title')}</h1>
 					<p className='main__hero-description'>
-						My Vanity’s helps you remember what you own, discover products from the community and keep the routine you love close at hand.
+						{t('home.hero.description')}
 					</p>
 					<div className='main__hero-actions'>
-						{showLoginButtons && renderButtonWithTooltip('Create my vanity', toggleModalRegister, 'main__primary-action', 'main')}
-						{showLoginButtons && renderButtonWithTooltip('I already have an account', toggleModalLogin, 'main__secondary-action', 'main')}
-						{isAuthenticated && <button className='main__primary-action' onClick={() => navigate('/dashboard')}>Open my vanity</button>}
+						{showLoginButtons && renderButtonWithTooltip(t('home.hero.createVanity'), toggleModalRegister, 'main__primary-action', 'main')}
+						{showLoginButtons && renderButtonWithTooltip(t('home.hero.existingAccount'), toggleModalLogin, 'main__secondary-action', 'main')}
+						{isAuthenticated && <button className='main__primary-action' onClick={() => navigate('/dashboard')}>{t('home.hero.openVanity')}</button>}
 					</div>
-					<p className='main__hero-note'>Free to start · Simple to use · Made for beauty lovers</p>
+					<p className='main__hero-note'>{t('home.hero.note')}</p>
 				</div>
 
 				<div className='main__hero-visual' aria-hidden='true'>
-					<span className='main__visual-label'>Your personal beauty shelf</span>
+					<span className='main__visual-label'>{t('home.hero.visualLabel')}</span>
 					<img src={homeIllustration} alt='' width='900' height='900' fetchpriority='high' />
 				</div>
 			</section>
 
 			<section className='main__intro' aria-labelledby='how-it-works'>
 				<div className='main__intro-heading'>
-					<p className='main__upperTitle'>What is My Vanity’s?</p>
-					<h2 id='how-it-works'>A calmer way to enjoy your collection</h2>
-					<p>Build a digital home for your cosmetics in a few easy steps.</p>
+					<p className='main__upperTitle'>{t('home.intro.eyebrow')}</p>
+					<h2 id='how-it-works'>{t('home.intro.title')}</h2>
+					<p>{t('home.intro.description')}</p>
 				</div>
 				<div className='main__features'>
-					<article><span><FiGrid /></span><p>01</p><h3>Organize</h3><div>Save your products in one clear, personal collection.</div></article>
-					<article><span><FiSearch /></span><p>02</p><h3>Discover</h3><div>Search the community catalog by product name or brand.</div></article>
-					<article><span><FiHeart /></span><p>03</p><h3>Remember</h3><div>Review your favorites and keep useful notes for later.</div></article>
+					<article><span><FiGrid /></span><p>01</p><h3>{t('home.features.organize.title')}</h3><div>{t('home.features.organize.description')}</div></article>
+					<article><span><FiSearch /></span><p>02</p><h3>{t('home.features.discover.title')}</h3><div>{t('home.features.discover.description')}</div></article>
+					<article><span><FiHeart /></span><p>03</p><h3>{t('home.features.remember.title')}</h3><div>{t('home.features.remember.description')}</div></article>
 				</div>
 				<div className='main__organize'>
-					<div className='main__product-illustration'><img src={createProduct} alt='Product being added to a digital beauty collection' width='900' height='900' loading='lazy' decoding='async' /></div>
+					<div className='main__product-illustration'><img src={createProduct} alt={t('home.promo.imageAlt')} width='900' height='900' loading='lazy' decoding='async' /></div>
 					<div className='main__organize-copy'>
-						<p className='main__upperTitle'>Made to feel effortless</p>
-						<h2>Add a product in seconds.</h2>
-						<p>Name it, choose its brand and category, and it becomes part of your vanity. No spreadsheets, no forgotten drawers.</p>
-						{showLoginButtons && <button className='main__text-action' onClick={toggleModalRegister}>Start organizing <span aria-hidden='true'>→</span></button>}
+						<p className='main__upperTitle'>{t('home.promo.eyebrow')}</p>
+						<h2>{t('home.promo.title')}</h2>
+						<p>{t('home.promo.description')}</p>
+						{showLoginButtons && <button className='main__text-action' onClick={toggleModalRegister}>{t('home.promo.action')} <span aria-hidden='true'>→</span></button>}
 					</div>
 				</div>
 			</section>

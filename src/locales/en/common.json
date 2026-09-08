@@ -1,5 +1,161 @@
 {
-	"appName": "My Vanity’s",
+	"app": {
+		"errorFallback": "An error occurred"
+	},
+	"legal": {
+		"ariaLabel": "Legal information",
+		"privacyPolicyLink": "Privacy Policy",
+		"termsOfUseLink": "Terms of Use",
+		"backToVanity": "Back to My Vanity’s",
+		"backToVanityAuthenticated": "Back to My Vanity",
+		"effectiveDate": "Effective September 4, 2026",
+		"introduction": "This page explains the rules and privacy practices for the My Vanity’s web application.",
+		"contact": {
+			"heading": "Contact",
+			"body": "For privacy, account or legal questions, use the contact channel published by My Vanity’s."
+		},
+		"privacy": {
+			"title": "Privacy Policy",
+			"sections": {
+				"informationWeCollect": {
+					"heading": "Information we collect",
+					"body": "When you sign in with Google, we receive the account information needed to identify your account, such as your name, email address and profile image. We also store the products, notes and reviews you choose to add to your collection."
+				},
+				"howWeUseInformation": {
+					"heading": "How we use information",
+					"body": "We use this information to create and secure your account, provide the collection features you request, maintain the service and respond to support or security issues."
+				},
+				"storageAndProviders": {
+					"heading": "Storage and service providers",
+					"body": "Authentication and hosting providers may process information on our behalf to operate My Vanity’s. We only share information when it is needed to provide the service, comply with the law or protect the service and its users."
+				},
+				"cookiesAndStorage": {
+					"heading": "Cookies and local storage",
+					"body": "My Vanity’s uses browser storage to keep you signed in and to remember whether you dismissed the cookie notice. The current service does not use advertising or analytics cookies."
+				},
+				"yourChoices": {
+					"heading": "Your choices",
+					"body": "You may stop using the service at any time. You may request access to, correction of or deletion of your account information by contacting us."
+				},
+				"securityAndRetention": {
+					"heading": "Security and retention",
+					"body": "We use reasonable safeguards designed to protect account information. We retain information while your account is active and as needed to operate the service or meet legal obligations."
+				},
+				"changes": {
+					"heading": "Changes",
+					"body": "We may update this policy when the service or its legal obligations change. The date at the top of this page identifies the latest revision."
+				}
+			}
+		},
+		"terms": {
+			"title": "Terms of Use",
+			"sections": {
+				"usingTheService": {
+					"heading": "Using the service",
+					"body": "You may use My Vanity’s to organize beauty products and share product information and reviews. You must provide accurate account information and use the service lawfully."
+				},
+				"yourAccount": {
+					"heading": "Your account",
+					"body": "You are responsible for activity under your account and for keeping access to your Google account secure. Tell us promptly if you believe your account has been used without authorization."
+				},
+				"yourContent": {
+					"heading": "Your content",
+					"body": "You keep ownership of the content you submit. You grant My Vanity’s permission to host, display and process that content only as needed to operate and improve the service. Do not submit unlawful content or material that violates another person’s rights."
+				},
+				"productInformation": {
+					"heading": "Product information",
+					"body": "Product descriptions and community reviews are provided for organization and general information. They are not medical advice and should not replace product labels or advice from a qualified professional."
+				},
+				"availability": {
+					"heading": "Availability",
+					"body": "We may change, suspend or discontinue features and may restrict access when needed for maintenance, security, legal compliance or misuse prevention."
+				},
+				"disclaimerAndLiability": {
+					"heading": "Disclaimer and liability",
+					"body": "The service is provided as available. To the extent permitted by law, My Vanity’s is not responsible for indirect losses or decisions made from community-provided product information. Nothing in these terms limits rights that cannot legally be limited."
+				},
+				"changes": {
+					"heading": "Changes",
+					"body": "We may update these terms as the service changes. Continued use after an update means the revised terms apply from their stated effective date."
+				}
+			}
+		}
+	},
+	"cookieBanner": {
+		"ariaLabel": "Cookie notice",
+		"body": "We use browser storage to keep you signed in and remember your preferences. By using our site, you acknowledge that you have read and understood our",
+		"dismiss": "Got it!",
+		"acceptCookiesTooltip": "Accept cookies to use this"
+	},
+	"home": {
+		"hero": {
+			"eyebrow": "Your beauty collection, beautifully organized",
+			"title": "Everything in your vanity, finally in one place.",
+			"description": "My Vanity’s helps you remember what you own, discover products from the community and keep the routine you love close at hand.",
+			"createVanity": "Create my vanity",
+			"existingAccount": "I already have an account",
+			"openVanity": "Open my vanity",
+			"note": "Free to start · Simple to use · Made for beauty lovers",
+			"visualLabel": "Your personal beauty shelf"
+		},
+		"intro": {
+			"eyebrow": "What is My Vanity’s?",
+			"title": "A calmer way to enjoy your collection",
+			"description": "Build a digital home for your cosmetics in a few easy steps."
+		},
+		"features": {
+			"organize": {
+				"title": "Organize",
+				"description": "Save your products in one clear, personal collection."
+			},
+			"discover": {
+				"title": "Discover",
+				"description": "Search the community catalog by product name or brand."
+			},
+			"remember": {
+				"title": "Remember",
+				"description": "Review your favorites and keep useful notes for later."
+			}
+		},
+		"promo": {
+			"imageAlt": "Product being added to a digital beauty collection",
+			"eyebrow": "Made to feel effortless",
+			"title": "Add a product in seconds.",
+			"description": "Name it, choose its brand and category, and it becomes part of your vanity. No spreadsheets, no forgotten drawers.",
+			"action": "Start organizing"
+		}
+	},
+	"userProfile": {
+		"title": "Profile",
+		"close": "Close profile",
+		"goToVanity": "Go to My Vanity’s",
+		"createProduct": "Create Product",
+		"logout": "Log out"
+	},
+	"welcomePopup": {
+		"eyebrow": "You’re all set",
+		"close": "Close welcome message",
+		"title": "Welcome to My Vanity’s",
+		"description": "Your personal beauty shelf is ready. Add your products, discover new favorites and make the collection yours.",
+		"action": "Explore my vanity"
+	},
+	"deleteModal": {
+		"close": "Close delete confirmation",
+		"question": "Are you sure you want to delete",
+		"confirm": "Confirm",
+		"cancel": "Cancel"
+	},
+	"messages": {
+		"missingFieldsPopupTitle": "Missing fields!",
+		"missingFieldsTitle": "Missing fields",
+		"close": "Close message",
+		"dismiss": "Got it"
+	},
+	"pageNotFound": {
+		"imageAlt": "No product image",
+		"title": "Page not found",
+		"returnHome": "Return to home"
+	},
 	"navigation": {
 		"ariaLabel": "Dashboard navigation",
 		"myVanity": "My Vanity",

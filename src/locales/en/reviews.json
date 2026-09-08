@@ -1,1 +1,71 @@
-{}
+{
+  "list": {
+    "title": "Product Reviews",
+    "loading": "Loading reviews...",
+    "empty": "No reviews for this product yet.",
+    "errorTitle": "Review Error"
+  },
+  "form": {
+    "rating": "Rating:",
+    "comment": "Comment:",
+    "placeholder": "Write your review here...",
+    "star_one": "star",
+    "star_other": "stars",
+    "submitting": "Submitting...",
+    "submit": "Submit Review"
+  },
+  "validation": {
+    "commentEmpty": {
+      "message": "Comment cannot be empty",
+      "title": "Required Field"
+    },
+    "ratingRange": {
+      "message": "Rating must be between 1 and 5 stars",
+      "title": "Invalid Rating"
+    },
+    "ratingRequired": {
+      "message": "Please select a rating for the product.",
+      "title": "Rating Required"
+    },
+    "commentRequired": {
+      "message": "Please write a comment about the product.",
+      "title": "Comment Required"
+    },
+    "authentication": {
+      "message": "Authentication required. Please log in to continue.",
+      "title": "Authentication Error"
+    }
+  },
+  "feedback": {
+    "successTitle": "Success",
+    "added": "Review added successfully",
+    "deleted": "Review deleted successfully",
+    "created": "Your review has been added successfully!",
+    "createdTitle": "Review Added"
+  },
+  "actions": {
+    "add": "Add Review",
+    "cancel": "Cancel",
+    "delete": "Delete"
+  },
+  "confirmation": {
+    "message": "Are you sure you want to delete this review? This action cannot be undone.",
+    "title": "Confirm Deletion"
+  },
+  "create": {
+    "title": "Write review",
+    "close": "Close review form",
+    "subtitle": "Share your experience",
+    "opinionLabel": "Insert your opinion about the product",
+    "creating": "Creating Review...",
+    "submit": "Create Review",
+    "errorFallback": "Failed to create review. Please try again.",
+    "errorTitle": "Error Creating Review"
+  },
+  "errors": {
+    "loading": "Error loading reviews",
+    "creating": "Error adding the review",
+    "updating": "Error updating the review",
+    "deleting": "Error deleting the review"
+  }
+}

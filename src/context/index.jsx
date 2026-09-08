@@ -4,10 +4,12 @@ import { ErrorHandler } from '../utils/errorHandler';
 import { authService } from '../services/auth/authService';
 import { productFacade } from '../services/product/productFacade';
 import { getJwtExpiration } from '../utils/jwt';
+import { useTranslation } from 'react-i18next';
 
 const VanitysContext = createContext();
 
 const VanitysProvider = ({ children }) => {
+	const { t } = useTranslation('common');
 	// UI States
 	const [showModalRegister, setShowModalRegister] = useState(false);
 	const [showModalLogin, setShowModalLogin] = useState(false);
@@ -471,7 +473,7 @@ const VanitysProvider = ({ children }) => {
 				{label}
 			</button>
 			{showCookieBanner && (
-				<span className='tooltip'>Accept cookies to use this</span>
+				<span className='tooltip'>{t('cookieBanner.acceptCookiesTooltip')}</span>
 			)}
 		</div>
 	);

@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { IoClose } from 'react-icons/io5';
 import { VanitysContext } from '../../context/index';
 import './CreateProductPopup.css';
@@ -7,6 +8,7 @@ import { Modal } from '../Modal/Modal';
 import { MissingFieldsPopup } from '../MissingFieldsPopup/MissingFieldsPopup';
 
 const CreateProductPopup = () => {
+	const { t } = useTranslation('products');
 	const categories = [
 		{ id: '123e4567-e89b-12d3-a456-426614174000', name: 'Face' },
 		{ id: '550e8400-e29b-41d4-a716-446655440001', name: 'Eyes' },
@@ -79,8 +81,8 @@ const CreateProductPopup = () => {
 
 			if (!token) {
 				errorHandler.showErrorMessage(
-					'You are not authenticated. Please log in to continue.',
-					'Authentication error',
+					t('create.validation.authentication.message'),
+					t('create.validation.authentication.title'),
 					'error'
 				);
 				return;
@@ -104,12 +106,16 @@ const CreateProductPopup = () => {
 	const handleFormError = (formErrors) => {
 		if (formErrors.categoryId) {
 			errorHandler.showErrorMessage(
-				'Please select a category for your product.',
-				'Missing Information',
+				t('create.validation.category.message'),
+				t('create.validation.category.title'),
 				'warning'
 			);
 		} else {
-			errorHandler.showValidationError('requiredFields');
+			errorHandler.showErrorMessage(
+				t('create.validation.requiredFields.message'),
+				t('create.validation.requiredFields.title'),
+				'warning'
+			);
 		}
 	};
 
@@ -118,16 +124,16 @@ const CreateProductPopup = () => {
 			<div className='createProduct__container shadow-lg'>
 				<section className='createProduct__header'>
 					<h1 className='createProduct__header--title'>
-						Create product
+						{t('create.title')}
 					</h1>
-					<button type='button' className='createProduct__header--close' onClick={toggleCreateProductPopup} aria-label='Close create product form'>
+					<button type='button' className='createProduct__header--close' onClick={toggleCreateProductPopup} aria-label={t('create.close')}>
 						<IoClose aria-hidden='true' />
 					</button>
 				</section>
 
 				<section className='createProduct__right'>
 					<h1 className='createProduct__right--title'>
-						Add a product to My Vanity’s
+						{t('create.formTitle')}
 					</h1>
 					<form
 						className='createProduct__right--form'
@@ -136,21 +142,21 @@ const CreateProductPopup = () => {
 							handleFormError
 						)}
 					>
-						<label htmlFor='name'>Product name</label>
+						<label htmlFor='name'>{t('create.fields.name')}</label>
 						<input
 							type='text'
 							className='createProduct__right--name'
 							id='name'
 							{...register('name', { required: true, minLength: 2 })}
 						/>
-						<label htmlFor='brand'>Brand</label>
+						<label htmlFor='brand'>{t('create.fields.brand')}</label>
 						<input
 							type='text'
 							className='createProduct__right--brand'
 							id='brand'
 							{...register('brand', { required: true, minLength: 2 })}
 						/>
-						<label htmlFor='categorySelect'>Category</label>
+						<label htmlFor='categorySelect'>{t('create.fields.category')}</label>
 						<div className='createProduct__right--wrapper'>
 							<select
 								id='categorySelect'
@@ -159,7 +165,7 @@ const CreateProductPopup = () => {
 								onChange={handleCategoryChange}
 							>
 								<option value='' disabled>
-									Select a category
+									{t('create.fields.selectCategory')}
 								</option>
 								{categories.map((category) => (
 									<option key={category.id} value={category.id}>
@@ -173,7 +179,7 @@ const CreateProductPopup = () => {
 								{...register('categoryId', {
 									required: true,
 									validate: (value) =>
-										!!value || 'Category is required',
+										!!value || t('create.validation.category.required'),
 								})}
 								value={localCategoryId}
 							/>
@@ -181,11 +187,11 @@ const CreateProductPopup = () => {
 
 						{errors.categoryId && (
 							<span className='createProduct__error'>
-								Please select a category
+								{t('create.validation.category.inline')}
 							</span>
 						)}
 
-						<label htmlFor='color'>Product color</label>
+						<label htmlFor='color'>{t('create.fields.color')}</label>
 						<div className='createProduct__right--color'>
 							<input
 								type='color'
@@ -196,13 +202,13 @@ const CreateProductPopup = () => {
 									setProductColor(event.target.value);
 									setValue('color', event.target.value, { shouldValidate: true });
 								}}
-								aria-label='Choose product color'
+								aria-label={t('create.fields.colorAria')}
 							/>
 						</div>
 
 						{Object.keys(errors).length > 0 && (
 							<div className='createProduct__error'>
-								Please fill in all required fields.
+								{t('create.validation.requiredFields.inline')}
 							</div>
 						)}
 
@@ -210,7 +216,7 @@ const CreateProductPopup = () => {
 							type='submit'
 							className='createProduct__right--button'
 						>
-							Add to My Vanity
+							{t('create.actions.add')}
 						</button>
 					</form>
 				</section>
@@ -221,7 +227,7 @@ const CreateProductPopup = () => {
 					<MissingFieldsPopup
 						message={
 							errorMessage ||
-							'You need to fill in all the fields to create the product.'
+							t('create.validation.requiredFields.popupFallback')
 						}
 						title={errorTitle}
 						type={errorType}

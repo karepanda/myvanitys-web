@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { FiCheck, FiMoreHorizontal, FiPlus, FiStar, FiTrash2, FiEdit3 } from 'react-icons/fi';
 import {
@@ -20,6 +21,7 @@ const ProductCard = ({
 	onDelete,
 	isAdding = false,
 }) => {
+	const { t } = useTranslation('products');
 	const [menuOpen, setMenuOpen] = useState(false);
 	const menuRef = useRef(null);
 	const category = getCategoryName(product);
@@ -49,7 +51,7 @@ const ProductCard = ({
 			}}
 			role='button'
 			tabIndex={0}
-			aria-label={`Open details for ${product?.name || 'product'}`}
+			aria-label={t('card.openDetails', { name: product?.name || t('card.productFallback') })}
 		>
 			<div
 				className='productCard__content'
@@ -58,16 +60,16 @@ const ProductCard = ({
 					{category && <span className='productCard__category'>{getCategoryLabel(category)}</span>}
 					<p className='productCard__brand'>{product?.brand}</p>
 					<h2 className='productCard__name'>{product?.name}</h2>
-					<div className='productCard__rating' aria-label={`${rating.toFixed(1)} out of 5 stars`}>
+					<div className='productCard__rating' aria-label={t('card.ratingAria', { rating: rating.toFixed(1), count: 5 })}>
 						<FiStar aria-hidden='true' />
 						<strong>{rating.toFixed(1)}</strong>
 						{reviewCount !== null && (
-							<span>{reviewCount} {reviewCount === 1 ? 'review' : 'reviews'}</span>
+							<span>{reviewCount} {t('card.review', { count: reviewCount })}</span>
 						)}
 					</div>
 				</div>
 				<div className='productCard__swatch'>
-					<svg viewBox='0 0 64 64' role='img' aria-label={`Color ${color}`}>
+					<svg viewBox='0 0 64 64' role='img' aria-label={t('card.color', { color })}>
 						<circle cx='32' cy='32' r='29' fill={color} />
 					</svg>
 					<code>{color}</code>
@@ -80,7 +82,7 @@ const ProductCard = ({
 						type='button'
 						className='productCard__menuTrigger'
 						onClick={(event) => { event.stopPropagation(); setMenuOpen((open) => !open); }}
-						aria-label={`Actions for ${product?.name}`}
+						aria-label={t('card.actionsFor', { name: product?.name })}
 						aria-expanded={menuOpen}
 					>
 						<FiMoreHorizontal aria-hidden='true' />
@@ -88,10 +90,10 @@ const ProductCard = ({
 					{menuOpen && (
 						<div className='productCard__menuPanel'>
 							<button type='button' onClick={(event) => { event.stopPropagation(); setMenuOpen(false); onReview(product); }}>
-								<FiEdit3 aria-hidden='true' /> Write review
+								<FiEdit3 aria-hidden='true' /> {t('card.actions.writeReview')}
 							</button>
 							<button type='button' className='productCard__delete' onClick={(event) => { event.stopPropagation(); setMenuOpen(false); onDelete(product); }}>
-								<FiTrash2 aria-hidden='true' /> Delete
+								<FiTrash2 aria-hidden='true' /> {t('card.actions.delete')}
 							</button>
 						</div>
 					)}
@@ -104,7 +106,7 @@ const ProductCard = ({
 					disabled={isCollected || isAdding}
 				>
 					{isCollected ? <FiCheck aria-hidden='true' /> : <FiPlus aria-hidden='true' />}
-					{isCollected ? 'Already in your vanity' : isAdding ? 'Adding…' : 'Add to My Vanity'}
+					{isCollected ? t('card.collection.alreadyAdded') : isAdding ? t('card.collection.adding') : t('card.collection.add')}
 				</button>
 			)}
 		</article>

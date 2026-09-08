@@ -1,4 +1,5 @@
 import { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FiAlertCircle, FiSearch, FiSliders } from 'react-icons/fi';
 import { useSearchParams } from 'react-router-dom';
 import { Categories } from '../Categories/Categories';
@@ -24,12 +25,13 @@ import './Dashboard.css';
 
 //TO-DO: FIX ERRORS
 const MODE_CONTENT = {
-	'my-vanity': { title: 'My products', emptyTitle: 'Your vanity is ready for its first product', emptyText: 'Create a product or explore the community collection.' },
-	search: { title: 'Search results', emptyTitle: 'Find your next favorite', emptyText: 'Search by product name or brand using at least two characters.' },
-	'add-products': { title: 'Explore products', emptyTitle: 'Nothing new to add right now', emptyText: 'You already have all available products in My Vanity’s.' },
+	'my-vanity': { title: 'dashboard.modes.myVanity.title', emptyTitle: 'dashboard.modes.myVanity.emptyTitle', emptyText: 'dashboard.modes.myVanity.emptyText' },
+	search: { title: 'dashboard.modes.search.title', emptyTitle: 'dashboard.modes.search.emptyTitle', emptyText: 'dashboard.modes.search.emptyText' },
+	'add-products': { title: 'dashboard.modes.explore.title', emptyTitle: 'dashboard.modes.explore.emptyTitle', emptyText: 'dashboard.modes.explore.emptyText' },
 };
 
 const Dashboard = () => {
+	const { t } = useTranslation('products');
 	const {
 		apiResponse,
 		searchText,
@@ -149,7 +151,7 @@ const Dashboard = () => {
 				<header className='dashboard__welcome'>
 					<div>
 						<p className='dashboard__eyebrow'>My Vanity’s</p>
-						<h1>{content.title}</h1>
+						<h1>{t(content.title)}</h1>
 					</div>
 				</header>
 
@@ -161,51 +163,51 @@ const Dashboard = () => {
 							type='search'
 							value={searchText}
 							onChange={handleSearch}
-							placeholder='Search products or brands'
-							aria-label='Search products'
+							placeholder={t('dashboard.search.placeholder')}
+							aria-label={t('dashboard.search.ariaLabel')}
 						/>
 						<button type='submit' disabled={searchText.trim().length < 2 || isSearching}>
-							{isSearching ? 'Searching…' : 'Search'}
+							{isSearching ? t('dashboard.search.searching') : t('dashboard.search.submit')}
 						</button>
 					</form>
 				)}
 
-				{searchTooShort && <p className='dashboard__hint'>Enter at least two characters.</p>}
+				{searchTooShort && <p className='dashboard__hint'>{t('dashboard.search.tooShort')}</p>}
 
 				<Categories categories={categories} selected={selectedCategory} onSelect={setSelectedCategory} />
 
 				<div className='dashboard__toolbar'>
-					<p><strong>{visibleProducts.length}</strong> {visibleProducts.length === 1 ? 'item' : 'items'}</p>
+					<p><strong>{visibleProducts.length}</strong> {t('dashboard.item', { count: visibleProducts.length })}</p>
 					<SortControl value={sort} onChange={setSort} />
 				</div>
 
 				{loading && (
 					<div className='dashboardState' role='status'>
 						<span className='dashboardState__spinner' />
-						<h2>{mode === 'search' ? 'Searching products…' : 'Loading products…'}</h2>
+						<h2>{mode === 'search' ? t('dashboard.states.searching') : t('dashboard.states.loading')}</h2>
 					</div>
 				)}
 
 				{error && !loading && (
 					<div className='dashboardState dashboardState--error' role='alert'>
 						<FiAlertCircle aria-hidden='true' />
-						<h2>We couldn’t load these products</h2>
-						<p>{typeof error === 'string' ? error : error.message || 'Please try again.'}</p>
-						<button type='button' onClick={() => window.location.reload()}>Try again</button>
+						<h2>{t('dashboard.states.loadError')}</h2>
+						<p>{typeof error === 'string' ? error : error.message || t('dashboard.states.tryAgainMessage')}</p>
+						<button type='button' onClick={() => window.location.reload()}>{t('dashboard.states.tryAgain')}</button>
 					</div>
 				)}
 
 				{showEmpty && (
 					<div className='dashboardState'>
 						<FiSliders aria-hidden='true' />
-						<h2>{mode === 'search' && hasSearched ? `No results for “${lastSearchQuery}”` : content.emptyTitle}</h2>
-						<p>{selectedCategory !== ALL_CATEGORIES ? 'Try choosing All to see every product.' : content.emptyText}</p>
-						{mode === 'my-vanity' && <button type='button' onClick={() => changeMode('add-products')}>Explore products</button>}
+						<h2>{mode === 'search' && hasSearched ? t('dashboard.states.noResults', { query: lastSearchQuery }) : t(content.emptyTitle)}</h2>
+						<p>{selectedCategory !== ALL_CATEGORIES ? t('dashboard.states.chooseAll') : t(content.emptyText)}</p>
+						{mode === 'my-vanity' && <button type='button' onClick={() => changeMode('add-products')}>{t('dashboard.actions.explore')}</button>}
 					</div>
 				)}
 
 				{!loading && !error && visibleProducts.length > 0 && (
-					<section className='dashboard__grid' aria-label={content.title}>
+					<section className='dashboard__grid' aria-label={t(content.title)}>
 						{visibleProducts.map((product, index) => (
 							<ProductCard
 								key={product.id || `${product.name}-${index}`}

@@ -1,1 +1,126 @@
-{}
+{
+	"dashboard": {
+		"modes": {
+			"myVanity": {
+				"title": "Mis productos",
+				"emptyTitle": "Tu vanity está lista para su primer producto",
+				"emptyText": "Crea un producto o explora la colección de la comunidad."
+			},
+			"search": {
+				"title": "Resultados de búsqueda",
+				"emptyTitle": "Encuentra tu próximo favorito",
+				"emptyText": "Busca por nombre de producto o marca utilizando al menos dos caracteres."
+			},
+			"explore": {
+				"title": "Explorar productos",
+				"emptyTitle": "No hay nada nuevo que añadir ahora",
+				"emptyText": "Ya tienes todos los productos disponibles en My Vanity’s."
+			}
+		},
+		"search": {
+			"placeholder": "Buscar productos o marcas",
+			"ariaLabel": "Buscar productos",
+			"submit": "Buscar",
+			"searching": "Buscando…",
+			"tooShort": "Introduce al menos dos caracteres."
+		},
+		"item_one": "producto",
+		"item_other": "productos",
+		"states": {
+			"searching": "Buscando productos…",
+			"loading": "Cargando productos…",
+			"loadError": "No pudimos cargar estos productos",
+			"tryAgainMessage": "Inténtalo de nuevo.",
+			"tryAgain": "Reintentar",
+			"noResults": "No hay resultados para «{{query}}»",
+			"chooseAll": "Selecciona Todos para ver todos los productos."
+		},
+		"actions": {
+			"explore": "Explorar productos"
+		}
+	},
+	"emptyCard": {
+		"imageAlt": "Colección de belleza vacía lista para su primer producto",
+		"noProducts": "No hay productos por el momento.",
+		"encouragement": "¡Sé la primera persona en crear un producto!",
+		"create": "Crear producto"
+	},
+	"card": {
+		"openDetails": "Abrir los detalles de {{name}}",
+		"productFallback": "producto",
+		"ratingAria_one": "{{rating}} de {{count}} estrella",
+		"ratingAria_other": "{{rating}} de {{count}} estrellas",
+		"review_one": "reseña",
+		"review_other": "reseñas",
+		"color": "Color {{color}}",
+		"actionsFor": "Acciones para {{name}}",
+		"actions": {
+			"writeReview": "Escribir reseña",
+			"delete": "Eliminar"
+		},
+		"collection": {
+			"alreadyAdded": "Ya está en tu vanity",
+			"adding": "Añadiendo…",
+			"add": "Añadir a My Vanity"
+		}
+	},
+	"sort": {
+		"label": "Ordenar",
+		"ariaLabel": "Ordenar productos",
+		"default": "Predeterminado",
+		"name": "Nombre A–Z",
+		"brand": "Marca A–Z",
+		"rating": "Valoración: de mayor a menor"
+	},
+	"categories": {
+		"ariaLabel": "Categorías de productos"
+	},
+	"popup": {
+		"close": "Cerrar los detalles del producto",
+		"color": "Color",
+		"colorAria": "Color {{color}}",
+		"reviews": {
+			"loading": "Cargando reseñas...",
+			"empty": "Este producto no tiene reseñas disponibles.",
+			"encouragement": "¡Sé la primera persona en reseñar este producto!"
+		},
+		"actions": {
+			"add": "Añadir a My Vanity",
+			"writeReview": "Escribir reseña"
+		}
+	},
+	"create": {
+		"title": "Crear producto",
+		"close": "Cerrar el formulario de creación de producto",
+		"formTitle": "Añadir un producto a My Vanity’s",
+		"fields": {
+			"name": "Nombre del producto",
+			"brand": "Marca",
+			"category": "Categoría",
+			"selectCategory": "Selecciona una categoría",
+			"color": "Color del producto",
+			"colorAria": "Elegir el color del producto"
+		},
+		"validation": {
+			"authentication": {
+				"message": "No has iniciado sesión. Inicia sesión para continuar.",
+				"title": "Error de autenticación"
+			},
+			"category": {
+				"message": "Selecciona una categoría para el producto.",
+				"title": "Falta información",
+				"required": "La categoría es obligatoria",
+				"inline": "Selecciona una categoría"
+			},
+			"requiredFields": {
+				"message": "Completa todos los campos obligatorios.",
+				"title": "Faltan campos",
+				"inline": "Completa todos los campos obligatorios.",
+				"popupFallback": "Debes completar todos los campos para crear el producto."
+			}
+		},
+		"actions": {
+			"add": "Añadir a My Vanity"
+		}
+	}
+}
