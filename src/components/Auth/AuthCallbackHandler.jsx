@@ -1,5 +1,6 @@
 import  { useContext, useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { VanitysContext } from '../../context';
 import { authService } from '../../services/auth/authService';
 import { getJwtExpiration } from '../../utils/jwt';
@@ -12,6 +13,7 @@ import './Auth.css';
  * @param {string} [props.redirectTo='/dashboard'] - Path to redirect after successful auth
  */
 const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
+	const { t } = useTranslation('auth');
 	const {
 		updateAuthData,
 		errorHandler,
@@ -21,7 +23,7 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
 
 	const [processingAuth, setProcessingAuth] = useState(true);
 	const [processingMessage, setProcessingMessage] = useState(
-		'Processing authentication...'
+		t('callback.processing')
 	);
 	const hasProcessed = useRef(false);
 
@@ -50,7 +52,7 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
 
 				// Update processing message based on flow
 				setProcessingMessage(
-					isRegistration ? 'Creating your account...' : 'Logging you in...'
+					isRegistration ? t('callback.creatingAccount') : t('callback.loggingIn')
 				);
 
 
@@ -164,8 +166,8 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
 			<div className='auth-callback'>
 				<div className='auth-callback__processing'>
 					<p className='auth-callback__brand'>My Vanity’s</p>
-					<p className='auth-callback__eyebrow'>Almost there</p>
-					<h2>Almost there!</h2>
+					<p className='auth-callback__eyebrow'>{t('callback.eyebrow')}</p>
+					<h2>{t('callback.title')}</h2>
 					<div className='auth-callback__spinner'></div>
 					<p>{processingMessage}</p>
 				</div>
@@ -178,13 +180,13 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
 		<div className='auth-callback'>
 			<div className='auth-callback__error'>
 				<p className='auth-callback__brand'>My Vanity’s</p>
-				<h2>Authentication error</h2>
-				<p>An error occurred during the authentication process.</p>
+				<h2>{t('callback.errorTitle')}</h2>
+				<p>{t('callback.errorDescription')}</p>
 				<button
 					className='auth-callback__button'
 					onClick={() => navigate('/')}
 				>
-					Back to home
+					{t('callback.backHome')}
 				</button>
 			</div>
 		</div>

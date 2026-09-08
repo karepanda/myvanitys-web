@@ -3,8 +3,11 @@ import { IoClose, IoPersonCircleOutline } from 'react-icons/io5';
 import './UserProfile.css';
 import { VanitysContext } from '../../context/index';
 import { Link, useNavigate } from 'react-router-dom';
+import { LanguageSelector } from '../LanguageSelector/LanguageSelector';
+import { useTranslation } from 'react-i18next';
 
 const UserProfile = () => {
+	const { t } = useTranslation('common');
 	const {
 		apiResponse,
 		toggleUserProfile,
@@ -25,8 +28,8 @@ const UserProfile = () => {
 				<div className='userProfile' role='dialog' aria-modal='true' aria-labelledby='profile-title'>
 					<div className='userProfile__panel'>
 					<div className='userProfile__header'>
-						<h1 id='profile-title'>Profile</h1>
-						<button type='button' onClick={toggleUserProfile} aria-label='Close profile'><IoClose aria-hidden='true' /></button>
+						<h1 id='profile-title'>{t('userProfile.title')}</h1>
+						<button type='button' onClick={toggleUserProfile} aria-label={t('userProfile.close')}><IoClose aria-hidden='true' /></button>
 					</div>
 					<div className='userProfile__name'>
 						<IoPersonCircleOutline aria-hidden='true' />
@@ -42,7 +45,7 @@ const UserProfile = () => {
 								goToMyVanity();
 							}}
 						>
-							Go to My Vanity’s
+							{t('userProfile.goToVanity')}
 						</button>
 						<button
 							className='userProfile__buttons--createProduct'
@@ -51,7 +54,7 @@ const UserProfile = () => {
 								toggleUserProfile();
 							}}
 						>
-							Create Product
+							{t('userProfile.createProduct')}
 						</button>
 						<button
 							className='userProfile__buttons--logOut'
@@ -59,11 +62,12 @@ const UserProfile = () => {
 								logout();
 							}}
 						>
-							Log out
+							{t('userProfile.logout')}
 						</button>
-						<nav className='userProfile__legal' aria-label='Legal information'>
-							<Link to='/privacy' onClick={toggleUserProfile}>Privacy Policy</Link>
-							<Link to='/terms' onClick={toggleUserProfile}>Terms of Use</Link>
+						<nav className='userProfile__legal' aria-label={t('legal.ariaLabel')}>
+							<Link to='/privacy' onClick={toggleUserProfile}>{t('legal.privacyPolicyLink')}</Link>
+							<Link to='/terms' onClick={toggleUserProfile}>{t('legal.termsOfUseLink')}</Link>
+							<LanguageSelector />
 						</nav>
 					</div>
 					</div>

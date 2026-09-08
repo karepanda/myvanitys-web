@@ -1,74 +1,63 @@
+import i18n from '../i18n/config';
+
 export const errorMessages = {
   // Authentication errors
+  // The backend has no stable error codes yet; these AUTH_* keys are selected by the existing heuristic status/detail/message classification.
   auth: {
     400: {
-      message: 'Invalid authentication request. Please try again.',
-      title: 'Bad Request',
+      key: 'AUTH_BAD_REQUEST',
       type: 'warning'
     },
     401: {
-      message: 'Invalid or expired token. Please log in again.',
-      title: 'Authentication Error',
+      key: 'AUTH_INVALID_TOKEN',
       type: 'warning'
     },
     403: {
-      message: 'Access denied. You do not have permission to access this resource.',
-      title: 'Forbidden',
+      key: 'AUTH_FORBIDDEN',
       type: 'warning'
     },
     404: {
-      message: 'Authentication service not found. Please try again later.',
-      title: 'Not Found',
+      key: 'AUTH_SERVICE_NOT_FOUND',
       type: 'warning'
     },
     500: {
-      message: 'An error occurred on the server during authentication. Please try again later.',
-      title: 'Server Error',
+      key: 'AUTH_SERVER_ERROR',
       type: 'error'
     },
     502: {
-      message: 'An error occurred on the server during authentication. Please try again later.',
-      title: 'Server Error',
+      key: 'AUTH_SERVER_ERROR',
       type: 'error'
     },
     503: {
-      message: 'An error occurred on the server during authentication. Please try again later.',
-      title: 'Server Error',
+      key: 'AUTH_SERVER_ERROR',
       type: 'error'
     },
     504: {
-      message: 'An error occurred on the server during authentication. Please try again later.',
-      title: 'Server Error',
+      key: 'AUTH_SERVER_ERROR',
       type: 'error'
     },
     default: {
-      message: 'An unexpected error occurred during authentication. Please try again.',
-      title: 'Authentication Error',
+      key: 'AUTH_UNKNOWN',
       type: 'error'
     },
     withoutToken: {
-      message: 'Access token not found. Please try logging in again.',
-      title: 'Authentication Error',
+      key: 'AUTH_TOKEN_MISSING',
       type: 'warning'
     },
     withoutUserData: {
-      message: 'No user data received from the authentication service.',
-      title: 'Authentication Error',
+      key: 'AUTH_USER_DATA_MISSING',
       type: 'error'
     },
     registrationFailed: {
-      message: 'Account creation failed. Please try registering again.',
-      title: 'Registration Error',
+      key: 'AUTH_REGISTRATION_FAILED',
       type: 'error'
     },
     noUserId: {
-      message: 'Account was not created successfully. Please try again.',
-      title: 'Registration Error',
+      key: 'AUTH_USER_ID_MISSING',
       type: 'error'
     },
     noToken: {
-      message: 'An unexpected error occurred during authentication. Please try again.',
-      title: 'Authentication Error',
+      key: 'AUTH_UNKNOWN',
       type: 'error'
     }
   },
@@ -224,5 +213,20 @@ export const getErrorMessage = (category, code) => {
     return errorMessages.generic.default;
   }
 
-  return errorMessages[category][code] || errorMessages[category].default || errorMessages.generic.default;
+  const errorInfo = errorMessages[category][code] || errorMessages[category].default || errorMessages.generic.default;
+
+  if (category !== 'auth' || !errorInfo.key) {
+    return errorInfo;
+  }
+
+  const translationKey = errorInfo.key
+    .replace(/^AUTH_/, '')
+    .toLowerCase()
+    .replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
+
+  return {
+    message: i18n.t(`errors:auth.${translationKey}.message`),
+    title: i18n.t(`errors:auth.${translationKey}.title`),
+    type: errorInfo.type
+  };
 };

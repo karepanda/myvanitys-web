@@ -1,14 +1,18 @@
 import { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import './Navbar.css';
 import './Navbar.responsive.css';
 import { Modal } from '../Modal/Modal';
 import { Register } from '../Register/Register';
 import { Login } from '../Login/Login';
+import { LanguageSelector } from '../LanguageSelector/LanguageSelector';
 import { VanitysContext } from '../../context';
 
 //TO-DO: FIX ERRORS
 const Navbar = () => {
+	const { t } = useTranslation('auth');
 	const {
+		apiResponse,
 		showModalRegister,
 		toggleModalRegister,
 		toggleModalLogin,
@@ -22,15 +26,16 @@ const Navbar = () => {
 				<h1 className='header__title'>
 					My Vanity's
 				</h1>
+				{!apiResponse?.token && <LanguageSelector />}
 
 				{renderButtonWithTooltip(
-					'Log in',
+					t('navbar.login'),
 					toggleModalLogin,
 					'header__login',
 					'header'
 				)}
 				{renderButtonWithTooltip(
-					'Register',
+					t('navbar.register'),
 					toggleModalRegister,
 					'header__register',
 					'header'

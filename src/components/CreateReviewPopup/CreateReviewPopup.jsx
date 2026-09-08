@@ -4,8 +4,10 @@ import { VanitysContext } from '../../context/index';
 import { UserMessage } from '../UserMessage/UserMessage';
 import { productFacade } from '../../services/product/productFacade';
 import { IoClose } from 'react-icons/io5';
+import { useTranslation } from 'react-i18next';
 
 const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
+	const { t } = useTranslation('reviews');
 	const {
 		toggleCreateReviewPopup,
 		hoveredRating,
@@ -46,8 +48,8 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 
 		if (selectedRating === 0) {
 			showMessage(
-				'Please select a rating for the product.',
-				'Rating Required',
+				t('validation.ratingRequired.message'),
+				t('validation.ratingRequired.title'),
 				'warning'
 			);
 			return;
@@ -55,8 +57,8 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 
 		if (!reviewText.trim()) {
 			showMessage(
-				'Please write a comment about the product.',
-				'Comment Required',
+				t('validation.commentRequired.message'),
+				t('validation.commentRequired.title'),
 				'warning'
 			);
 			return;
@@ -64,8 +66,8 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 
 		if (!productId || !userToken) {
 			showMessage(
-				'Authentication required. Please log in to continue.',
-				'Authentication Error',
+				t('validation.authentication.message'),
+				t('validation.authentication.title'),
 				'error'
 			);
 			return;
@@ -88,8 +90,8 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 
 			if (result) {
 				showMessage(
-					'Your review has been added successfully!',
-					'Review Added',
+					t('feedback.created'),
+					t('feedback.createdTitle'),
 					'info'
 				);
 
@@ -111,8 +113,8 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 			}
 		} catch (error) {
 			const errorMsg =
-				error.message || 'Failed to create review. Please try again.';
-			showMessage(errorMsg, 'Error Creating Review', 'error');
+				error.message || t('create.errorFallback');
+			showMessage(errorMsg, t('create.errorTitle'), 'error');
 		} finally {
 			setIsSubmitting(false);
 		}
@@ -136,9 +138,9 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 				<div className='createReviewPopup__container'>
 					<div className='createReviewPopup__header'>
 						<h1 className='createReviewPopup__header--title'>
-							Write review
+							{t('create.title')}
 						</h1>
-						<button type='button' aria-label='Close review form'
+						<button type='button' aria-label={t('create.close')}
 							className='createReviewPopup__header--close'
 							onClick={handleClosePopup}
 						>
@@ -147,7 +149,7 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 					</div>
 					<div className='createReviewPopup__right'>
 						<p className='createReviewPopup__right--title'>
-							Share your experience
+							{t('create.subtitle')}
 						</p>
 
 						<form
@@ -179,13 +181,13 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 								))}
 							</div>
 							<label className='createReviewPopup__right--label'>
-								Insert your opinion about the product
+								{t('create.opinionLabel')}
 							</label>
 							<textarea
 								className='createReviewPopup__right--textarea'
 								value={reviewText}
 								onChange={(e) => setReviewText(e.target.value)}
-								placeholder='Write your review here...'
+								placeholder={t('form.placeholder')}
 								disabled={isSubmitting}
 							></textarea>
 							<button
@@ -197,7 +199,7 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 									!reviewText.trim()
 								}
 							>
-								{isSubmitting ? 'Creating Review...' : 'Create Review'}
+								{isSubmitting ? t('create.creating') : t('create.submit')}
 							</button>
 						</form>
 					</div>

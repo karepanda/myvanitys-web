@@ -1,0 +1,14 @@
+{
+	"auth": {
+		"badRequest": { "message": "La solicitud de autenticación no es válida. Inténtalo de nuevo.", "title": "Solicitud incorrecta" },
+		"invalidToken": { "message": "El token no es válido o ha caducado. Inicia sesión de nuevo.", "title": "Error de autenticación" },
+		"forbidden": { "message": "Acceso denegado. No tienes permiso para acceder a este recurso.", "title": "Acceso denegado" },
+		"serviceNotFound": { "message": "No se encontró el servicio de autenticación. Inténtalo de nuevo más tarde.", "title": "No encontrado" },
+		"serverError": { "message": "Se produjo un error en el servidor durante la autenticación. Inténtalo de nuevo más tarde.", "title": "Error del servidor" },
+		"unknown": { "message": "Se produjo un error inesperado durante la autenticación. Inténtalo de nuevo.", "title": "Error de autenticación" },
+		"tokenMissing": { "message": "No se encontró el token de acceso. Intenta iniciar sesión de nuevo.", "title": "Error de autenticación" },
+		"userDataMissing": { "message": "El servicio de autenticación no devolvió datos del usuario.", "title": "Error de autenticación" },
+		"registrationFailed": { "message": "No se pudo crear la cuenta. Intenta registrarte de nuevo.", "title": "Error de registro" },
+		"userIdMissing": { "message": "La cuenta no se creó correctamente. Inténtalo de nuevo.", "title": "Error de registro" }
+	}
+}

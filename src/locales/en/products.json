@@ -1,0 +1,126 @@
+{
+	"dashboard": {
+		"modes": {
+			"myVanity": {
+				"title": "My products",
+				"emptyTitle": "Your vanity is ready for its first product",
+				"emptyText": "Create a product or explore the community collection."
+			},
+			"search": {
+				"title": "Search results",
+				"emptyTitle": "Find your next favorite",
+				"emptyText": "Search by product name or brand using at least two characters."
+			},
+			"explore": {
+				"title": "Explore products",
+				"emptyTitle": "Nothing new to add right now",
+				"emptyText": "You already have all available products in My Vanity’s."
+			}
+		},
+		"search": {
+			"placeholder": "Search products or brands",
+			"ariaLabel": "Search products",
+			"submit": "Search",
+			"searching": "Searching…",
+			"tooShort": "Enter at least two characters."
+		},
+		"item_one": "item",
+		"item_other": "items",
+		"states": {
+			"searching": "Searching products…",
+			"loading": "Loading products…",
+			"loadError": "We couldn’t load these products",
+			"tryAgainMessage": "Please try again.",
+			"tryAgain": "Try again",
+			"noResults": "No results for “{{query}}”",
+			"chooseAll": "Try choosing All to see every product."
+		},
+		"actions": {
+			"explore": "Explore products"
+		}
+	},
+	"emptyCard": {
+		"imageAlt": "Empty beauty collection ready for its first product",
+		"noProducts": "No products for the moment,",
+		"encouragement": "Be the first to create a product!",
+		"create": "Create Product"
+	},
+	"card": {
+		"openDetails": "Open details for {{name}}",
+		"productFallback": "product",
+		"ratingAria_one": "{{rating}} out of {{count}} star",
+		"ratingAria_other": "{{rating}} out of {{count}} stars",
+		"review_one": "review",
+		"review_other": "reviews",
+		"color": "Color {{color}}",
+		"actionsFor": "Actions for {{name}}",
+		"actions": {
+			"writeReview": "Write review",
+			"delete": "Delete"
+		},
+		"collection": {
+			"alreadyAdded": "Already in your vanity",
+			"adding": "Adding…",
+			"add": "Add to My Vanity"
+		}
+	},
+	"sort": {
+		"label": "Sort",
+		"ariaLabel": "Sort products",
+		"default": "Default",
+		"name": "Name A–Z",
+		"brand": "Brand A–Z",
+		"rating": "Rating: High to Low"
+	},
+	"categories": {
+		"ariaLabel": "Product categories"
+	},
+	"popup": {
+		"close": "Close product details",
+		"color": "Color",
+		"colorAria": "Color {{color}}",
+		"reviews": {
+			"loading": "Loading reviews...",
+			"empty": "This product has no reviews available.",
+			"encouragement": "Be the first to review this product!"
+		},
+		"actions": {
+			"add": "Add to My Vanity",
+			"writeReview": "Write review"
+		}
+	},
+	"create": {
+		"title": "Create product",
+		"close": "Close create product form",
+		"formTitle": "Add a product to My Vanity’s",
+		"fields": {
+			"name": "Product name",
+			"brand": "Brand",
+			"category": "Category",
+			"selectCategory": "Select a category",
+			"color": "Product color",
+			"colorAria": "Choose product color"
+		},
+		"validation": {
+			"authentication": {
+				"message": "You are not authenticated. Please log in to continue.",
+				"title": "Authentication error"
+			},
+			"category": {
+				"message": "Please select a category for your product.",
+				"title": "Missing Information",
+				"required": "Category is required",
+				"inline": "Please select a category"
+			},
+			"requiredFields": {
+				"message": "Please complete all required fields.",
+				"title": "Missing Fields",
+				"inline": "Please fill in all required fields.",
+				"popupFallback": "You need to fill in all the fields to create the product."
+			}
+		},
+		"actions": {
+			"add": "Add to My Vanity"
+		}
+	}
+}

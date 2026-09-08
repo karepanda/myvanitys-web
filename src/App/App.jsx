@@ -9,9 +9,11 @@ import { Modal } from '../components/Modal/Modal';
 import { useContext } from 'react';
 import { PublicFooter } from '../components/PublicFooter/PublicFooter';
 import { Seo } from '../components/Seo/Seo';
+import { useTranslation } from 'react-i18next';
 import './App.css';
 
 const AppContent = () => {
+	const { t } = useTranslation('common');
 	const location = useLocation();
 	const {
 		showMissingFieldsPopup,
@@ -42,7 +44,7 @@ const AppContent = () => {
 			{showMissingFieldsPopup && (
 				<Modal>
 					<MissingFieldsPopup
-						message={errorMessage || 'An error occurred'}
+						message={errorMessage || t('app.errorFallback')}
 						title={errorTitle}
 						type={errorType}
 						onClose={() => setShowMissingFieldsPopup(false)}

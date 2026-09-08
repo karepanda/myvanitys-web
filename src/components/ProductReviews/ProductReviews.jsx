@@ -1,6 +1,7 @@
 // components/ProductReviews.jsx
 import { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { useReviews } from '../hooks';
 import { UserMessage } from './UserMessage/UserMessage';
 import { ConfirmationDialog } from './ConfirmationDialog/ConfirmationDialog';
@@ -8,6 +9,7 @@ import { VanitysContext } from '../context/index';
 import './ProductReviews.css';
 
 const ProductReviews = ({ productId, token }) => {
+  const { t } = useTranslation('reviews');
   const {
     reviews,
     loading,
@@ -43,17 +45,17 @@ const ProductReviews = ({ productId, token }) => {
     if (error) {
       setMessageConfig({
         message: error,
-        title: 'Review Error',
+        title: t('list.errorTitle'),
         type: 'error'
       });
       setShowMissingFieldsPopup(true);
     }
-  }, [error, setShowMissingFieldsPopup]);
+  }, [error, setShowMissingFieldsPopup, t]);
 
   const showSuccessMessage = (message) => {
     setMessageConfig({
       message,
-      title: 'Success',
+      title: t('feedback.successTitle'),
       type: 'info'
     });
     setShowMissingFieldsPopup(true);
@@ -65,8 +67,8 @@ const ProductReviews = ({ productId, token }) => {
     // Client-side validation
     if (!newReview.comment.trim()) {
       setMessageConfig({
-        message: 'Comment cannot be empty',
-        title: 'Required Field',
+        message: t('validation.commentEmpty.message'),
+        title: t('validation.commentEmpty.title'),
         type: 'warning'
       });
       setShowMissingFieldsPopup(true);
@@ -75,8 +77,8 @@ const ProductReviews = ({ productId, token }) => {
 
     if (newReview.rating < 1 || newReview.rating > 5) {
       setMessageConfig({
-        message: 'Rating must be between 1 and 5 stars',
-        title: 'Invalid Rating',
+        message: t('validation.ratingRange.message'),
+        title: t('validation.ratingRange.title'),
         type: 'warning'
       });
       setShowMissingFieldsPopup(true);
@@ -87,7 +89,7 @@ const ProductReviews = ({ productId, token }) => {
       await addReview(newReview, token);
       setNewReview({ rating: 5, comment: '' });
       setShowAddForm(false);
-      showSuccessMessage('Review added successfully');
+      showSuccessMessage(t('feedback.added'));
     } catch (err) {
       // Error is handled by the useEffect above
       console.error('Failed to add review:', err);
@@ -104,7 +106,7 @@ const ProductReviews = ({ productId, token }) => {
 
     try {
       await deleteReview(reviewToDelete, token);
-      showSuccessMessage('Review deleted successfully');
+      showSuccessMessage(t('feedback.deleted'));
     } catch (err) {
       console.error('Failed to delete review:', err);
     } finally {
@@ -130,26 +132,26 @@ const ProductReviews = ({ productId, token }) => {
   };
 
   if (loading) {
-    return <div className="reviews-loading">Loading reviews...</div>;
+    return <div className="reviews-loading">{t('list.loading')}</div>;
   }
 
   return (
     <>
       <div className="product-reviews">
         <div className="reviews-header">
-          <h3>Product Reviews</h3>
+          <h3>{t('list.title')}</h3>
           <button
             onClick={() => setShowAddForm(!showAddForm)}
             className="btn-add-review"
           >
-            {showAddForm ? 'Cancel' : 'Add Review'}
+            {showAddForm ? t('actions.cancel') : t('actions.add')}
           </button>
         </div>
 
         {showAddForm && (
           <form onSubmit={handleSubmitReview} className="add-review-form">
             <div className="form-group">
-              <label htmlFor="rating">Rating:</label>
+              <label htmlFor="rating">{t('form.rating')}</label>
               <select
                 id="rating"
                 value={newReview.rating}
@@ -160,13 +162,13 @@ const ProductReviews = ({ productId, token }) => {
                 required
               >
                 {[1, 2, 3, 4, 5].map(num => (
-                  <option key={num} value={num}>{num} star{num > 1 ? 's' : ''}</option>
+                  <option key={num} value={num}>{num} {t('form.star', { count: num })}</option>
                 ))}
               </select>
             </div>
 
             <div className="form-group">
-              <label htmlFor="comment">Comment:</label>
+              <label htmlFor="comment">{t('form.comment')}</label>
               <textarea
                 id="comment"
                 value={newReview.comment}
@@ -174,7 +176,7 @@ const ProductReviews = ({ productId, token }) => {
                   ...prev, 
                   comment: e.target.value 
                 }))}
-                placeholder="Write your review here..."
+                placeholder={t('form.placeholder')}
                 required
                 minLength={1}
               />
@@ -186,7 +188,7 @@ const ProductReviews = ({ productId, token }) => {
                 disabled={submitting}
                 className="btn-submit"
               >
-                {submitting ? 'Submitting...' : 'Submit Review'}
+                {submitting ? t('form.submitting') : t('form.submit')}
               </button>
             </div>
           </form>
@@ -194,7 +196,7 @@ const ProductReviews = ({ productId, token }) => {
 
         <div className="reviews-list">
           {reviews.length === 0 ? (
-            <p className="no-reviews">No reviews for this product yet.</p>
+            <p className="no-reviews">{t('list.empty')}</p>
           ) : (
             reviews.map(review => (
               <div key={review.id} className="review-item">
@@ -217,7 +219,7 @@ const ProductReviews = ({ productId, token }) => {
                     className="btn-delete"
                     disabled={submitting}
                   >
-                    Delete
+                    {t('actions.delete')}
                   </button>
                 </div>
               </div>
@@ -236,13 +238,13 @@ const ProductReviews = ({ productId, token }) => {
 
       {showDeleteConfirmation && (
         <ConfirmationDialog
-          message="Are you sure you want to delete this review? This action cannot be undone."
-          title="Confirm Deletion"
+          message={t('confirmation.message')}
+          title={t('confirmation.title')}
           type="error"
           onConfirm={confirmDeleteReview}
           onCancel={cancelDeleteReview}
-          confirmText="Delete"
-          cancelText="Cancel"
+          confirmText={t('actions.delete')}
+          cancelText={t('actions.cancel')}
         />
       )}
     </>

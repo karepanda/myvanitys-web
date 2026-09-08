@@ -1,0 +1,34 @@
+.languageSelector {
+	display: inline-flex;
+	align-items: center;
+}
+
+.languageSelector__label {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+.languageSelector__select {
+	width: 54px;
+	min-height: 40px;
+	padding: 0 2px;
+	border: 1px solid var(--color-border-soft);
+	border-radius: var(--radius-pill);
+	background: var(--color-surface);
+	color: var(--color-text);
+	font: inherit;
+	font-size: 1.2rem;
+	cursor: pointer;
+}
+
+.languageSelector__select:focus-visible {
+	outline: 3px solid var(--color-focus);
+	outline-offset: 2px;
+}

@@ -1,0 +1,71 @@
+{
+  "list": {
+    "title": "Reseñas del producto",
+    "loading": "Cargando reseñas...",
+    "empty": "Este producto todavía no tiene reseñas.",
+    "errorTitle": "Error en las reseñas"
+  },
+  "form": {
+    "rating": "Calificación:",
+    "comment": "Comentario:",
+    "placeholder": "Escribe tu reseña aquí...",
+    "star_one": "estrella",
+    "star_other": "estrellas",
+    "submitting": "Enviando...",
+    "submit": "Enviar reseña"
+  },
+  "validation": {
+    "commentEmpty": {
+      "message": "El comentario no puede estar vacío",
+      "title": "Campo obligatorio"
+    },
+    "ratingRange": {
+      "message": "La calificación debe estar entre 1 y 5 estrellas",
+      "title": "Calificación no válida"
+    },
+    "ratingRequired": {
+      "message": "Selecciona una calificación para el producto.",
+      "title": "Calificación obligatoria"
+    },
+    "commentRequired": {
+      "message": "Escribe un comentario sobre el producto.",
+      "title": "Comentario obligatorio"
+    },
+    "authentication": {
+      "message": "Debes iniciar sesión para continuar.",
+      "title": "Error de autenticación"
+    }
+  },
+  "feedback": {
+    "successTitle": "Éxito",
+    "added": "Reseña añadida correctamente",
+    "deleted": "Reseña eliminada correctamente",
+    "created": "¡Tu reseña se ha añadido correctamente!",
+    "createdTitle": "Reseña añadida"
+  },
+  "actions": {
+    "add": "Añadir reseña",
+    "cancel": "Cancelar",
+    "delete": "Eliminar"
+  },
+  "confirmation": {
+    "message": "¿Seguro que quieres eliminar esta reseña? Esta acción no se puede deshacer.",
+    "title": "Confirmar eliminación"
+  },
+  "create": {
+    "title": "Escribir reseña",
+    "close": "Cerrar formulario de reseña",
+    "subtitle": "Comparte tu experiencia",
+    "opinionLabel": "Escribe tu opinión sobre el producto",
+    "creating": "Creando reseña...",
+    "submit": "Crear reseña",
+    "errorFallback": "No se pudo crear la reseña. Inténtalo de nuevo.",
+    "errorTitle": "Error al crear la reseña"
+  },
+  "errors": {
+    "loading": "Error al cargar las reseñas",
+    "creating": "Error al añadir la reseña",
+    "updating": "Error al actualizar la reseña",
+    "deleting": "Error al eliminar la reseña"
+  }
+}

@@ -1,9 +1,11 @@
 import { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import './NoProductCard.css';
 import { VanitysContext } from '../../context/index';
 import createProduct from '../../assets/CreateProduct.optimized.png';
 
 const NoProductCard = () => {
+	const { t } = useTranslation('products');
 	const { toggleCreateProductPopup } = useContext(VanitysContext);
 
 	return (
@@ -11,7 +13,7 @@ const NoProductCard = () => {
 			<img
 				className='noProductCard__image'
 				src={createProduct}
-				alt='Empty beauty collection ready for its first product'
+				alt={t('emptyCard.imageAlt')}
 				width='900'
 				height='900'
 				loading='lazy'
@@ -19,17 +21,17 @@ const NoProductCard = () => {
 			/>
 			<div className='noProductCard__text'>
 				<p className='noProductCard__text--regular'>
-					No products for the moment,
+					{t('emptyCard.noProducts')}
 				</p>
 				<p className='noProductCard__text--bold'>
-					Be the first to create a product!!
+					{t('emptyCard.encouragement')}
 				</p>
 			</div>
 			<button
 				onClick={() => toggleCreateProductPopup()}
 				className='noProductCard__button'
 			>
-				Create Product
+				{t('emptyCard.create')}
 			</button>
 		</div>
 	);

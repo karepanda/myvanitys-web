@@ -2,15 +2,18 @@ import { useContext } from 'react';
 import './MissingFieldsPopup.css';
 import { IoClose } from 'react-icons/io5';
 import { VanitysContext } from '../../context/index';
+import { useTranslation } from 'react-i18next';
 
 const MissingFieldsPopup = ({
 	message,
-	title = 'Missing fields!',
+	title,
 	type = 'warning',
 	onClose,
 	redirectToHome = false, 
 }) => {
+	const { t } = useTranslation('common');
 	const { setShowMissingFieldsPopup } = useContext(VanitysContext);
+	const messageTitle = title || t('messages.missingFieldsPopupTitle');
 
 	// Función para manejar el cierre
 	const handleClose = () => {
@@ -48,12 +51,12 @@ const MissingFieldsPopup = ({
 			<div className='missingFieldsPopup__panel'>
 			<section className={getHeaderClass()}>
 				<span className='missingFieldsPopup__marker' aria-hidden='true'>!</span>
-				<button type='button' onClick={handleClose} className='missingFieldsPopup__header--icon' aria-label='Close message'><IoClose aria-hidden='true' /></button>
+				<button type='button' onClick={handleClose} className='missingFieldsPopup__header--icon' aria-label={t('messages.close')}><IoClose aria-hidden='true' /></button>
 			</section>
 			<section className='missingFieldsPopup__content'>
-				<h1 id='message-title' className='missingFieldsPopup__header--title'>{title}</h1>
+				<h1 id='message-title' className='missingFieldsPopup__header--title'>{messageTitle}</h1>
 				<p className='missingFieldsPopup__content--text'>{message}</p>
-				<button type='button' className='missingFieldsPopup__action' onClick={handleClose}>Got it</button>
+				<button type='button' className='missingFieldsPopup__action' onClick={handleClose}>{t('messages.dismiss')}</button>
 			</section>
 			</div>
 		</div>

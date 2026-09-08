@@ -1,8 +1,10 @@
 // hooks/useReviews.js
 import { useState, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import { productFacade } from '../services/product/productFacade';
 
 export const useReviews = (productId) => {
+  const { t } = useTranslation('reviews');
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -28,13 +30,13 @@ export const useReviews = (productId) => {
         setReviews(result.reviews || result);
       }
     } catch (err) {
-      const errorMessage = err.response?.data?.detail || err.message || 'Error al cargar las reseñas';
+      const errorMessage = err.response?.data?.detail || err.message || t('errors.loading');
       setError(errorMessage);
       console.error('Error loading reviews:', err);
     } finally {
       setLoading(false);
     }
-  }, [productId]);
+  }, [productId, t]);
 
   /**
    * Adds a new review to the product
@@ -61,13 +63,13 @@ export const useReviews = (productId) => {
         return result;
       }
     } catch (err) {
-      const errorMessage = err.response?.data?.detail || err.message || 'Error al agregar la reseña';
+      const errorMessage = err.response?.data?.detail || err.message || t('errors.creating');
       setError(errorMessage);
       throw new Error(errorMessage);
     } finally {
       setSubmitting(false);
     }
-  }, [productId, loadReviews]);
+  }, [productId, loadReviews, t]);
 
   /**
    * Updates an existing review
@@ -99,13 +101,13 @@ export const useReviews = (productId) => {
         return result;
       }
     } catch (err) {
-      const errorMessage = err.response?.data?.detail || err.message || 'Error al actualizar la reseña';
+      const errorMessage = err.response?.data?.detail || err.message || t('errors.updating');
       setError(errorMessage);
       throw new Error(errorMessage);
     } finally {
       setSubmitting(false);
     }
-  }, [productId]);
+  }, [productId, t]);
 
   /**
    * Deletes a review
@@ -134,13 +136,13 @@ export const useReviews = (productId) => {
         return true;
       }
     } catch (err) {
-      const errorMessage = err.response?.data?.detail || err.message || 'Error al eliminar la reseña';
+      const errorMessage = err.response?.data?.detail || err.message || t('errors.deleting');
       setError(errorMessage);
       throw new Error(errorMessage);
     } finally {
       setSubmitting(false);
     }
-  }, [productId]);
+  }, [productId, t]);
 
   /**
    * Clears any existing error

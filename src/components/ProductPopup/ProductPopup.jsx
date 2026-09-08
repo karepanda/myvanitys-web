@@ -1,4 +1,5 @@
 import { useContext, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import './ProductPopup.css';
 import { IoClose } from 'react-icons/io5';
 import { FaRegStar } from 'react-icons/fa';
@@ -11,6 +12,7 @@ const categoryClass = (category) =>
 	String(category || 'other').toLowerCase().replace(/[^a-z0-9]+/g, '-');
 
 const ProductPopup = () => {
+	const { t } = useTranslation('products');
 	const {
 		toggleProductPopup,
 		selectedProduct,
@@ -41,19 +43,19 @@ const ProductPopup = () => {
 						<h1 className='productPopup__header--title'>{selectedProduct.name}</h1>
 						<p>{selectedProduct.brand}</p>
 					</div>
-					<button type='button' className='productPopup__header--close' onClick={() => toggleProductPopup()} aria-label='Close product details'>
+					<button type='button' className='productPopup__header--close' onClick={() => toggleProductPopup()} aria-label={t('popup.close')}>
 						<IoClose aria-hidden='true' />
 					</button>
 				</section>
 				<section className='productPopup__color'>
-					<svg viewBox='0 0 64 64' role='img' aria-label={`Color ${color}`}><circle cx='32' cy='32' r='29' fill={color} /></svg>
-					<div><span>Color</span><code>{color}</code></div>
+					<svg viewBox='0 0 64 64' role='img' aria-label={t('popup.colorAria', { color })}><circle cx='32' cy='32' r='29' fill={color} /></svg>
+					<div><span>{t('popup.color')}</span><code>{color}</code></div>
 				</section>
 
 				<section className='productPopup__reviews'>
 					{reviewsLoading ? (
 						<p className='productPopup__reviews--loading'>
-							Loading reviews...
+							{t('popup.reviews.loading')}
 						</p>
 					) : displayReviews && displayReviews.length > 0 ? (
 						displayReviews.map((review) => (
@@ -84,10 +86,10 @@ const ProductPopup = () => {
 						))
 					) : (
 						<div className='productPopup__reviews--noReviews'>
-							<p>This product has no reviews available.</p>
+							<p>{t('popup.reviews.empty')}</p>
 							{isAuthenticated && (
 								<p className='productPopup__reviews--encouragement'>
-									Be the first to review this product!
+									{t('popup.reviews.encouragement')}
 								</p>
 							)}
 						</div>
@@ -104,7 +106,7 @@ const ProductPopup = () => {
 							}}
 							disabled={isAdding}
 						>
-							Add to My Vanity
+							{t('popup.actions.add')}
 						</button>
 					) : (
 						<button
@@ -114,7 +116,7 @@ const ProductPopup = () => {
 							}}
 							className='productPopup__add--buttonReview'
 						>
-							Write review
+							{t('popup.actions.writeReview')}
 						</button>
 					)}
 				</section>
