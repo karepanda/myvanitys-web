@@ -14,7 +14,7 @@
 .productPopup__header { --category-color: var(--color-peach); display: flex; padding: var(--space-6) var(--space-5) var(--space-4); align-items: flex-start; justify-content: space-between; gap: var(--space-4); border-top: 6px solid var(--category-color); border-radius: var(--radius-dialog) var(--radius-dialog) 0 0; }
 .productPopup__header--face { --category-color: var(--color-peach); }
 .productPopup__header--eyes { --category-color: var(--color-lilac); }
-.productPopup__header--eyelash { --category-color: var(--color-pink); }
+.productPopup__header--eyelash { --category-color: var(--color-rose); }
 .productPopup__header--brows { --category-color: var(--color-yellow); }
 .productPopup__header--lips { --category-color: var(--color-rose); }
 .productPopup__header--cream, .productPopup__header--serum, .productPopup__header--toner { --category-color: var(--color-mint); }
@@ -35,6 +35,7 @@
 .productPopup__reviews--loading, .productPopup__reviews--noReviews { padding: var(--space-8) var(--space-4); color: var(--color-text-subtle); font-size: var(--font-size-sm); text-align: center; }
 .productPopup__add { display: flex; padding: var(--space-4) var(--space-5) max(var(--space-6), env(safe-area-inset-bottom)); justify-content: center; border-radius: 0; }
 .productPopup__add button { width: 100%; min-height: 48px; border: 0; border-radius: var(--radius-pill); background: var(--color-coral); color: var(--color-surface); font-weight: 700; cursor: pointer; }
+.productPopup__add--buttom { background: var(--color-pink-strong) !important; color: var(--color-text) !important; }
 
 @media (min-width: 768px) {
 	.productPopup { padding: var(--space-6); justify-content: center; }
