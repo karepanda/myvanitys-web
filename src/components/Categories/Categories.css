@@ -53,9 +53,7 @@
 }
 
 .categories__chip--active {
-	border-color: color-mix(in srgb, var(--category-color) 68%, var(--color-text));
 	background: var(--category-color);
-	box-shadow: 0 5px 12px color-mix(in srgb, var(--category-color) 38%, transparent);
 	color: var(--category-text);
 	font-weight: 800;
 	transform: translateY(-1px);

@@ -49,7 +49,7 @@ const ProductPopup = () => {
 				</section>
 				<section className='productPopup__color'>
 					<svg viewBox='0 0 64 64' role='img' aria-label={t('popup.colorAria', { color })}><circle cx='32' cy='32' r='29' fill={color} /></svg>
-					<div><span>{t('popup.color')}</span><code>{color}</code></div>
+					<div><span>{t('popup.color')}</span><code>{color}</code></div> {/* TODO: Add color name if available */}
 				</section>
 
 				<section className='productPopup__reviews'>

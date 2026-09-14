@@ -35,7 +35,7 @@
 .productPopup__reviews--loading, .productPopup__reviews--noReviews { padding: var(--space-8) var(--space-4); color: var(--color-text-subtle); font-size: var(--font-size-sm); text-align: center; }
 .productPopup__add { display: flex; padding: var(--space-4) var(--space-5) max(var(--space-6), env(safe-area-inset-bottom)); justify-content: center; border-radius: 0; }
 .productPopup__add button { width: 100%; min-height: 48px; border: 0; border-radius: var(--radius-pill); background: var(--color-coral); color: var(--color-surface); font-weight: 700; cursor: pointer; }
-.productPopup__add--buttom { background: var(--color-pink-strong) !important; color: var(--color-text) !important; }
+.productPopup__add--buttom { background: var(--color-pink-strong) !important; color: #ffffff !important; }
 
 @media (min-width: 768px) {
 	.productPopup { padding: var(--space-6); justify-content: center; }

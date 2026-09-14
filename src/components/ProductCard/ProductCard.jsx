@@ -93,7 +93,6 @@ const ProductCard = ({
 					<svg viewBox='0 0 64 64' role='img' aria-label={t('card.color', { color })}>
 						<circle cx='32' cy='32' r='29' fill={color} />
 					</svg>
-					<code>{color}</code>
 				</div>
 			</div>
 
