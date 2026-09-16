@@ -7,6 +7,11 @@
 	}
 
 	.cookieBanner__button {
-		align-self: center;
+		flex: 1;
+	}
+
+	.cookieBanner__actions {
+		display: flex;
+		width: 100%;
 	}
 }

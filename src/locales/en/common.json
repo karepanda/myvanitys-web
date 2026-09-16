@@ -8,7 +8,7 @@
 		"termsOfUseLink": "Terms of Use",
 		"backToVanity": "Back to My Vanity’s",
 		"backToVanityAuthenticated": "Back to My Vanity",
-		"effectiveDate": "Effective September 4, 2026",
+		"effectiveDate": "Effective September 16, 2026",
 		"introduction": "This page explains the rules and privacy practices for the My Vanity’s web application.",
 		"contact": {
 			"heading": "Contact",
@@ -27,15 +27,15 @@
 				},
 				"storageAndProviders": {
 					"heading": "Storage and service providers",
-					"body": "Authentication and hosting providers may process information on our behalf to operate My Vanity’s. We only share information when it is needed to provide the service, comply with the law or protect the service and its users."
+					"body": "Authentication and hosting providers may process information on our behalf to operate My Vanity’s. If you accept analytics cookies, Google Analytics will process pseudonymous device and site usage information to provide statistics. Google signals and advertising personalization are disabled."
 				},
 				"cookiesAndStorage": {
 					"heading": "Cookies and local storage",
-					"body": "My Vanity’s uses browser storage to keep you signed in and to remember whether you dismissed the cookie notice. The current service does not use advertising or analytics cookies."
+					"body": "My Vanity’s uses necessary browser storage to maintain your session and remember preferences. Google Analytics only loads and creates analytics cookies if you consent. Advertising cookies remain disabled."
 				},
 				"yourChoices": {
 					"heading": "Your choices",
-					"body": "You may stop using the service at any time. You may request access to, correction of or deletion of your account information by contacting us."
+					"body": "You can accept or reject analytics cookies without losing access to the service and change your choice at any time through Cookie settings. You may also request access to, correction of or deletion of your account information by contacting us."
 				},
 				"securityAndRetention": {
 					"heading": "Security and retention",
@@ -83,9 +83,10 @@
 	},
 	"cookieBanner": {
 		"ariaLabel": "Cookie notice",
-		"body": "We use browser storage to keep you signed in and remember your preferences. By using our site, you acknowledge that you have read and understood our",
-		"dismiss": "Got it!",
-		"acceptCookiesTooltip": "Accept cookies to use this"
+		"body": "We use necessary browser storage to operate My Vanity’s. With your permission, we also use Google Analytics to obtain aggregated usage statistics. You can accept or reject it without affecting the service. Read our",
+		"accept": "Accept analytics",
+		"reject": "Reject analytics",
+		"preferences": "Cookie settings"
 	},
 	"home": {
 		"hero": {

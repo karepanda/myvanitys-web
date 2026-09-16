@@ -8,7 +8,7 @@
 		"termsOfUseLink": "Términos de uso",
 		"backToVanity": "Volver a My Vanity’s",
 		"backToVanityAuthenticated": "Volver a Mi Vanity",
-		"effectiveDate": "En vigor desde el 4 de septiembre de 2026",
+		"effectiveDate": "En vigor desde el 16 de septiembre de 2026",
 		"introduction": "Esta página explica las normas y prácticas de privacidad de la aplicación web My Vanity’s.",
 		"contact": {
 			"heading": "Contacto",
@@ -27,15 +27,15 @@
 				},
 				"storageAndProviders": {
 					"heading": "Almacenamiento y proveedores de servicios",
-					"body": "Los proveedores de autenticación y alojamiento pueden tratar información en nuestro nombre para operar My Vanity’s. Solo compartimos información cuando es necesario para prestar el servicio, cumplir la ley o proteger el servicio y a sus usuarios."
+					"body": "Los proveedores de autenticación y alojamiento pueden tratar información en nuestro nombre para operar My Vanity’s. Si aceptas las cookies analíticas, Google Analytics tratará información seudónima sobre el dispositivo y el uso del sitio para elaborar estadísticas. No activamos las señales de Google ni la personalización publicitaria."
 				},
 				"cookiesAndStorage": {
 					"heading": "Cookies y almacenamiento local",
-					"body": "My Vanity’s utiliza el almacenamiento del navegador para mantener tu sesión iniciada y recordar si cerraste el aviso de cookies. El servicio actual no utiliza cookies publicitarias ni de análisis."
+					"body": "My Vanity’s utiliza almacenamiento técnico del navegador para mantener tu sesión y guardar preferencias. Google Analytics solo se carga y crea cookies analíticas si das tu consentimiento. Las cookies publicitarias permanecen desactivadas."
 				},
 				"yourChoices": {
 					"heading": "Tus opciones",
-					"body": "Puedes dejar de utilizar el servicio en cualquier momento. Puedes solicitar el acceso, la rectificación o la eliminación de la información de tu cuenta poniéndote en contacto con nosotros."
+					"body": "Puedes aceptar o rechazar las cookies analíticas sin perder acceso al servicio y cambiar la elección en cualquier momento desde Configurar cookies. También puedes solicitar el acceso, la rectificación o la eliminación de la información de tu cuenta poniéndote en contacto con nosotros."
 				},
 				"securityAndRetention": {
 					"heading": "Seguridad y conservación",
@@ -83,9 +83,10 @@
 	},
 	"cookieBanner": {
 		"ariaLabel": "Aviso de cookies",
-		"body": "Usamos el almacenamiento del navegador para mantener tu sesión iniciada y recordar tus preferencias. Al usar nuestro sitio, confirmas que has leído y comprendido nuestra",
-		"dismiss": "¡Entendido!",
-		"acceptCookiesTooltip": "Acepta las cookies para usar esta opción"
+		"body": "Usamos almacenamiento técnico necesario para el funcionamiento de My Vanity’s. Con tu permiso, también usamos Google Analytics para obtener estadísticas agregadas de uso. Puedes aceptar o rechazarlo sin afectar al servicio. Consulta nuestra",
+		"accept": "Aceptar analíticas",
+		"reject": "Rechazar analíticas",
+		"preferences": "Configurar cookies"
 	},
 	"home": {
 		"hero": {

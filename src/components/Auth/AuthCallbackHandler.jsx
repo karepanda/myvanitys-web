@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { VanitysContext } from '../../context';
 import { authService } from '../../services/auth/authService';
 import { getJwtExpiration } from '../../utils/jwt';
+import { trackEvent } from '../../services/analytics/googleAnalytics';
 import './Auth.css';
 
 /**
@@ -91,6 +92,10 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
 					setProcessingAuth(false);
 					return;
 				}
+
+				trackEvent(isRegistration ? 'sign_up' : 'login', {
+					method: 'google',
+				});
 
 
 				if (isRegistration && result.requiresLogin) {

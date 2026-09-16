@@ -14,12 +14,20 @@
 .cookieBanner__paragraph {
 	font-weight: bold;
 	font-size: 14px;
-	line-height: 100%;
+	line-height: 1.45;
+	flex: 1;
+}
+
+.cookieBanner__actions {
+	display: flex;
+	align-items: center;
+	gap: 12px;
 }
 
 .cookieBanner__button {
-	width: 124px;
+	min-width: 148px;
 	height: 40px;
+	padding: 0 16px;
 	color: var(--white);
 	background-color: var(--orange);
 	font-size: 12px;
