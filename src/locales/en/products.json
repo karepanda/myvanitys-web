@@ -53,6 +53,7 @@
 		"review_one": "review",
 		"review_other": "reviews",
 		"color": "Color {{color}}",
+		"photoAlt": "Photo of {{name}}",
 		"actionsFor": "Actions for {{name}}",
 		"actions": {
 			"writeReview": "Write review",
@@ -93,6 +94,14 @@
 		"title": "Create product",
 		"close": "Close create product form",
 		"formTitle": "Add a product to My Vanity’s",
+		"photo": {
+			"title": "Add a product photo",
+			"description": "Take a photo or choose an image so it is easy to recognize.",
+			"action": "Take or choose photo",
+			"change": "Change photo",
+			"previewAlt": "Product photo preview",
+			"error": "We could not process the photo. Use an image up to 10 MB."
+		},
 		"fields": {
 			"name": "Product name",
 			"brand": "Brand",

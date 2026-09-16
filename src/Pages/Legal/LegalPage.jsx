@@ -28,7 +28,7 @@ const termsSections = [
 
 const LegalPage = ({ type }) => {
 	const { t } = useTranslation('common');
-	const { apiResponse } = useContext(VanitysContext);
+	const { apiResponse, openCookiePreferences } = useContext(VanitysContext);
 	const privacy = type === 'privacy';
 	const pageKey = privacy ? 'privacy' : 'terms';
 	const title = t(`legal.${pageKey}.title`);
@@ -56,6 +56,15 @@ const LegalPage = ({ type }) => {
 					<h2>{t('legal.contact.heading')}</h2>
 					<p>{t('legal.contact.body')}</p>
 				</section>
+				{privacy && (
+					<button
+						type='button'
+						className='legalPage__cookieSettings'
+						onClick={openCookiePreferences}
+					>
+						{t('cookieBanner.preferences')}
+					</button>
+				)}
 			</article>
 		</main>
 	);

@@ -53,6 +53,7 @@
 		"review_one": "reseña",
 		"review_other": "reseñas",
 		"color": "Color {{color}}",
+		"photoAlt": "Foto de {{name}}",
 		"actionsFor": "Acciones para {{name}}",
 		"actions": {
 			"writeReview": "Escribir reseña",
@@ -93,6 +94,14 @@
 		"title": "Crear producto",
 		"close": "Cerrar el formulario de creación de producto",
 		"formTitle": "Añadir un producto a My Vanity’s",
+		"photo": {
+			"title": "Añade una foto del producto",
+			"description": "Haz una foto o elige una imagen para reconocerlo fácilmente.",
+			"action": "Tomar o elegir foto",
+			"change": "Cambiar foto",
+			"previewAlt": "Vista previa de la foto del producto",
+			"error": "No pudimos procesar la foto. Usa una imagen de hasta 10 MB."
+		},
 		"fields": {
 			"name": "Nombre del producto",
 			"brand": "Marca",

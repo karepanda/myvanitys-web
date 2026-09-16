@@ -131,15 +131,14 @@ describe('Auth Navigation', () => {
 			expect(screen.getByText('Sign up with Google')).toBeInTheDocument();
 		});
 
-		it('does not render login/register buttons when cookie banner is shown (disabled)', () => {
+		it('keeps login/register buttons enabled when analytics consent is pending', () => {
 			const toggleModalLogin = vi.fn();
 			const contextValue = buildAuthContextValue({
 				showCookieBanner: true,
 				toggleModalLogin,
 				renderButtonWithTooltip: (label, onClick, className, tooltipClass) => (
 					<div className={`${tooltipClass}__tooltip-wrapper`}>
-						<button className={`${className} disabled`} onClick={onClick} disabled>{label}</button>
-						<span className='tooltip'>Accept cookies</span>
+						<button className={className} onClick={onClick}>{label}</button>
 					</div>
 				),
 			});
@@ -153,7 +152,7 @@ describe('Auth Navigation', () => {
 			);
 
 			const loginBtn = screen.getByText('Log in');
-			expect(loginBtn).toBeDisabled();
+			expect(loginBtn).toBeEnabled();
 		});
 	});
 

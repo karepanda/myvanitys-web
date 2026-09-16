@@ -4,22 +4,24 @@ import { ErrorHandler } from '../utils/errorHandler';
 import { authService } from '../services/auth/authService';
 import { productFacade } from '../services/product/productFacade';
 import { getJwtExpiration } from '../utils/jwt';
-import { useTranslation } from 'react-i18next';
+import {
+	denyAnalyticsConsent,
+	getAnalyticsConsent,
+	grantAnalyticsConsent,
+	initializeAnalytics,
+	trackEvent,
+} from '../services/analytics/googleAnalytics';
 
 const VanitysContext = createContext();
 
 const VanitysProvider = ({ children }) => {
-	const { t } = useTranslation('common');
 	// UI States
 	const [showModalRegister, setShowModalRegister] = useState(false);
 	const [showModalLogin, setShowModalLogin] = useState(false);
-	const [showCookieBanner, setShowCookieBanner] = useState(() => {
-		try {
-			return sessionStorage.getItem('cookieBannerClosed') !== 'true';
-		} catch {
-			return false;
-		}
-	});
+	const [analyticsConsent, setAnalyticsConsent] = useState(getAnalyticsConsent);
+	const [showCookieBanner, setShowCookieBanner] = useState(
+		() => getAnalyticsConsent() === null
+	);
 	const [showCreateProductPopup, setShowCreateProductPopup] = useState(false);
 	const [showMissingFieldsPopup, setShowMissingFieldsPopup] = useState(false);
 	const [showProductPopup, setShowProductPopup] = useState(false);
@@ -76,6 +78,12 @@ const VanitysProvider = ({ children }) => {
 	const userToken = apiResponse?.token || null;
 
 	// Automatic upload from localStorage
+	useEffect(() => {
+		if (analyticsConsent === 'granted') {
+			initializeAnalytics();
+		}
+	}, [analyticsConsent]);
+
 	useEffect(() => {
 		const loadSavedAuth = () => {
 			try {
@@ -147,10 +155,19 @@ const VanitysProvider = ({ children }) => {
 
 	const toggleModalRegister = () => setShowModalRegister((prev) => !prev);
 	const toggleModalLogin = () => setShowModalLogin((prev) => !prev);
-	const closeCookieBanner = () => {
-		sessionStorage.setItem('cookieBannerClosed', 'true');
+	const acceptAnalyticsCookies = () => {
+		grantAnalyticsConsent();
+		setAnalyticsConsent('granted');
 		setShowCookieBanner(false);
 	};
+
+	const rejectAnalyticsCookies = () => {
+		denyAnalyticsConsent();
+		setAnalyticsConsent('denied');
+		setShowCookieBanner(false);
+	};
+
+	const openCookiePreferences = () => setShowCookieBanner(true);
 	const toggleProductPopup = (product = null) => {
 		setSelectedProduct(product);
 		setShowProductPopup(!!product);
@@ -248,6 +265,7 @@ const VanitysProvider = ({ children }) => {
 			setLoading(false);
 
 			if (newProduct) {
+				trackEvent('product_created');
 				showNotificationTemporarily('add');
 				setProductsRefreshTrigger((prev) => prev + 1);
 			}
@@ -318,6 +336,7 @@ const VanitysProvider = ({ children }) => {
 			setLoading(false);
 
 			if (updatedProduct) {
+				trackEvent('product_updated');
 				showNotificationTemporarily('update');
 				setProductsRefreshTrigger((prev) => prev + 1);
 			}
@@ -340,6 +359,7 @@ const VanitysProvider = ({ children }) => {
 			setLoading(false);
 
 			if (success) {
+				trackEvent('product_deleted');
 				showNotificationTemporarily('delete');
 				setProductsRefreshTrigger((prev) => prev + 1);
 			}
@@ -402,6 +422,7 @@ const VanitysProvider = ({ children }) => {
 			setLoading(false);
 
 			if (result) {
+				trackEvent('product_added_to_vanity');
 				showNotificationTemporarily();
 				setProductsRefreshTrigger((prev) => prev + 1);
 				console.log(
@@ -466,15 +487,11 @@ const VanitysProvider = ({ children }) => {
 	) => (
 		<div className={`${classNameTooltip}__tooltip-wrapper`}>
 			<button
-				className={`${className} ${showCookieBanner ? 'disabled' : ''}`}
+				className={className}
 				onClick={onClick}
-				disabled={showCookieBanner}
 			>
 				{label}
 			</button>
-			{showCookieBanner && (
-				<span className='tooltip'>{t('cookieBanner.acceptCookiesTooltip')}</span>
-			)}
 		</div>
 	);
 
@@ -485,6 +502,7 @@ const VanitysProvider = ({ children }) => {
 				showModalRegister,
 				showModalLogin,
 				showCookieBanner,
+				analyticsConsent,
 				showCreateProductPopup,
 				showMissingFieldsPopup,
 				showProductPopup,
@@ -508,7 +526,9 @@ const VanitysProvider = ({ children }) => {
 				// UI toggles
 				toggleModalRegister,
 				toggleModalLogin,
-				closeCookieBanner,
+				acceptAnalyticsCookies,
+				rejectAnalyticsCookies,
+				openCookiePreferences,
 				toggleCreateProductPopup,
 				toggleMissingFieldsPopup,
 				toggleProductPopup,

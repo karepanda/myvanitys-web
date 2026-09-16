@@ -3,6 +3,7 @@ import { useState, useContext } from 'react';
 import { VanitysContext } from '../context';
 import { productFacade } from '../services/product/productFacade';
 import { normalizeProductCollection } from '../utils/dashboardProducts';
+import { trackEvent } from '../services/analytics/googleAnalytics';
 
 export const useProductSearch = () => {
 	const [searchResults, setSearchResults] = useState([]);
@@ -46,6 +47,9 @@ export const useProductSearch = () => {
 			setSearchResults(searchResults);
 			setSearchError(null);
 			setHasSearched(true);
+			trackEvent('product_search', {
+				result_count: searchResults.length,
+			});
 
 			return true;
 		} catch (err) {
@@ -105,6 +109,9 @@ export const useProductSearch = () => {
 			setSearchResults(categoryResults);
 			setSearchError(null);
 			setHasSearched(true);
+			trackEvent('product_category_search', {
+				result_count: categoryResults.length,
+			});
 
 			return true;
 		} catch (err) {

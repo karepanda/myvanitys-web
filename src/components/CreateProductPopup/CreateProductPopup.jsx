@@ -1,11 +1,17 @@
 import { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { IoClose } from 'react-icons/io5';
+import { FiCamera, FiImage } from 'react-icons/fi';
 import { VanitysContext } from '../../context/index';
 import './CreateProductPopup.css';
 import { useForm } from 'react-hook-form';
 import { Modal } from '../Modal/Modal';
 import { MissingFieldsPopup } from '../MissingFieldsPopup/MissingFieldsPopup';
+import { getCategoryLabel } from '../../utils/dashboardProducts';
+import { getProductImage, prepareProductImage, saveProductImage } from '../../utils/productImages';
+
+const categoryClass = (category) =>
+	String(category || 'other').toLowerCase().replace(/[^a-z0-9]+/g, '-');
 
 const CreateProductPopup = () => {
 	const { t } = useTranslation('products');
@@ -22,6 +28,8 @@ const CreateProductPopup = () => {
 
 	const [localCategoryId, setLocalCategoryId] = useState('');
 	const [productColor, setProductColor] = useState('#8A8A8A');
+	const [productImage, setProductImage] = useState('');
+	const [photoError, setPhotoError] = useState(false);
 
 	const {
 		toggleCreateProductPopup,
@@ -47,10 +55,23 @@ const CreateProductPopup = () => {
 		setValue,
 	} = useForm();
 
-	const handleCategoryChange = (e) => {
-		const newCategoryId = e.target.value;
+	const handleCategoryChange = (newCategoryId) => {
 		setLocalCategoryId(newCategoryId);
 		setValue('categoryId', newCategoryId, { shouldValidate: true });
+	};
+
+	const handlePhotoChange = async (event) => {
+		const [file] = event.target.files || [];
+		if (!file) return;
+
+		try {
+			setProductImage(await prepareProductImage(file));
+			setPhotoError(false);
+		} catch {
+			setPhotoError(true);
+		} finally {
+			event.target.value = '';
+		}
 	};
 
 	useEffect(() => {
@@ -63,11 +84,14 @@ const CreateProductPopup = () => {
 			});
 			setLocalCategoryId(selectedProduct.categoryId || '');
 			setProductColor(selectedColor);
+			setProductImage(getProductImage(selectedProduct));
 		} else {
 			reset({ color: '#8A8A8A' });
 			setLocalCategoryId('');
 			setProductColor('#8A8A8A');
+			setProductImage('');
 		}
+		setPhotoError(false);
 	}, [selectedProduct, reset]);
 
 	const onSubmitProductCreateForm = async (data) => {
@@ -91,12 +115,14 @@ const CreateProductPopup = () => {
 			const response = await createProduct(token, productData);
 
 			if (response) {
+				if (productImage) saveProductImage(response, productImage);
 				setFormData(productData);
 				setShowMissingFieldsPopup(false);
 				setShowCreateProductPopup(false);
 				reset();
 				setLocalCategoryId('');
 				setProductColor('#8A8A8A');
+				setProductImage('');
 			}
 		} catch {
 			errorHandler.showGenericError();
@@ -142,6 +168,22 @@ const CreateProductPopup = () => {
 							handleFormError
 						)}
 					>
+						<div className='createProduct__photo'>
+							<div className={`createProduct__photoPreview${productImage ? '' : ' createProduct__photoPreview--empty'}`}>
+								{productImage ? <img src={productImage} alt={t('create.photo.previewAlt')} /> : <FiImage aria-hidden='true' />}
+							</div>
+							<div className='createProduct__photoCopy'>
+								<strong>{t('create.photo.title')}</strong>
+								<span>{t('create.photo.description')}</span>
+								<label className='createProduct__photoButton' htmlFor='productPhoto'>
+									<FiCamera aria-hidden='true' />
+									{productImage ? t('create.photo.change') : t('create.photo.action')}
+								</label>
+								<input id='productPhoto' type='file' accept='image/*' capture='environment' onChange={handlePhotoChange} />
+							</div>
+						</div>
+						{photoError && <span className='createProduct__error' role='alert'>{t('create.photo.error')}</span>}
+
 						<label htmlFor='name'>{t('create.fields.name')}</label>
 						<input
 							type='text'
@@ -156,24 +198,21 @@ const CreateProductPopup = () => {
 							id='brand'
 							{...register('brand', { required: true, minLength: 2 })}
 						/>
-						<label htmlFor='categorySelect'>{t('create.fields.category')}</label>
-						<div className='createProduct__right--wrapper'>
-							<select
-								id='categorySelect'
-								className='createProduct__right--category'
-								value={localCategoryId}
-								onChange={handleCategoryChange}
-							>
-								<option value='' disabled>
-									{t('create.fields.selectCategory')}
-								</option>
+						<fieldset className='createProduct__categories'>
+							<legend>{t('create.fields.category')}</legend>
+							<div className='createProduct__categoryOptions'>
 								{categories.map((category) => (
-									<option key={category.id} value={category.id}>
-										{category.name}
-									</option>
+									<button
+										type='button'
+										key={category.id}
+										className={`createProduct__categoryOption createProduct__categoryOption--${categoryClass(category.name)}${localCategoryId === category.id ? ' createProduct__categoryOption--selected' : ''}`}
+										onClick={() => handleCategoryChange(category.id)}
+										aria-pressed={localCategoryId === category.id}
+									>
+										{getCategoryLabel(category.name)}
+									</button>
 								))}
-							</select>
-
+							</div>
 							<input
 								type='hidden'
 								{...register('categoryId', {
@@ -181,9 +220,8 @@ const CreateProductPopup = () => {
 									validate: (value) =>
 										!!value || t('create.validation.category.required'),
 								})}
-								value={localCategoryId}
 							/>
-						</div>
+						</fieldset>
 
 						{errors.categoryId && (
 							<span className='createProduct__error'>

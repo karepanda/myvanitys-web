@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-import { FiCheck, FiMoreHorizontal, FiPlus, FiStar, FiTrash2, FiEdit3 } from 'react-icons/fi';
+import { FiCheck, FiEdit3, FiImage, FiMoreHorizontal, FiPlus, FiStar, FiTrash2 } from 'react-icons/fi';
 import {
 	getCategoryLabel,
 	getCategoryName,
 	getSafeHexColor,
 } from '../../utils/dashboardProducts';
+import { getProductImage } from '../../utils/productImages';
 import './ProductCard.css';
 
 const categoryClass = (category) =>
@@ -29,6 +30,7 @@ const ProductCard = ({
 	const rating = Number(product?.averageRating || 0);
 	const reviewCount = Array.isArray(product?.reviews) ? product.reviews.length : null;
 	const isCollected = Boolean(product?.inUserCollection);
+	const productImage = getProductImage(product);
 
 	useEffect(() => {
 		if (!menuOpen) return undefined;
@@ -53,9 +55,7 @@ const ProductCard = ({
 			tabIndex={0}
 			aria-label={t('card.openDetails', { name: product?.name || t('card.productFallback') })}
 		>
-			<div
-				className='productCard__content'
-			>
+			<div className='productCard__content'>
 				<div className='productCard__details'>
 					{category && <span className='productCard__category'>{getCategoryLabel(category)}</span>}
 					<p className='productCard__brand'>{product?.brand}</p>
@@ -68,37 +68,46 @@ const ProductCard = ({
 						)}
 					</div>
 				</div>
-				<div className='productCard__swatch'>
-					<svg viewBox='0 0 64 64' role='img' aria-label={t('card.color', { color })}>
-						<circle cx='32' cy='32' r='29' fill={color} />
-					</svg>
-					<code>{color}</code>
+				<div className='productCard__aside'>
+					<div className={`productCard__media${productImage ? '' : ' productCard__media--empty'}`}>
+						{productImage ? (
+							<img src={productImage} alt={t('card.photoAlt', { name: product?.name })} />
+						) : (
+							<FiImage aria-hidden='true' />
+						)}
+					</div>
+					<div className='productCard__swatch'>
+						<svg viewBox='0 0 64 64' role='img' aria-label={t('card.color', { color })}>
+							<circle cx='32' cy='32' r='29' fill={color} />
+						</svg>
+					</div>
+					{variant === 'collection' && (
+					<div className='productCard__menu' ref={menuRef}>
+						<button
+							type='button'
+							className='productCard__menuTrigger'
+							onClick={(event) => { event.stopPropagation(); setMenuOpen((open) => !open); }}
+							aria-label={t('card.actionsFor', { name: product?.name })}
+							aria-expanded={menuOpen}
+						>
+							<FiMoreHorizontal aria-hidden='true' />
+						</button>
+						{menuOpen && (
+							<div className='productCard__menuPanel'>
+								<button type='button' onClick={(event) => { event.stopPropagation(); setMenuOpen(false); onReview(product); }}>
+									<FiEdit3 aria-hidden='true' /> {t('card.actions.writeReview')}
+								</button>
+								<button type='button' className='productCard__delete' onClick={(event) => { event.stopPropagation(); setMenuOpen(false); onDelete(product); }}>
+									<FiTrash2 aria-hidden='true' /> {t('card.actions.delete')}
+								</button>
+							</div>
+						)}
+					</div>
+					)}
 				</div>
 			</div>
 
-			{variant === 'collection' ? (
-				<div className='productCard__menu' ref={menuRef}>
-					<button
-						type='button'
-						className='productCard__menuTrigger'
-						onClick={(event) => { event.stopPropagation(); setMenuOpen((open) => !open); }}
-						aria-label={t('card.actionsFor', { name: product?.name })}
-						aria-expanded={menuOpen}
-					>
-						<FiMoreHorizontal aria-hidden='true' />
-					</button>
-					{menuOpen && (
-						<div className='productCard__menuPanel'>
-							<button type='button' onClick={(event) => { event.stopPropagation(); setMenuOpen(false); onReview(product); }}>
-								<FiEdit3 aria-hidden='true' /> {t('card.actions.writeReview')}
-							</button>
-							<button type='button' className='productCard__delete' onClick={(event) => { event.stopPropagation(); setMenuOpen(false); onDelete(product); }}>
-								<FiTrash2 aria-hidden='true' /> {t('card.actions.delete')}
-							</button>
-						</div>
-					)}
-				</div>
-			) : (
+			{variant !== 'collection' && (
 				<button
 					type='button'
 					className={`productCard__add${isCollected ? ' productCard__add--collected' : ''}`}
@@ -121,8 +130,10 @@ ProductCard.propTypes = {
 		averageRating: PropTypes.number,
 		reviews: PropTypes.array,
 		inUserCollection: PropTypes.bool,
+		imageUrl: PropTypes.string,
+		imageData: PropTypes.string,
 	}).isRequired,
-	variant: PropTypes.oneOf(['collection', 'search']).isRequired,
+	variant: PropTypes.oneOf(['collection', 'search', 'explore']).isRequired,
 	onOpen: PropTypes.func.isRequired,
 	onAdd: PropTypes.func,
 	onReview: PropTypes.func,

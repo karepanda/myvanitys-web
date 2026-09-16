@@ -19,28 +19,44 @@
 }
 
 .categories__chip {
+	--category-color: var(--color-pink-strong);
+	--category-text: var(--color-text);
 	min-height: 44px;
 	padding: 0 var(--space-4);
 	flex: 0 0 auto;
-	border: 1px solid transparent;
+	border: 2px solid transparent;
 	border-radius: var(--radius-pill);
-	background: var(--color-peach-soft);
+	background: var(--bg-input);
 	color: var(--color-text-muted);
 	font: inherit;
 	font-size: var(--font-size-sm);
 	font-weight: 600;
 	cursor: pointer;
 	scroll-snap-align: start;
+	transition: background var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
 }
 
-.categories__chip:nth-child(3n) { background: var(--color-lilac-soft); }
-.categories__chip:nth-child(4n) { background: var(--color-pink-soft); }
-.categories__chip:nth-child(5n) { background: var(--color-yellow-soft); }
+.categories__chip--category-face { --category-color: var(--color-peach); }
+.categories__chip--category-eyes { --category-color: var(--color-lilac); }
+.categories__chip--category-eyelash,
+.categories__chip--category-lashes,
+.categories__chip--category-lips { --category-color: var(--color-rose); }
+.categories__chip--category-brows { --category-color: var(--color-yellow); }
+.categories__chip--category-cream,
+.categories__chip--category-serum,
+.categories__chip--category-toner { --category-color: var(--color-mint); }
+
+.categories__chip:hover:not(.categories__chip--active) {
+	border-color: var(--color-border);
+	background: color-mix(in srgb, var(--bg-input) 76%, var(--color-text-subtle));
+	color: var(--color-text);
+}
 
 .categories__chip--active {
-	background: var(--color-pink-strong) !important;
-	box-shadow: 0 5px 5px rgba(246, 84, 140, 0.25);
-	color: var(--color-surface);
+	background: var(--category-color);
+	color: var(--category-text);
+	font-weight: 800;
+	transform: translateY(-1px);
 }
 
 .categories__chip:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; }

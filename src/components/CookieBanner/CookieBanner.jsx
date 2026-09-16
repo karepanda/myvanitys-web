@@ -8,21 +8,35 @@ import { useTranslation } from 'react-i18next';
 
 const CookieBanner = () => {
 	const { t } = useTranslation('common');
-	const { closeCookieBanner } = useContext(VanitysContext);
+	const { acceptAnalyticsCookies, rejectAnalyticsCookies } =
+		useContext(VanitysContext);
 
 	return (
-		<div className='cookieBanner' role='region' aria-label={t('cookieBanner.ariaLabel')}>
+		<div
+			className='cookieBanner'
+			role='dialog'
+			aria-label={t('cookieBanner.ariaLabel')}
+		>
 			<p className='cookieBanner__paragraph'>
 				{t('cookieBanner.body')} <Link to='/privacy' className='cookieBanner__highlight'>{t('legal.privacyPolicyLink')}</Link>
-				 {'&'} <Link to='/terms' className='cookieBanner__highlight'>{t('legal.termsOfUseLink')}</Link>.
+				.
 			</p>
-			<button
-				type='button'
-				onClick={() => closeCookieBanner()}
-				className='cookieBanner__button'
-			>
-				{t('cookieBanner.dismiss')}
-			</button>
+			<div className='cookieBanner__actions'>
+				<button
+					type='button'
+					onClick={rejectAnalyticsCookies}
+					className='cookieBanner__button'
+				>
+					{t('cookieBanner.reject')}
+				</button>
+				<button
+					type='button'
+					onClick={acceptAnalyticsCookies}
+					className='cookieBanner__button'
+				>
+					{t('cookieBanner.accept')}
+				</button>
+			</div>
 		</div>
 	);
 };

@@ -5,6 +5,7 @@ import { UserMessage } from '../UserMessage/UserMessage';
 import { productFacade } from '../../services/product/productFacade';
 import { IoClose } from 'react-icons/io5';
 import { useTranslation } from 'react-i18next';
+import { trackEvent } from '../../services/analytics/googleAnalytics';
 
 const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 	const { t } = useTranslation('reviews');
@@ -89,6 +90,7 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 			);
 
 			if (result) {
+				trackEvent('review_created', { rating: selectedRating });
 				showMessage(
 					t('feedback.created'),
 					t('feedback.createdTitle'),

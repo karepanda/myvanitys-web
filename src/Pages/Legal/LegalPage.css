@@ -7,3 +7,4 @@
 .legalPage section { margin-top: 30px; }
 .legalPage h2 { margin-bottom: 8px; font-size: 1.2rem; }
 .legalPage p { color: var(--color-text-muted); line-height: 1.75; }
+.legalPage__cookieSettings { margin-top: 30px; padding: 0; border: 0; background: transparent; color: var(--color-pink-strong); font: inherit; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }

@@ -29,8 +29,30 @@
 .createProduct__right--title { margin-bottom: var(--space-5); color: var(--color-text-muted); font-size: var(--font-size-sm); font-weight: 500; }
 .createProduct__right--form { display: grid; gap: var(--space-2); }
 .createProduct__right--form label { margin-top: var(--space-2); color: var(--color-text); font-size: var(--font-size-sm); font-weight: 600; }
-.createProduct__right--form input[type='text'], .createProduct__right--category { width: 100%; min-height: 48px; padding: 0 var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-sm); outline: 0; background: var(--color-surface); color: var(--color-text); }
-.createProduct__right--form input:focus, .createProduct__right--category:focus { border-color: var(--color-pink-strong); box-shadow: 0 0 0 3px var(--color-focus); }
+.createProduct__right--form input[type='text'] { width: 100%; min-height: 48px; padding: 0 var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-sm); outline: 0; background: var(--color-surface); color: var(--color-text); }
+.createProduct__right--form input:focus { border-color: var(--color-pink-strong); box-shadow: 0 0 0 3px var(--color-focus); }
+.createProduct__photo { display: grid; padding: var(--space-3); grid-template-columns: 82px minmax(0, 1fr); gap: var(--space-3); border: 1px solid color-mix(in srgb, var(--color-pink-strong) 24%, var(--color-border)); border-radius: var(--radius-md); background: color-mix(in srgb, var(--color-rose) 12%, var(--color-surface)); }
+.createProduct__photoPreview { display: grid; width: 82px; height: 82px; place-items: center; overflow: hidden; border: 1px solid var(--color-border-soft); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-text-subtle); }
+.createProduct__photoPreview img { width: 100%; height: 100%; object-fit: cover; }
+.createProduct__photoPreview--empty svg { width: 28px; height: 28px; opacity: 0.45; }
+.createProduct__photoCopy { display: flex; min-width: 0; align-items: flex-start; flex-direction: column; gap: 4px; }
+.createProduct__photoCopy strong { color: var(--color-text); font-size: var(--font-size-sm); }
+.createProduct__photoCopy span { color: var(--color-text-muted); font-size: var(--font-size-xs); line-height: 1.4; }
+.createProduct__photoCopy input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+.createProduct__right--form .createProduct__photoButton { display: inline-flex; min-height: 38px; margin-top: var(--space-2); align-items: center; gap: var(--space-2); padding: 0 var(--space-3); border: 1px solid color-mix(in srgb, var(--color-pink-strong) 42%, var(--color-border)); border-radius: var(--radius-pill); background: var(--color-surface); color: var(--color-pink-strong); cursor: pointer; }
+.createProduct__photoButton:focus-within { outline: 3px solid var(--color-focus); outline-offset: 2px; }
+.createProduct__categories { min-width: 0; margin-top: var(--space-2); padding: 0; border: 0; }
+.createProduct__categories legend { margin-bottom: var(--space-2); color: var(--color-text); font-size: var(--font-size-sm); font-weight: 600; }
+.createProduct__categoryOptions { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.createProduct__categoryOption { min-height: 36px; padding: 0 var(--space-3); border: 1px solid transparent; border-radius: var(--radius-pill); background: var(--color-background); color: var(--color-text-muted); font: inherit; font-size: var(--font-size-sm); cursor: pointer; transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast); }
+.createProduct__categoryOption:hover { transform: translateY(-1px); }
+.createProduct__categoryOption--selected { border-color: currentColor; box-shadow: 0 0 0 3px var(--color-focus); font-weight: 700; }
+.createProduct__categoryOption--face { background: color-mix(in srgb, var(--color-peach) 34%, white); color: #a95732; }
+.createProduct__categoryOption--eyes { background: color-mix(in srgb, var(--color-lilac) 36%, white); color: #5f51bd; }
+.createProduct__categoryOption--eyelash { background: color-mix(in srgb, var(--color-rose) 30%, white); color: #b43f72; }
+.createProduct__categoryOption--brows { background: color-mix(in srgb, var(--color-yellow) 35%, white); color: #8d6713; }
+.createProduct__categoryOption--lips { background: color-mix(in srgb, var(--color-rose) 30%, white); color: #b43f72; }
+.createProduct__categoryOption--cream, .createProduct__categoryOption--serum, .createProduct__categoryOption--toner { background: color-mix(in srgb, var(--color-mint) 34%, white); color: #247255; }
 .createProduct__right--color { display: grid; width: 52px; height: 52px; place-items: center; overflow: hidden; border: 2px solid var(--color-surface); border-radius: 50%; background: #8a8a8a; box-shadow: 0 0 0 1px var(--color-border); }
 .createProduct__right--color input { width: 52px; height: 52px; padding: 0; border: 0; border-radius: 50%; background: #8a8a8a; cursor: pointer; appearance: none; -webkit-appearance: none; }
 .createProduct__right--color input::-webkit-color-swatch-wrapper { padding: 0; }
@@ -42,4 +64,9 @@
 @media (min-width: 768px) {
 	.createProduct { align-items: center; padding: var(--space-6); }
 	.createProduct__container { width: min(100%, 560px); max-height: calc(100dvh - 48px); border-radius: var(--radius-dialog); }
+}
+
+@media (max-width: 420px) {
+	.createProduct__photo { grid-template-columns: 64px minmax(0, 1fr); }
+	.createProduct__photoPreview { width: 64px; height: 64px; }
 }

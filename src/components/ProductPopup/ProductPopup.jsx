@@ -4,9 +4,11 @@ import './ProductPopup.css';
 import { IoClose } from 'react-icons/io5';
 import { FaRegStar } from 'react-icons/fa';
 import { FaStar } from 'react-icons/fa6';
+import { FiImage } from 'react-icons/fi';
 import { VanitysContext } from '../../context/index';
 import { useReviews } from '../../hooks';
 import { getCategoryLabel, getCategoryName, getSafeHexColor } from '../../utils/dashboardProducts';
+import { getProductImage } from '../../utils/productImages';
 
 const categoryClass = (category) =>
 	String(category || 'other').toLowerCase().replace(/[^a-z0-9]+/g, '-');
@@ -33,6 +35,7 @@ const ProductPopup = () => {
 	const displayReviews = selectedProduct?.reviews || reviews;
 	const category = getCategoryName(selectedProduct);
 	const color = getSafeHexColor(selectedProduct.colorHex);
+	const productImage = getProductImage(selectedProduct);
 
 	return (
 		<>
@@ -47,9 +50,18 @@ const ProductPopup = () => {
 						<IoClose aria-hidden='true' />
 					</button>
 				</section>
+				<section className={`productPopup__visual productPopup__visual--${categoryClass(category)}`}>
+					<div className={`productPopup__image${productImage ? '' : ' productPopup__image--empty'}`}>
+						{productImage ? (
+							<img src={productImage} alt={t('card.photoAlt', { name: selectedProduct.name })} />
+						) : (
+							<FiImage aria-hidden='true' />
+						)}
+					</div>
+				</section>
 				<section className='productPopup__color'>
 					<svg viewBox='0 0 64 64' role='img' aria-label={t('popup.colorAria', { color })}><circle cx='32' cy='32' r='29' fill={color} /></svg>
-					<div><span>{t('popup.color')}</span><code>{color}</code></div>
+					<div><span>{t('popup.color')}</span></div> {/* TODO: Add color name if available */}
 				</section>
 
 				<section className='productPopup__reviews'>
@@ -99,7 +111,7 @@ const ProductPopup = () => {
 				<section className='productPopup__add'>
 					{!selectedProduct.inUserCollection ? (
 						<button
-							className='productPopup__add--buttom'
+							className='productPopup__add--button'
 							onClick={() => {
 								handleAddToVanity(selectedProduct);
 								toggleProductPopup();

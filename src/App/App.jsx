@@ -9,6 +9,7 @@ import { Modal } from '../components/Modal/Modal';
 import { useContext } from 'react';
 import { PublicFooter } from '../components/PublicFooter/PublicFooter';
 import { Seo } from '../components/Seo/Seo';
+import { CookieBanner } from '../components/CookieBanner/CookieBanner';
 import { useTranslation } from 'react-i18next';
 import './App.css';
 
@@ -23,6 +24,7 @@ const AppContent = () => {
 		errorType,
 		apiResponse,
 		authInitialized,
+		showCookieBanner,
 	} = useContext(VanitysContext);
 
 	const isCallback = location.pathname === '/callback';
@@ -49,6 +51,11 @@ const AppContent = () => {
 						type={errorType}
 						onClose={() => setShowMissingFieldsPopup(false)}
 					/>
+				</Modal>
+			)}
+			{showCookieBanner && (
+				<Modal>
+					<CookieBanner />
 				</Modal>
 			)}
 		</div>
