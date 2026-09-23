@@ -16,7 +16,7 @@ export const productApiAdapter = {
 				headers: apiUtils.getCommonHeaders(token),
 			});
 
-			return await handleResponse(response, errorHandler, 'fetch');
+			return await handleResponse(response, errorHandler, 'fetch', false, token);
 		} catch (error) {
 			return handleError(error, errorHandler);
 		}
@@ -37,7 +37,7 @@ export const productApiAdapter = {
 				body: JSON.stringify(data),
 			});
 
-			return await handleResponse(response, errorHandler, 'creation');
+			return await handleResponse(response, errorHandler, 'creation', false, token);
 		} catch (error) {
 			return handleError(error, errorHandler);
 		}
@@ -51,7 +51,7 @@ export const productApiAdapter = {
 				body: JSON.stringify(data),
 			});
 
-			return await handleResponse(response, errorHandler, 'update');
+			return await handleResponse(response, errorHandler, 'update', false, token);
 		} catch (error) {
 			return handleError(error, errorHandler);
 		}
@@ -64,7 +64,7 @@ export const productApiAdapter = {
 				headers: apiUtils.getCommonHeaders(token),
 			});
 
-			return await handleResponse(response, errorHandler, 'deletion', true);
+			return await handleResponse(response, errorHandler, 'deletion', true, token);
 		} catch (error) {
 			return handleError(error, errorHandler);
 		}
@@ -76,13 +76,14 @@ const handleResponse = async (
 	response,
 	errorHandler,
 	operation,
-	returnBooleanOnSuccess = false
+	returnBooleanOnSuccess = false,
+	token = null
 ) => {
 	if (!response.ok) {
 		const errorText = await response.text().catch(() => '');
 
 		if (errorHandler) {
-			errorHandler.handleApiError('product', response.status, errorText);
+			errorHandler.handleApiError('product', response.status, errorText, token);
 		}
 
 		console.error(`Product ${operation} error: ${response.status}`);
