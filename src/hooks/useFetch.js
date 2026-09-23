@@ -54,7 +54,7 @@ const useFetch = (url, method = 'GET', customHeaders = {}, errorHandler = null) 
 					
 					// Handle the error with our error handler if available
 					if (errorHandler) {
-						errorHandler.handleApiError(category, response.status, errorText);
+						errorHandler.handleApiError(category, response.status, errorText, accessToken);
 					}
 					
 					// Also set the error in the status for components that check for it.

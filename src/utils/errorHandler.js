@@ -6,10 +6,23 @@ export class ErrorHandler {
 		this.setMessage = setMessage;
 		this.setTitle = setTitle;
 		this.setType = setType;
+		this.onSessionExpired = null;
+		this.invalidatedToken = null;
+		// Lets callers avoid replacing an error already shown during an operation.
+		this.messageCount = 0;
+	}
+
+	setSessionExpiredHandler(handler) {
+		this.onSessionExpired = handler;
+	}
+
+	resetSessionInvalidation() {
+		this.invalidatedToken = null;
 	}
 
 	
 	showErrorMessage(message, title, type) {
+		this.messageCount += 1;
 		console.error('ERROR HANDLER CALLED:', { message, title, type });
 		console.error('STACK TRACE:', new Error().stack);
 		if (this.setMessage) this.setMessage(message);
@@ -19,7 +32,7 @@ export class ErrorHandler {
 	}
 
 	
-	handleApiError(category, status, errorText) {
+	handleApiError(category, status, errorText, token = null) {
 		const errorInfo = getErrorMessage(category, status);
 
 		
@@ -33,6 +46,11 @@ export class ErrorHandler {
 			} catch {
 				// Keep the default message when the response body is not JSON.
 			}
+		}
+
+		if (status === 401 && token && this.onSessionExpired && this.invalidatedToken !== token) {
+			this.invalidatedToken = token;
+			this.onSessionExpired(token);
 		}
 
 		this.showErrorMessage(errorInfo.message, errorInfo.title, errorInfo.type);

@@ -77,6 +77,10 @@ const VanitysProvider = ({ children }) => {
 	const isAuthenticated = !!apiResponse?.token;
 	const userToken = apiResponse?.token || null;
 
+	// Tracks the current token synchronously so a late 401 for a previous
+	// token cannot invalidate a newly stored session before React re-renders.
+	const currentTokenRef = useRef(null);
+
 	// Automatic upload from localStorage
 	useEffect(() => {
 		if (analyticsConsent === 'granted') {
@@ -113,7 +117,8 @@ const VanitysProvider = ({ children }) => {
 		loadSavedAuth();
 	}, []);
 
-	const logout = () => {
+	const clearSession = () => {
+		currentTokenRef.current = null;
 		setApiResponse(null);
 		localStorage.removeItem('vanitys_auth');
 		sessionStorage.removeItem('welcomeShow');
@@ -126,16 +131,38 @@ const VanitysProvider = ({ children }) => {
 		// Close modals
 		setShowUserProfile(false);
 		setShowWelcomePopup(false);
+	};
+
+	const logout = () => {
+		clearSession();
 
 		// Redirect to home
 		window.location.href = '/';
 	};
+
+	// Invalidates the session only when the rejected token is still the
+	// current one, so a late 401 for an old token cannot log out a new session.
+	const handleSessionExpired = (token) => {
+		if (!token || token !== currentTokenRef.current) {
+			return;
+		}
+		clearSession();
+	};
+
+	// Keep the handler wired to the latest render's auth state.
+	errorHandler.setSessionExpiredHandler(handleSessionExpired);
 
 	const updateAuthData = (authData, showWelcome = true) => {
 		if (!authData.expiresAt) {
 			const jwtExp = authData.token ? getJwtExpiration(authData.token) : null;
 			authData.expiresAt = jwtExp || Date.now() + 30 * 24 * 60 * 60 * 1000;
 		}
+
+		// Track the new token synchronously and reset the 401 dedup so a
+		// freshly established session can be invalidated again (even if the
+		// token value is reused).
+		currentTokenRef.current = authData?.token ?? null;
+		errorHandler.resetSessionInvalidation();
 
 		setApiResponse(authData);
 		localStorage.setItem('vanitys_auth', JSON.stringify(authData));
@@ -461,10 +488,14 @@ const VanitysProvider = ({ children }) => {
 		setIsAdding(true);
 
 		try {
+			const errorMessageCount = errorHandler.messageCount;
 			const success = await addExistingProductToVanity(token, product);
 
 			if (!success) {
-				throw new Error('Failed to add product to vanity');
+				if (errorHandler.messageCount === errorMessageCount) {
+					errorHandler.showGenericError();
+				}
+				return;
 			}
 
 			// CLAVE: Incrementar ambos triggers después del éxito
