@@ -91,6 +91,35 @@ To develop without depending on the real Google OAuth2 backend, the repo include
          }'
    ```
 
+## Cross-browser Integration Tests (Playwright)
+
+These tests run the **real** backend in Docker (no API mocks) and verify the
+authenticated screens (My Vanity, Search, Explore) in Chromium, Firefox, WebKit
+and a mobile WebKit device.
+
+Prerequisites:
+
+- The backend must already be running (this suite never starts it).
+- The following environment variables must be set before running:
+
+| Variable | Description |
+|---|---|
+| `JWT_SECRET` | HMAC secret used to mint test JWTs. Use the `jwt.secret` value from `myvanitys-api`'s `src/main/resources/application-local.yml` (set it via the environment; do not hardcode it). |
+| `E2E_DB_CONTAINER` | Docker container name of the PostgreSQL instance (e.g. `postgres-db`). |
+| `E2E_DB_NAME` | Database name (e.g. `myvanitysdb`). |
+| `E2E_DB_USER` | Database user (e.g. `myvanitys`). |
+
+Run the suite:
+
+```bash
+npm run test:e2e:integration
+```
+
+The suite builds the app with `VITE_API_URL=http://localhost:8080/myvanitys/api/v1`,
+serves it with `vite preview --host localhost --port 5173 --strictPort`, seeds one
+test user per (project × worker), and mints one JWT per user with Node's built-in
+crypto (HS256).
+
 ## More Information
 
 Full documentation on architecture, stack, design patterns, consumed endpoints, authentication flow, testing, and deployment lives in [`TECHNICAL_DOCUMENTATION.md`](./docs/TECHNICAL_DOCUMENTATION.md).

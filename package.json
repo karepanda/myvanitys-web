@@ -26,7 +26,8 @@
     "build": "vite build",
     "serve": "vite preview",
     "test": "vitest run",
-    "test:coverage": "vitest run --coverage --watch=false"
+    "test:coverage": "vitest run --coverage --watch=false",
+    "test:e2e:integration": "playwright test -c playwright.integration.config.js"
   },
   "eslintConfig": {
     "extends": [

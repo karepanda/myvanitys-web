@@ -166,6 +166,8 @@ const CreateReviewPopup = ({ productId, onClose, onReviewCreated }) => {
 										width='24'
 										height='24'
 										viewBox='0 0 24 24'
+										role='button'
+										aria-label={`${star} ${t('form.star', { count: star })}`}
 										className={`star ${
 											star <= (hoveredRating || selectedRating)
 												? 'active'
