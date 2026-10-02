@@ -91,6 +91,35 @@ To develop without depending on the real Google OAuth2 backend, the repo include
          }'
    ```
 
+## Visual Regression Tests (Playwright)
+
+The Playwright suite compares the rendered React interface against committed
+reference screenshots on desktop and mobile Chromium. Application API calls are
+intercepted with deterministic in-memory fixtures, so the suite does not require
+Docker, PostgreSQL, a real backend, or authentication secrets.
+
+Run the visual comparisons:
+
+```bash
+npm run test:e2e:visual
+```
+
+Open the latest HTML report:
+
+```bash
+npm run test:e2e:visual:report
+```
+
+Only regenerate the committed baselines after confirming that a visual change is
+intentional:
+
+```bash
+npm run test:e2e:visual:update
+```
+
+The tests, deterministic API fixtures, and baseline images live under
+`tests/e2e/visual`.
+
 ## More Information
 
 Full documentation on architecture, stack, design patterns, consumed endpoints, authentication flow, testing, and deployment lives in [`TECHNICAL_DOCUMENTATION.md`](./docs/TECHNICAL_DOCUMENTATION.md).

@@ -15,5 +15,6 @@ export default defineConfig({
 			'@': path.resolve(currentDirectory, './src'),
 		},
 		include: ['**/*.test.js', '**/*.test.jsx', '**/*.spec.js'],
+		exclude: ['**/node_modules/**', 'tests/e2e/**'],
 	},
 });
