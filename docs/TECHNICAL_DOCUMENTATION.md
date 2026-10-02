@@ -304,20 +304,22 @@ myvanitys-web/
 
 ### Framework & Strategy
 
-- **Framework:** Vitest (with jsdom for DOM simulation)
+- **Frameworks:** Vitest (with jsdom for DOM simulation) and Playwright
 - **Coverage Provider:** @vitest/coverage-v8
 - **Coverage Target:** No explicit threshold configured
 - **Test Types:**
   - Unit tests — [`src/test/services/product/operations/createProductService.test.js`](../src/test/services/product/operations/createProductService.test.js)
   - Utility tests — [`src/test/utils/dashboardProducts.test.js`](../src/test/utils/dashboardProducts.test.js)
   - Integration tests — [NOT FOUND IN REPO]
-  - E2E tests — [NOT FOUND IN REPO]
+  - Visual regression tests — [`tests/e2e/visual`](../tests/e2e/visual)
 
 ### Key Commands
 
 ```bash
 npm test                  # Run all tests (vitest run)
 npm run test:coverage     # Run with coverage report (no watch mode)
+npm run test:e2e:visual   # Compare desktop and mobile UI against visual baselines
+npm run test:e2e:visual:report  # Open the latest Playwright HTML report
 npx vitest run src/test/services/product/operations/createProductService.test.js  # Run a single test file
 ```
 

@@ -13,7 +13,13 @@ export default defineConfig([
     languageOptions: { globals: globals.node },
   },
   {
-    files: ["vitest.config.mjs", "vite.config.mjs", "src/test/**/*.{js,jsx}"],
+    files: [
+      "playwright.config.js",
+      "vitest.config.mjs",
+      "vite.config.mjs",
+      "src/test/**/*.{js,jsx}",
+      "tests/e2e/**/*.js",
+    ],
     languageOptions: { globals: { ...globals.node, ...globals.browser } },
   },
   {
