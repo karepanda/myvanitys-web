@@ -67,6 +67,11 @@ const ProductCard = ({
 							<span>{reviewCount} {t('card.review', { count: reviewCount })}</span>
 						)}
 					</div>
+					<div className='productCard__swatch'>
+						<svg viewBox='0 0 64 64' role='img' aria-label={t('card.color', { color })}>
+							<circle cx='32' cy='32' r='29' fill={color} />
+						</svg>
+					</div>
 				</div>
 				<div className='productCard__aside'>
 					<div className={`productCard__media${productImage ? '' : ' productCard__media--empty'}`}>
@@ -75,11 +80,6 @@ const ProductCard = ({
 						) : (
 							<FiImage aria-hidden='true' />
 						)}
-					</div>
-					<div className='productCard__swatch'>
-						<svg viewBox='0 0 64 64' role='img' aria-label={t('card.color', { color })}>
-							<circle cx='32' cy='32' r='29' fill={color} />
-						</svg>
 					</div>
 					{variant === 'collection' && (
 					<div className='productCard__menu' ref={menuRef}>
