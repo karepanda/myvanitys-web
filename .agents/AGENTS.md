@@ -4,8 +4,8 @@ React single-page application for managing personal cosmetic collections and bro
 
 ## Stack and structure
 - Node 22+, React 18, Vite 6, React Router 7, Tailwind CSS 3, Vitest 4, and Playwright.
-- `src/context/index.jsx` owns shared authentication, product, and UI state.
-- Keep HTTP access in `src/services`, data-fetching behavior in `src/hooks`, and translations in `src/locales`.
+- `../src/context/index.jsx` owns shared authentication, product, and UI state.
+- Keep HTTP access in `../src/services`, data-fetching behavior in `src/hooks`, and translations in `src/locales`.
 
 ## Commands
 ```bash
@@ -32,7 +32,7 @@ npm run build
 - Keep changes focused and preserve existing behavior unless the task explicitly changes it.
 - Ask before adding dependencies or changing environment variables, authentication, persisted data, or API contracts.
 - Never commit secrets, generated build output, reports, or local IDE/agent settings.
-- Use `README.md` for setup, `docs/TECHNICAL_DOCUMENTATION.md` for architecture, and `docs/I18N_INVENTORY.md` for localization.
+- Use `../README.md` for setup, `docs/TECHNICAL_DOCUMENTATION.md` for architecture, and `docs/I18N_INVENTORY.md` for localization.
 
 ## Verification
 - Run the smallest relevant tests and lint, then `npm run build` when production behavior may be affected.
