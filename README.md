@@ -20,8 +20,8 @@ cd myvanitys-web
 # 2. Install dependencies
 npm install
 
-# 3. Configure environment variables
-cp .env.development .env   # or .env.production for prod values
+# 3. Configure frontend environment variables
+cp .env.example .env
 
 # 4. Start the development server (Vite)
 npm start
@@ -41,6 +41,10 @@ The page auto-reloads on save. Lint errors show up in the browser console.
 | `npm run build` | Produces the production build in `dist/` |
 
 ## Full Stack with Docker
+
+The API container requires `GOOGLE_CLIENT_SECRET` to be supplied through the
+shell or a local, ignored `.env` file. This server-side value is never passed to
+the frontend build.
 
 ```bash
 docker compose up
