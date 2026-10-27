@@ -36,7 +36,7 @@ services:
       - SERVER_PORT=8080
       - JAVA_OPTS=-Xmx512m -Xms256m
       - GOOGLE_CLIENT_ID=780556869332-1sf3nmlm6df03r73jnh8a5kll8ev3ifo.apps.googleusercontent.com
-      - GOOGLE_CLIENT_SECRET=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
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET:?Set GOOGLE_CLIENT_SECRET in the shell or an ignored .env file}
     ports:
       - "8080:8080"
     depends_on:

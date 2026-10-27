@@ -54,8 +54,8 @@ cd myvanitys-web
 # 2. Install dependencies
 npm install
 
-# 3. Configure environment
-cp .env.development .env   # or use .env.production for prod settings
+# 3. Configure frontend environment
+cp .env.example .env
 
 # 4. Start development server (Vite, port 5173)
 npm start
@@ -66,15 +66,20 @@ docker compose up
 
 ## 5. Environment Variables
 
-| Variable                | Description                                                                  | Default / Dev Value                      |
-|-------------------------|------------------------------------------------------------------------------|------------------------------------------|
-| `VITE_API_URL`          | Base URL for the Spring Boot backend API                                     | `http://localhost:8080/myvanitys/api/v1` |
-| `VITE_REDIRECT_URI`     | OAuth2 callback URL that Google redirects to after authentication            | `http://localhost:5173/callback`         |
-| `VITE_GOOGLE_CLIENT_ID` | Google OAuth2 client ID for the frontend                                     | Defined in `.env.development`            |
-| `GOOGLE_CLIENT_SECRET`  | Google OAuth2 client secret (used in docker-compose, not in frontend bundle) | Defined in `.env.development`            |
-| `PORT`                  | Nginx listen port inside the container (Docker only)                         | `80`                                     |
+| Variable                 | Description                                                       | Default / Dev Value                      |
+|--------------------------|-------------------------------------------------------------------|------------------------------------------|
+| `VITE_API_URL`           | Base URL for the Spring Boot backend API                          | `http://localhost:8080/myvanitys/api/v1` |
+| `VITE_REDIRECT_URI`      | OAuth2 callback URL that Google redirects to after authentication | `http://localhost:5173/callback`         |
+| `VITE_GOOGLE_CLIENT_ID`  | Google OAuth2 client ID for the frontend                          | Set in a local `.env` file               |
+| `VITE_GA_MEASUREMENT_ID` | Optional Google Analytics measurement ID                          | Empty                                    |
+| `PORT`                   | Nginx listen port inside the container (Docker only)              | `80`                                     |
 
-> **Note:** There is no `.env.example` file in this repository. The files [`.env.development`](../.env.development) and [`.env.production`](../.env.production) are committed directly. The variable names above are extracted from those files; values are deliberately omitted from the production file.
+Copy [`.env.example`](../.env.example) to `.env` and customize the values
+locally. All `.env*` files are ignored except the example. The frontend only
+receives the public Google client ID; the OAuth client secret is server-side
+configuration. For the root Compose stack, supply `GOOGLE_CLIENT_SECRET`
+through the shell or an ignored `.env` file so it is passed only to the API
+container.
 
 ## 6. Project Structure
 
@@ -91,8 +96,7 @@ myvanitys-web/
 ├── nginx.conf.template            # Nginx config with envsubst for $PORT
 ├── docker-compose.yml             # Root: PostgreSQL + Spring Boot API + Frontend
 ├── railway.toml                   # Railway deployment config (Nixpacks builder)
-├── .env.development               # Dev environment variables
-├── .env.production                # Production environment variables
+├── .env.example                   # Safe frontend environment template
 ├── Docker/
 │   ├── docker-compose.yml         # Alt: PostgreSQL + API + Frontend + specifications service
 │   ├── nginx/                     # Nginx config overrides (directory present)
