@@ -20,9 +20,11 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
 		errorHandler,
 		setShowWelcomePopup,
 		setShowModalLogin,
+		initiateRegister,
 	} = useContext(VanitysContext);
 
 	const [processingAuth, setProcessingAuth] = useState(true);
+	const [requiresRegistration, setRequiresRegistration] = useState(false);
 	const [processingMessage, setProcessingMessage] = useState(
 		t('callback.processing')
 	);
@@ -89,6 +91,14 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
 						);
 					}
 
+					setProcessingAuth(false);
+					return;
+				}
+
+				// Login flow: the Google account has no MyVanitys account yet.
+				// Stop the login flow and guide the user to register instead.
+				if (!isRegistration && result.requiresRegistration) {
+					setRequiresRegistration(true);
 					setProcessingAuth(false);
 					return;
 				}
@@ -175,6 +185,31 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
 					<h2>{t('callback.title')}</h2>
 					<div className='auth-callback__spinner'></div>
 					<p>{processingMessage}</p>
+				</div>
+			</div>
+		);
+	}
+
+	// The Google account is not registered yet; guide the user to create one.
+	if (requiresRegistration) {
+		return (
+			<div className='auth-callback'>
+				<div className='auth-callback__notice'>
+					<p className='auth-callback__brand'>My Vanity’s</p>
+					<h2>{t('callback.noAccountTitle')}</h2>
+					<p>{t('callback.noAccountDescription')}</p>
+					<button
+						className='auth-callback__button'
+						onClick={initiateRegister}
+					>
+						{t('callback.createAccount')}
+					</button>
+					<button
+						className='auth-callback__button auth-callback__button--secondary'
+						onClick={() => navigate('/')}
+					>
+						{t('callback.backHome')}
+					</button>
 				</div>
 			</div>
 		);

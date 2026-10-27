@@ -33,7 +33,14 @@ export const loginService = {
       if (!response.ok) {
         const errorText = await response.text().catch(() => '');
         console.error(`Authentication error (${response.status}): ${errorText}`);
-        
+
+        // A 401 from POST /auth/google means this Google account is not
+        // registered yet. Signal it so the callback can guide the user to
+        // create an account instead of showing a generic login error.
+        if (response.status === 401) {
+          return { requiresRegistration: true };
+        }
+
         if (errorHandler) {
           errorHandler.handleApiError('auth', response.status, errorText);
         }

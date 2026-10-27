@@ -2,7 +2,8 @@
 
 .auth-callback__processing,
 .auth-callback__success,
-.auth-callback__error {
+.auth-callback__error,
+.auth-callback__notice {
   position: relative;
   background-color: rgba(255,255,255,.92);
   border: 1px solid rgba(255,255,255,.8);
@@ -30,6 +31,7 @@
 
 .auth-callback__success { border-top: 5px solid var(--color-success); }
 .auth-callback__error { border-top: 5px solid var(--color-danger); }
+.auth-callback__notice { border-top: 5px solid var(--color-pink-strong); }
 
 .auth-callback__button {
   background-color: var(--color-coral);
@@ -45,6 +47,17 @@
 
 .auth-callback__button:hover { filter: brightness(.96); }
 
+.auth-callback__button--secondary {
+  display: block;
+  margin: var(--space-3) auto 0;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.auth-callback__button--secondary:hover { background: var(--color-background); filter: none; }
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
@@ -55,7 +68,8 @@
 @media (max-width: 600px) {
   .auth-callback__processing,
   .auth-callback__success,
-  .auth-callback__error {
+  .auth-callback__error,
+  .auth-callback__notice {
     padding: 1.5rem;
   }
 }
