@@ -1,0 +1,5 @@
+# Known historical findings from the Google OAuth client secret that was
+# committed in 2025, since removed and rotated. These fingerprint-specific
+# ignores suppress only the exact findings below; any new secret is still detected.
+a83a27f0c31091fc0d3a61c7b4e6cef3e4c60f9b:docker-compose.yml:generic-api-key:39
+ccf5258cd51af2b40ed3c6ef01be38c4ca782fb7:.env.development:generic-api-key:5
