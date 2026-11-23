@@ -1,0 +1,11 @@
+# Gitleaks secret-scan configuration for MyVanitys Web.
+# Builds on the built-in Gitleaks rules and allowlists local test fixtures.
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "WireMock test fixtures that intentionally contain fake credentials and tokens"
+paths = [
+    '''Docker/wiremock/''',
+]

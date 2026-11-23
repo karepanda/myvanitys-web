@@ -7,6 +7,7 @@ Durable project memory shared by coding agents. Keep this file concise and remov
 - Authentication uses Google OAuth, JWTs, React context, and `localStorage.vanitys_auth`.
 - Product catalog, vanity management, search, reviews, localization, and analytics consent are implemented.
 - Vitest covers unit/component behavior; Playwright provides deterministic desktop and mobile visual regression tests.
+- A scheduled GitHub Actions workflow (`security-scans.yml`) runs Gitleaks secret scanning and `npm audit` on push, pull requests, and daily.
 
 ## Decisions and rationale
 - Keep server communication behind service adapters so components remain focused on UI behavior.
@@ -20,6 +21,6 @@ Durable project memory shared by coding agents. Keep this file concise and remov
 - Session expiry must remove authentication state without clearing unrelated browser storage.
 
 ## Next steps
-- No durable next step is recorded.
+- Optionally rewrite git history to purge the rotated Google OAuth client secret; its two historical findings are fingerprint-suppressed in `.gitleaksignore`.
 
 Update this file only when durable project state, decisions, lessons, or next steps change. Move permanent rules to `AGENTS.md`. Never add secrets, tokens, personal data, commit history, or routine task logs.
