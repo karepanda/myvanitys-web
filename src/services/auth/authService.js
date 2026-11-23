@@ -23,8 +23,6 @@ export const authService = {
     
     if (!code) {
       console.error('No authorization code found in URL');
-      console.error('Current URL:', window.location.href);
-      console.error('URL search params:', window.location.search);
       
       if (errorHandler) {
         const errorInfo = getErrorMessage('auth', 'noToken');

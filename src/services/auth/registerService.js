@@ -1,19 +1,12 @@
 // services/auth/registerService.js
-import { apiUtils } from '../../utils/apiUtils';
-import { dateUtils } from '../../utils/dateUtils';
+import {apiUtils} from '../../utils/apiUtils';
+import {dateUtils} from '../../utils/dateUtils';
 
 export const registerService = {
   register: async (authCode, errorHandler) => {
     
     const API_URL = import.meta.env.VITE_API_URL;
 
-    console.log('Variables Environment:', {
-      VITE_API_URL: import.meta.env.VITE_API_URL,
-      VITE_REDIRECT_URI: import.meta.env.VITE_REDIRECT_URI,
-      NODE_ENV: import.meta.env.MODE || import.meta.env.NODE_ENV,
-      hostname: window.location.hostname
-    });
-    
     try {
       const isoDate = dateUtils.getCurrentUTCISODate();
       
@@ -22,8 +15,7 @@ export const registerService = {
         authProvider: "google",
         registrationDate: isoDate
       };
-      
-      console.log("Payload being sent:", JSON.stringify(payload));
+
       const response = await fetch(`${API_URL}/auth/register`, {
         method: 'POST',
         headers: {
@@ -37,7 +29,6 @@ export const registerService = {
       if (!response.ok) {
         const errorText = await response.text().catch(() => '');
         console.error('Registration failed with status:', response.status);
-        console.error('Error response body:', errorText);
         
         if (errorHandler) {
           errorHandler.handleApiError('auth', response.status, errorText);
@@ -59,9 +50,8 @@ export const registerService = {
       let parsedUserData;
       try {
         parsedUserData = JSON.parse(userData);
-      } catch (parseError) {
-        console.error('JSON parsing failed:', parseError);
-        console.error('Failed to parse this text:', userData);
+      } catch {
+        console.error('JSON parsing failed');
         if (errorHandler) {
           errorHandler.handleApiError('auth', 'parseError', 'Invalid JSON response');
         }
@@ -75,9 +65,9 @@ export const registerService = {
         }
         return null;
       }
-    
-      
-      const registrationResult = {
+
+
+  return {
         userId: parsedUserData.userId,
         email: parsedUserData.email || null,
         name: parsedUserData.name || null,
@@ -85,8 +75,6 @@ export const registerService = {
         registrationSuccessful: true,
         requiresLogin: true // Flag to indicate you need to login
       };
-      
-      return registrationResult;
       
     } catch (error) {
       console.error(' Registration error:', error);

@@ -41,13 +41,7 @@ const AuthCallbackHandler = ({ redirectTo = '/dashboard' }) => {
 			hasProcessed.current = true;
 
 			try {
-
 				const urlParams = new URLSearchParams(window.location.search);
-
-				for (const [key, value] of urlParams.entries()) {
-					console.log(`  ${key}: ${value}`);
-				}
-
 				const state = urlParams.get('state');
 				const isRegistration = state === 'register';
 

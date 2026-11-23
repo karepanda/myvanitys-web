@@ -36,6 +36,17 @@ const storeAnalyticsConsent = (consent) => {
 	}
 };
 
+const redactCallbackPageLocation = () => {
+	if (
+		typeof window === 'undefined' ||
+		window.location.pathname !== '/callback'
+	) {
+		return undefined;
+	}
+
+	return `${window.location.origin}${window.location.pathname}`;
+};
+
 export const initializeAnalytics = () => {
 	if (
 		initialized ||
@@ -56,10 +67,17 @@ export const initializeAnalytics = () => {
 		ad_personalization: DENIED,
 	});
 	window.gtag('js', new Date());
-	window.gtag('config', measurementId, {
+	const configParameters = {
 		allow_google_signals: false,
 		allow_ad_personalization_signals: false,
-	});
+	};
+
+	const pageLocation = redactCallbackPageLocation();
+	if (pageLocation) {
+		configParameters.page_location = pageLocation;
+	}
+
+	window.gtag('config', measurementId, configParameters);
 
 	const script = document.createElement('script');
 	script.id = 'google-analytics-script';

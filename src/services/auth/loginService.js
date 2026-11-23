@@ -32,7 +32,7 @@ export const loginService = {
 
       if (!response.ok) {
         const errorText = await response.text().catch(() => '');
-        console.error(`Authentication error (${response.status}): ${errorText}`);
+        console.error('Authentication error with status:', response.status);
 
         // A 401 from POST /auth/google means this Google account is not
         // registered yet. Signal it so the callback can guide the user to
@@ -52,8 +52,8 @@ export const loginService = {
       try {
         const responseText = await response.text();
         userData = responseText ? JSON.parse(responseText) : null;
-      } catch (parseError) {
-        console.error('Error parsing authentication response:', parseError);
+      } catch {
+        console.error('Error parsing authentication response');
         if (errorHandler) {
           errorHandler.showGenericError();
         }
@@ -61,7 +61,7 @@ export const loginService = {
       }
       
       if (!userData || !userData.token) {
-        console.error('Invalid response from authentication service:', userData);
+        console.error('Invalid response from authentication service');
         if (errorHandler) {
           errorHandler.showErrorMessage(
             'La respuesta del servicio de autenticación no contiene un token válido',
