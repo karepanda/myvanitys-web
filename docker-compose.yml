@@ -58,6 +58,12 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: myvanitys-frontend
+    environment:
+      # Staged CSP: report-only until auth and analytics are verified, then set
+      # CSP_REPORT_ONLY: "false" to enforce.
+      CSP_REPORT_ONLY: "true"
+      # Origin of the API from the browser, required for connect-src when enforced.
+      CSP_CONNECT_SRC: "http://localhost:8080"
     ports:
       - "5173:80"
     depends_on:

@@ -1,0 +1,5 @@
+# Force LF line endings for files that must run inside Linux containers.
+# On Windows, core.autocrlf would otherwise emit CRLF, which breaks the shebang
+# in docker-entrypoint.sh and can affect nginx template parsing.
+*.sh text eol=lf
+*.template text eol=lf

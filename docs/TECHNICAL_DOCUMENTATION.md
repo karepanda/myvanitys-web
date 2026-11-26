@@ -73,6 +73,9 @@ docker compose up
 | `VITE_GOOGLE_CLIENT_ID`  | Google OAuth2 client ID for the frontend                          | Set in a local `.env` file               |
 | `VITE_GA_MEASUREMENT_ID` | Optional Google Analytics measurement ID                          | Empty                                    |
 | `PORT`                   | Nginx listen port inside the container (Docker only)              | `80`                                     |
+| `CSP_REPORT_ONLY`        | `true` emits `Content-Security-Policy-Report-Only`; `false` enforces | `true`                                 |
+| `CSP_CONNECT_SRC`        | Extra space-separated `connect-src` origins for the CSP (e.g. the API origin) | Empty                            |
+| `CSP_REPORT_URI`         | Optional `report-uri` endpoint to collect CSP violations          | Empty                                    |
 
 Copy [`.env.example`](../.env.example) to `.env` and customize the values
 locally. All `.env*` files are ignored except the example. The frontend only
@@ -92,10 +95,10 @@ myvanitys-web/
 ├── tailwind.config.js             # Tailwind CSS theme (custom color palette)
 ├── postcss.config.js              # PostCSS plugins (Tailwind + Autoprefixer)
 ├── eslint.config.mjs              # ESLint flat config (js/recommended + react recommended)
-├── Dockerfile                     # Multi-stage: Node 18 build → Nginx Alpine serve
+├── Dockerfile                     # Multi-stage: Node 22 build → Nginx Alpine serve
 ├── nginx.conf.template            # Nginx config with envsubst for $PORT
 ├── docker-compose.yml             # Root: PostgreSQL + Spring Boot API + Frontend
-├── railway.toml                   # Railway deployment config (Nixpacks builder)
+├── railway.toml                   # Railway deployment config (Dockerfile builder)
 ├── .env.example                   # Safe frontend environment template
 ├── Docker/
 │   ├── docker-compose.yml         # Alt: PostgreSQL + API + Frontend + specifications service
@@ -332,14 +335,15 @@ npx vitest run src/test/services/product/operations/createProductService.test.js
 ### Containerization
 
 - **Dockerfile:** ([`Dockerfile`](../Dockerfile)) Multi-stage build:
-  1. **Stage 1 (build):** `node:18-alpine` — copies source, runs `npm ci`, injects build-time ARGs (`VITE_API_URL`, `VITE_REDIRECT_URI`, `VITE_GOOGLE_CLIENT_ID`) as ENV, runs `npm run build` to produce static `dist/`.
-  2. **Stage 2 (serve):** `nginx:alpine` — copies `dist/` to `/usr/share/nginx/html`, installs `gettext` for `envsubst`, runs `envsubst` on [`nginx.conf.template`](../nginx.conf.template) substituting `$PORT`, then starts nginx.
+  1. **Stage 1 (build):** `node:22-alpine` — copies source, runs `npm ci`, injects build-time ARGs (`VITE_API_URL`, `VITE_REDIRECT_URI`, `VITE_GOOGLE_CLIENT_ID`, `VITE_GA_MEASUREMENT_ID`) as ENV, runs `npm run build` to produce static `dist/`.
+  2. **Stage 2 (serve):** `nginx:alpine` — copies `dist/` to `/usr/share/nginx/html`, installs `gettext` for `envsubst`, then runs [`docker-entrypoint.sh`](../docker-entrypoint.sh), which substitutes `$PORT` and the CSP variables into the nginx templates and starts nginx.
 
-- **Nginx Configuration:** ([`nginx.conf.template`](../nginx.conf.template))
+- **Nginx Configuration:** ([`nginx.conf.template`](../nginx.conf.template) + [`security-headers.conf.template`](../security-headers.conf.template))
   - Listens on `${PORT}` (default 80).
   - Serves static files with a 1-year cache for JS/CSS/images.
   - SPA fallback: `try_files $uri $uri/ /index.html` so client-side routing works.
-  - Security headers: `X-Frame-Options: SAMEORIGIN`, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`.
+  - Security headers applied to HTML, assets and error responses: `Strict-Transport-Security`, `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, and a Content Security Policy.
+  - The CSP is staged: [`docker-entrypoint.sh`](../docker-entrypoint.sh) emits `Content-Security-Policy-Report-Only` by default (`CSP_REPORT_ONLY=true`) and switches to the enforcing `Content-Security-Policy` header when `CSP_REPORT_ONLY=false`. The policy allowlists the app itself, Google Fonts, and consented Google Analytics (`googletagmanager.com` / `google-analytics.com`); the API origin is added to `connect-src` via `CSP_CONNECT_SRC`.
   - Gzip compression is enabled for text and JSON content types.
   - **No API proxy** — the frontend calls the backend directly via the absolute `VITE_API_URL` baked in at build time.
 
@@ -349,7 +353,7 @@ npx vitest run src/test/services/product/operations/createProductService.test.js
 
 ### Hosting
 
-- **Platform:** Railway (configured via [`railway.toml`](../railway.toml) — uses Nixpacks builder, `ON_FAILURE` restart policy, max 10 retries, 1 replica)
+- **Platform:** Railway (configured via [`railway.toml`](../railway.toml) — uses Dockerfile builder, `ON_FAILURE` restart policy, max 10 retries, 1 replica)
 - **CI/CD Pipeline:** [NOT FOUND IN REPO] — no GitHub Actions workflows or other CI config files present
 
 ### Build & Deploy Commands

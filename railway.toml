@@ -1,6 +1,7 @@
 [build]
-# We use Railway's default builder for Node.js applications
-builder = "NIXPACKS"
+# Serve through the nginx image defined in the Dockerfile so the security
+# headers and staged CSP in nginx.conf.template actually apply in production.
+builder = "DOCKERFILE"
 
 [deploy]
 # Configuration for restarts
